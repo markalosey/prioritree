@@ -1,0 +1,428 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-birth",
+    "title": "Prioritree Birth — the prioritree tree's development setup: foundations, the kumi harness, the governance spine",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "the collaborator's rulings of 2026-11-19 (Q-purpose, Q-setup-arch, Q-harness — the purpose, the architecture, the harness depth)",
+      "hikari's shared scaffold core (scripts/generation/clarity_scaffold.py — the --target clarity|input family; prioritree joins as --target prioritree)",
+      "the kepric-input precedent tree (the most recent scaffolded sibling: /Users/marklosey/projects/kepric/kepric-input)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "build",
+        "purpose": "The prioritree tree's birth-build — the foundations skeleton (pyproject + uv with the pinned Python, the src/prioritree skeleton + a smoke test, ruff + the ruled type-check config, the pytest floor, .gitignore, README content, the Makefile floor, git hooks — no CI at birth, no DB: pure logic) then the two-tree kumi harness (the third TargetSpec + the prioritree-seats.yaml adapter land in hikari's scripts/generation/; the emission lands in prioritree — opencode.json, AGENTS.md with the ruled goal line, .opencode/ with the fixed five engines and the 13 seat prompts and the pins and the plugin, .githooks/pre-commit — and the friction store's birth) — each unit carrying its own discover → understand → synthesize pipeline before its build dispatch fires",
+        "entry_condition": "the three birth rulings stand (Q-purpose, Q-setup-arch, Q-harness — ruled 2026-11-19), the composition is validated by the collaborator, and the first unit's dispatch fires — no build dispatch until its unit's brief gate is green (the pipeline law)",
+        "increments": [
+          {
+            "id": "foundations",
+            "owner": "jikko",
+            "gate": "G-FOUNDATIONS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "project-floor",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment",
+                "input": "the ruled brief at G-FOUNDATIONS-BRIEF (the banked exact contents — the exact-task law)",
+                "output": "pyproject.toml + .python-version + uv.lock + .gitignore + the README content land at the prioritree root (the library-first skeleton; the README carries Q-purpose's ruled description)"
+              },
+              {
+                "id": "src-skeleton",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment",
+                "output": "the src/prioritree skeleton (the pure-logic core's namespace at the bottom of Q-setup-arch's four-form stack — skeleton only, NO product logic: the core library is the product effort's first increment) + the smoke test land"
+              },
+              {
+                "id": "tooling-floor",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment",
+                "output": "the ruff config + the type-check config (the checker ruled at Q-typecheck-alignment) + the pytest floor + the Makefile floor (dev/test/lint — the hikari idiom) land; the collaborator's hand sets git config core.hooksPath=.githooks (the no-seat-shelling rule; the .git/config read-back recorded)"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "tool": "make dev && make test && make lint at the prioritree root",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "harness",
+            "owner": "jikko",
+            "gate": "G-HARNESS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "targetspec-adapter",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment",
+                "input": "the discovery's resolved answers riding the pipeline's discover/understand legs (Q-tool-registration's mechanism; the sibling census: the derived-view gitignore shape, the friction store's home and birth mechanism, the emission channel) + the ruled brief at G-HARNESS-BRIEF",
+                "output": "the third TargetSpec (root=/Users/marklosey/projects/prioritree, the prioritree-seats.yaml adapter, the ruled goal line + its ruling citation, the prioritree law block, PRIORITREE_HOOK_BYPASS) + the prioritree-seats.yaml adapter (the 13 genome seats + the base packs per Q-harness — structural facts only, zero prioritree prose) land in hikari's scripts/generation/; the hikari-side landing rides hikari's shinko-git choreography"
+              },
+              {
+                "id": "sibling-contracts",
+                "executor": "deterministic",
+                "tool": "uv run python scripts/generation/clarity_scaffold.py --target clarity --check && uv run python scripts/generation/clarity_scaffold.py --target input --check (from hikari's root)",
+                "verification": "gate"
+              },
+              {
+                "id": "emission-run",
+                "executor": "deterministic",
+                "tool": "uv run python scripts/generation/clarity_scaffold.py --target prioritree (from hikari's root — the collaborator's regen hand or the brief's ruled channel; no seat shells)",
+                "verification": "gate"
+              },
+              {
+                "id": "emission-check",
+                "executor": "deterministic",
+                "tool": "uv run python scripts/generation/clarity_scaffold.py --target prioritree --check (the rot detector — exit 0)",
+                "verification": "gate"
+              },
+              {
+                "id": "friction-store-birth",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment",
+                "output": "the friction store born at prioritree's store home (the discovery-confirmed home + birth mechanism) and the live proof recorded: at least one verbatim fixed-five tool call answering at a prioritree seat (Q-tool-registration resolved BEFORE the emission fired)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "close",
+        "purpose": "The birth's bookend — the cross-tree records (prioritree's first CONTINUATION.md entry: the birth record; hikari's family-growth line: the five-trees record), the next effort named and born (the product: the core library first), and the done call at the collaborator's ruling",
+        "entry_condition": "G-FOUNDATIONS and G-HARNESS are closed green on the route and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "birth-records",
+            "owner": "shinko",
+            "gate": "G-BIRTH-RECORDS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "records-synthesis",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "assessment",
+                "output": "the records' content synthesized whole: prioritree's first CONTINUATION.md entry (the birth record — the three rulings, the foundations, the harness, the landing state named honestly: the collaborator's-hand era until prioritree's own landing rule exists) + hikari's family-growth line (the five-trees record) + the next-effort naming (the product: the core library first)"
+              },
+              {
+                "id": "records-landing",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment",
+                "output": "the records landed at both trees: prioritree's CONTINUATION.md committed through the collaborator's hand (the two-tree hands rule — no own landing rule yet); hikari's CONTINUATION.md through hikari's shinko-git choreography; the product effort's store birth recorded (the vitals-store precedent)"
+              },
+              {
+                "id": "done-call",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment",
+                "output": "the collaborator's close ruling recorded same-turn through the junro and the route's status set done at the ruling"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE (engine-stamped, amendment 19): each build unit's discover → understand → synthesize before its build — discover/understand ride ungated packets; the synthesis is the gated increment here closing its own G-<UNIT>-BRIEF; THE PRECEDENCE: no build unit's dispatch fires until its brief gate is green",
+        "entry_condition": "the route is composed through the engine's post-amendment-19 machinery — each unit's pipeline precedes its build; no build dispatch fires until its unit's brief gate is green",
+        "increments": [
+          {
+            "id": "synthesize/foundations",
+            "owner": "togo",
+            "gate": "G-FOUNDATIONS-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/harness",
+            "owner": "togo",
+            "gate": "G-HARNESS-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-FOUNDATIONS": {
+        "type": "deterministic-check",
+        "conditions": [
+          "uv sync green at the prioritree root on kensho's independent run: the pinned Python resolved from .python-version, the environment reproducible from the lockfile, zero errors AND zero warnings",
+          "the smoke suite green at the independent run: pytest exits zero errors AND zero warnings (the zero-and-zero bar), with at least one passing test importing src/prioritree",
+          "the quality floor green: ruff zero findings over src/ and tests/, and the type checker ruled at Q-typecheck-alignment at zero errors AND zero warnings — the zero-ignore law standing (an ignore is a ruling, never a convenience)",
+          "the Makefile floor green: make dev, make test, and make lint all exit 0 at the prioritree root (the hikari idiom's floor)",
+          "the tree's records whole at the read-back: .gitignore (the Python set + .junro/ + the derived-view entries the harness discovery confirms), README content carrying Q-purpose's ruled description, and git config core.hooksPath pointing at .githooks (the collaborator's hand — the .git/config read-back)"
+        ]
+      },
+      "G-HARNESS": {
+        "type": "deterministic-check",
+        "conditions": [
+          "G-FOUNDATIONS is closed green on the route — the emission lands into a configured tree (the hook reads the tree's own configs; the .gitignore's derived-view entries precede the emission)",
+          "the hikari-side edit green at hikari's own instruments (ruff/pyright zero findings on the touched files) AND the sibling contracts hold: --target clarity --check and --target input --check both exit 0 (the existing emissions byte-match a fresh regen — the falsifier; the shared scaffold core serves three targets after the edit)",
+          "the prioritree emission whole and byte-true at the independent --check run: uv run python scripts/generation/clarity_scaffold.py --target prioritree --check exits 0; the inventory read-back whole — opencode.json (13 seat blocks, builtins disabled, shinko primary, the closed-world deny derived from the packs), AGENTS.md (@generated header + the ruled goal line verbatim), .opencode/ (package.json pins, tsconfig.json, the empty-return-detector plugin, the fixed five engines verbatim, the 13 seat prompts), .githooks/pre-commit (executable, carrying the checker ruled at Q-typecheck-alignment)",
+          "the registration live: Q-tool-registration resolved by the discovery BEFORE the emission fired, and at least one verbatim fixed-five tool call recorded answering at a prioritree seat (the harness's own proof — the tools registered, not just emitted)",
+          "the friction store born at prioritree's store home (the home and birth mechanism the sibling discovery confirms) and the friction tool reads it green; the two-tree hands honored in the landing record — the hikari-side edit landed through hikari's shinko-git choreography, the prioritree-side commits through the collaborator's hand"
+        ]
+      },
+      "G-BIRTH-RECORDS": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "prioritree's CONTINUATION.md carries its first entry — the birth record: the three rulings (Q-purpose, Q-setup-arch, Q-harness), the foundations, the harness, and the landing state named honestly (the collaborator's-hand era standing until prioritree's own harness + landing rule exist)",
+          "hikari's CONTINUATION.md carries the family-growth line — the five-trees record (hikari, tane, kepric-clarity, kepric-input, prioritree: one grammar, one shared scaffold core), landed through hikari's shinko-git choreography",
+          "the next effort named and born: the product effort (the core library first — the pure-logic core: items, comparison operator, pair scheduling, votes, tally; both comparator classes through the one vote interface), its store birth recorded",
+          "the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling"
+        ]
+      },
+      "G-FOUNDATIONS-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit foundations LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/foundations) + mechanism analysis (understand/foundations) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-HARNESS-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit harness LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/harness) + mechanism analysis (understand/harness) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-purpose\", \"text\": \"What is prioritree — the product's core mechanism and purpose?\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T16:49:41Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-setup-arch\", \"text\": \"What form, data plane, build system, and CI does prioritree's setup carry at birth?\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T16:49:41Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-harness\", \"text\": \"How does the kumi harness ride prioritree at birth?\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T16:49:41Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-purpose\", \"resolution\": \"Priori-tree is a generalized prioritization system: for any list and comparison operator, run the pairwise permutations, store the votes, tally — the output list is in a superior order than sizing individual items, because discernment between two items is easy (for humans and LLMs) while absolute sizing is not.\", \"ruling\": \"PURPOSE (collaborator ruling 2026-11-19, verbatim): \\\"Priori-tree is a generalized prioritization system based on the concept that LLM and Humans are great at discerning the difference between two items but not great at sizing an item. That is a simplification. Consider: a human is great at determining that a basketball is larger than a grapefruit. But not great as identifying the exact dimensions of a grapefruit or a basketball. By taking a list and running through the pairwise permutations for any given comparision operator. Storing the votes, then tallying. we get a list out that is in a superior order than trying to size individual items.\\\" The comparator class is both human AND LLM — both vote through the same vote interface; the tally is a pure function of the stored votes.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T16:50:03Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-setup-arch\", \"resolution\": \"All four forms layered library-first: the src/prioritree pure-logic core at the bottom, CLI over it, FastAPI service over that, web app on top — the setup builds the skeleton and the core library is the product effort's first increment. Pure logic at birth (no DB); Makefile floor (dev/test/lint); GitHub project, CI determined later.\", \"ruling\": \"SETUP ARCHITECTURE (collaborator ruling 2026-11-19): Primary form = ALL FOUR — Python library, CLI tool, API service (FastAPI), web app — one layered architecture, library-first: src/prioritree carries the pure-logic core (items, comparison operator, pair scheduling, votes, tally); the CLI wraps it; the FastAPI service serves it; the web app fronts the service (the human comparator's vote surface). The setup effort builds the skeleton only — the core library is the PRODUCT effort's first increment, born after setup completes. Data plane = pure logic: stateless scoring/ranking core, votes are data in/out, no DB at birth (persistence is a service-tier design ruling for the product effort). Build system = Makefile floor (dev/test/lint — the hikari idiom; room for service targets later). CI = deferred: prioritree is a GitHub project; CI is determined later — git hooks and local gates stand in at birth.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T16:50:03Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-harness\", \"resolution\": \"Full kumi grammar: the 13 seats with base packs (builtins disabled, closed-world deny, shinko primary), emitted from hikari's shared scaffold core as --target prioritree — a third TargetSpec + a prioritree-seats.yaml adapter + the ruled goal line; the fixed five engines verbatim; none of hikari's domain tools ride.\", \"ruling\": \"HARNESS (collaborator ruling 2026-11-19): Full kumi grammar at birth — the 13 seats via opencode (shinko the primary convenor, the rest subagents), builtins disabled, the closed-world deny derived from the packs. Base packs only: read/glob/grep/calculate/friction/test on every seat; patch+curate at jikko (the one mutation verb + its governed form); junro+task at shinko (the convenor holds the effort's records); keikaku holds the composition-lane route ops per Q-SEATS-1. NONE of hikari's domain plane rides: no hikari_* MCP pins, no etl/docker/git/regen/content-query — earnable by future rulings at real gates. EMISSION: from hikari's shared scaffold core (scripts/generation/clarity_scaffold.py) as --target prioritree — a third TargetSpec (root path, adapter, goal line, law block, hook bypass) + a prioritree-seats.yaml adapter at scripts/generation/sources/ (structural facts only — pack rows, verb lines, the family identities, the ruled goal line); the emission: opencode.json (13 seat blocks), AGENTS.md (@generated + the goal line), .opencode/ (package.json pins, tsconfig, the empty-return-detector plugin, THE FIXED FIVE engines verbatim — friction_ledger.py, patch.py, test_runner.py, calculate.py, curate.py — and the 13 seat prompts), .githooks/pre-commit. THE GOAL LINE (ruled this session): \\\"To produce superior orderings from pairwise comparison: where humans and LLMs discern the difference between two items far better than they can size either one, Priori-tree stores those judgments as votes and tallies them into a ranked whole.\\\" ONE NAMED DISCOVERY QUESTION rides the composition: the sibling emission's tool-registration mechanism (kepric-input carries the engines + permission keys but no visible tools/ wrappers — a discovery step must confirm the registration path before the harness increment lands).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T16:50:03Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-tool-registration\", \"text\": \"How does the kumi emission's tool registration work at the sibling trees — kepric-input carries the fixed-five engines at .opencode/scripts/ (friction_ledger.py, patch.py, test_runner.py, calculate.py, curate.py) and the opencode.json permission keys (calculate/curate/patch/friction/test) but no visible tools/ wrappers: what mechanism makes those engines callable as those tool ids (opencode's plugin/auto-discovery surface), and what must the prioritree emission carry so the fixed five actually register and answer? THE RULED CARRY (Q-harness's ruling, 2026-11-19): a discovery step must confirm the registration path BEFORE the harness emission lands — it rides build/harness's pipeline (the discover leg), and G-HARNESS holds the live proof (a verbatim tool call at a prioritree seat).\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T16:58:52Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-typecheck-alignment\", \"text\": \"The type-check alignment between the ruled foundations (ruff + mypy config — the banked setup shape) and the family pre-commit template's check (uv run pyright on staged .py, the 0-errors-AND-0-warnings bar, the strictness flags riding the tree's own pyproject): does prioritree (a) adopt pyright as its checker so the family hook lands as-is, (b) carry both (mypy the tree's own instrument, pyright the hook's engine in the dev deps), or (c) parameterize the hook's check per-target in the TargetSpec (the scaffold's own \\\"a per-target phase ruling is a future template change\\\" lane)? Measured datum: the sibling kepric-input carries NEITHER (ruff + pytest only, no type checker in pyproject) — the family has no resolved precedent at the derived trees. The harness emission writes .githooks/pre-commit, so the ruling lands BEFORE the emission fires — the harness unit's brief gate (G-HARNESS-BRIEF) is the natural checkpoint.\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T16:58:58Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"uv sync green at the prioritree root on kensho's independent run: the pinned Python resolved from .python-version, the environment reproducible from the lockfile, zero errors AND zero warnings\\\", \\\"the smoke suite green at the independent run: pytest exits zero errors AND zero warnings (the zero-and-zero bar), with at least one passing test importing src/prioritree\\\", \\\"the quality floor green: ruff zero findings over src/ and tests/, and the type checker ruled at Q-typecheck-alignment at zero errors AND zero warnings — the zero-ignore law standing (an ignore is a ruling, never a convenience)\\\", \\\"the Makefile floor green: make dev, make test, and make lint all exit 0 at the prioritree root (the hikari idiom's floor)\\\", \\\"the tree's records whole at the read-back: .gitignore (the Python set + .junro/ + the derived-view entries the harness discovery confirms), README content carrying Q-purpose's ruled description, and git config core.hooksPath pointing at .githooks (the collaborator's hand — the .git/config read-back)\\\"]\", \"gate\": \"G-FOUNDATIONS\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T16:59:06Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"G-FOUNDATIONS is closed green on the route — the emission lands into a configured tree (the hook reads the tree's own configs; the .gitignore's derived-view entries precede the emission)\\\", \\\"the hikari-side edit green at hikari's own instruments (ruff/pyright zero findings on the touched files) AND the sibling contracts hold: --target clarity --check and --target input --check both exit 0 (the existing emissions byte-match a fresh regen — the falsifier; the shared scaffold core serves three targets after the edit)\\\", \\\"the prioritree emission whole and byte-true at the independent --check run: uv run python scripts/generation/clarity_scaffold.py --target prioritree --check exits 0; the inventory read-back whole — opencode.json (13 seat blocks, builtins disabled, shinko primary, the closed-world deny derived from the packs), AGENTS.md (@generated header + the ruled goal line verbatim), .opencode/ (package.json pins, tsconfig.json, the empty-return-detector plugin, the fixed five engines verbatim, the 13 seat prompts), .githooks/pre-commit (executable, carrying the checker ruled at Q-typecheck-alignment)\\\", \\\"the registration live: Q-tool-registration resolved by the discovery BEFORE the emission fired, and at least one verbatim fixed-five tool call recorded answering at a prioritree seat (the harness's own proof — the tools registered, not just emitted)\\\", \\\"the friction store born at prioritree's store home (the home and birth mechanism the sibling discovery confirms) and the friction tool reads it green; the two-tree hands honored in the landing record — the hikari-side edit landed through hikari's shinko-git choreography, the prioritree-side commits through the collaborator's hand\\\"]\", \"gate\": \"G-HARNESS\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T16:59:15Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"prioritree's CONTINUATION.md carries its first entry — the birth record: the three rulings (Q-purpose, Q-setup-arch, Q-harness), the foundations, the harness, and the landing state named honestly (the collaborator's-hand era standing until prioritree's own harness + landing rule exist)\\\", \\\"hikari's CONTINUATION.md carries the family-growth line — the five-trees record (hikari, tane, kepric-clarity, kepric-input, prioritree: one grammar, one shared scaffold core), landed through hikari's shinko-git choreography\\\", \\\"the next effort named and born: the product effort (the core library first — the pure-logic core: items, comparison operator, pair scheduling, votes, tally; both comparator classes through the one vote interface), its store birth recorded\\\", \\\"the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling\\\"]\", \"gate\": \"G-BIRTH-RECORDS\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T16:59:24Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the three birth rulings stand (Q-purpose, Q-setup-arch, Q-harness — ruled 2026-11-19), the composition is validated by the collaborator, and the first unit's dispatch fires — no build dispatch until its unit's brief gate is green (the pipeline law)\", \"purpose\": \"The prioritree tree's birth-build — the foundations skeleton (pyproject + uv with the pinned Python, the src/prioritree skeleton + a smoke test, ruff + the ruled type-check config, the pytest floor, .gitignore, README content, the Makefile floor, git hooks — no CI at birth, no DB: pure logic) then the two-tree kumi harness (the third TargetSpec + the prioritree-seats.yaml adapter land in hikari's scripts/generation/; the emission lands in prioritree — opencode.json, AGENTS.md with the ruled goal line, .opencode/ with the fixed five engines and the 13 seat prompts and the pins and the plugin, .githooks/pre-commit — and the friction store's birth) — each unit carrying its own discover → understand → synthesize pipeline before its build dispatch fires\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T16:59:30Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-FOUNDATIONS and G-HARNESS are closed green on the route and the collaborator has called the close\", \"purpose\": \"The birth's bookend — the cross-tree records (prioritree's first CONTINUATION.md entry: the birth record; hikari's family-growth line: the five-trees record), the next effort named and born (the product: the core library first), and the done call at the collaborator's ruling\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T16:59:36Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-FOUNDATIONS\", \"increment\": \"foundations\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-FOUNDATIONS-BRIEF\", \"packets\": [\"discover/foundations\", \"understand/foundations\"], \"synthesize_increment\": \"synthesize/foundations\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"project-floor\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\", \\\"input\\\": \\\"the ruled brief at G-FOUNDATIONS-BRIEF (the banked exact contents — the exact-task law)\\\", \\\"output\\\": \\\"pyproject.toml + .python-version + uv.lock + .gitignore + the README content land at the prioritree root (the library-first skeleton; the README carries Q-purpose's ruled description)\\\"}, {\\\"id\\\": \\\"src-skeleton\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\", \\\"output\\\": \\\"the src/prioritree skeleton (the pure-logic core's namespace at the bottom of Q-setup-arch's four-form stack — skeleton only, NO product logic: the core library is the product effort's first increment) + the smoke test land\\\"}, {\\\"id\\\": \\\"tooling-floor\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\", \\\"output\\\": \\\"the ruff config + the type-check config (the checker ruled at Q-typecheck-alignment) + the pytest floor + the Makefile floor (dev/test/lint — the hikari idiom) land; the collaborator's hand sets git config core.hooksPath=.githooks (the no-seat-shelling rule; the .git/config read-back recorded)\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"make dev && make test && make lint at the prioritree root\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T17:03:22Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-HARNESS\", \"increment\": \"harness\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-HARNESS-BRIEF\", \"packets\": [\"discover/harness\", \"understand/harness\"], \"synthesize_increment\": \"synthesize/harness\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"targetspec-adapter\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\", \\\"input\\\": \\\"the discovery's resolved answers riding the pipeline's discover/understand legs (Q-tool-registration's mechanism; the sibling census: the derived-view gitignore shape, the friction store's home and birth mechanism, the emission channel) + the ruled brief at G-HARNESS-BRIEF\\\", \\\"output\\\": \\\"the third TargetSpec (root=/Users/marklosey/projects/prioritree, the prioritree-seats.yaml adapter, the ruled goal line + its ruling citation, the prioritree law block, PRIORITREE_HOOK_BYPASS) + the prioritree-seats.yaml adapter (the 13 genome seats + the base packs per Q-harness — structural facts only, zero prioritree prose) land in hikari's scripts/generation/; the hikari-side landing rides hikari's shinko-git choreography\\\"}, {\\\"id\\\": \\\"sibling-contracts\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"uv run python scripts/generation/clarity_scaffold.py --target clarity --check && uv run python scripts/generation/clarity_scaffold.py --target input --check (from hikari's root)\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"emission-run\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"uv run python scripts/generation/clarity_scaffold.py --target prioritree (from hikari's root — the collaborator's regen hand or the brief's ruled channel; no seat shells)\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"emission-check\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"uv run python scripts/generation/clarity_scaffold.py --target prioritree --check (the rot detector — exit 0)\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"friction-store-birth\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\", \\\"output\\\": \\\"the friction store born at prioritree's store home (the discovery-confirmed home + birth mechanism) and the live proof recorded: at least one verbatim fixed-five tool call answering at a prioritree seat (Q-tool-registration resolved BEFORE the emission fired)\\\"}]\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T17:03:33Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-BIRTH-RECORDS\", \"increment\": \"birth-records\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"id\\\": \\\"records-synthesis\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\", \\\"output\\\": \\\"the records' content synthesized whole: prioritree's first CONTINUATION.md entry (the birth record — the three rulings, the foundations, the harness, the landing state named honestly: the collaborator's-hand era until prioritree's own landing rule exists) + hikari's family-growth line (the five-trees record) + the next-effort naming (the product: the core library first)\\\"}, {\\\"id\\\": \\\"records-landing\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\", \\\"output\\\": \\\"the records landed at both trees: prioritree's CONTINUATION.md committed through the collaborator's hand (the two-tree hands rule — no own landing rule yet); hikari's CONTINUATION.md through hikari's shinko-git choreography; the product effort's store birth recorded (the vitals-store precedent)\\\"}, {\\\"id\\\": \\\"done-call\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\", \\\"output\\\": \\\"the collaborator's close ruling recorded same-turn through the junro and the route's status set done at the ruling\\\"}]\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T17:03:41Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "set-route-status {\"from\": \"composed\", \"status\": \"composed\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "keikaku",
+        "timestamp": "2026-11-19T17:03:47Z",
+        "op": "set-route-status"
+      },
+      {
+        "what": "The collaborator VALIDATED THE COMPOSITION at the composition checkpoint (the checkpoint vocabulary's ADVANCE, 2026-11-19) and ruled Q-typecheck-alignment PYRIGHT in the same pass. The build stage's entry condition — \"the composition is validated by the collaborator\" — is SATISFIED on the record; the next unit (build/foundations) may dispatch. The pyright ruling landed ahead of the brief's expectation (the composition brief banked G-HARNESS-BRIEF as the ruling's checkpoint — the brief stands as written, this amendment the dated supersede): build/foundations' tooling-floor step carries pyright from the start, and G-HARNESS-BRIEF's typecheck question closes before it opens. The route's remaining open question: Q-tool-registration (discovery-carried, build/harness's legs).",
+        "ruled_at": "2026-11-19",
+        "why": "The collaborator's two rulings at the composition validation (this session, 2026-11-19) — the validation event and the pyright placement carried on the store's record, never silent."
+      }
+    ],
+    "stop_conditions": [],
+    "record_layout": ".junro/ (the effort's record home)",
+    "landing_rhythm": "one-commit-per-increment"
+  },
+  "open_questions": [
+    {
+      "id": "Q-purpose",
+      "question": "What is prioritree — the product's core mechanism and purpose?",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "PURPOSE (collaborator ruling 2026-11-19, verbatim): \"Priori-tree is a generalized prioritization system based on the concept that LLM and Humans are great at discerning the difference between two items but not great at sizing an item. That is a simplification. Consider: a human is great at determining that a basketball is larger than a grapefruit. But not great as identifying the exact dimensions of a grapefruit or a basketball. By taking a list and running through the pairwise permutations for any given comparision operator. Storing the votes, then tallying. we get a list out that is in a superior order than trying to size individual items.\" The comparator class is both human AND LLM — both vote through the same vote interface; the tally is a pure function of the stored votes.",
+          "ruled_at": "2026-11-19",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "Priori-tree is a generalized prioritization system: for any list and comparison operator, run the pairwise permutations, store the votes, tally — the output list is in a superior order than sizing individual items, because discernment between two items is easy (for humans and LLMs) while absolute sizing is not."
+    },
+    {
+      "id": "Q-setup-arch",
+      "question": "What form, data plane, build system, and CI does prioritree's setup carry at birth?",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "SETUP ARCHITECTURE (collaborator ruling 2026-11-19): Primary form = ALL FOUR — Python library, CLI tool, API service (FastAPI), web app — one layered architecture, library-first: src/prioritree carries the pure-logic core (items, comparison operator, pair scheduling, votes, tally); the CLI wraps it; the FastAPI service serves it; the web app fronts the service (the human comparator's vote surface). The setup effort builds the skeleton only — the core library is the PRODUCT effort's first increment, born after setup completes. Data plane = pure logic: stateless scoring/ranking core, votes are data in/out, no DB at birth (persistence is a service-tier design ruling for the product effort). Build system = Makefile floor (dev/test/lint — the hikari idiom; room for service targets later). CI = deferred: prioritree is a GitHub project; CI is determined later — git hooks and local gates stand in at birth.",
+          "ruled_at": "2026-11-19",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "All four forms layered library-first: the src/prioritree pure-logic core at the bottom, CLI over it, FastAPI service over that, web app on top — the setup builds the skeleton and the core library is the product effort's first increment. Pure logic at birth (no DB); Makefile floor (dev/test/lint); GitHub project, CI determined later."
+    },
+    {
+      "id": "Q-harness",
+      "question": "How does the kumi harness ride prioritree at birth?",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "HARNESS (collaborator ruling 2026-11-19): Full kumi grammar at birth — the 13 seats via opencode (shinko the primary convenor, the rest subagents), builtins disabled, the closed-world deny derived from the packs. Base packs only: read/glob/grep/calculate/friction/test on every seat; patch+curate at jikko (the one mutation verb + its governed form); junro+task at shinko (the convenor holds the effort's records); keikaku holds the composition-lane route ops per Q-SEATS-1. NONE of hikari's domain plane rides: no hikari_* MCP pins, no etl/docker/git/regen/content-query — earnable by future rulings at real gates. EMISSION: from hikari's shared scaffold core (scripts/generation/clarity_scaffold.py) as --target prioritree — a third TargetSpec (root path, adapter, goal line, law block, hook bypass) + a prioritree-seats.yaml adapter at scripts/generation/sources/ (structural facts only — pack rows, verb lines, the family identities, the ruled goal line); the emission: opencode.json (13 seat blocks), AGENTS.md (@generated + the goal line), .opencode/ (package.json pins, tsconfig, the empty-return-detector plugin, THE FIXED FIVE engines verbatim — friction_ledger.py, patch.py, test_runner.py, calculate.py, curate.py — and the 13 seat prompts), .githooks/pre-commit. THE GOAL LINE (ruled this session): \"To produce superior orderings from pairwise comparison: where humans and LLMs discern the difference between two items far better than they can size either one, Priori-tree stores those judgments as votes and tallies them into a ranked whole.\" ONE NAMED DISCOVERY QUESTION rides the composition: the sibling emission's tool-registration mechanism (kepric-input carries the engines + permission keys but no visible tools/ wrappers — a discovery step must confirm the registration path before the harness increment lands).",
+          "ruled_at": "2026-11-19",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "Full kumi grammar: the 13 seats with base packs (builtins disabled, closed-world deny, shinko primary), emitted from hikari's shared scaffold core as --target prioritree — a third TargetSpec + a prioritree-seats.yaml adapter + the ruled goal line; the fixed five engines verbatim; none of hikari's domain tools ride."
+    },
+    {
+      "id": "Q-tool-registration",
+      "question": "How does the kumi emission's tool registration work at the sibling trees — kepric-input carries the fixed-five engines at .opencode/scripts/ (friction_ledger.py, patch.py, test_runner.py, calculate.py, curate.py) and the opencode.json permission keys (calculate/curate/patch/friction/test) but no visible tools/ wrappers: what mechanism makes those engines callable as those tool ids (opencode's plugin/auto-discovery surface), and what must the prioritree emission carry so the fixed five actually register and answer? THE RULED CARRY (Q-harness's ruling, 2026-11-19): a discovery step must confirm the registration path BEFORE the harness emission lands — it rides build/harness's pipeline (the discover leg), and G-HARNESS holds the live proof (a verbatim tool call at a prioritree seat).",
+      "status": "open"
+    },
+    {
+      "id": "Q-typecheck-alignment",
+      "question": "The type-check alignment between the ruled foundations (ruff + mypy config — the banked setup shape) and the family pre-commit template's check (uv run pyright on staged .py, the 0-errors-AND-0-warnings bar, the strictness flags riding the tree's own pyproject): does prioritree (a) adopt pyright as its checker so the family hook lands as-is, (b) carry both (mypy the tree's own instrument, pyright the hook's engine in the dev deps), or (c) parameterize the hook's check per-target in the TargetSpec (the scaffold's own \"a per-target phase ruling is a future template change\" lane)? Measured datum: the sibling kepric-input carries NEITHER (ruff + pytest only, no type checker in pyproject) — the family has no resolved precedent at the derived trees. The harness emission writes .githooks/pre-commit, so the ruling lands BEFORE the emission fires — the harness unit's brief gate (G-HARNESS-BRIEF) is the natural checkpoint.",
+      "status": "open"
+    }
+  ]
+}
