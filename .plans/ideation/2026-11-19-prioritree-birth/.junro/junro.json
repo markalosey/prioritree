@@ -368,6 +368,14 @@
         "what": "The collaborator VALIDATED THE COMPOSITION at the composition checkpoint (the checkpoint vocabulary's ADVANCE, 2026-11-19) and ruled Q-typecheck-alignment PYRIGHT in the same pass. The build stage's entry condition — \"the composition is validated by the collaborator\" — is SATISFIED on the record; the next unit (build/foundations) may dispatch. The pyright ruling landed ahead of the brief's expectation (the composition brief banked G-HARNESS-BRIEF as the ruling's checkpoint — the brief stands as written, this amendment the dated supersede): build/foundations' tooling-floor step carries pyright from the start, and G-HARNESS-BRIEF's typecheck question closes before it opens. The route's remaining open question: Q-tool-registration (discovery-carried, build/harness's legs).",
         "ruled_at": "2026-11-19",
         "why": "The collaborator's two rulings at the composition validation (this session, 2026-11-19) — the validation event and the pyright placement carried on the store's record, never silent."
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-typecheck-alignment\", \"resolution\": \"Pyright. The foundations unit carries pyright from the start (the ruled type-check config in build/foundations' tooling-floor step); the family pre-commit hook template's pyright 0/0/0 check aligns natively; the open typechecker question at G-HARNESS-BRIEF closes before it opens.\", \"ruling\": \"TYPECHECK ALIGNMENT (collaborator ruling 2026-11-19): pyright — option (a) of the banked set. The choice over the banked options: (a) adopt pyright — CHOSEN, ruling landed at the composition validation rather than deferred to G-HARNESS-BRIEF, so build/foundations carries the pyright config from its tooling-floor step and the emission's pre-commit hook aligns with the family template natively; (b) mypy — declined; (c) both — declined (two typechecker surfaces); deferral to the brief gate — declined. Consequence for the route: G-HARNESS-BRIEF no longer carries an open typechecker question; the only open question remaining on the route is Q-tool-registration, which resolves by discovery at the harness unit's legs. RE-FIRE NOTE (shinko, same date): this ruling's first firing was SILENTLY LOST to the FR-MEM-0143 race (fired in a parallel block with the record-amendment; both OK lines returned; the question record was clobbered by the amendment's write — caught by tansa's census read-back at discover/foundations, verified at the heart). Re-fired sequential, alone. The class widens: the race strikes cross-op pairs, not just same-op batches — any parallel route-op pair is unsafe.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T17:25:02Z",
+        "op": "add-ruling"
       }
     ],
     "stop_conditions": [],
@@ -422,7 +430,15 @@
     {
       "id": "Q-typecheck-alignment",
       "question": "The type-check alignment between the ruled foundations (ruff + mypy config — the banked setup shape) and the family pre-commit template's check (uv run pyright on staged .py, the 0-errors-AND-0-warnings bar, the strictness flags riding the tree's own pyproject): does prioritree (a) adopt pyright as its checker so the family hook lands as-is, (b) carry both (mypy the tree's own instrument, pyright the hook's engine in the dev deps), or (c) parameterize the hook's check per-target in the TargetSpec (the scaffold's own \"a per-target phase ruling is a future template change\" lane)? Measured datum: the sibling kepric-input carries NEITHER (ruff + pytest only, no type checker in pyproject) — the family has no resolved precedent at the derived trees. The harness emission writes .githooks/pre-commit, so the ruling lands BEFORE the emission fires — the harness unit's brief gate (G-HARNESS-BRIEF) is the natural checkpoint.",
-      "status": "open"
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "TYPECHECK ALIGNMENT (collaborator ruling 2026-11-19): pyright — option (a) of the banked set. The choice over the banked options: (a) adopt pyright — CHOSEN, ruling landed at the composition validation rather than deferred to G-HARNESS-BRIEF, so build/foundations carries the pyright config from its tooling-floor step and the emission's pre-commit hook aligns with the family template natively; (b) mypy — declined; (c) both — declined (two typechecker surfaces); deferral to the brief gate — declined. Consequence for the route: G-HARNESS-BRIEF no longer carries an open typechecker question; the only open question remaining on the route is Q-tool-registration, which resolves by discovery at the harness unit's legs. RE-FIRE NOTE (shinko, same date): this ruling's first firing was SILENTLY LOST to the FR-MEM-0143 race (fired in a parallel block with the record-amendment; both OK lines returned; the question record was clobbered by the amendment's write — caught by tansa's census read-back at discover/foundations, verified at the heart). Re-fired sequential, alone. The class widens: the race strikes cross-op pairs, not just same-op batches — any parallel route-op pair is unsafe.",
+          "ruled_at": "2026-11-19",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "Pyright. The foundations unit carries pyright from the start (the ruled type-check config in build/foundations' tooling-floor step); the family pre-commit hook template's pyright 0/0/0 check aligns natively; the open typechecker question at G-HARNESS-BRIEF closes before it opens."
     }
   ]
 }

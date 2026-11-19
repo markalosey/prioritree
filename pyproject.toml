@@ -1,0 +1,55 @@
+[project]
+name = "prioritree"
+version = "0.1.0"
+description = "Priori-tree is a generalized prioritization system: for any list and comparison operator, run the pairwise permutations, store the votes, tally — the output list is in a superior order than sizing individual items, because discernment between two items is easy (for humans and LLMs) while absolute sizing is not."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prioritree"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+src = ["src"]
+
+[tool.ruff.lint]
+# THE SEED'S OWN STRICTNESS (tane/pyproject.toml:90-96 the precedent): every rule on;
+# the ONLY exceptions are NAMED RULINGS — where a rule's intent and a stated law
+# of the tree genuinely disagree, the disagreement goes to a ruling — never resolved
+# silently. Nothing else is ignored, ever.
+select = ["ALL"]
+
+[tool.ruff.lint.per-file-ignores]
+# RULING R1 (inherited from tane/pyproject.toml:106-112, the family's settled ruling):
+# assert IS pytest's assertion form — S101's intent (assert stripped under -O) never
+# applies to tests. R1's second limb: the tests' assertions compare against concrete
+# expected values — the literals ARE the specification under test. PLR2004 rides R1.
+"tests/**" = ["S101", "PLR2004"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pyright]
+typeCheckingMode = "strict"
+enableTypeIgnoreComments = false
+reportImplicitStringConcatenation = "error"
+# THE PYRIGHT TWIN (the no-suppression law's other half; tane/pyproject.toml:206-210
+# the precedent): dead type-ignore comments are reported lies, not tolerated text.
+reportUnnecessaryTypeIgnoreComment = "error"
+reportCallInDefaultInitializer = "error"
+reportUninitializedInstanceVariable = "error"
+reportMatchNotExhaustive = "error"
+reportDeprecated = "error"
+include = ["src", "tests"]
+pythonVersion = "3.13"
+venvPath = "."
+venv = ".venv"
+
+[dependency-groups]
+dev = ["pytest", "pyright", "ruff"]
