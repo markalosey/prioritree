@@ -1,0 +1,48 @@
+// prioritree-owned (2026-11-19, G-HARNESS-BRIEF): composed from hikari's current render + tane's channel; hand-maintained in prioritree's tree
+import { tool } from "@opencode-ai/plugin"
+import { runArgv } from "./_run"
+
+function formatOutput(result: {
+  exitCode: number
+  text(): string
+  stderr: Buffer | string
+}): string {
+  const stdout = result.text()
+  const stderr = result.stderr.toString()
+  if (result.exitCode === 0) {
+    return stdout.trim() || "Done."
+  }
+  if (stderr.trim()) {
+    return `${stdout}${stdout.trim() ? "\n" : ""}stderr:\n${stderr}`.trim()
+  }
+  return stdout.trim() || `Exited with code ${result.exitCode} (no output captured).`
+}
+
+export default tool({
+  description: "The seat's one mutation verb — apply a unified diff under strict semantics, then report (apply-then-report: the edit lands and findings return loudly in the same output; on findings, read the file again PRIOR TO RECREATING THE PATCH and fix the issues found). THE FORMAT: each file section opens with two path headers — --- a/path, then +++ b/path (/dev/null as the --- header marks a NEW file; /dev/null as the +++ header marks a deletion) — then one or more hunks, each opening with @@ -start,count +start,count @@ and carrying context lines (a single leading space), removed lines (-), and added lines (+); the counts are checksums and the line numbers are load-bearing: a hunk applies EXACTLY at its stated location or REFUSES — no window search, no fallback, never a silent mis-apply; a no-op refuses. New files land through patch even into directories that do not yet exist (the apply creates every parent in the path); a create hunk's old side starts at 1 (@@ -1,0 +1,N @@ — a -0,0 header refuses). Worked examples ride description_fields.examples. The hard gates stay at the commit hook and kensho — this tool is feedback, not the gate.",
+  args: {
+    operation: tool.schema
+      .enum(["apply"])
+      .or(tool.schema.literal("help"))
+      .describe("Operation to perform (use \"help\" to print this tool's usage)"),
+    diff: tool.schema.string().optional()
+      .describe("The unified-diff text verbatim (multiline rides one argument)"),
+    root: tool.schema.string().optional()
+      .describe("The tree root the diff's paths resolve against (default: the session's cwd)"),
+  },
+  async execute(args, context) {
+
+    switch (args.operation) {
+      case "apply": {
+        const eargs = ["apply"]
+        if (args.diff !== undefined) eargs.push(`--diff=${args.diff}`)
+        if (args.root !== undefined) eargs.push(`--root=${args.root}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/patch.py", ...eargs], { cwd: context.directory }))
+      }
+      case "help": {
+        return "patch — The seat's one mutation verb — apply a unified diff under strict semantics, then report (apply-then-report: the edit lands and findings return loudly in the same output; on findings, read the file again PRIOR TO RECREATING THE PATCH and fix the issues found). THE FORMAT: each file section opens with two path headers — --- a/path, then +++ b/path (/dev/null as the --- header marks a NEW file; /dev/null as the +++ header marks a deletion) — then one or more hunks, each opening with @@ -start,count +start,count @@ and carrying context lines (a single leading space), removed lines (-), and added lines (+); the counts are checksums and the line numbers are load-bearing: a hunk applies EXACTLY at its stated location or REFUSES — no window search, no fallback, never a silent mis-apply; a no-op refuses. New files land through patch even into directories that do not yet exist (the apply creates every parent in the path); a create hunk's old side starts at 1 (@@ -1,0 +1,N @@ — a -0,0 header refuses). Worked examples ride description_fields.examples. The hard gates stay at the commit hook and kensho — this tool is feedback, not the gate.\n\nOperations:\n  apply  [uv run python .opencode/scripts/patch.py apply]\n    Apply one unified diff, then run the touched files' checks in the same output\n      - diff [required]: The unified-diff text verbatim (multiline rides one argument)\n      - root [optional]: The tree root the diff's paths resolve against (default: the session's cwd)\n    example: operation=\"apply\", diff=\"<value>\"\n\nTo list every make target, use the `help` tool or run `make help`."
+      }
+    }
+    return `Unknown operation: ${args.operation}`
+  },
+})

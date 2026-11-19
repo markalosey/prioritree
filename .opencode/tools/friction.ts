@@ -1,0 +1,188 @@
+// prioritree-owned (2026-11-19, G-HARNESS-BRIEF): composed from hikari's current render + tane's channel; hand-maintained in prioritree's tree
+import { tool } from "@opencode-ai/plugin"
+import { runArgv } from "./_run"
+
+function formatOutput(result: {
+  exitCode: number
+  text(): string
+  stderr: Buffer | string
+}): string {
+  const stdout = result.text()
+  const stderr = result.stderr.toString()
+  if (result.exitCode === 0) {
+    return stdout.trim() || "Done."
+  }
+  if (stderr.trim()) {
+    return `${stdout}${stdout.trim() ? "\n" : ""}stderr:\n${stderr}`.trim()
+  }
+  return stdout.trim() || `Exited with code ${result.exitCode} (no output captured).`
+}
+
+export default tool({
+  description: "Structured friction reporting — the member-facing friction ledger (packet CF-3): report a friction from your seat (write: schema-validated, both axes governed, handle minted), look up known entries (read), discover entries AND the governed registries (find — the find tool's grammar: pattern/include/scope, results ledger-root-prefixed with counts), and stage vocabulary proposals (propose-mode / propose-namespace — CANDIDATES, not ratified until triage). The two axes are governed independently: friction_type (the EXPERIENCE's class) and failure_mode (the FAILURE's mechanism) both find-before-create — write refuses unknown values naming the legal sets; handles FR-{NS}-{####} are tool-minted per-namespace sequential (voids retire numbers, GitHub semantics); the ledger is append-only (no delete; corrections are new entries referencing the old handle). anti_scenario: NOT a general complaint box — a report carries the schema's fields (surface, attempted/happened verbatim, both axes, severity, detectability; cause is explicitly a HYPOTHESIS); do NOT propose duplicate vocabulary (find first — the refusal IS the catalog); triage (status/disposition/ratification/voiding) is coordinator-granted.",
+  args: {
+    operation: tool.schema
+      .enum(["read","find","write","propose-mode","propose-namespace","triage","union"])
+      .or(tool.schema.literal("help"))
+      .describe("Operation to perform (use \"help\" to print this tool's usage)"),
+    handle: tool.schema.string().optional()
+      .describe("A friction handle, FR-{NS}-{####} (e.g. FR-MEM-0001) — exact lookup; omit to filter"),
+    member: tool.schema.string().optional()
+      .describe("The member name (write/propose: the reporter's own id; read: a filter over who reported)"),
+    friction_type: tool.schema.enum(["tool-usage","process-ceremony","team-delegation","documentation","environment","coordination"]).optional()
+      .describe("The friction_type axis — the EXPERIENCE's class (write: the entry's type; read: a filter): tool-usage | process-ceremony | team-delegation | documentation | environment | coordination"),
+    failure_mode: tool.schema.string().optional()
+      .describe("The failure_mode axis — the FAILURE's mechanism, registry-governed and find-before-create (write refuses an unratified mode naming the ratified set; discover with find scope=modes; read: a filter)"),
+    severity: tool.schema.enum(["low","medium","high"]).optional()
+      .describe("Severity (write: the entry's; read: a filter): low | medium | high"),
+    status: tool.schema.enum(["open","triaged","responded"]).optional()
+      .describe("Effective status (read: a filter; triage: the new status; write-time state is open by construction): open | triaged | responded"),
+    date_from: tool.schema.string().optional()
+      .describe("Filter: entry date >= this ISO date (YYYY-MM-DD)"),
+    date_to: tool.schema.string().optional()
+      .describe("Filter: entry date <= this ISO date (YYYY-MM-DD)"),
+    store: tool.schema.string().optional()
+      .describe("The friction store — a path override (this tree's root-relative or absolute); the tane harness's team writes its own store at .junro/friction-ledger.jsonl (the tree's junro store — the store-home ruling: friction rides the route's memory; OMIT this unless reading another tree's store); default: this tree's own store-home ledger"),
+    pattern: tool.schema.string().optional()
+      .describe("Regex over entry text / mode names — the discovery verb (run it BEFORE write to discover the governed sets)"),
+    include: tool.schema.string().optional()
+      .describe("Comma-separated entry FIELD filter (e.g. 'surface,attempted') — restricts the pattern to those fields; entries scope only"),
+    scope: tool.schema.enum(["entries","modes","namespaces"]).optional()
+      .describe("Restrict discovery to entries | modes | namespaces; omit for all"),
+    session: tool.schema.string().optional()
+      .describe("The reporting member's session id (recorded for provenance; optional)"),
+    namespace: tool.schema.string().optional()
+      .describe("The ledger namespace to record under (default MEM; must be REGISTERED — propose-namespace stages a candidate; triage ratifies). For propose-namespace: the candidate id, short UPPERCASE (e.g. CL)"),
+    surface: tool.schema.string().optional()
+      .describe("The specific surface it touched (tool+op, process name, doc path, etc.)"),
+    attempted: tool.schema.string().optional()
+      .describe("Verbatim — what the member tried"),
+    happened: tool.schema.string().optional()
+      .describe("Verbatim — what occurred (the envelope/output, quoted)"),
+    workaround: tool.schema.string().optional()
+      .describe("Verbatim — the detour, if any (a workaround is DATA: the detour maps the gap)"),
+    cause: tool.schema.string().optional()
+      .describe("The member's HYPOTHESIS, explicitly (rendered labeled '(hypothesis)' — facts and hypotheses are never mixed)"),
+    effect: tool.schema.string().optional()
+      .describe("What it cost"),
+    detectability: tool.schema.enum(["immediate","eventual","hidden"]).optional()
+      .describe("The FMEA detection axis: immediate | eventual | hidden"),
+    mode: tool.schema.string().optional()
+      .describe("The candidate mode name — lowercase tokens (hyphens/slashes allowed, e.g. data-gap); find-before-create refuses a name already ratified/staged/rejected"),
+    rationale: tool.schema.string().optional()
+      .describe("Why this mode earns a place in the taxonomy (required — a proposal without a rationale is junk)"),
+    purpose: tool.schema.string().optional()
+      .describe("What the namespace scopes (required — e.g. 'the Clarity battery's program namespace')"),
+    disposition: tool.schema.string().optional()
+      .describe("The triage verdict class: fixed-in-<packet> | by-design | earned-later | superseded"),
+    retro_candidate: tool.schema.boolean().optional()
+      .describe("The retro bridge — mark the entry a retro candidate (hansei reads the ledger as intake)"),
+    ratify_mode: tool.schema.string().optional()
+      .describe("RATIFY a staged failure mode into the set (write accepts it from then on) — triage only"),
+    reject_mode: tool.schema.string().optional()
+      .describe("REJECT a staged failure mode (it stays out of the ratified set) — triage only"),
+    ratify_namespace: tool.schema.string().optional()
+      .describe("RATIFY a staged namespace into the registry — triage only"),
+    reject_namespace: tool.schema.string().optional()
+      .describe("REJECT a staged namespace — triage only"),
+    void_reason: tool.schema.string().optional()
+      .describe("VOID the handle — retires its number permanently (GitHub semantics); the required non-empty reason rides this flag"),
+    write: tool.schema.boolean().optional()
+      .describe("Pass true to APPLY the union to both trees (default: dry-run — the plan printed, nothing written)"),
+    allow_collisions: tool.schema.boolean().optional()
+      .describe("Pass true to keep both entries on handle collisions (the append-only both-kept form; default: the run refuses with exit 3 — the collision report is the data)"),
+    main_ledger: tool.schema.string().optional()
+      .describe("Path override: main's ledger copy (default: the repo's main-tree path)"),
+    worktree_ledger: tool.schema.string().optional()
+      .describe("Path override: the worktree's ledger copy (default: the tool-ambiguity-reduction worktree path)"),
+    backup_dir: tool.schema.string().optional()
+      .describe("The backup directory (default /tmp)"),
+  },
+  async execute(args, context) {
+
+    switch (args.operation) {
+      case "read": {
+        const eargs = ["read"]
+        if (args.handle !== undefined) eargs.push(`--handle=${args.handle}`)
+        if (args.member !== undefined) eargs.push(`--member=${args.member}`)
+        if (args.friction_type !== undefined) eargs.push(`--friction_type=${args.friction_type}`)
+        if (args.failure_mode !== undefined) eargs.push(`--failure_mode=${args.failure_mode}`)
+        if (args.severity !== undefined) eargs.push(`--severity=${args.severity}`)
+        if (args.status !== undefined) eargs.push(`--status=${args.status}`)
+        if (args.date_from !== undefined) eargs.push(`--date_from=${args.date_from}`)
+        if (args.date_to !== undefined) eargs.push(`--date_to=${args.date_to}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/friction_ledger.py", ...eargs], { cwd: context.directory }))
+      }
+      case "find": {
+        const eargs = ["find"]
+        if (args.pattern !== undefined) eargs.push(`--pattern=${args.pattern}`)
+        if (args.include !== undefined) eargs.push(`--include=${args.include}`)
+        if (args.scope !== undefined) eargs.push(`--scope=${args.scope}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/friction_ledger.py", ...eargs], { cwd: context.directory }))
+      }
+      case "write": {
+        const eargs = ["write"]
+        if (args.member !== undefined) eargs.push(`--member=${args.member}`)
+        if (args.session !== undefined) eargs.push(`--session=${args.session}`)
+        if (args.namespace !== undefined) eargs.push(`--namespace=${args.namespace}`)
+        if (args.friction_type !== undefined) eargs.push(`--friction_type=${args.friction_type}`)
+        if (args.surface !== undefined) eargs.push(`--surface=${args.surface}`)
+        if (args.attempted !== undefined) eargs.push(`--attempted=${args.attempted}`)
+        if (args.happened !== undefined) eargs.push(`--happened=${args.happened}`)
+        if (args.workaround !== undefined) eargs.push(`--workaround=${args.workaround}`)
+        if (args.failure_mode !== undefined) eargs.push(`--failure_mode=${args.failure_mode}`)
+        if (args.cause !== undefined) eargs.push(`--cause=${args.cause}`)
+        if (args.effect !== undefined) eargs.push(`--effect=${args.effect}`)
+        if (args.severity !== undefined) eargs.push(`--severity=${args.severity}`)
+        if (args.detectability !== undefined) eargs.push(`--detectability=${args.detectability}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/friction_ledger.py", ...eargs], { cwd: context.directory }))
+      }
+      case "propose-mode": {
+        const eargs = ["propose-mode"]
+        if (args.mode !== undefined) eargs.push(`--mode=${args.mode}`)
+        if (args.rationale !== undefined) eargs.push(`--rationale=${args.rationale}`)
+        if (args.member !== undefined) eargs.push(`--member=${args.member}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/friction_ledger.py", ...eargs], { cwd: context.directory }))
+      }
+      case "propose-namespace": {
+        const eargs = ["propose-namespace"]
+        if (args.namespace !== undefined) eargs.push(`--namespace=${args.namespace}`)
+        if (args.purpose !== undefined) eargs.push(`--purpose=${args.purpose}`)
+        if (args.member !== undefined) eargs.push(`--member=${args.member}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/friction_ledger.py", ...eargs], { cwd: context.directory }))
+      }
+      case "triage": {
+        const eargs = ["triage"]
+        if (args.handle !== undefined) eargs.push(`--handle=${args.handle}`)
+        if (args.status !== undefined) eargs.push(`--status=${args.status}`)
+        if (args.disposition !== undefined) eargs.push(`--disposition=${args.disposition}`)
+        if (args.retro_candidate !== undefined) eargs.push(`--retro_candidate=${args.retro_candidate}`)
+        if (args.ratify_mode !== undefined) eargs.push(`--ratify_mode=${args.ratify_mode}`)
+        if (args.reject_mode !== undefined) eargs.push(`--reject_mode=${args.reject_mode}`)
+        if (args.ratify_namespace !== undefined) eargs.push(`--ratify_namespace=${args.ratify_namespace}`)
+        if (args.reject_namespace !== undefined) eargs.push(`--reject_namespace=${args.reject_namespace}`)
+        if (args.void_reason !== undefined) eargs.push(`--void_reason=${args.void_reason}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/friction_ledger.py", ...eargs], { cwd: context.directory }))
+      }
+      case "union": {
+        const eargs = ["union"]
+        if (args.write !== undefined) eargs.push(`--write=${args.write}`)
+        if (args.allow_collisions !== undefined) eargs.push(`--allow_collisions=${args.allow_collisions}`)
+        if (args.main_ledger !== undefined) eargs.push(`--main_ledger=${args.main_ledger}`)
+        if (args.worktree_ledger !== undefined) eargs.push(`--worktree_ledger=${args.worktree_ledger}`)
+        if (args.backup_dir !== undefined) eargs.push(`--backup_dir=${args.backup_dir}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/friction_ledger.py", ...eargs], { cwd: context.directory }))
+      }
+      case "help": {
+        return "friction — Structured friction reporting — the member-facing friction ledger (packet CF-3): report a friction from your seat (write: schema-validated, both axes governed, handle minted), look up known entries (read), discover entries AND the governed registries (find — the find tool's grammar: pattern/include/scope, results ledger-root-prefixed with counts), and stage vocabulary proposals (propose-mode / propose-namespace — CANDIDATES, not ratified until triage). The two axes are governed independently: friction_type (the EXPERIENCE's class) and failure_mode (the FAILURE's mechanism) both find-before-create — write refuses unknown values naming the legal sets; handles FR-{NS}-{####} are tool-minted per-namespace sequential (voids retire numbers, GitHub semantics); the ledger is append-only (no delete; corrections are new entries referencing the old handle). anti_scenario: NOT a general complaint box — a report carries the schema's fields (surface, attempted/happened verbatim, both axes, severity, detectability; cause is explicitly a HYPOTHESIS); do NOT propose duplicate vocabulary (find first — the refusal IS the catalog); triage (status/disposition/ratification/voiding) is coordinator-granted.\n\nOperations:\n  read  [uv run python .opencode/scripts/friction_ledger.py read]\n    Entries by handle or filter (member, type, mode, severity, status, date range) — the known-key lookup\n      - handle [optional]: A friction handle, FR-{NS}-{####} (e.g. FR-MEM-0001) — exact lookup; omit to filter\n      - member [optional]: The member name (write/propose: the reporter's own id; read: a filter over who reported)\n      - friction_type [optional]: The friction_type axis — the EXPERIENCE's class (write: the entry's type; read: a filter): tool-usage | process-ceremony | team-delegation | documentation | environment | coordination (one of: tool-usage, process-ceremony, team-delegation, documentation, environment, coordination)\n      - failure_mode [optional]: The failure_mode axis — the FAILURE's mechanism, registry-governed and find-before-create (write refuses an unratified mode naming the ratified set; discover with find scope=modes; read: a filter)\n      - severity [optional]: Severity (write: the entry's; read: a filter): low | medium | high (one of: low, medium, high)\n      - status [optional]: Effective status (read: a filter; triage: the new status; write-time state is open by construction): open | triaged | responded (one of: open, triaged, responded)\n      - date_from [optional]: Filter: entry date >= this ISO date (YYYY-MM-DD)\n      - date_to [optional]: Filter: entry date <= this ISO date (YYYY-MM-DD)\n      - store [optional]: The friction store — a path override (this tree's root-relative or absolute); the tane harness's team writes its own store at .junro/friction-ledger.jsonl (the tree's junro store — the store-home ruling: friction rides the route's memory; OMIT this unless reading another tree's store); default: this tree's own store-home ledger\n    example: operation=\"read\"\n  find  [uv run python .opencode/scripts/friction_ledger.py find]\n    Pattern discovery over entries AND registries (the find tool's grammar: pattern regex, include field-filter, scope) — results carry the ledger root prefix + counts\n      - pattern [required]: Regex over entry text / mode names — the discovery verb (run it BEFORE write to discover the governed sets)\n      - include [optional]: Comma-separated entry FIELD filter (e.g. 'surface,attempted') — restricts the pattern to those fields; entries scope only\n      - scope [optional]: Restrict discovery to entries | modes | namespaces; omit for all (one of: entries, modes, namespaces)\n      - store [optional]: The friction store — a path override (this tree's root-relative or absolute); the tane harness's team writes its own store at .junro/friction-ledger.jsonl (the tree's junro store — the store-home ruling: friction rides the route's memory; OMIT this unless reading another tree's store); default: this tree's own store-home ledger\n    example: operation=\"find\", pattern=\"<value>\"\n  write  [uv run python .opencode/scripts/friction_ledger.py write]\n    Report a friction (schema-validated, both axes governed, handle minted under a lock) — CREATE only; corrections are new entries referencing the old handle\n      - member [optional]: The member name (write/propose: the reporter's own id; read: a filter over who reported)\n      - session [optional]: The reporting member's session id (recorded for provenance; optional)\n      - namespace [optional]: The ledger namespace to record under (default MEM; must be REGISTERED — propose-namespace stages a candidate; triage ratifies). For propose-namespace: the candidate id, short UPPERCASE (e.g. CL)\n      - friction_type [optional]: The friction_type axis — the EXPERIENCE's class (write: the entry's type; read: a filter): tool-usage | process-ceremony | team-delegation | documentation | environment | coordination (one of: tool-usage, process-ceremony, team-delegation, documentation, environment, coordination)\n      - surface [optional]: The specific surface it touched (tool+op, process name, doc path, etc.)\n      - attempted [optional]: Verbatim — what the member tried\n      - happened [optional]: Verbatim — what occurred (the envelope/output, quoted)\n      - workaround [optional]: Verbatim — the detour, if any (a workaround is DATA: the detour maps the gap)\n      - failure_mode [optional]: The failure_mode axis — the FAILURE's mechanism, registry-governed and find-before-create (write refuses an unratified mode naming the ratified set; discover with find scope=modes; read: a filter)\n      - cause [optional]: The member's HYPOTHESIS, explicitly (rendered labeled '(hypothesis)' — facts and hypotheses are never mixed)\n      - effect [optional]: What it cost\n      - severity [optional]: Severity (write: the entry's; read: a filter): low | medium | high (one of: low, medium, high)\n      - detectability [optional]: The FMEA detection axis: immediate | eventual | hidden (one of: immediate, eventual, hidden)\n      - store [optional]: The friction store — a path override (this tree's root-relative or absolute); the tane harness's team writes its own store at .junro/friction-ledger.jsonl (the tree's junro store — the store-home ruling: friction rides the route's memory; OMIT this unless reading another tree's store); default: this tree's own store-home ledger\n    example: operation=\"write\"\n  propose-mode  [uv run python .opencode/scripts/friction_ledger.py propose-mode]\n    Stage a candidate failure mode (a STAGING write — NOT ratified; write keeps refusing it until triage ratifies)\n      - mode [optional]: The candidate mode name — lowercase tokens (hyphens/slashes allowed, e.g. data-gap); find-before-create refuses a name already ratified/staged/rejected\n      - rationale [optional]: Why this mode earns a place in the taxonomy (required — a proposal without a rationale is junk)\n      - member [optional]: The member name (write/propose: the reporter's own id; read: a filter over who reported)\n      - store [optional]: The friction store — a path override (this tree's root-relative or absolute); the tane harness's team writes its own store at .junro/friction-ledger.jsonl (the tree's junro store — the store-home ruling: friction rides the route's memory; OMIT this unless reading another tree's store); default: this tree's own store-home ledger\n    example: operation=\"propose-mode\"\n  propose-namespace  [uv run python .opencode/scripts/friction_ledger.py propose-namespace]\n    Stage a candidate namespace (a STAGING write — NOT registered; write keeps refusing it until triage ratifies)\n      - namespace [optional]: The candidate namespace id — short UPPERCASE (e.g. CL); for write this is the namespace to record under (default MEM, must be registered)\n      - purpose [optional]: What the namespace scopes (required — e.g. 'the Clarity battery's program namespace')\n      - member [optional]: The member name (write/propose: the reporter's own id; read: a filter over who reported)\n      - store [optional]: The friction store — a path override (this tree's root-relative or absolute); the tane harness's team writes its own store at .junro/friction-ledger.jsonl (the tree's junro store — the store-home ruling: friction rides the route's memory; OMIT this unless reading another tree's store); default: this tree's own store-home ledger\n    example: operation=\"propose-namespace\"\n  triage  [uv run python .opencode/scripts/friction_ledger.py triage]\n    Coordinator-granted governance: status/disposition updates, mode/namespace RATIFICATION, voiding (a void retires the handle's number permanently)\n      - handle [optional]: A friction handle, FR-{NS}-{####} — the action's target (triage) or exact lookup (read); required for handle-scoped actions\n      - status [optional]: Effective status (read: a filter; triage: the new status; write-time state is open by construction): open | triaged | responded (one of: open, triaged, responded)\n      - disposition [optional]: The triage verdict class: fixed-in-<packet> | by-design | earned-later | superseded\n      - retro_candidate [optional]: The retro bridge — mark the entry a retro candidate (hansei reads the ledger as intake)\n      - ratify_mode [optional]: RATIFY a staged failure mode into the set (write accepts it from then on) — triage only\n      - reject_mode [optional]: REJECT a staged failure mode (it stays out of the ratified set) — triage only\n      - ratify_namespace [optional]: RATIFY a staged namespace into the registry — triage only\n      - reject_namespace [optional]: REJECT a staged namespace — triage only\n      - void_reason [optional]: VOID the handle — retires its number permanently (GitHub semantics); the required non-empty reason rides this flag\n      - store [optional]: The friction store — a path override (this tree's root-relative or absolute); the tane harness's team writes its own store at .junro/friction-ledger.jsonl (the tree's junro store — the store-home ruling: friction rides the route's memory; OMIT this unless reading another tree's store); default: this tree's own store-home ledger\n    example: operation=\"triage\"\n  union  [uv run python .opencode/scripts/friction_ledger.py union]\n    Union the forked friction ledgers (main x the worktree) — the close choreography's governed form: the identical prefix kept, the forked suffixes merged timestamp-ordered, handle collisions BOTH-KEPT (append-only), containment proven, backups first, both trees written byte-identical; DRY-RUN by default (write=true applies; allow_collisions=true carries known-fork collisions past the exit-3 refusal)\n      - write [optional]: Pass true to APPLY the union to both trees (default: dry-run — the plan printed, nothing written)\n      - allow_collisions [optional]: Pass true to keep both entries on handle collisions (the append-only both-kept form; default: the run refuses with exit 3 — the collision report is the data)\n      - main_ledger [optional]: Path override: main's ledger copy (default: the repo's main-tree path)\n      - worktree_ledger [optional]: Path override: the worktree's ledger copy (default: the tool-ambiguity-reduction worktree path)\n      - backup_dir [optional]: The backup directory (default /tmp)\n    example: operation=\"union\"\n\nTo list every make target, use the `help` tool or run `make help`."
+      }
+    }
+    return `Unknown operation: ${args.operation}`
+  },
+})

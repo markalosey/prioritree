@@ -376,6 +376,19 @@
         "actor": "shinko",
         "timestamp": "2026-11-19T17:25:02Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "set-question {\"question\": \"Q-tool-registration\", \"resolution\": \"RESOLVED BY DISCOVERY (tansa's census + rikai's mechanism record, 2026-11-19): opencode auto-discovers custom tools from .opencode/tools/*.ts — the filename IS the tool id, the file default-exports tool() from @opencode-ai/plugin; opencode-native Python tool files do not exist (measured empty). The sibling emission gap is confirmed (kepric-input ships engines without wrappers — its permission keys name tool ids that cannot register). The prioritree emission carries the WRAPPER SET: _run.ts (the explicit-argv channel, FR-MEM-0145's durable-fix form) + the five wrappers (calculate/patch/friction/test/curate — hikari's current rendered contracts, engine paths re-pointed to .opencode/scripts/, prioritree ownership stamps) + junro.ts (the cross-project form per the collaborator's ruling: the wrapper rides, the engine stays home at hikari via --project). The live proof: one friction birth-write at a prioritree seat (G-HARNESS conditions 4+5 composed).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T19:54:50Z",
+        "op": "set-question"
+      },
+      {
+        "what": "THE THREE G-HARNESS-BRIEF RULINGS (the collaborator, at the harness unit's mechanism-record close, 2026-11-19 — all three on rikai's recommendations): (1) THE JUNRO GRANT GOES LIVE VIA THE CROSS-PROJECT WRAPPER — junro.ts rides at prioritree/.opencode/tools/ (hikari's wrapper + the uv run --project <hikari> invocation + the explicit-argv channel), the ENGINE stays home at hikari (junro.py's jsonschema + kepric-decomp deps resolve in hikari's env; prioritree's venv stays zero-runtime-deps; the tane live precedent, generate_tools.py:209-220's own recorded form) — prioritree's shinko can record packets at its own tree's future efforts; (2) THE .junro/ ENTRY ROOT-ANCHORS — .junro/ → /.junro/ in the harness unit's already-open .gitignore edit (the FR-MEM-0419 cure's form, one line below the /build/ anchor; future store hearts tracked by default; G-FOUNDATIONS condition 5's words remain literally satisfied); (3) THE CLARITY TREE RESTORES VIA THE EMIT — one collaborator command (uv run python scripts/generation/clarity_scaffold.py from hikari's root) births the tree whole before the sibling-contracts check fires; G-HARNESS condition 2's clarity leg passes unamended; the family record's four-trees claim becomes true again at the byte level. The fate question (renamed? archived? deleted?) remains OPEN for the close unit's five-trees naming ruling — the collaborator's answer rides that lane.",
+        "ruled_at": "2026-11-19",
+        "why": "The collaborator's three rulings at the harness unit's mechanism-record close (this session, 2026-11-19) — the priced option sets carried in understand/harness.md §4/§6/§7; the recommendations adopted whole; the ruling pass precedes togo's brief so the synthesis carries zero open questions to G-HARNESS-BRIEF."
       }
     ],
     "stop_conditions": [],
@@ -425,7 +438,8 @@
     {
       "id": "Q-tool-registration",
       "question": "How does the kumi emission's tool registration work at the sibling trees — kepric-input carries the fixed-five engines at .opencode/scripts/ (friction_ledger.py, patch.py, test_runner.py, calculate.py, curate.py) and the opencode.json permission keys (calculate/curate/patch/friction/test) but no visible tools/ wrappers: what mechanism makes those engines callable as those tool ids (opencode's plugin/auto-discovery surface), and what must the prioritree emission carry so the fixed five actually register and answer? THE RULED CARRY (Q-harness's ruling, 2026-11-19): a discovery step must confirm the registration path BEFORE the harness emission lands — it rides build/harness's pipeline (the discover leg), and G-HARNESS holds the live proof (a verbatim tool call at a prioritree seat).",
-      "status": "open"
+      "status": "ruled",
+      "resolution": "RESOLVED BY DISCOVERY (tansa's census + rikai's mechanism record, 2026-11-19): opencode auto-discovers custom tools from .opencode/tools/*.ts — the filename IS the tool id, the file default-exports tool() from @opencode-ai/plugin; opencode-native Python tool files do not exist (measured empty). The sibling emission gap is confirmed (kepric-input ships engines without wrappers — its permission keys name tool ids that cannot register). The prioritree emission carries the WRAPPER SET: _run.ts (the explicit-argv channel, FR-MEM-0145's durable-fix form) + the five wrappers (calculate/patch/friction/test/curate — hikari's current rendered contracts, engine paths re-pointed to .opencode/scripts/, prioritree ownership stamps) + junro.ts (the cross-project form per the collaborator's ruling: the wrapper rides, the engine stays home at hikari via --project). The live proof: one friction birth-write at a prioritree seat (G-HARNESS conditions 4+5 composed)."
     },
     {
       "id": "Q-typecheck-alignment",

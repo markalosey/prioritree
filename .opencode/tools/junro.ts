@@ -1,0 +1,258 @@
+// prioritree-owned (2026-11-19, G-HARNESS-BRIEF): composed from hikari's current render + tane's channel; hand-maintained in prioritree's tree
+import { tool } from "@opencode-ai/plugin"
+import { runArgv } from "./_run"
+
+function formatOutput(result: {
+  exitCode: number
+  text(): string
+  stderr: Buffer | string
+}): string {
+  const stdout = result.text()
+  const stderr = result.stderr.toString()
+  if (result.exitCode === 0) {
+    return stdout.trim() || "Done."
+  }
+  if (stderr.trim()) {
+    return `${stdout}${stdout.trim() ? "\n" : ""}stderr:\n${stderr}`.trim()
+  }
+  return stdout.trim() || `Exited with code ${result.exitCode} (no output captured).`
+}
+
+export default tool({
+  description: "Effort record operations — the Junro data layer's governed surface (the route + packet + query tool): record questions, rulings, amendments, gate outcomes, and route growth on the effort's control plane (route — schema-validated, provenance-stamped, dated records never rewritten); append dispatch/result/gate events for a dispatched piece of work (packet — append-only evidence, provenance on every line); read the effort's state (query — status, question, rulings, packets). The store is the effort you're inside: a directory carrying a `.junro/` heart is a store, resolved ambiently (walk-up from your cwd) or explicitly (`--store`) — ambiguity refuses loudly, listing the discovered stores and the fix. Every refusal carries expected / found / next-action, and the next-action names an op that exists — a wrong selection self-corrects inside the tool. anti_scenario: NOT a prose editor and NOT the branch machine — inside `.junro/` this tool is the only writer; the records are structured, never hand-edited; do NOT look for a delete or rewrite op (dated records supersede, never erase); do NOT bring branch, commit, or scaffold work here (junro records the effort; it never manages the tree).",
+  args: {
+    operation: tool.schema
+      .enum(["route add-question","route set-question","route add-ruling","route amend-increment","route set-checkpoint-ruling","route close-gate","route compose-stage","route add-increment","route add-gate","route record-amendment","route set-route-status","packet dispatch","packet result","packet gate","query status","query question","query rulings","query packets"])
+      .or(tool.schema.literal("help"))
+      .describe("Operation to perform (use \"help\" to print this tool's usage)"),
+    store: tool.schema.string().optional()
+      .describe("the effort directory to operate on — omit inside the effort (ambient walk-up from the cwd finds the nearest enclosing store); ambiguous sibling stores refuse loudly"),
+    actor: tool.schema.string().optional()
+      .describe("the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless"),
+    question: tool.schema.string().optional()
+      .describe("the question's stable id (e.g. Q19)"),
+    text: tool.schema.string().optional()
+      .describe("the question text"),
+    status: tool.schema.string().optional()
+      .describe("the question's lifecycle state — THIS op's enum: open | ruled | ruled-in-shape (a value outside the op's enum refuses naming the legal set)"),
+    resolution: tool.schema.string().optional()
+      .describe("the ruled text (required by the engine when status is ruled/ruled-in-shape)"),
+    ruling: tool.schema.string().optional()
+      .describe("the ruling text"),
+    increment: tool.schema.string().optional()
+      .describe("the increment's id (e.g. build/core)"),
+    field: tool.schema.enum(["owner","gate","loop.max_iterations"]).optional()
+      .describe("the amendable field (the allowlist — anything else refuses)"),
+    value: tool.schema.string().optional()
+      .describe("the new value (validated per-field)"),
+    checkpoint: tool.schema.string().optional()
+      .describe("the checkpoint's `after` boundary (the boundary token is accepted)"),
+    gate: tool.schema.string().optional()
+      .describe("the gate id (must exist in the route's gates)"),
+    outcome: tool.schema.enum(["green","blocked"]).optional()
+      .describe("the gate judgment's result — 'blocked' is a recorded state, not a failure to record"),
+    stage: tool.schema.string().optional()
+      .describe("the new stage's id"),
+    purpose: tool.schema.string().optional()
+      .describe("what the stage serves"),
+    entry_condition: tool.schema.string().optional()
+      .describe("when the stage fires (the engine accepts --entry-condition and --entry_condition — the CF-5d ruling-2 alias)"),
+    owner: tool.schema.string().optional()
+      .describe("the owning member id (roster-resolvable)"),
+    steps: tool.schema.string().optional()
+      .describe("the steps as a JSON array (Part 1's step schema: id/executor/verification, tool on deterministic, member on semantic)"),
+    type: tool.schema.enum(["deterministic-check","assessment","collaborator-ruling"]).optional()
+      .describe("the gate's type (Part 1's earned trio)"),
+    conditions: tool.schema.string().optional()
+      .describe("the gate's conditions as a JSON array (one or more machine-checkable or assessable statements; empty arrays refuse)"),
+    what: tool.schema.string().optional()
+      .describe("what changed"),
+    ruled_at: tool.schema.string().optional()
+      .describe("the ruling's date (the engine accepts --ruled-at and --ruled_at — the CF-5d ruling-2 alias)"),
+    why: tool.schema.string().optional()
+      .describe("the ruling's reason"),
+    packet: tool.schema.string().optional()
+      .describe("the packet id (Part 6's form, e.g. CF-7, or the increment form, e.g. build/packets)"),
+    member: tool.schema.string().optional()
+      .describe("the dispatched member id (roster-resolvable)"),
+    task: tool.schema.string().optional()
+      .describe("the dispatched task"),
+    prompt: tool.schema.string().optional()
+      .describe("the dispatch prompt's content — rides INTO the packet (the single governed artifact: one gate sees the real work surface); the ask-ceiling counter governs only when present (additive + grandfathered; ceiling 3 — one primary act + read-back + report)"),
+    output: tool.schema.string().optional()
+      .describe("the output path (must exist at the op; a relative path resolves against the store's directory, not the invocation cwd — Strain O, tool-fix increment 2026-09-24)"),
+    id: tool.schema.string().optional()
+      .describe("the question's stable id"),
+  },
+  async execute(args, context) {
+
+    switch (args.operation) {
+      case "route add-question": {
+        const eargs = ["route", "add-question"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.question !== undefined) eargs.push(`--question=${args.question}`)
+        if (args.text !== undefined) eargs.push(`--text=${args.text}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route set-question": {
+        const eargs = ["route", "set-question"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.question !== undefined) eargs.push(`--question=${args.question}`)
+        if (args.status !== undefined) eargs.push(`--status=${args.status}`)
+        if (args.resolution !== undefined) eargs.push(`--resolution=${args.resolution}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route add-ruling": {
+        const eargs = ["route", "add-ruling"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.question !== undefined) eargs.push(`--question=${args.question}`)
+        if (args.ruling !== undefined) eargs.push(`--ruling=${args.ruling}`)
+        if (args.status !== undefined) eargs.push(`--status=${args.status}`)
+        if (args.resolution !== undefined) eargs.push(`--resolution=${args.resolution}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route amend-increment": {
+        const eargs = ["route", "amend-increment"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.increment !== undefined) eargs.push(`--increment=${args.increment}`)
+        if (args.field !== undefined) eargs.push(`--field=${args.field}`)
+        if (args.value !== undefined) eargs.push(`--value=${args.value}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route set-checkpoint-ruling": {
+        const eargs = ["route", "set-checkpoint-ruling"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.checkpoint !== undefined) eargs.push(`--checkpoint=${args.checkpoint}`)
+        if (args.ruling !== undefined) eargs.push(`--ruling=${args.ruling}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route close-gate": {
+        const eargs = ["route", "close-gate"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.gate !== undefined) eargs.push(`--gate=${args.gate}`)
+        if (args.outcome !== undefined) eargs.push(`--outcome=${args.outcome}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route compose-stage": {
+        const eargs = ["route", "compose-stage"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.stage !== undefined) eargs.push(`--stage=${args.stage}`)
+        if (args.purpose !== undefined) eargs.push(`--purpose=${args.purpose}`)
+        if (args.entry_condition !== undefined) eargs.push(`--entry_condition=${args.entry_condition}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route add-increment": {
+        const eargs = ["route", "add-increment"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.stage !== undefined) eargs.push(`--stage=${args.stage}`)
+        if (args.increment !== undefined) eargs.push(`--increment=${args.increment}`)
+        if (args.owner !== undefined) eargs.push(`--owner=${args.owner}`)
+        if (args.gate !== undefined) eargs.push(`--gate=${args.gate}`)
+        if (args.steps !== undefined) eargs.push(`--steps=${args.steps}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route add-gate": {
+        const eargs = ["route", "add-gate"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.gate !== undefined) eargs.push(`--gate=${args.gate}`)
+        if (args.type !== undefined) eargs.push(`--type=${args.type}`)
+        if (args.conditions !== undefined) eargs.push(`--conditions=${args.conditions}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route record-amendment": {
+        const eargs = ["route", "record-amendment"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.what !== undefined) eargs.push(`--what=${args.what}`)
+        if (args.ruled_at !== undefined) eargs.push(`--ruled_at=${args.ruled_at}`)
+        if (args.why !== undefined) eargs.push(`--why=${args.why}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "route set-route-status": {
+        const eargs = ["route", "set-route-status"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.status !== undefined) eargs.push(`--status=${args.status}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "packet dispatch": {
+        const eargs = ["packet", "dispatch"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.packet !== undefined) eargs.push(`--packet=${args.packet}`)
+        if (args.member !== undefined) eargs.push(`--member=${args.member}`)
+        if (args.task !== undefined) eargs.push(`--task=${args.task}`)
+        if (args.prompt !== undefined) eargs.push(`--prompt=${args.prompt}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "packet result": {
+        const eargs = ["packet", "result"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.packet !== undefined) eargs.push(`--packet=${args.packet}`)
+        if (args.status !== undefined) eargs.push(`--status=${args.status}`)
+        if (args.output !== undefined) eargs.push(`--output=${args.output}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "packet gate": {
+        const eargs = ["packet", "gate"]
+        if (args.actor === undefined && context.agent) eargs.push(`--actor=${context.agent}`)
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.actor !== undefined) eargs.push(`--actor=${args.actor}`)
+        if (args.packet !== undefined) eargs.push(`--packet=${args.packet}`)
+        if (args.gate !== undefined) eargs.push(`--gate=${args.gate}`)
+        if (args.outcome !== undefined) eargs.push(`--outcome=${args.outcome}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "query status": {
+        const eargs = ["query", "status"]
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "query question": {
+        const eargs = ["query", "question"]
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.id !== undefined) eargs.push(`--id=${args.id}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "query rulings": {
+        const eargs = ["query", "rulings"]
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.question !== undefined) eargs.push(`--question=${args.question}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "query packets": {
+        const eargs = ["query", "packets"]
+        if (args.store !== undefined) eargs.push(`--store=${args.store}`)
+        if (args.packet !== undefined) eargs.push(`--packet=${args.packet}`)
+        return formatOutput(await runArgv(["uv", "run", "--project", "/Users/marklosey/projects/kepric/hikari", "python", "/Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py", ...eargs], { cwd: context.directory }))
+      }
+      case "help": {
+        return "junro — Effort record operations — the Junro data layer's governed surface (the route + packet + query tool): record questions, rulings, amendments, gate outcomes, and route growth on the effort's control plane (route — schema-validated, provenance-stamped, dated records never rewritten); append dispatch/result/gate events for a dispatched piece of work (packet — append-only evidence, provenance on every line); read the effort's state (query — status, question, rulings, packets). The store is the effort you're inside: a directory carrying a `.junro/` heart is a store, resolved ambiently (walk-up from your cwd) or explicitly (`--store`) — ambiguity refuses loudly, listing the discovered stores and the fix. Every refusal carries expected / found / next-action, and the next-action names an op that exists — a wrong selection self-corrects inside the tool. anti_scenario: NOT a prose editor and NOT the branch machine — inside `.junro/` this tool is the only writer; the records are structured, never hand-edited; do NOT look for a delete or rewrite op (dated records supersede, never erase); do NOT bring branch, commit, or scaffold work here (junro records the effort; it never manages the tree).\n\nOperations:\n  route add-question  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    open a question at your seat (id + text; provenance-stamped)\n      - store [optional]: the effort directory to operate on — omit inside the effort (ambient walk-up from the cwd finds the nearest enclosing store); ambiguous sibling stores refuse loudly\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - question [required]: the question's stable id (e.g. Q19)\n      - text [required]: the question text\n    example: operation=\"route add-question\", question=\"<value>\", text=\"<value>\"\n  route set-question  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    set a question's status — open / ruled / ruled-in-shape (resolution required when ruled)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - question [required]: the question's stable id\n      - status [required]: the question's lifecycle state — THIS op's enum: open | ruled | ruled-in-shape (a value outside the op's enum refuses naming the legal set)\n      - resolution [optional]: the ruled text (required by the engine when status is ruled/ruled-in-shape)\n    example: operation=\"route set-question\", question=\"<value>\", status=\"<value>\"\n  route add-ruling  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    append a ruling to a question (dated, actor-stamped; duplicates refuse); optional --status/--resolution transition the question in the same op (set-question's exclusivity validation)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - question [required]: the question's stable id — unknown ids refuse with 'use add-question to create it'\n      - ruling [required]: the ruling text\n      - status [optional]: open | ruled | ruled-in-shape — when given, the question is transitioned in the same op (set-question's exclusivity validation); omit for the pure append (FR-MEM-0048 honored, tool-fix increment 2026-09-24)\n      - resolution [optional]: the ruled text (required when status is ruled/ruled-in-shape; refused without status)\n    example: operation=\"route add-ruling\", question=\"<value>\", ruling=\"<value>\"\n  route amend-increment  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    amend an increment's owner / gate / loop.max_iterations (the amendable allowlist)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - increment [required]: the increment's id (e.g. build/core)\n      - field [required]: the amendable field (the allowlist — anything else refuses) (one of: owner, gate, loop.max_iterations)\n      - value [required]: the new value (validated per-field)\n    example: operation=\"route amend-increment\", increment=\"<value>\", field=\"<value>\", value=\"<value>\"\n  route set-checkpoint-ruling  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    append a dated ruling at a checkpoint (see §3.4 — rename candidate)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - checkpoint [required]: the checkpoint's `after` boundary (the boundary token is accepted)\n      - ruling [required]: the ruling text — APPEND semantics, never overwrite (the dated-records law)\n    example: operation=\"route set-checkpoint-ruling\", checkpoint=\"<value>\", ruling=\"<value>\"\n  route close-gate  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    record a route gate's outcome (green / blocked) — the landing is the ledger's gate event\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - gate [required]: the gate id (must exist in the route's gates)\n      - outcome [required]: the gate judgment's result — 'blocked' is a recorded state, not a failure to record (one of: green, blocked)\n    example: operation=\"route close-gate\", gate=\"<value>\", outcome=\"<value>\"\n  route compose-stage  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    grow the route: append a stage (purpose + entry condition)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - stage [required]: the new stage's id\n      - purpose [required]: what the stage serves\n      - entry_condition [required]: when the stage fires (the engine accepts --entry-condition and --entry_condition — the CF-5d ruling-2 alias)\n    example: operation=\"route compose-stage\", stage=\"<value>\", purpose=\"<value>\", entry_condition=\"<value>\"\n  route add-increment  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    grow the route: append an increment to a stage (owner, gate, steps — the gate must pre-exist)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - stage [required]: the stage's id\n      - increment [required]: the new increment's id\n      - owner [required]: the owning member id (roster-resolvable)\n      - gate [required]: the increment's gate id (must exist in the route's gates — add-gate mints it first)\n      - steps [required]: the steps as a JSON array (Part 1's step schema: id/executor/verification, tool on deterministic, member on semantic)\n    example: operation=\"route add-increment\", stage=\"<value>\", increment=\"<value>\", owner=\"<value>\", gate=\"<value>\", steps=\"<value>\"\n  route add-gate  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    grow the route: mint a gate (type + conditions — the add-increment chicken-and-egg, solved)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - gate [required]: the new gate's id\n      - type [required]: the gate's type (Part 1's earned trio) (one of: deterministic-check, assessment, collaborator-ruling)\n      - conditions [required]: the gate's conditions as a JSON array (one or more machine-checkable or assessable statements; empty arrays refuse)\n    example: operation=\"route add-gate\", gate=\"<value>\", type=\"<value>\", conditions=\"<value>\"\n  route record-amendment  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    record a mid-route ruled change in the amendments (what / ruled-at / why — never silent)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - what [required]: what changed\n      - ruled_at [required]: the ruling's date (the engine accepts --ruled-at and --ruled_at — the CF-5d ruling-2 alias)\n      - why [required]: the ruling's reason\n    example: operation=\"route record-amendment\", what=\"<value>\", ruled_at=\"<value>\", why=\"<value>\"\n  route set-route-status  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py route]\n    set the route's lifecycle status (Part 1's enum)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - status [required]: the route's lifecycle state — THIS op's enum: composed | validated | executing | checkpoint | done | blocked | abandoned (a value outside the enum refuses naming the legal set)\n    example: operation=\"route set-route-status\", status=\"<value>\"\n  packet dispatch  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py packet]\n    record that work was dispatched to a member (packet + member + task) — the packet's BIRTH: an id exists as a packet iff it carries a dispatch event\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - packet [required]: the packet id (Part 6's form, e.g. CF-7, or the increment form, e.g. build/packets)\n      - member [required]: the dispatched member id (roster-resolvable)\n      - task [required]: the dispatched task\n      - prompt [optional]: the dispatch prompt's content — rides INTO the packet (the single governed artifact: one gate sees the real work surface); the ask-ceiling counter governs only when present (additive + grandfathered; ceiling 3 — one primary act + read-back + report)\n    example: operation=\"packet dispatch\", packet=\"<value>\", member=\"<value>\", task=\"<value>\"\n  packet result  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py packet]\n    record a result milestone (status + the output artifact's path — it must exist)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - packet [required]: the packet id (must carry a dispatch event — result on an undispatched id refuses naming dispatch first)\n      - status [required]: the result milestone — THIS op's enum: SPEC | ASSESSED | BUILDING | VERIFIED | COMPLETE | BLOCKED | SUPERSEDED (Part 6's lifecycle enum)\n      - output [required]: the output path (must exist at the op; a relative path resolves against the store's directory, not the invocation cwd — Strain O, tool-fix increment 2026-09-24)\n    example: operation=\"packet result\", packet=\"<value>\", status=\"<value>\", output=\"<value>\"\n  packet gate  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py packet]\n    record a gate outcome scoped to a packet (gate + outcome — the packet-scoped sibling of close-gate)\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - actor [optional]: the provenance actor id — unset REFUSES on every write, the refusal naming the two legal paths (--actor, $JUNRO_ACTOR); reads stay actorless\n      - packet [required]: the packet id (must carry a dispatch event)\n      - gate [required]: the gate id (must exist in the route's gates)\n      - outcome [required]: the gate judgment's result — both are legal outcomes; the landing is the ledger's gate event (one of: green, blocked)\n    example: operation=\"packet gate\", packet=\"<value>\", gate=\"<value>\", outcome=\"<value>\"\n  query status  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py query]\n    the route at a glance: stages, increments, gates, checkpoints, open questions\n      - store [optional]: the effort directory to operate on — omit inside the effort (ambient walk-up; works with no flags from inside the effort)\n    example: operation=\"query status\"\n  query question  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py query]\n    one question's text, status, resolution, and rulings\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - id [required]: the question's stable id\n    example: operation=\"query question\", id=\"<value>\"\n  query rulings  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py query]\n    the rulings on one question, in order\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - question [required]: the question's stable id\n    example: operation=\"query rulings\", question=\"<value>\"\n  query packets  [uv run python /Users/marklosey/projects/kepric/hikari/scripts/junro/junro.py query]\n    one packet's events (dispatch → result → gate), in ledger order\n      - store [optional]: the effort directory to operate on (ambient walk-up when omitted)\n      - packet [required]: the packet id (query packets serves a dispatched packet)\n    example: operation=\"query packets\", packet=\"<value>\"\n\nTo list every make target, use the `help` tool or run `make help`."
+      }
+    }
+    return `Unknown operation: ${args.operation}`
+  },
+})

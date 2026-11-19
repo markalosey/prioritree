@@ -1,0 +1,30 @@
+{
+  // TS toolchain config for the .opencode TS surface. Scope: plugins/ and
+  // scripts/ — the hand-written TS. tools/*.ts are GENERATED from
+  // manifest.yaml (make generate-tools); they reference Bun globals (no
+  // @types/bun installed) and carry pre-existing strict-mode errors that can
+  // only be fixed in the generator — so they are OUT of tsc scope here
+  // (their freshness is verified by `make verify-tools` instead). Note the
+  // generated tools/tool-redirect-map.generated.ts is still checked: it is
+  // imported by plugins/tool-use-enforcement.ts, so it enters the program
+  // graph even though tools/ is not in `include`.
+  //
+  // types ["node"]: the surface imports node builtins ("node:fs" etc.) and
+  // uses process/Buffer; @types/node is a devDependency in package.json.
+  //
+  // Checked by: make typecheck-ts (tsc --noEmit -p this file) and
+  // make typecheck-file F=<file.ts> (per-file tsc --noEmit with the same
+  // flags mirrored in make/lint.mk — tsc ignores tsconfig.json when files are
+  // passed on the CLI).
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["plugins/**/*.ts", "scripts/**/*.ts"]
+}

@@ -174,5 +174,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+# The derived-view substrate (hikari's trio form): the wrappers' plugin import must
+# resolve at opencode load; the pin file package.json is TRACKED (G-HARNESS's read-back names it).
+.opencode/node_modules/
+.opencode/package-lock.json
+.opencode/bun.lock
 
-.junro/
+/.junro/

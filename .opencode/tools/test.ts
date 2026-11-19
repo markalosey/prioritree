@@ -1,0 +1,49 @@
+// prioritree-owned (2026-11-19, G-HARNESS-BRIEF): composed from hikari's current render + tane's channel; hand-maintained in prioritree's tree
+import { tool } from "@opencode-ai/plugin"
+import { runArgv } from "./_run"
+
+function formatOutput(result: {
+  exitCode: number
+  text(): string
+  stderr: string | Buffer
+}): string {
+  const stdout = result.text()
+  const stderr = result.stderr.toString()
+  if (result.exitCode === 0) {
+    return stdout.trim() || "Done."
+  }
+  if (stderr.trim()) {
+    return `${stdout}${stdout.trim() ? "\n" : ""}stderr:\n${stderr}`.trim()
+  }
+  return stdout.trim() || `Exited with code ${result.exitCode} (no output captured).`
+}
+
+export default tool({
+  description: "Test execution — run all tests or a single test file",
+  args: {
+    operation: tool.schema
+      .enum(["all","one"])
+      .or(tool.schema.literal("help"))
+      .describe("Operation to perform (use \"help\" to print this tool's usage)"),
+    test_path: tool.schema.string().optional()
+      .describe("Test path (e.g., tests/unit/test_foo.py)"),
+  },
+  async execute(args, context) {
+
+    switch (args.operation) {
+      case "all": {
+        const eargs = ["all"]
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/test_runner.py", ...eargs], { cwd: context.directory }))
+      }
+      case "one": {
+        const eargs = ["one"]
+        if (args.test_path !== undefined) eargs.push(args.test_path)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/test_runner.py", ...eargs], { cwd: context.directory }))
+      }
+      case "help": {
+        return "test — Test execution — run all tests or a single test file\n\nOperations:\n  all  [uv run python .opencode/scripts/test_runner.py all]\n    Run all tests via pytest\n    example: operation=\"all\"\n  one  [uv run python .opencode/scripts/test_runner.py one]\n    Run single test file with verbose output\n      - test_path [required]: Test path (e.g., tests/unit/test_foo.py)\n    example: operation=\"one\", test_path=\"<value>\"\n\nTo list every make target, use the `help` tool or run `make help`."
+      }
+    }
+    return `Unknown operation: ${args.operation}`
+  },
+})
