@@ -1,0 +1,178 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-core",
+    "title": "Prioritree Core — the product's birth: the pure-logic core library (items, comparison operator, pair scheduling, votes, tally; both comparator classes through the one vote interface), registry first — the six-unit decomposition per the ruled scope",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "the collaborator's scope rulings of 2026-11-19/20 (Q-problem-space, Q-granularity, Q-solution-space at the prioritree-birth store — the thirteen R-rulings: the fences, the six-unit decomposition with registry first, the one-stochastic-act split, the five-op interface, the win-rate tally, the coverage gate, the superior-order bar)",
+      "synthesize/scope-synthesis.md (togo's three syntheses + the distilled ruling surface, web-validated ground)",
+      "CONTINUATION.md's birth form (the close's naming: the product effort, the core library first — born via prioritree's own shinko seat + patch, the vitals-store precedent)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE: each unit's discover → understand → synthesize before its build — discover/understand ride ungated packets; the synthesis is the gated increment here closing its own G-<UNIT>-BRIEF; THE PRECEDENCE: no build unit's dispatch fires until its brief gate is green. THE ROUTE GROWS UNIT-BY-UNIT per the ruled six-unit decomposition (registry first at birth; scheduler, votes, tally, session, acceptance — each unit's pipeline and build increments ride its own composition amendment at its turn)",
+        "entry_condition": "the route is composed registry-first; no build dispatch fires until its unit's brief gate is green (the precedence law, amendment 19's form at the birth store)",
+        "increments": [
+          {
+            "id": "synthesize/registry",
+            "owner": "togo",
+            "gate": "G-REGISTRY-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/probe",
+            "owner": "togo",
+            "gate": "G-PROBE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE REGISTRY UNIT'S BUILD — the first increment of the six-unit decomposition (Q-granularity's ruling at the birth store): the item registry + the core schemas — register_run's manifest (RUN-{####}, frozen), the opaque (id, label) rows, the operator declaration with its verdict set, the ruled refusals — the root vocabulary every downstream unit cites",
+        "entry_condition": "G-REGISTRY-BRIEF is green — the brief is the spec (the exact-task law); the build fires only after",
+        "increments": [
+          {
+            "id": "build/probe",
+            "owner": "jikko",
+            "gate": "G-REGISTRY",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-REGISTRY-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "togo's registry brief lands at synthesize/registry-brief.md — the exact-task spec for the registry unit: the opaque item rows (id + label), the operator declaration (id + stated question + declared verdict set, default the weak-order triple {prefer-a, prefer-b, tie}), the run manifest (register_run minting RUN-{####}, frozen at registration, quorum k=1 as policy-as-data), and the refusals (<2 items, duplicate ids, schema violations — expected/found/next-action naming the legal set)",
+          "the brief cites its ground: the scope rulings at the prioritree-birth store (Q-granularity R1/R2/R3, Q-solution-space R4/R8, the five-op interface) and synthesize/scope-synthesis.md PART 2/3",
+          "the collaborator approves the brief — the gate is the approval; the brief is the spec (the exact-task law)"
+        ]
+      },
+      "G-REGISTRY": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the registry module lands per the brief — the exact-task law: the brief is the spec",
+          "schema round-trips green: valid records accepted, invalid refused with expected/found/next-action naming the legal set and the store's truth",
+          "duplicate-id refusal verified; the <2-items refusal verified — the empty list and the single item are named refusals, not special rankings",
+          "pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, zero ignores",
+          "kensho's independent re-run green — the read-back is the evidence, not the build's word"
+        ]
+      },
+      "G-PROBE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit probe LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/probe) + mechanism analysis (understand/probe) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"togo's registry brief lands at synthesize/registry-brief.md — the exact-task spec for the registry unit: the opaque item rows (id + label), the operator declaration (id + stated question + declared verdict set, default the weak-order triple {prefer-a, prefer-b, tie}), the run manifest (register_run minting RUN-{####}, frozen at registration, quorum k=1 as policy-as-data), and the refusals (<2 items, duplicate ids, schema violations — expected/found/next-action naming the legal set)\\\", \\\"the brief cites its ground: the scope rulings at the prioritree-birth store (Q-granularity R1/R2/R3, Q-solution-space R4/R8, the five-op interface) and synthesize/scope-synthesis.md PART 2/3\\\", \\\"the collaborator approves the brief — the gate is the approval; the brief is the spec (the exact-task law)\\\"]\", \"gate\": \"G-REGISTRY-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:14:08Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the registry module lands per the brief — the exact-task law: the brief is the spec\\\", \\\"schema round-trips green: valid records accepted, invalid refused with expected/found/next-action naming the legal set and the store's truth\\\", \\\"duplicate-id refusal verified; the <2-items refusal verified — the empty list and the single item are named refusals, not special rankings\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, zero ignores\\\", \\\"kensho's independent re-run green — the read-back is the evidence, not the build's word\\\"]\", \"gate\": \"G-REGISTRY\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:14:14Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route is composed registry-first; no build dispatch fires until its unit's brief gate is green (the precedence law, amendment 19's form at the birth store)\", \"purpose\": \"THE PER-UNIT PIPELINE: each unit's discover → understand → synthesize before its build — discover/understand ride ungated packets; the synthesis is the gated increment here closing its own G-<UNIT>-BRIEF; THE PRECEDENCE: no build unit's dispatch fires until its brief gate is green. THE ROUTE GROWS UNIT-BY-UNIT per the ruled six-unit decomposition (registry first at birth; scheduler, votes, tally, session, acceptance — each unit's pipeline and build increments ride its own composition amendment at its turn)\", \"stage\": \"pipeline\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:14:21Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-REGISTRY-BRIEF is green — the brief is the spec (the exact-task law); the build fires only after\", \"purpose\": \"THE REGISTRY UNIT'S BUILD — the first increment of the six-unit decomposition (Q-granularity's ruling at the birth store): the item registry + the core schemas — register_run's manifest (RUN-{####}, frozen), the opaque (id, label) rows, the operator declaration with its verdict set, the ruled refusals — the root vocabulary every downstream unit cites\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:14:27Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-REGISTRY-BRIEF\", \"increment\": \"synthesize/registry\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:14:39Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-REGISTRY\", \"increment\": \"build/probe\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-PROBE-BRIEF\", \"packets\": [\"discover/probe\", \"understand/probe\"], \"synthesize_increment\": \"synthesize/probe\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:16:17Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "VOIDED — THE PROBE PAIR: build/probe (build stage, owner jikko, gate G-REGISTRY), synthesize/probe (pipeline stage, owner togo), and the auto-minted G-PROBE-BRIEF — retired numbers, never referenced again (GitHub semantics: the records stand, the void names them). The probe was the convenor's one diagnostic call that revealed the engine's pairing model: a build-stage add-increment AUTO-STAMPS the unit's pair (synthesize/<unit> in the pipeline + the auto-minted G-<UNIT>-BRIEF) from the increment id's last segment, and REFUSES when the pipeline counterpart already exists.",
+        "ruled_at": "2026-11-20",
+        "why": "The registry unit's pair (G-REGISTRY-BRIEF + synthesize/registry) was composed manually BEFORE the build add — inverting the engine's order and permanently blocking build/registry (the auto-stamp would duplicate). The probe isolated the derivation (id-segment, not gate) at the cost of three stray records; voiding them keeps the structure honest while preserving the lesson in the ledger."
+      },
+      {
+        "what": "THE COMPOSITION MODEL (ruled at the store's birth): the route grows unit-by-unit per the six-unit decomposition (Q-granularity's ruling at the prioritree-birth store: registry, scheduler, votes, tally, session, acceptance — U1 → {U2, U3} → U4 → U5 → U6). THE REGISTRY UNIT (first) rides the AMEND FLOW — the engine's sanctioned path for its manually-composed pair: synthesize/registry IS the unit's increment (togo, G-REGISTRY-BRIEF — the synthesize leg, current and correct); when the brief gate greens, the build leg advances BY AMENDMENT (amend-increment owner → jikko, gate → G-REGISTRY), and the build work rides packets (the build/registry packet form) with gate outcomes recorded against G-REGISTRY. THE FIVE REMAINING UNITS ride the BUILD-ADD PRIMITIVE (add-increment build/<unit> with the unit's build gate passed via --gate) — the engine auto-stamps each pair whole (synthesize/<unit> + G-<UNIT>-BRIEF); their build gates are minted manually with rich conditions BEFORE their build adds. THE PRECEDENCE HOLDS: no unit's build dispatch fires until its brief gate is green.",
+        "ruled_at": "2026-11-20",
+        "why": "The pairing model learned from the probe (amendment 7) fixes the composition order for every future unit; the registry unit's manual pair (rich gate conditions, correct owners) is kept rather than wasted — the amend flow is the engine's own next-action for exactly this state, and the amendments ledger records the leg advance with full provenance."
+      }
+    ],
+    "stop_conditions": [],
+    "record_layout": ".junro/ (the effort's record home)",
+    "landing_rhythm": "one-commit-per-increment"
+  },
+  "open_questions": []
+}

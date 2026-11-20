@@ -1,0 +1,7 @@
+# close/web-smoke-green — the web tool's live proof, the birth's last datum
+
+**The arc (2026-11-19/20):** the web smoke test's first firing returned RED honestly — `TAVILY_API_KEY not set in environment.`, the wrapper's own designed missing-key error (web.ts:93), proving the call ANSWERED through the registered wrapper while naming the absent config. The cure: the tree's `.envrc` (hikari's own precedent for this exact wrapper class — opencode reads process env fixed at session launch; direnv loads `.env` on shell entry), `direnv allow`, the session relaunched. **The smoke test now succeeded (the collaborator's confirmation, 2026-11-20)** — the search serving through the full chain: the pack grant → the permission map → the registered wrapper → the session env.
+
+**The web tool's three legs, all now proven live:** (1) the grant — tansa/shinko web in the adapter's packs (G-TOOL-GRANTS condition 1); (2) the registration — the wrapper answering (the RED error WAS the proof of this half; the GREEN search the proof whole); (3) the config — the keys riding the session env via direnv (the standing requirement, now standing PROVEN).
+
+**The birth's record closes complete:** three build units, six green gates, five ruled questions, the fifth tree — its own records, its own convening, its own landing instrument, and its own search lane live. The next effort (prioritree-core) opens at the tree's own shinko seat.
