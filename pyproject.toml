@@ -48,6 +48,15 @@ select = ["ALL"]
 # the Error suffix marks the refusal lineage, blurring the type distinction the class carries).
 # cast_vote's seven arguments ARE op 3's ruled signature (the votes.py ruling re-cited).
 "src/prioritree/session.py" = ["N818", "PLR0913", "PLR0917"]
+# RULING (acceptance-brief §2 + §6, G-ACCEPTANCE-BRIEF approved 2026-11-20): S311 — the
+# harness's ONE random.Random(seed) instance is the ruled reproducibility seam — a SEEDED
+# SIMULATION, stdlib-reproducible, private state, the tree's first random import (the
+# simulation's own, seed-pinned), never a cryptographic surface; the rule's crypto intent
+# does not apply to the ruled band. ARG001 — floor_holds's `tied` parameter rides the tests'
+# ruled call form (the five edges pass the record's counts whole; the floor inequality
+# itself needs only P, Q, n0 — brief §3): the parameter is the ruled surface. The ignores
+# ARE the rulings, named.
+"src/prioritree/acceptance.py" = ["S311", "ARG001"]
 
 [tool.ruff.format]
 quote-style = "double"
