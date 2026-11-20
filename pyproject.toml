@@ -43,6 +43,11 @@ select = ["ALL"]
 # approved at the gate). PLR0913/PLR0917 fire on exactly that ruled surface; the ignore IS the
 # ruling, named. It retires only if the interface itself is re-ruled.
 "src/prioritree/votes.py" = ["PLR0913", "PLR0917"]
+# RULING (session-brief §2/§5, G-SESSION-BRIEF approved 2026-11-20): ExhaustedQueue is the DONE
+# signal — a TERMINAL STATE, not an error (the suffix-free name follows StopIteration's grammar;
+# the Error suffix marks the refusal lineage, blurring the type distinction the class carries).
+# cast_vote's seven arguments ARE op 3's ruled signature (the votes.py ruling re-cited).
+"src/prioritree/session.py" = ["N818", "PLR0913", "PLR0917"]
 
 [tool.ruff.format]
 quote-style = "double"

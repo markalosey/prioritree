@@ -98,6 +98,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/session",
+            "owner": "togo",
+            "gate": "G-SESSION-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -164,6 +178,26 @@
             "id": "build/tally",
             "owner": "jikko",
             "gate": "G-TALLY",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "tool": "make dev && make test && make lint && make typecheck at the prioritree root",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/session",
+            "owner": "jikko",
+            "gate": "G-SESSION",
             "revert": "one-increment",
             "steps": [
               {
@@ -257,6 +291,23 @@
         "type": "collaborator-ruling",
         "conditions": [
           "THE BUILD BRIEF for the unit tally LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/tally) + mechanism analysis (understand/tally) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-SESSION": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the session module lands per its approved brief — the exact-task law: the brief is the spec, jikko executes byte-exact, nothing to figure out",
+          "the composition green: the session wires Registry + VoteLedger (the two stores) and composes the five-op public face — register_run (U1's, exposed), next_pair (the count-consult + the DONE signal minted AT U5 WHOLE — the queue from U2, the counts from U3's census, the quorum from U1's manifest; a dedicated signal class distinct from the refusal lineage), cast_vote (U3's, exposed), read_vote_state (U3's, exposed), tally_rank (the composed op: read_manifest + the census's vote_log → tally_votes, returning the frozen TallyResult whole — never re-computed)",
+          "the DONE signal green: the exhausted state — no under-quorum pair remains, keyed off manifest.quorum against the census's per-pair counts AS-IS (the seam-(b) ruling's letter: the census unweighted, the divergence under corrections NAMED and carried, never hidden) — a named typed signal carrying expected/found/next-action in the family grammar, raised never returned, distinguishable from error by TYPE",
+          "the seam's honesty green: the session NEVER computes scores, rankings, or coverage verdicts (U4's alone); the session NEVER re-derives the pair set (U2's cited schedule_pairs); the session is the composition layer — it owns nothing the units own",
+          "pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, the named rulings standing; kensho's independent re-run green — the read-back is the evidence, not the build's word"
+        ]
+      },
+      "G-SESSION-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit session LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/session) + mechanism analysis (understand/session) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
@@ -453,6 +504,22 @@
         "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
         "actor": "shinko",
         "timestamp": "2026-11-20T16:40:47Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the session module lands per its approved brief — the exact-task law: the brief is the spec, jikko executes byte-exact, nothing to figure out\\\", \\\"the composition green: the session wires Registry + VoteLedger (the two stores) and composes the five-op public face — register_run (U1's, exposed), next_pair (the count-consult + the DONE signal minted AT U5 WHOLE — the queue from U2, the counts from U3's census, the quorum from U1's manifest; a dedicated signal class distinct from the refusal lineage), cast_vote (U3's, exposed), read_vote_state (U3's, exposed), tally_rank (the composed op: read_manifest + the census's vote_log → tally_votes, returning the frozen TallyResult whole — never re-computed)\\\", \\\"the DONE signal green: the exhausted state — no under-quorum pair remains, keyed off manifest.quorum against the census's per-pair counts AS-IS (the seam-(b) ruling's letter: the census unweighted, the divergence under corrections NAMED and carried, never hidden) — a named typed signal carrying expected/found/next-action in the family grammar, raised never returned, distinguishable from error by TYPE\\\", \\\"the seam's honesty green: the session NEVER computes scores, rankings, or coverage verdicts (U4's alone); the session NEVER re-derives the pair set (U2's cited schedule_pairs); the session is the composition layer — it owns nothing the units own\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, the named rulings standing; kensho's independent re-run green — the read-back is the evidence, not the build's word\\\"]\", \"gate\": \"G-SESSION\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T19:38:10Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SESSION\", \"increment\": \"build/session\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-SESSION-BRIEF\", \"packets\": [\"discover/session\", \"understand/session\"], \"synthesize_increment\": \"synthesize/session\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"tool\\\": \\\"make dev && make test && make lint && make typecheck at the prioritree root\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T19:38:25Z",
         "op": "add-increment"
       }
     ],
