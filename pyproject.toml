@@ -31,6 +31,12 @@ select = ["ALL"]
 # applies to tests. R1's second limb: the tests' assertions compare against concrete
 # expected values — the literals ARE the specification under test. PLR2004 rides R1.
 "tests/**" = ["S101", "PLR2004"]
+# RULING (scheduler-brief §§2-3, G-SCHEDULER-BRIEF approved 2026-11-20): the seed is the
+# reserved seam parameter — ruled UNUSED by the approved brief's own reservation clause
+# ("UNUSED by the ruled order; carried so the hidden scheduler seam's widening is additive,
+# never rework"). ARG001 fires on exactly that ruled surface; the ignore IS the ruling,
+# named. It retires when U5's next_pair consumes the seed.
+"src/prioritree/scheduler.py" = ["ARG001"]
 
 [tool.ruff.format]
 quote-style = "double"
