@@ -27,6 +27,7 @@ Composes the route to the work: this seat never executes the plan it composes, a
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | route add-gate, route add-increment, route add-question, route add-ruling, route amend-increment, route close-gate, route compose-stage, route record-amendment, route set-checkpoint-ruling, route set-question, route set-route-status |
 | `read` |  |
 | `test` |  |
 

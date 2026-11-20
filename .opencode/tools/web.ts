@@ -1,0 +1,335 @@
+// prioritree-owned (2026-11-19, G-TOOL-GRANTS-BRIEF): composed from hikari's handwritten web.ts verbatim (no channel substitution — in-wrapper fetch, no shell); hand-maintained in prioritree's tree
+import { tool } from "@opencode-ai/plugin"
+
+const OPERATIONS = ["search", "extract", "research", "lookup"] as const
+
+/** Timeout in ms per operation. */
+const TIMEOUTS: Record<string, number> = {
+  search: 30_000,
+  extract: 30_000,
+  research: 300_000,
+  lookup: 30_000,
+}
+
+/** POST with JSON body, timeout via AbortController. Returns parsed JSON or throws. */
+async function apiFetch(
+  url: string,
+  body: Record<string, unknown>,
+  headers: Record<string, string>,
+  timeoutMs: number,
+): Promise<unknown> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...headers },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    })
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => "")
+      if (response.status === 401) {
+        throw new Error(`Authentication failed (HTTP 401). Check your API key.`)
+      }
+      if (response.status === 429) {
+        const retryAfter = response.headers.get("retry-after")
+        const suffix = retryAfter ? ` Retry after ${retryAfter}s.` : ""
+        throw new Error(`Rate limited (HTTP 429).${suffix}`)
+      }
+      throw new Error(`HTTP ${response.status}: ${text.slice(0, 500)}`)
+    }
+
+    return await response.json()
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
+/** GET with timeout via AbortController. Returns parsed JSON or throws. */
+async function apiGet(
+  url: string,
+  headers: Record<string, string>,
+  timeoutMs: number,
+): Promise<unknown> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers,
+      signal: controller.signal,
+    })
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => "")
+      if (response.status === 401) {
+        throw new Error(`Authentication failed (HTTP 401). Check your API key.`)
+      }
+      throw new Error(`HTTP ${response.status}: ${text.slice(0, 500)}`)
+    }
+
+    return await response.json()
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Operation implementations
+// ---------------------------------------------------------------------------
+
+interface TavilySearchResult {
+  title?: string
+  url?: string
+  content?: string
+}
+
+async function handleSearch(query: string): Promise<string> {
+  const apiKey = process.env.TAVILY_API_KEY
+  if (!apiKey) return "Error: TAVILY_API_KEY not set in environment."
+
+  const data = (await apiFetch(
+    "https://api.tavily.com/search",
+    {
+      query,
+      max_results: 5,
+      search_depth: "basic",
+      include_images: false,
+      include_favicon: false,
+      include_raw_content: false,
+    },
+    { Authorization: `Bearer ${apiKey}` },
+    TIMEOUTS.search,
+  )) as { results?: TavilySearchResult[] }
+
+  const results = data.results ?? []
+  if (results.length === 0) return `No results found for: "${query}"`
+
+  const lines: string[] = [`## Results for: "${query}"`, ""]
+  for (let i = 0; i < results.length; i++) {
+    const r = results[i]
+    lines.push(`### ${i + 1}. ${r.title ?? "(no title)"}`)
+    if (r.url) lines.push(`URL: ${r.url}`)
+    if (r.content) lines.push(`> ${r.content}`)
+    lines.push("")
+  }
+
+  return lines.join("\n").trim()
+}
+
+interface TavilyExtractResult {
+  url?: string
+  raw_content?: string
+  failed?: boolean
+  error?: string
+}
+
+async function handleExtract(urlsJson: string): Promise<string> {
+  const apiKey = process.env.TAVILY_API_KEY
+  if (!apiKey) return "Error: TAVILY_API_KEY not set in environment."
+
+  let urls: string[]
+  try {
+    urls = JSON.parse(urlsJson)
+    if (!Array.isArray(urls) || urls.some((u) => typeof u !== "string")) {
+      return "Error: urls must be a JSON array of strings."
+    }
+  } catch {
+    return "Error: Invalid JSON in urls parameter. Expected a JSON array of URL strings."
+  }
+
+  const data = (await apiFetch(
+    "https://api.tavily.com/extract",
+    { urls, extract_depth: "basic" },
+    { Authorization: `Bearer ${apiKey}` },
+    TIMEOUTS.extract,
+  )) as { results?: TavilyExtractResult[]; failed_results?: TavilyExtractResult[] }
+
+  const lines: string[] = []
+
+  const results = data.results ?? []
+  for (const r of results) {
+    lines.push(`## Extracted: ${r.url ?? "(unknown URL)"}`)
+    lines.push("")
+    lines.push(r.raw_content ?? "(no content)")
+    lines.push("")
+    lines.push("---")
+    lines.push("")
+  }
+
+  const failed = data.failed_results ?? []
+  for (const f of failed) {
+    lines.push(`## Failed to extract: ${f.url ?? "(unknown URL)"}`)
+    if (f.error) lines.push(`Reason: ${f.error}`)
+    lines.push("")
+  }
+
+  if (lines.length === 0) return "No content extracted from the provided URLs."
+
+  return lines.join("\n").trim()
+}
+
+async function handleResearch(input: string, model: string): Promise<string> {
+  const apiKey = process.env.TAVILY_API_KEY
+  if (!apiKey) return "Error: TAVILY_API_KEY not set in environment."
+
+  const data = (await apiFetch(
+    "https://api.tavily.com/research",
+    { query: input, model },
+    { Authorization: `Bearer ${apiKey}` },
+    TIMEOUTS.research,
+  )) as { content?: string; results?: unknown }
+
+  // Research API may return content directly or structured results.
+  if (typeof data === "string") return data
+  if (typeof (data as { content?: string }).content === "string") {
+    return (data as { content: string }).content
+  }
+
+  // Fallback: return formatted JSON if structure is unexpected.
+  return `## Research Results\n\n\`\`\`json\n${JSON.stringify(data, null, 2)}\`\`\``
+}
+
+interface Context7SearchResult {
+  id?: string
+  name?: string
+  description?: string
+}
+
+async function handleLookup(libraryId: string, query: string): Promise<string> {
+  const apiKey = process.env.CONTEXT7_API_KEY
+  if (!apiKey) return "Error: CONTEXT7_API_KEY not set in environment."
+
+  const authHeaders = { "X-Context7-Api-Key": apiKey }
+  let resolvedId = libraryId
+
+  // If library_id doesn't look pre-resolved (no leading /), resolve it first.
+  if (!libraryId.startsWith("/")) {
+    const searchParams = new URLSearchParams({
+      libraryName: libraryId,
+      query,
+    })
+    const searchData = (await apiGet(
+      `https://context7.com/api/v2/libs/search?${searchParams}`,
+      authHeaders,
+      TIMEOUTS.lookup,
+    )) as { results?: Context7SearchResult[] }
+
+    const results = searchData.results ?? []
+    if (results.length === 0) {
+      return `Library not found: "${libraryId}". Try a different name.`
+    }
+    resolvedId = results[0].id ?? libraryId
+  }
+
+  // Query documentation.
+  // Context7 context endpoint may return JSON or plain text depending on
+  // the `type` param and server behaviour. Handle both gracefully.
+  const docParams = new URLSearchParams({
+    libraryId: resolvedId,
+    query,
+  })
+  const docUrl = `https://context7.com/api/v2/context?${docParams}`
+
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), TIMEOUTS.lookup)
+  let content: string | undefined
+  try {
+    const resp = await fetch(docUrl, {
+      method: "GET",
+      headers: authHeaders,
+      signal: controller.signal,
+    })
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => "")
+      throw new Error(`HTTP ${resp.status}: ${errText.slice(0, 500)}`)
+    }
+    const ct = resp.headers.get("content-type") ?? ""
+    if (ct.includes("application/json")) {
+      const docData = (await resp.json()) as { content?: string; context?: string }
+      content = docData.content ?? docData.context
+    } else {
+      content = await resp.text()
+    }
+  } finally {
+    clearTimeout(timer)
+  }
+
+  if (!content || !content.trim()) {
+    return `No documentation found for query: "${query}" in library ${resolvedId}.`
+  }
+
+  return `## Documentation: ${resolvedId}\n\n### Query: "${query}"\n\n${content}`
+}
+
+// ---------------------------------------------------------------------------
+// Tool definition
+// ---------------------------------------------------------------------------
+
+export default tool({
+  description:
+    "Web operations — search, extract content, research, and documentation lookup via external APIs",
+  args: {
+    operation: tool.schema
+      .enum(OPERATIONS)
+      .describe("Web operation to perform"),
+    query: tool.schema
+      .string()
+      .optional()
+      .describe("Search query or documentation query (for search, lookup)"),
+    urls: tool.schema
+      .string()
+      .optional()
+      .describe("JSON array of URLs to extract (for extract)"),
+    input: tool.schema
+      .string()
+      .optional()
+      .describe("Research topic description (for research)"),
+    model: tool.schema
+      .string()
+      .optional()
+      .describe("Research model: mini, pro, or auto (for research, default: auto)"),
+    library_id: tool.schema
+      .string()
+      .optional()
+      .describe("Context7 library ID or name (e.g., /vercel/next.js) (for lookup)"),
+  },
+  async execute(args) {
+    const op = args.operation
+
+    try {
+      switch (op) {
+        case "search": {
+          if (!args.query) return "Error: 'query' is required for search."
+          return await handleSearch(args.query)
+        }
+        case "extract": {
+          if (!args.urls) return "Error: 'urls' is required for extract."
+          return await handleExtract(args.urls)
+        }
+        case "research": {
+          if (!args.input) return "Error: 'input' is required for research."
+          return await handleResearch(args.input, args.model ?? "auto")
+        }
+        case "lookup": {
+          if (!args.library_id) return "Error: 'library_id' is required for lookup."
+          if (!args.query) return "Error: 'query' is required for lookup."
+          return await handleLookup(args.library_id, args.query)
+        }
+        default:
+          return `Error: Unknown operation '${op}'.`
+      }
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") {
+        const timeout = TIMEOUTS[op] ?? 30_000
+        return `Error: ${op} timed out after ${timeout / 1000}s.`
+      }
+      const message = err instanceof Error ? err.message : String(err)
+      return `Error: ${message}`
+    }
+  },
+})

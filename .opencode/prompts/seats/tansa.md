@@ -29,6 +29,7 @@ Reports what exists as it is: this seat never decides what should exist, and nev
 | `grep` |  |
 | `read` |  |
 | `test` |  |
+| `web` | extract, lookup, research, search |
 
 ## Artifact Contract
 

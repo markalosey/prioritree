@@ -105,6 +105,32 @@
                 "output": "the friction store born at prioritree's store home (the discovery-confirmed home + birth mechanism) and the live proof recorded: at least one verbatim fixed-five tool call answering at a prioritree seat (Q-tool-registration resolved BEFORE the emission fired)"
               }
             ]
+          },
+          {
+            "id": "tool-grants",
+            "owner": "jikko",
+            "gate": "G-TOOL-GRANTS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "adapter-packs-edit",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "wrapper-additions",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "re-emit-and-checks",
+                "executor": "deterministic",
+                "tool": "uv run python scripts/generation/clarity_scaffold.py --target prioritree (the collaborator's hand) + the three --check legs",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -176,6 +202,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/tool-grants",
+            "owner": "togo",
+            "gate": "G-TOOL-GRANTS-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       }
@@ -221,6 +261,22 @@
         "type": "collaborator-ruling",
         "conditions": [
           "THE BUILD BRIEF for the unit harness LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/harness) + mechanism analysis (understand/harness) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-TOOL-GRANTS": {
+        "type": "deterministic-check",
+        "conditions": [
+          "The grant set landed per the approved brief: every grant in hikari's scripts/generation/sources/prioritree-seats.yaml packs block carrying its earned-baseline citation (the manifest's evidence rows) or the collaborator's ruling; the adapter re-emitted; the three --check legs (--target clarity/input/prioritree) all PASS 24/24",
+          "Every newly granted tool id carries a wrapper at prioritree/.opencode/tools/ (the registration law — no dead grants; keikaku's junro reusing the existing junro.ts; any new wrappers per the brief's recipes)",
+          "The re-emitted opencode.json's permission maps match the new packs — the closed-world deny re-derived, the grants live at their seats, read back at the verification",
+          "The under-delivered keikaku composition lane cured in bytes (Q-harness's ruling lands in the adapter's packs) and kensho's independent verification green over the whole set"
+        ]
+      },
+      "G-TOOL-GRANTS-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit tool-grants LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/tool-grants) + mechanism analysis (understand/tool-grants) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
@@ -389,6 +445,90 @@
         "what": "THE THREE G-HARNESS-BRIEF RULINGS (the collaborator, at the harness unit's mechanism-record close, 2026-11-19 — all three on rikai's recommendations): (1) THE JUNRO GRANT GOES LIVE VIA THE CROSS-PROJECT WRAPPER — junro.ts rides at prioritree/.opencode/tools/ (hikari's wrapper + the uv run --project <hikari> invocation + the explicit-argv channel), the ENGINE stays home at hikari (junro.py's jsonschema + kepric-decomp deps resolve in hikari's env; prioritree's venv stays zero-runtime-deps; the tane live precedent, generate_tools.py:209-220's own recorded form) — prioritree's shinko can record packets at its own tree's future efforts; (2) THE .junro/ ENTRY ROOT-ANCHORS — .junro/ → /.junro/ in the harness unit's already-open .gitignore edit (the FR-MEM-0419 cure's form, one line below the /build/ anchor; future store hearts tracked by default; G-FOUNDATIONS condition 5's words remain literally satisfied); (3) THE CLARITY TREE RESTORES VIA THE EMIT — one collaborator command (uv run python scripts/generation/clarity_scaffold.py from hikari's root) births the tree whole before the sibling-contracts check fires; G-HARNESS condition 2's clarity leg passes unamended; the family record's four-trees claim becomes true again at the byte level. The fate question (renamed? archived? deleted?) remains OPEN for the close unit's five-trees naming ruling — the collaborator's answer rides that lane.",
         "ruled_at": "2026-11-19",
         "why": "The collaborator's three rulings at the harness unit's mechanism-record close (this session, 2026-11-19) — the priced option sets carried in understand/harness.md §4/§6/§7; the recommendations adopted whole; the ruling pass precedes togo's brief so the synthesis carries zero open questions to G-HARNESS-BRIEF."
+      },
+      {
+        "what": "add-question {\"question\": \"Q-problem-space\", \"text\": \"What is the product's (the core library's) Problem Space in solution-neutral terms — the core state transition (input → output), the input entropy (noise, edge cases, ambiguity), the hard environmental constraints and irreversible failure modes, and the exact binary terminal states (\\\"done\\\" vs. \\\"safe halt\\\")? Ground: Q-purpose's ruling — generalized prioritization; pairwise permutations of a list under a comparison operator; votes stored; tally a pure function of the stored votes; human and LLM comparators through one vote interface. Opened at the collaborator's instruction (the systems-engineering walkthrough, step 1).\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T22:59:20Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-granularity\", \"text\": \"Where is the product's Problem Space too broad or tightly coupled, and how is it fenced and decomposed into atomic, verifiable units of work? Ground: Q-setup-arch's ruled layering — the src/prioritree pure-logic core first (items, comparison operator, pair scheduling, votes, tally), then CLI, then FastAPI service, then web app — and the birth route's own per-unit pipeline pattern (discover → understand → synthesize → build, one gate per unit). Opened at the collaborator's instruction (the systems-engineering walkthrough, step 2).\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T22:59:26Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-solution-space\", \"text\": \"What is the bounded Solution Space — what requires stochastic LLM judgment (candidate generation/classification) versus what must be enforced by deterministic code (validation gates, schemas, ground-truth lookups, idempotent actuators), and what is the narrowest possible tool interface (degrees of freedom) required to solve P without introducing unintended side effects? Ground: the tally is a pure function of the stored votes (Q-purpose); pure logic, no DB at birth (Q-setup-arch); the harness's own tool patterns as precedent (schema-validated writes, append-only records, find-before-create refusals, expected/found/next-action). Opened at the collaborator's instruction (the systems-engineering walkthrough, step 3).\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T22:59:32Z",
+        "op": "add-question"
+      },
+      {
+        "what": "THE TOOL-GRANTS LANE (the collaborator's ruling, 2026-11-19, verbatim): \"We already have issues we need to solve. We do not have the tools we need to build the system properly. no web search for discover. etc... we need to have a proper assessment of the tools needed and provide them. We know what earned as a baseline.\" — THE RESPONSE: a third build unit, build/tool-grants, composed on the route under G-TOOL-GRANTS, carrying the per-each pipeline (the assessment census → the pricing → the brief → the collaborator's grant-set ruling at G-TOOL-GRANTS-BRIEF → the adapter+wrapper build → kensho's verification). The assessment's ground: the family's EARNED BASELINE (hikari's kumi-manifest evidence rows + the current packs — the floor), the product build's per-seat needs (prior-art discovery at tansa; write-then-validate at jikko; route composition at keikaku — Q-harness's own composition-lane ruling UNDER-DELIVERED by the landed adapter; records/store-birth landings at shinko), the wrapper-per-grant registration law (every granted id needs a wrapper at the derived tree), and the sibling derived-tree forms. THE CLOSE UNIT'S SYNTHESIS HELD (BLOCKED on the ledger): togo's drafts carried a fabricated discovery-ground section (three product questions + five scope packets not on any record — the FR-MEM-0182 generative class), caught at shinko's read-back before landing (close/birth-records-review.md); the corrected re-dispatch rides after the tool-grants brief gate so the close's records name the true state.",
+        "ruled_at": "2026-11-19",
+        "why": "The collaborator's ruling at the harness increment's landing (this session, 2026-11-19) — the tool-needs assessment and provision, the earned baseline as the floor; recorded same-turn with the unit composition that follows."
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"The grant set landed per the approved brief: every grant in hikari's scripts/generation/sources/prioritree-seats.yaml packs block carrying its earned-baseline citation (the manifest's evidence rows) or the collaborator's ruling; the adapter re-emitted; the three --check legs (--target clarity/input/prioritree) all PASS 24/24\\\", \\\"Every newly granted tool id carries a wrapper at prioritree/.opencode/tools/ (the registration law — no dead grants; keikaku's junro reusing the existing junro.ts; any new wrappers per the brief's recipes)\\\", \\\"The re-emitted opencode.json's permission maps match the new packs — the closed-world deny re-derived, the grants live at their seats, read back at the verification\\\", \\\"The under-delivered keikaku composition lane cured in bytes (Q-harness's ruling lands in the adapter's packs) and kensho's independent verification green over the whole set\\\"]\", \"gate\": \"G-TOOL-GRANTS\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T23:14:45Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-TOOL-GRANTS\", \"increment\": \"tool-grants\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-TOOL-GRANTS-BRIEF\", \"packets\": [\"discover/tool-grants\", \"understand/tool-grants\"], \"synthesize_increment\": \"synthesize/tool-grants\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"adapter-packs-edit\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"wrapper-additions\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"re-emit-and-checks\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"uv run python scripts/generation/clarity_scaffold.py --target prioritree (the collaborator's hand) + the three --check legs\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T23:15:00Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "THE WEB STOPGAP (the collaborator's hand, 2026-11-19): a manual permission edit at prioritree/opencode.json — web/webfetch set allow for the discover lane's use NOW (the collaborator: \"so they are trying to use those tools now\"), the ruled form to OVERWRITE at the tool-grants unit's re-emit (\"We will overwrite when we regenerate the tool pack/permissions for prioritree\"). THE ACCEPTED-DRIFT STATE, named: the on-disk opencode.json now diverges from the adapter's derived form — the rot detector's --check will FAIL until the re-emit; that is the stopgap's accepted cost, never a defect; the re-emit overwrites it with the ruled pack form. THE MEASURED LOCATION (shinko's seat read, named honestly for the collaborator's eye): the allow sits at TOGO's block (opencode.json:466-467); tansa still denies both (:432-433) — the collaborator's statement named tansa; if the blocked sessions are tansa's, one editor move re-aims the stopgap (togo :466-467 → deny; tansa :432-433 → allow); the re-emit resolves either way — the grant-set ruling lands tansa web [search, extract, research, lookup] as a ruled pack row per the earned baseline (the hikari grant, 258 lineage calls, kumi-manifest.yaml:177/:481), and the overwrite replaces the stopgap whole.",
+        "ruled_at": "2026-11-19",
+        "why": "The collaborator's stopgap ruling at the tool-grants census's close (this session, 2026-11-19) — the hand-edit, its accepted drift, and the overwrite plan recorded same-turn; the seat-level read-back naming the true on-disk location before the unit's overwrite lands."
+      },
+      {
+        "what": "add-question {\"question\": \"Q-frontend-stack\", \"text\": \"What frontend stack and generation discipline does the web tier carry (the human comparator's vote surface, per Q-setup-arch's ruled layering)? Opened at the collaborator's development ground rules, 2026-11-19.\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T23:22:57Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-frontend-stack\", \"ruling\": \"FRONTEND STACK (collaborator ruling 2026-11-19, the development ground rules, stated twice for emphasis): HTMX carries UX-to-backend; Shoelace via CDN supplies the UX component chrome; Web Components with separation-of-concerns architecture; ALL frontend things are generated from Python — including the entire Web Components surface; Jinja2 templating always; generated from structure. THE RULED ECHO: this is the harness's own content-in-configuration law (content lives in data; code renders) applied to the web tier — structure is the source of truth, Python generates from it, Jinja2 renders, HTMX wires interactions to the backend, Shoelace carries presentation, Web Components enforce the separation of concerns. Consequence: the web surface regenerates from its source structure (the never-hand-edit-cycle-generated-files law inherited at the tier); hand-authored frontend artifacts are out of grammar. Rides Q-setup-arch's ruled web-app tier (the human comparator's vote surface), which opens on the core library's public-face gate, not before.\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T23:23:04Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "set-question {\"question\": \"Q-frontend-stack\", \"resolution\": \"Ruled: HTMX (UX-to-backend), Shoelace via CDN (UX components), Web Components + separation of concerns; the ENTIRE frontend — the web components surface included — is generated from Python; Jinja2 templating always; generated from structure. The web tier is content-in-configuration applied: structure is the source, code renders, generated surfaces are never hand-edited.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-19",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-19T23:23:09Z",
+        "op": "set-question"
+      },
+      {
+        "what": "THE DISPATCH DOCTRINE (collaborator directive, 2026-11-19, given twice for its second half): dispatch tasks with SMALL SURFACES to ensure high-quality outcomes; FAIL FAST. A dispatched task that cannot proceed — missing capability, blocked dependency, unverifiable ground — stops and reports the block immediately; silent workarounds are forbidden (FR-MEM-0002's lesson: tansa's honest corpus-only label was the correct fail-fast behavior, not a quiet substitute). Applied live from this amendment: the prior-art web-validation rides two small-surface discover dispatches (one claim cluster each), each refusing fast if the web tools are absent.",
+        "ruled_at": "2026-11-19",
+        "why": "Small judgment surfaces are verifiable surfaces; fast failure surfaces gaps while they are cheap. The doctrine governs every dispatch on this route from this date."
+      },
+      {
+        "what": "THE G-TOOL-GRANTS-BRIEF RULING PASS (the collaborator, 2026-11-19, five rulings over the priced set): (1) THE GRANT SET — LAND ROWS #1-#5: keikaku junro (the mandated cure — the 11 route ops, the composition lane); tansa web [search, extract, research, lookup] (258 calls, the ruling's own named gap); jikko lint [check, typecheck] (4,412 calls, the best-evidenced row, the WHOLE-TREE op set — ruling 2); shinko patch [] (the records write-side); shinko web [search, extract, research, lookup] (the facilitator's lane). HELD AT BASELINE: rikai web (unearned — the tansa-fetches/rikai-consumes division holds); kensho lint (hikari's own earning ledger denies it). (2) THE LINT OP-SET — WHOLE-TREE: [check, typecheck] over the existing Makefile targets; zero new targets; the per-file form named with its cost, re-open at the scale trigger. (3) THE TOGO DISPOSITION — TANSA LANDS, TOGO REVERTS: the stopgap was aimed at tansa; the re-emit lands tansa's evidence-backed row and togo's block reverts to deny (web AND webfetch); the drift cures whole; the webfetch builtin dies everywhere (the custom web tool's extract op the ruled channel — named, never a defect). (4) THE GIT LANDING RULE — GRANTED, THE OPS ACCOUNTED FOR THE WORKTREE-LESS TREE (the collaborator, verbatim: \"Prioritree doesn't use worktrees, we need to account for that in the ops we give it for git.\"): git: [sync, drift, land, discard, move] at shinko — the cross-project wrapper (the engine stays home at hikari); UNSHROUD NOT CARRIED (inert — no skip-worktree bits exist; the derived-view shape gitignores, never shrouds); the per-op accounting carried (sync = push + tracked-ref verify; drift = read-only comparison; land = the single-tree landing — add-all + trailer-commit + push, the hook firing on every landing; discard = main-seat named-paths restore, the named-paths-only law scoping it; move = works as-is); the never-edit-main law's LETTER cannot carry at a worktree-less tree (there are no worktree seats — land's commit legs run in the main checkout by necessity) — the SPIRIT carries whole (per-leg exit codes as data, R-9's never-march-on, tracked-ref-only success, the false-claim kill); the unit's own commits ride the standing hands, the instrument serves from the next landing. (5) THE WEB SEAT SET — tansa + shinko (carried in ruling 1); rikai no; the env-key standing config requirement carried (TAVILY_API_KEY + CONTEXT7_API_KEY ride the session env — no .env loader, honest missing-key errors).",
+        "ruled_at": "2026-11-19",
+        "why": "The collaborator's five rulings at G-TOOL-GRANTS-BRIEF (this session, 2026-11-19) — the priced option sets carried in understand/tool-grants.md §7; the recommendations adopted with the git ruling as the collaborator's own directive (the worktree-less op accounting); recorded same-turn so togo's synthesis carries zero open questions."
       }
     ],
     "stop_conditions": [],
@@ -453,6 +593,34 @@
         }
       ],
       "resolution": "Pyright. The foundations unit carries pyright from the start (the ruled type-check config in build/foundations' tooling-floor step); the family pre-commit hook template's pyright 0/0/0 check aligns natively; the open typechecker question at G-HARNESS-BRIEF closes before it opens."
+    },
+    {
+      "id": "Q-problem-space",
+      "question": "What is the product's (the core library's) Problem Space in solution-neutral terms — the core state transition (input → output), the input entropy (noise, edge cases, ambiguity), the hard environmental constraints and irreversible failure modes, and the exact binary terminal states (\"done\" vs. \"safe halt\")? Ground: Q-purpose's ruling — generalized prioritization; pairwise permutations of a list under a comparison operator; votes stored; tally a pure function of the stored votes; human and LLM comparators through one vote interface. Opened at the collaborator's instruction (the systems-engineering walkthrough, step 1).",
+      "status": "open"
+    },
+    {
+      "id": "Q-granularity",
+      "question": "Where is the product's Problem Space too broad or tightly coupled, and how is it fenced and decomposed into atomic, verifiable units of work? Ground: Q-setup-arch's ruled layering — the src/prioritree pure-logic core first (items, comparison operator, pair scheduling, votes, tally), then CLI, then FastAPI service, then web app — and the birth route's own per-unit pipeline pattern (discover → understand → synthesize → build, one gate per unit). Opened at the collaborator's instruction (the systems-engineering walkthrough, step 2).",
+      "status": "open"
+    },
+    {
+      "id": "Q-solution-space",
+      "question": "What is the bounded Solution Space — what requires stochastic LLM judgment (candidate generation/classification) versus what must be enforced by deterministic code (validation gates, schemas, ground-truth lookups, idempotent actuators), and what is the narrowest possible tool interface (degrees of freedom) required to solve P without introducing unintended side effects? Ground: the tally is a pure function of the stored votes (Q-purpose); pure logic, no DB at birth (Q-setup-arch); the harness's own tool patterns as precedent (schema-validated writes, append-only records, find-before-create refusals, expected/found/next-action). Opened at the collaborator's instruction (the systems-engineering walkthrough, step 3).",
+      "status": "open"
+    },
+    {
+      "id": "Q-frontend-stack",
+      "question": "What frontend stack and generation discipline does the web tier carry (the human comparator's vote surface, per Q-setup-arch's ruled layering)? Opened at the collaborator's development ground rules, 2026-11-19.",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "FRONTEND STACK (collaborator ruling 2026-11-19, the development ground rules, stated twice for emphasis): HTMX carries UX-to-backend; Shoelace via CDN supplies the UX component chrome; Web Components with separation-of-concerns architecture; ALL frontend things are generated from Python — including the entire Web Components surface; Jinja2 templating always; generated from structure. THE RULED ECHO: this is the harness's own content-in-configuration law (content lives in data; code renders) applied to the web tier — structure is the source of truth, Python generates from it, Jinja2 renders, HTMX wires interactions to the backend, Shoelace carries presentation, Web Components enforce the separation of concerns. Consequence: the web surface regenerates from its source structure (the never-hand-edit-cycle-generated-files law inherited at the tier); hand-authored frontend artifacts are out of grammar. Rides Q-setup-arch's ruled web-app tier (the human comparator's vote surface), which opens on the core library's public-face gate, not before.",
+          "ruled_at": "2026-11-19",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "Ruled: HTMX (UX-to-backend), Shoelace via CDN (UX components), Web Components + separation of concerns; the ENTIRE frontend — the web components surface included — is generated from Python; Jinja2 templating always; generated from structure. The web tier is content-in-configuration applied: structure is the source, code renders, generated surfaces are never hand-edited."
     }
   ]
 }

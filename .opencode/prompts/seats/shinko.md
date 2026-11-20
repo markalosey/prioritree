@@ -25,9 +25,12 @@ Serves the loop and never plays: this seat convenes, dispatches, records, and co
 | Tool | Ops |
 |------|-----|
 | `friction` |  |
+| `git` | discard, drift, land, move, sync |
 | `junro` |  |
+| `patch` |  |
 | `question` |  |
 | `task` |  |
+| `web` | extract, lookup, research, search |
 
 ## Artifact Contract
 
