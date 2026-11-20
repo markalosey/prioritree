@@ -208,7 +208,7 @@
         "grep": "allow",
         "invalid": "deny",
         "junro": "deny",
-        "lint": "deny",
+        "lint": "allow",
         "lsp": "deny",
         "patch": "deny",
         "plan": "deny",

@@ -590,6 +590,11 @@
         "actor": "shinko",
         "timestamp": "2026-11-20T02:02:41Z",
         "op": "set-question"
+      },
+      {
+        "what": "THE KENSHO LINT GRANT (the collaborator's ruling, 2026-11-20 — \"prioritree kensho need lint and typecheck tools\"): kensho's adapter pack gains lint: [check, typecheck] — SUPERSEDING the tool-grants unit's foreclose (amendment 33's ruling 1 held kensho lint at baseline; this ruling is the ruling party's own override, recorded as the dated supersede). THE GROUNDS, carried: (1) hikari's own evidence row — lint CONFIRMED (598) at kensho, kumi-manifest.yaml:301 — the foreclose was the earning ledger's choice, not the evidence's; (2) prioritree's context — no Docker, no shell: the lint tool's [check, typecheck] ops (make lint / make typecheck) are the seat's ONLY way to independently fire the quality gates at its verifications, and prioritree-core's gates demand kensho's independent re-runs (the second-eyes principle at the run tier — the verifier re-runs the chains itself); (3) the second-eyes discipline is preserved, not violated: the author's seat holds the instrument for WRITE-THEN-VALIDATE; the verifier's seat holds it for INDEPENDENT RE-RUN — two different acts, one tool, and the family bar (zero-and-zero) is the shared spine. THE LANDED FORM: kensho moves from *read_pack to the merge form with the lint row + this ruling's citation; the re-emit lands kensho lint allow in the permission map and the lint row in kensho.md's pack table; the wrapper (lint.ts) and the universe entry exist since the tool-grants unit — zero new files, zero universe changes, the siblings' emissions untouched (their checks stay green; only prioritree re-emits). The live proof rides prioritree-core's first gate, where kensho fires the tool in verification — the proof by use.",
+        "ruled_at": "2026-11-20",
+        "why": "The collaborator's ruling at the birth's close (2026-11-20) — the verifier's quality instruments for prioritree's worktree-less tree; the supersede of the tool-grants foreclose recorded same-turn, the landing follows."
       }
     ],
     "stop_conditions": [],

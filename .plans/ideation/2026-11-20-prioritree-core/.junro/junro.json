@@ -31,8 +31,8 @@
         "increments": [
           {
             "id": "synthesize/registry",
-            "owner": "togo",
-            "gate": "G-REGISTRY-BRIEF",
+            "owner": "jikko",
+            "gate": "G-REGISTRY",
             "revert": "one-increment",
             "steps": [
               {
@@ -168,11 +168,90 @@
         "what": "THE COMPOSITION MODEL (ruled at the store's birth): the route grows unit-by-unit per the six-unit decomposition (Q-granularity's ruling at the prioritree-birth store: registry, scheduler, votes, tally, session, acceptance — U1 → {U2, U3} → U4 → U5 → U6). THE REGISTRY UNIT (first) rides the AMEND FLOW — the engine's sanctioned path for its manually-composed pair: synthesize/registry IS the unit's increment (togo, G-REGISTRY-BRIEF — the synthesize leg, current and correct); when the brief gate greens, the build leg advances BY AMENDMENT (amend-increment owner → jikko, gate → G-REGISTRY), and the build work rides packets (the build/registry packet form) with gate outcomes recorded against G-REGISTRY. THE FIVE REMAINING UNITS ride the BUILD-ADD PRIMITIVE (add-increment build/<unit> with the unit's build gate passed via --gate) — the engine auto-stamps each pair whole (synthesize/<unit> + G-<UNIT>-BRIEF); their build gates are minted manually with rich conditions BEFORE their build adds. THE PRECEDENCE HOLDS: no unit's build dispatch fires until its brief gate is green.",
         "ruled_at": "2026-11-20",
         "why": "The pairing model learned from the probe (amendment 7) fixes the composition order for every future unit; the registry unit's manual pair (rich gate conditions, correct owners) is kept rather than wasted — the amend flow is the engine's own next-action for exactly this state, and the amendments ledger records the leg advance with full provenance."
+      },
+      {
+        "what": "add-question {\"question\": \"Q-mcp-surface\", \"text\": \"What does prioritree's MCP surface use when the product reaches its MCP tier — the exposure of the core library (the five-op interface) as agent-callable MCP tools? Opened at the collaborator's directive, 2026-11-20: the decision is banked now, ruled for when the tier arrives.\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:46:19Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-mcp-surface\", \"ruling\": \"MCP SURFACE (collaborator ruling, 2026-11-20, banked for the tier's arrival): when prioritree reaches its MCP surface — the agent-callable exposure of the core library's five-op interface — the implementation uses OunceMCP (https://subbusainath.github.io/ouncemcp/). THE EVIDENCE (web-extracted 2026-11-20): OunceMCP is a Python framework built on FastMCP — \\\"small tool definitions, results that fit the context window, writes that never happen twice, and security that holds when the model is wrong.\\\" Every tool definition and result is measured in tokens against a set budget (the ouncemcp check lint); results over budget are trimmed and stay schema-valid; SAFE WRITES: approvals ask a person before anything changes, idempotent writes are replayed never repeated; SECURITY BY DEFAULT: identity from the verified token, policies hide and refuse tools, cursors and handles bound to the caller; large catalogs switch discovery to three small search tools above the startup budget; proof tooling: task suites, a benchmark harness, a trace viewer. THE FIT (the resonance, recorded): the framework's built-ins implement the product's own ruled disciplines — idempotent writes replayed-never-repeated is R9's loud idempotent dedup; token-budgeted small tool definitions is the narrow-interface doctrine (Ashby: the budget IS the variety bar); approvals-before-changes and caller-bound handles harden the write path where the design spends its strictness. THE SCOPE: the core library stays zero-dep pure logic (the ruled data plane); OunceMCP rides the MCP tier's wrapper, exactly as the CLI wraps, FastAPI serves, and the web fronts — the five ops land as its tools. The tier's own effort (composition, gates, the exposure's shape) composes when the service era arrives; this ruling is the banked tooling decision, not the tier's composition.\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:46:32Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "set-question {\"question\": \"Q-mcp-surface\", \"resolution\": \"Ruled and banked (collaborator, 2026-11-20): the MCP surface uses OunceMCP (subbusainath.github.io/ouncemcp/ — a Python framework on FastMCP: token-budgeted tool definitions and results, idempotent writes replayed never repeated, approvals before changes, verified-token identity, caller-bound handles, large-catalog discovery, proof tooling). The core library stays zero-dep; OunceMCP rides the MCP tier's wrapper where the five-op interface lands as tools. The tier's own effort composes when the service era arrives — this is the banked tooling decision, recorded for then.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:46:44Z",
+        "op": "set-question"
+      },
+      {
+        "what": "amend-increment {\"field\": \"owner\", \"increment\": \"synthesize/registry\", \"value\": \"jikko\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:57:36Z",
+        "op": "amend-increment"
+      },
+      {
+        "what": "amend-increment {\"field\": \"gate\", \"increment\": \"synthesize/registry\", \"value\": \"G-REGISTRY\"}",
+        "ruled_at": "2026-11-20",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-20T02:57:43Z",
+        "op": "amend-increment"
+      },
+      {
+        "what": "THE EXECUTION DECOMPOSITION DOCTRINE (collaborator ruling, 2026-11-20): jikko is execute — a dispatched execution leaves NOTHING for jikko to figure out. Execution dispatches decompose to a much greater degree: each step carries its exact target content (THE FENCED-BYTES PRECEDENT — the birth route's own brief form: fenced code blocks landed byte-exact by the build seat), the exact commands, and the exact expected outcomes. The build seat's act is mechanical application + verification, never interpretation: no spec-to-code translation at the execution seat. A fat or ambiguous execution dispatch is FR-MEM-0049's class in the live channel — the empty return at FR-MEM-0010 correlates with exactly this. THE APPLIED FORM: the spec's bytes are composed at the synthesis tier (togo authors the exact file contents as fenced blocks); the execution decomposes per file, per step — land, floor, read-back — each dispatch small, mechanical, unambiguous.",
+        "ruled_at": "2026-11-20",
+        "why": "The build dispatch failed as one large ambiguous act: \"the brief is the spec\" delegated interpretation to the execution seat, which is out of grammar — execution is mechanical. The fenced-bytes precedent (the birth route's §1.1(c) blocks) is the proven form: bytes at the synthesis tier, mechanical application at the build seat."
+      },
+      {
+        "what": "THE SINGLE-GOAL DOCTRINE (collaborator ruling, 2026-11-20): SINGLE-GOAL DISPATCHES ARE BEST PRACTICE — every dispatch, to ANY seat (semantic seats included), carries exactly ONE goal. Multi-goal compositions decompose into one-goal dispatches fired in sequence (or parallel where stateless); the deliberation surface shrinks to a single unambiguous act and quality rises with it. Payload size is NOT deliberation — a dispatch may carry large exact content (the fenced bytes) while remaining one goal; goals are what count. THE APPLIED FORM for the registry build: the execution decomposes to (1) land src/prioritree/registry.py — one goal, the addendum's Deliverable 1, byte-exact via patch + re-read; (2) land tests/test_registry.py — one goal, Deliverable 2; (3) run the floor — one goal, the four make commands with their expected outcomes; (4) the read-back — one goal, both files against the addendum. Each fires as its own dispatch; each returns its own report.",
+        "ruled_at": "2026-11-20",
+        "why": "The collaborator's correction: togo was overloaded too — the three-deliverable authoring dispatch was a multi-goal act. Single-goal dispatches reduce deliberation and achieve high-quality outcomes; the form applies to semantic seats as much as execution seats, prospectively and in the live lane."
+      },
+      {
+        "what": "THE REGISTRY CURE RULINGS (collaborator, 2026-11-20, \"proceed with recommendations\"): (1) N818 — RENAME RegistryRefused → RegistryRefusedError (the zero-ignore cure, adopted over the per-file-ignore alternative): the exception joins the family's Error-suffixed grammar (RefusedError precedent) before any downstream unit cites the name; the brief's §2 symbol name is amended accordingly — the brief's other terms stand. (2) The remaining findings are mechanical authoring cures at togo's hand, adopted as a set: C901 (register_run splits into private validators — the object-typed private validators also cure the four reportUnnecessaryIsInstance findings, the honest form where runtime validation IS the boundary), PLR2004 (the pair-length 2 becomes a named constant), the five reportImplicitStringConcatenation findings (explicit concatenation), tests I001 + COM812 (import order + trailing comma). The loop: togo re-authors each file (single-goal dispatches per amendment 15), the cured bytes land as registry-bytes-v2.md, jikko lands them byte-exact, the floor runs green (13 passed, zero findings, 0/0/0), kensho re-runs independently, G-REGISTRY closes on the evidence.",
+        "ruled_at": "2026-11-20",
+        "why": "The zero-findings bar stands (an ignore is a ruling, never a convenience); the rename is cheapest now, before U2-U6 cite the symbol; the object-typed-private-validator form is the standard pyright-strict cure that keeps runtime validation honest rather than annotation-blind."
+      },
+      {
+        "what": "THE G-REGISTRY CLOSURE RULING (the collaborator, 2026-11-20): G-REGISTRY closes GREEN on the combined evidence — (1) jikko's floor: 13 passed zero warnings, ruff \"All checks passed!\", pyright \"0 errors, 0 warnings, 0 informations\"; (2) the patch harness's riding checks: zero findings rode the final mutations (ruff and pyright both silent at the last applies); (3) kensho's independent re-run: the suite green in a fresh process (13 passed in 0.01s) and the full content read-back — every named item confirmed (the Error-suffixed class, the five object-boundary validators, the mint, the copy-in freeze, the return shape, zero ignores, zero adjacent literals, the cast forms, the cured bad_sets). THE GRANT GAP, HONESTLY RULED: kensho's lint/typecheck legs could not run at kensho's hand (no lint act granted to the kensho pack; FR-MEM-0013) — the gap rides the ledger as the tool-grants lane's follow-up (route lint to kensho at the next hikari regen), and the closure rests on the combined evidence per this ruling, not on a silent assumption. The gate's evidence record: build/registry-verification.md.",
+        "ruled_at": "2026-11-20",
+        "why": "The deterministic evidence is three-way green at independent paths; the single blocked leg is an instrument-grant gap (an environment fact, FR-MEM-0013), not a code fact; holding the gate for the grant would stall the unit on a harness-lane widening with zero bearing on the landed bytes' correctness."
+      },
+      {
+        "what": "THE CURE-EXECUTION DEVIATIONS (shinko's hand applying togo's delta, 2026-11-20 — recorded for the record): (1) L3 and L5 (the verdict-set and read_manifest next_action texts) were converted from togo's single-line verdicts to the bridge form — togo's line-length arithmetic missed the true indentation (both land over 120 chars single-line); the bridges are togo's own pattern. (2) The Unknown-leakage cures (P1-P7) took cast forms — pyright EMPIRICALLY rejects the declared-binding pattern (raw: Sequence[object] = items flags as Sequence[Unknown]); the working form is cast(\"Sequence[object]\", ...) — a typed assertion, never an ignore. (3) The ItemRow branch's label isinstance-check was DELETED (pyright judged it redundant against the dataclass's declared label: str — the typed path is trusted; the untyped paths keep their checks). (4) Three transcription defects at shinko's patch hand, caught and cured same-turn by the strict loop: a context-only patch (junk blanks at 389-390, reverted); a miscounted block-close (an orphaned ), after the duplicates single-line, removed); an indent error in a pre-image (the strict tool refused; refired). The landed files: registry.py 405 lines, test_registry.py 178 lines; the floor's three-way green is the evidence.",
+        "ruled_at": "2026-11-20",
+        "why": "The deviations record keeps the cure execution honest — the delta as authored and the delta as applied differ in three named ways, each empirically forced by the checkers' own behavior; the record is the difference's provenance."
       }
     ],
     "stop_conditions": [],
     "record_layout": ".junro/ (the effort's record home)",
     "landing_rhythm": "one-commit-per-increment"
   },
-  "open_questions": []
+  "open_questions": [
+    {
+      "id": "Q-mcp-surface",
+      "question": "What does prioritree's MCP surface use when the product reaches its MCP tier — the exposure of the core library (the five-op interface) as agent-callable MCP tools? Opened at the collaborator's directive, 2026-11-20: the decision is banked now, ruled for when the tier arrives.",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "MCP SURFACE (collaborator ruling, 2026-11-20, banked for the tier's arrival): when prioritree reaches its MCP surface — the agent-callable exposure of the core library's five-op interface — the implementation uses OunceMCP (https://subbusainath.github.io/ouncemcp/). THE EVIDENCE (web-extracted 2026-11-20): OunceMCP is a Python framework built on FastMCP — \"small tool definitions, results that fit the context window, writes that never happen twice, and security that holds when the model is wrong.\" Every tool definition and result is measured in tokens against a set budget (the ouncemcp check lint); results over budget are trimmed and stay schema-valid; SAFE WRITES: approvals ask a person before anything changes, idempotent writes are replayed never repeated; SECURITY BY DEFAULT: identity from the verified token, policies hide and refuse tools, cursors and handles bound to the caller; large catalogs switch discovery to three small search tools above the startup budget; proof tooling: task suites, a benchmark harness, a trace viewer. THE FIT (the resonance, recorded): the framework's built-ins implement the product's own ruled disciplines — idempotent writes replayed-never-repeated is R9's loud idempotent dedup; token-budgeted small tool definitions is the narrow-interface doctrine (Ashby: the budget IS the variety bar); approvals-before-changes and caller-bound handles harden the write path where the design spends its strictness. THE SCOPE: the core library stays zero-dep pure logic (the ruled data plane); OunceMCP rides the MCP tier's wrapper, exactly as the CLI wraps, FastAPI serves, and the web fronts — the five ops land as its tools. The tier's own effort (composition, gates, the exposure's shape) composes when the service era arrives; this ruling is the banked tooling decision, not the tier's composition.",
+          "ruled_at": "2026-11-20",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "Ruled and banked (collaborator, 2026-11-20): the MCP surface uses OunceMCP (subbusainath.github.io/ouncemcp/ — a Python framework on FastMCP: token-budgeted tool definitions and results, idempotent writes replayed never repeated, approvals before changes, verified-token identity, caller-bound handles, large-catalog discovery, proof tooling). The core library stays zero-dep; OunceMCP rides the MCP tier's wrapper where the five-op interface lands as tools. The tier's own effort composes when the service era arrives — this is the banked tooling decision, recorded for then."
+    }
+  ]
 }

@@ -27,6 +27,7 @@ Runs the artifact and reports the run: this seat never builds what it verifies, 
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `lint` | check, typecheck |
 | `read` |  |
 | `test` |  |
 
