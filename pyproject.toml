@@ -37,6 +37,12 @@ select = ["ALL"]
 # never rework"). ARG001 fires on exactly that ruled surface; the ignore IS the ruling,
 # named. It retires when U5's next_pair consumes the seed.
 "src/prioritree/scheduler.py" = ["ARG001"]
+# RULING (votes-brief §3, G-VOTES-BRIEF approved 2026-11-20): cast_vote's seven arguments ARE
+# op 3's ruled signature — scope-synthesis PART 3 §3.2's verbatim spec (run_id, pair, winner,
+# comparator_id, comparator_class, notes?, supersedes? — the five-op interface's own letter,
+# approved at the gate). PLR0913/PLR0917 fire on exactly that ruled surface; the ignore IS the
+# ruling, named. It retires only if the interface itself is re-ruled.
+"src/prioritree/votes.py" = ["PLR0913", "PLR0917"]
 
 [tool.ruff.format]
 quote-style = "double"
