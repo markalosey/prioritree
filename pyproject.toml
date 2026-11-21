@@ -10,6 +10,9 @@ dependencies = []
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[project.scripts]
+prioritree = "prioritree.cli:command"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/prioritree"]
 
@@ -64,6 +67,15 @@ select = ["ALL"]
 # the wrapper tier, Q-cli-shape's own 1:1 mapping). PLR0913/PLR0917 fire on exactly that
 # ruled surface; the ignore IS the ruling, named.
 "src/prioritree/run_store.py" = ["PLR0913", "PLR0917"]
+
+# RULING (command-face-brief §3 + Q-cli-io, G-COMMAND-FACE-BRIEF approved 2026-11-21): T201 —
+# print IS the command face's ruled instrument (the report language's two render points,
+# _report/_report_error — every stdout/stderr byte rides them; the DONE message and the
+# refusal pass-through included); the rule's logging-library intent does not apply to a
+# CLI's own report channel. BLE001 — the blind `except Exception` IS Q-cli-io's ruled
+# unexpected channel (exit 2, the traceback verbatim; SystemExit propagates untouched —
+# BaseException, argparse's own channel). The ignores ARE the rulings, named.
+"src/prioritree/cli.py" = ["T201", "BLE001"]
 
 [tool.ruff.format]
 quote-style = "double"
