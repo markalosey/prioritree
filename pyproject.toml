@@ -77,6 +77,13 @@ select = ["ALL"]
 # BaseException, argparse's own channel). The ignores ARE the rulings, named.
 "src/prioritree/cli.py" = ["T201", "BLE001"]
 
+# RULING (cli-acceptance-brief §4, G-CLI-ACCEPTANCE-BRIEF approved 2026-11-21): S603 — the harness's
+# subprocess.run IS the no-shell law's own form (fixed-argv lists composed from the test's own constants;
+# the untrusted-input intent never rides a deterministic e2e harness — the arcs drive the tree's own
+# console script). S607 — the partial-path executable finding, dodged by the full-path form but named
+# for the ruling's stability. Scoped to the one file that subprocesses; the ignores ARE the rulings, named.
+"tests/test_harness.py" = ["S603", "S607"]
+
 [tool.ruff.format]
 quote-style = "double"
 
