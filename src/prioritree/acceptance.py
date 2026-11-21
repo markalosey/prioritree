@@ -196,7 +196,7 @@ def accept_measure(
     return (concordant, discordant, tied)
 
 
-def accept_run(item_count: int, noise_rate: float, seed: int) -> AcceptanceRecord:
+def accept_run(item_count: int, noise_rate: float, seed: int, quorum: int = ACCEPTANCE_QUORUM) -> AcceptanceRecord:
     """Run one simulation — the seed-deterministic harness through Session's five ops.
 
     Purpose: (1) ONE random.Random(seed) instance per run — private state,
@@ -209,8 +209,9 @@ def accept_run(item_count: int, noise_rate: float, seed: int) -> AcceptanceRecor
     id tie-break would correlate with truth and inflate tau on every
     noise-induced score tie — the decoupling is load-bearing); (3) the
     items as opaque (id, label) rows — the truth harness-local data,
-    NEVER registered as such; (4) register_run at the ruled quorum
-    k=ACCEPTANCE_QUORUM — 3, THREE named comparators per pair (the k=1
+    NEVER registered as such; (4) register_run at the ruled quorum —
+    the quorum parameter's value (default ACCEPTANCE_QUORUM — 3),
+    THREE named comparators per pair (the k=1
     single-judgment baseline measured 8 of 27 in-band cells sub-floor,
     min tau 0.4714; the quorum the tally's own aggregation implies; the
     k=1 table recorded, never erased); (5) the loop: next_pair (the pair
@@ -226,7 +227,7 @@ def accept_run(item_count: int, noise_rate: float, seed: int) -> AcceptanceRecor
     Refuses when: the honesty guard fails — the drawn latent order equals
     the id-sorted order — raising ValueError naming the seed; the core's
     own refusals ride through by type, never swallowed.
-    Re-run: seed-deterministic — the same (item_count, noise_rate, seed)
+    Re-run: seed-deterministic — the same (item_count, noise_rate, seed, quorum)
     yields byte-identical latent order, verdict sequence, TallyResult and
     counts across replays (the clock-free surface; the wall-clock stamps
     named and excluded by construction).
@@ -246,7 +247,7 @@ def accept_run(item_count: int, noise_rate: float, seed: int) -> AcceptanceRecor
     run_id, _manifest, _count = session.register_run(
         items,
         operator=OperatorDeclaration(id="acceptance-op", question="Which is more important?"),
-        quorum=ACCEPTANCE_QUORUM,
+        quorum=quorum,
     )
     verdicts: list[tuple[tuple[str, str], str]] = []
     while True:

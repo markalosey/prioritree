@@ -84,6 +84,12 @@ select = ["ALL"]
 # for the ruling's stability. Scoped to the one file that subprocesses; the ignores ARE the rulings, named.
 "tests/test_harness.py" = ["S603", "S607"]
 
+# RULING (budget-curve-brief §7 + Q-curve-floor, G-BUDGET-CURVE-BRIEF approved 2026-11-21): S311 —
+# the harness's random.Random instances are the ruled reproducibility seam (the seeded simulation,
+# the acceptance.py entry's kin at the same approved-brief citation); ARG001 named per the brief —
+# the call forms decide, the entry listed, the ignore IS the ruling, named.
+"src/prioritree/budget_curve.py" = ["S311", "ARG001"]
+
 [tool.ruff.format]
 quote-style = "double"
 
