@@ -1,0 +1,469 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-service",
+    "title": "Prioritree Service — the second wrapper form: the core's five-op surface served over HTTP (register → next → vote → state → tally), Q-setup-arch's third layer ('the FastAPI service serves it' — the CLI beneath it whole and green, the claim measured beneath both), the service era's design questions ruled at its composition: the runtime-deps table opening, the concurrency question, the wrapper-tier store question",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "the collaborator's ruling at the budget-curve close (2026-11-21: 'proceed' — the staged candidate executed; CONTINUATION.md's WHERE-TO-CONTINUE pointer)",
+      "Q-setup-arch's four-form stack ruling (the pure-logic core, the CLI, the FastAPI service, the web app — 'the FastAPI service serves it'; the birth store's own era-map)",
+      "the core whole and green (route prioritree-core DONE — Session's five-op public API the only door; the measured bar at k=3)",
+      "the CLI whole and green (route prioritree-cli DONE — the run-store's persistence seam, the command face's I/O contract, the e2e arc through the real argv surface)",
+      "THE CLAIM MEASURED (route budget-curve DONE — 51 of 54 cells favor pairs + tally; the README's graduated citation — the service arrives serving a demonstrated comparison)",
+      "the service-era design questions named at the CLI close (the runtime-deps table opening — fastapi/uvicorn the tree's first; the concurrency question — single-writer vs concurrent clients; the wrapper-tier store question — per-request run-store composition or in-memory session state); Q-mcp-surface banked for the tier beyond (OunceMCP, the five ops as its tools, when the service era arrives)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE: each unit's discover → understand → synthesize before its build — discover/understand ride ungated packets (tansa's census, rikai's mechanisms); the synthesis the gated increment (togo, closing its own G-<UNIT>-BRIEF at the collaborator's approval). THE PRECEDENCE: no build dispatch fires until its brief gate is green.",
+        "entry_condition": "the collaborator's ruling at this composition's validation stands (the eight questions ruled, 2026-11-21); no build dispatch fires until its unit's brief gate is green (the precedence law)",
+        "increments": [
+          {
+            "id": "synthesize/service-store",
+            "owner": "togo",
+            "gate": "G-SERVICE-STORE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE SERVICE'S BUILD per the ruled unit decomposition (Q-service-granularity): service-store (the lock seam — the single-writer contract held at the request tier), service-face (the five routes over the frozen door, the deps table opening), service-acceptance (the live-socket e2e bar) — one-commit-per-increment through the tree's own git instrument.",
+        "entry_condition": "each unit's brief gate green in turn — the exact-task law; each unit's build fires only after its own G-<UNIT>-BRIEF",
+        "increments": [
+          {
+            "id": "build/service-store",
+            "owner": "jikko",
+            "gate": "G-SERVICE-STORE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "tool": "make dev && make test && make lint && make typecheck at the prioritree root",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "close",
+        "purpose": "THE BOOKEND — CONTINUATION.md's service entry (the runtime-deps price named honestly — the tree's first; the concurrency ruling named; the units, the gates, the floor at close, the landings), the next candidates staged (the web app — the stack's fourth layer — or the MCP tier, the banked OunceMCP ruling's condition now fired), the done call at the collaborator's ruling.",
+        "entry_condition": "G-SERVICE-STORE, G-SERVICE-FACE, and G-SERVICE-ACCEPTANCE are closed green on the route and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/service-records",
+            "owner": "shinko",
+            "gate": "G-SERVICE-RECORDS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "records-synthesis",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-landing",
+                "member": "shinko",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "done-call",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-SERVICE-STORE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the service-store module lands per its approved brief — the exact-task law: the brief is the spec, jikko executes byte-exact, nothing to figure out",
+          "the single-writer contract HELD at the request tier: every request's WHOLE act — register's scan-mint-write, the load-act-append critical section — rides the one process-wide lock (Q-service-concurrency's ruling); the interleaving property green, falsified in-process with threads: concurrent casts on one run all land, the counts exact, the vote-id mint never doubled, the file never corrupt (the reload's own pre-pass the oracle)",
+          "the fence honest: the seam is service-tier surface composed OVER the run-store — zero edits to run_store.py, zero edits to any core module (the lock-file widening priced out at this tier, banked); pure stdlib + the existing store — zero new deps at this unit",
+          "pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, zero ignores (a new ignore is a ruling at the brief); kensho's independent re-run green — the read-back is the evidence, not the build's word"
+        ]
+      },
+      "G-SERVICE-FACE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the service face lands per its approved brief — the exact-task law",
+          "the five routes map 1:1 onto the five ops through the seam — the frozen door cited, no op added, no op re-derived; the deps table opens per Q-service-deps ([project] dependencies: fastapi + uvicorn[standard] — the tree's FIRST runtime deps; the dev group grows httpx), uv.lock regenerated, the floor re-synced; the core's zero-dep law untouched (the tier fence)",
+          "the status mapping green per the brief: 200 success AND DONE (the exhausted body carrying the signal's three fields — DONE a state, never an error); 201 register; 404 the unknown run (the live set in the body); 422 the value refusals (the door's lineage whole, the three-field grammar verbatim in the body); 409 the SAFE HALT (U4's own signal never swallowed); 400 the request's own grammar; 500 the unexpected; the JSON report shapes ruled (the pair object, the cast/ack object, the census object, the ranking — TallyResult's frozen whole rendered faithfully)",
+          "pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green"
+        ]
+      },
+      "G-SERVICE-ACCEPTANCE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the acceptance harness lands per its approved brief — the exact-task law",
+          "the end-to-end arc green THROUGH THE REAL SOCKET (uvicorn booted per the no-shell law — fixed-argv subprocess lists, never shell strings; httpx the client): register → next → vote × k (the full scheduled queue at the ruled k) → the exhausted turn (200, the done body, the tally pointer) → tally — the seven-request arc's twin, the persistence seam and the lock proven in the arc itself",
+          "the determinism green: the same request sequence on two fresh homes yields byte-identical bodies on kensho's independent run; the refusal arcs verified (the unknown run → 404; the out-of-set verdict → 422, the three fields in the body; the SAFE HALT → 409, 'at quorum' verbatim; the malformed request → 400) — never a partial ranking dressed as whole; the CONCURRENCY arc green: two clients interleaved on one run through the live socket — every cast landed, the counts exact, no lost update",
+          "pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green"
+        ]
+      },
+      "G-SERVICE-RECORDS": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "CONTINUATION.md carries the service entry — the runtime-deps price NAMED (the tree's first, the zero-dep law's per-tier reading priced honestly), the concurrency ruling named (the lock form, the banked alternatives), the units, the gates green, the floor at close, the landings through the tree's own instrument; the README's architecture line carries the service's live status (the status-honesty form)",
+          "the next candidates staged (the web app — the stack's fourth layer, the service's own front — or the MCP tier, the banked OunceMCP ruling's own condition now fired), the ruling left to the collaborator",
+          "the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling"
+        ]
+      },
+      "G-SERVICE-STORE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit service-store LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/service-store) + mechanism analysis (understand/service-store) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-service-deps\", \"text\": \"The runtime-deps table (the era's own price — the tree's FIRST runtime deps land at this tier; the zero-dep law's per-tier reading: the core zero-dep by construction, the CLI zero-dep by stdlib form, the service CANNOT — the framework IS the birth ruling's own word): [PROPOSED: [project] dependencies opens [\\\"fastapi\\\", \\\"uvicorn[standard]\\\"] (unbounded, uv.lock the pin); the dev group grows httpx (the TestClient's own engine + the live-arc client — an instrument, never runtime); the lean alternative (plain uvicorn, the performance extras unpriced) named. REASON: the framework is the birth ruling's own word and uvicorn[standard] its production form; httpx rides the dev group because the instruments are not the product.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:31:34Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-service-concurrency\", \"text\": \"THE LOAD-BEARING ONE — the concurrency question (the CLI's run-store is single-writer BY CONTRACT; concurrent HTTP clients break that contract): [PROPOSED: (a) PER-REQUEST RUN-STORE COMPOSITION under ONE process-wide lock — each request's whole act (load -> act -> write) inside the locked critical section, the CLI's own per-invocation form with the process boundary become a lock boundary; the serialization answered BY CONSTRUCTION (the single-writer contract held); the file the one truth (restart-safe, CLI-interoperable — a run registered at the command line is served over HTTP); (b) in-memory session state REJECTED at this tier (dissolves concurrency but reopens the persistence question + forks the store from the CLI's); (c) the lock-file store widening BANKED (multi-process safety buys nothing under the single-worker launch; the run-store brief's priced-out weight NOT re-entered). REASON: the lock holds the ruled contract BY CONSTRUCTION and costs only a load per request — sub-millisecond at the library's scale.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:31:43Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-service-store\", \"text\": \"The wrapper-tier store question (rides Q-service-concurrency): [PROPOSED: THE RUN-STORE PER REQUEST — no in-memory state, no cache, no warm session at the service tier (the file the sole carrier, the CLI's own law carried; the home a launch config injected at the app's construction — store-as-parameter, never a hidden global); the \\\"both\\\" form (in-memory primary + the file behind it) priced and REJECTED. REASON: in-memory primary state buys latency the scale doesn't need and reopens two-sources-of-truth — the front tier's question (the web app's own state), never the service's.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:31:49Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-service-routes\", \"text\": \"The routes' shape: [PROPOSED: REST 1:1 — POST /runs (201, the run-id in the body), GET /runs/{run_id}/next, POST /runs/{run_id}/votes, GET /runs/{run_id}/state, GET /runs/{run_id}/tally; structured JSON bodies (the wire speaks the wire's native language; the marker+tab stays the CLI's stdout form); the run-id the FILE STEM (the cross-process identity; the in-file handle never crosses the wire); THE STATUS MAPPING: 200 success AND DONE (the exhausted body carrying the signal's three fields — DONE a state, never an error), 201 register, 404 the unknown run (the live set in the body), 422 the value refusals (the three-field grammar verbatim), 409 the SAFE HALT, 400 the request's own grammar, 500 the unexpected — the CLI's one exit-1 SPLIT BY REFUSAL KIND at the wire (the HTTP grammar's own nouns; the wire's consumers dispatch on refusal KIND); the JSON report shapes: the pair object, the cast/ack object, the census object, the ranking (TallyResult's frozen whole rendered faithfully). REASON: the REST form maps 1:1 on the ops with the run the noun and the op the verb; the status split is honest against the 0/1/2 precedent because the wire's own consumers dispatch on refusal kind.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:31:58Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-service-lifecycle\", \"text\": \"The lifecycle + the test instruments: [PROPOSED: uvicorn the server; the module exposes the app (the launch form uvicorn prioritree.service:app — NO uvicorn.run() call in src, the boot the operator's own command); fastapi's TestClient the unit instrument (in-process, the ASGI surface — the face unit's routes exercised without a socket) + the LIVE socket arc at the acceptance unit ALONE (uvicorn booted as a fixed-argv subprocess per the no-shell law, an ephemeral port, httpx the client — the CLI's live-binary precedent carried to the wire tier). REASON: the TestClient exercises the app's contract at speed; only a live socket falsifies the wire itself — the CLI's own split (in-process at the units + the subprocess arc at the acceptance) carried 1:1.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:32:10Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-service-acceptance\", \"text\": \"The acceptance bar: [PROPOSED: YES — the service-acceptance unit, the deterministic e2e through the real socket: (i) the seven-request success arc (register -> next -> vote x k -> the exhausted turn (200, the done body, the tally pointer) -> tally — the persistence seam and the lock proven in the arc itself); (ii) the determinism replay (byte-identical bodies on two fresh homes); (iii) the refusal arcs (404/422/409/400 — never a partial ranking dressed as whole); (iv) THE CONCURRENCY ARC — two clients interleaved on one run through the live socket, every cast landed, the final counts exact. REASON: the service's whole value is the wire seam + the concurrency contract; only an arc through the real socket falsifies both — the in-process instruments cannot see the socket, and the property tests cannot see the interleaving.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:32:18Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-service-granularity\", \"text\": \"The unit granularity: [PROPOSED: THREE units — service-store (the lock seam), service-face (the five routes), service-acceptance (the e2e bar) + the close increment: the three surfaces carry three distinct falsification sets (the interleaving property under the lock, the status-mapping + body contract, the socket-level cross-process arc), each earning its own brief + gate; the routes+store as ONE unit priced and rejected (the lock's property and the routes' mapping fail differently, falsify differently, cure differently — one fat unit re-learns FR-MEM-0049's lesson at the service tier); the acceptance its own unit per the CLI's ruled precedent. REASON: the falsification sets name the decomposition — the sibling's own form (run-store/command-face/cli-acceptance) is the strongest precedent on the tree.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:32:57Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-service-floor\", \"text\": \"The floor: [PROPOSED: the deps land at the FACE unit per the tier fence (the store unit stays stdlib-only — pure threading.Lock + the existing store); uv.lock regenerated at the face unit's floor-green (the first runtime deps' own evidence); the zero-ignore law extended to the new surfaces — B008 dodged BY CONSTRUCTION (the store home injected at the app's construction via app.state, the routes reading request.app.state — Depends avoided, B008 never fires); S104 never firing in-tree (no uvicorn.run in src — the boot the operator's command; a deployment-era widening carries its own ruling); the pyright-strict framework edges cast-typed per the registry school's precedent (typed assertions, never ignores). REASON: the deps land per the tier fence, the lockfile's regeneration the first-deps landing's own evidence, and the named-ruling questions priced now keep the zero-findings bar ahead of the build — the surprises priced, never discovered.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:33:08Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-deps\", \"resolution\": \"[project] dependencies opens [\\\"fastapi\\\", \\\"uvicorn[standard]\\\"] — the tree's FIRST runtime deps, uv.lock the pin; the dev group grows httpx (an instrument, never runtime). The zero-dep law's per-tier reading: the core and CLI held, the service tier carries the framework — the era's own price, named.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:33:19Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-concurrency\", \"resolution\": \"PER-REQUEST RUN-STORE COMPOSITION under ONE process-wide lock: each request's whole act (load -> act -> write) inside the locked critical section; the single-writer contract held BY CONSTRUCTION; the file the one truth (restart-safe, CLI-interoperable). In-memory session state rejected at this tier (reopens persistence + forks the store); the lock-file widening banked (multi-process safety buys nothing under the single-worker launch).\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): the lock seam — the load-bearing design.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:33:29Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-store\", \"resolution\": \"THE RUN-STORE PER REQUEST — no in-memory state, no cache, no warm session at the service tier (the file the sole carrier; the home a launch config injected at the app's construction — store-as-parameter). The \\\"both\\\" form rejected — two-sources-of-truth the front tier's question.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:33:36Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-routes\", \"resolution\": \"REST 1:1 (POST /runs 201; GET /runs/{id}/next; POST /runs/{id}/votes; GET /runs/{id}/state; GET /runs/{id}/tally); structured JSON bodies; the run-id the FILE STEM; the status mapping — 200 success AND DONE (the exhausted body carrying the signal's three fields), 201 register, 404 the unknown run (the live set), 422 the value refusals (the three-field grammar verbatim), 409 the SAFE HALT, 400 the request's grammar, 500 the unexpected — the CLI's one exit-1 SPLIT BY REFUSAL KIND at the wire; the JSON report shapes ruled (the pair/cast-ack/census/ranking objects — TallyResult's frozen whole faithful).\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:33:43Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-lifecycle\", \"resolution\": \"uvicorn the server; the module exposes the app (uvicorn prioritree.service:app the launch form; NO uvicorn.run() in src — the boot the operator's command); fastapi's TestClient the unit instrument + the live socket arc at the acceptance unit alone (uvicorn a fixed-argv subprocess, an ephemeral port, httpx the client).\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:33:49Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-acceptance\", \"resolution\": \"YES — the service-acceptance unit: the deterministic e2e through the real socket (the seven-request success arc; the determinism replay; the refusal arcs 404/422/409/400; THE CONCURRENCY ARC — two clients interleaved on one run, every cast landed, the counts exact — the lock's own proof at the wire).\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:33:56Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-granularity\", \"resolution\": \"THREE units — service-store (the lock seam), service-face (the five routes), service-acceptance (the e2e bar) + the close increment: three surfaces, three falsification sets (the interleaving property, the status/body contract, the socket-level arc), each earning its own brief + gate — the CLI's three-unit precedent carried 1:1.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:34:03Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-service-floor\", \"resolution\": \"The deps land at the FACE unit per the tier fence (the store unit stdlib-only); uv.lock regenerated at the face unit's floor-green; the zero-ignore law extended — B008 dodged by construction (app.state injection, Depends avoided), S104 never firing in-tree (no uvicorn.run in src), the pyright-strict framework edges cast-typed per the registry school.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21).\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:34:11Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the service-store module lands per its approved brief — the exact-task law: the brief is the spec, jikko executes byte-exact, nothing to figure out\\\", \\\"the single-writer contract HELD at the request tier: every request's WHOLE act — register's scan-mint-write, the load-act-append critical section — rides the one process-wide lock (Q-service-concurrency's ruling); the interleaving property green, falsified in-process with threads: concurrent casts on one run all land, the counts exact, the vote-id mint never doubled, the file never corrupt (the reload's own pre-pass the oracle)\\\", \\\"the fence honest: the seam is service-tier surface composed OVER the run-store — zero edits to run_store.py, zero edits to any core module (the lock-file widening priced out at this tier, banked); pure stdlib + the existing store — zero new deps at this unit\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, zero ignores (a new ignore is a ruling at the brief); kensho's independent re-run green — the read-back is the evidence, not the build's word\\\"]\", \"gate\": \"G-SERVICE-STORE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:34:38Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the service face lands per its approved brief — the exact-task law\\\", \\\"the five routes map 1:1 onto the five ops through the seam — the frozen door cited, no op added, no op re-derived; the deps table opens per Q-service-deps ([project] dependencies: fastapi + uvicorn[standard] — the tree's FIRST runtime deps; the dev group grows httpx), uv.lock regenerated, the floor re-synced; the core's zero-dep law untouched (the tier fence)\\\", \\\"the status mapping green per the brief: 200 success AND DONE (the exhausted body carrying the signal's three fields — DONE a state, never an error); 201 register; 404 the unknown run (the live set in the body); 422 the value refusals (the door's lineage whole, the three-field grammar verbatim in the body); 409 the SAFE HALT (U4's own signal never swallowed); 400 the request's own grammar; 500 the unexpected; the JSON report shapes ruled (the pair object, the cast/ack object, the census object, the ranking — TallyResult's frozen whole rendered faithfully)\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green\\\"]\", \"gate\": \"G-SERVICE-FACE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:35:16Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the acceptance harness lands per its approved brief — the exact-task law\\\", \\\"the end-to-end arc green THROUGH THE REAL SOCKET (uvicorn booted per the no-shell law — fixed-argv subprocess lists, never shell strings; httpx the client): register → next → vote × k (the full scheduled queue at the ruled k) → the exhausted turn (200, the done body, the tally pointer) → tally — the seven-request arc's twin, the persistence seam and the lock proven in the arc itself\\\", \\\"the determinism green: the same request sequence on two fresh homes yields byte-identical bodies on kensho's independent run; the refusal arcs verified (the unknown run → 404; the out-of-set verdict → 422, the three fields in the body; the SAFE HALT → 409, 'at quorum' verbatim; the malformed request → 400) — never a partial ranking dressed as whole; the CONCURRENCY arc green: two clients interleaved on one run through the live socket — every cast landed, the counts exact, no lost update\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green\\\"]\", \"gate\": \"G-SERVICE-ACCEPTANCE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:35:24Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"CONTINUATION.md carries the service entry — the runtime-deps price NAMED (the tree's first, the zero-dep law's per-tier reading priced honestly), the concurrency ruling named (the lock form, the banked alternatives), the units, the gates green, the floor at close, the landings through the tree's own instrument; the README's architecture line carries the service's live status (the status-honesty form)\\\", \\\"the next candidates staged (the web app — the stack's fourth layer, the service's own front — or the MCP tier, the banked OunceMCP ruling's own condition now fired), the ruling left to the collaborator\\\", \\\"the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling\\\"]\", \"gate\": \"G-SERVICE-RECORDS\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:35:32Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the collaborator's ruling at this composition's validation stands (the eight questions ruled, 2026-11-21); no build dispatch fires until its unit's brief gate is green (the precedence law)\", \"purpose\": \"THE PER-UNIT PIPELINE: each unit's discover → understand → synthesize before its build — discover/understand ride ungated packets (tansa's census, rikai's mechanisms); the synthesis the gated increment (togo, closing its own G-<UNIT>-BRIEF at the collaborator's approval). THE PRECEDENCE: no build dispatch fires until its brief gate is green.\", \"stage\": \"pipeline\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:35:42Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"each unit's brief gate green in turn — the exact-task law; each unit's build fires only after its own G-<UNIT>-BRIEF\", \"purpose\": \"THE SERVICE'S BUILD per the ruled unit decomposition (Q-service-granularity): service-store (the lock seam — the single-writer contract held at the request tier), service-face (the five routes over the frozen door, the deps table opening), service-acceptance (the live-socket e2e bar) — one-commit-per-increment through the tree's own git instrument.\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:35:48Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-SERVICE-STORE, G-SERVICE-FACE, and G-SERVICE-ACCEPTANCE are closed green on the route and the collaborator has called the close\", \"purpose\": \"THE BOOKEND — CONTINUATION.md's service entry (the runtime-deps price named honestly — the tree's first; the concurrency ruling named; the units, the gates, the floor at close, the landings), the next candidates staged (the web app — the stack's fourth layer — or the MCP tier, the banked OunceMCP ruling's condition now fired), the done call at the collaborator's ruling.\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:35:56Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SERVICE-RECORDS\", \"increment\": \"close/service-records\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-synthesis\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-landing\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"done-call\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:36:03Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SERVICE-STORE\", \"increment\": \"build/service-store\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-SERVICE-STORE-BRIEF\", \"packets\": [\"discover/service-store\", \"understand/service-store\"], \"synthesize_increment\": \"synthesize/service-store\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"tool\\\": \\\"make dev && make test && make lint && make typecheck at the prioritree root\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T21:36:10Z",
+        "op": "add-increment"
+      }
+    ],
+    "stop_conditions": [],
+    "record_layout": ".junro/ (the effort's record home)",
+    "landing_rhythm": "one-commit-per-increment"
+  },
+  "open_questions": [
+    {
+      "id": "Q-service-deps",
+      "question": "The runtime-deps table (the era's own price — the tree's FIRST runtime deps land at this tier; the zero-dep law's per-tier reading: the core zero-dep by construction, the CLI zero-dep by stdlib form, the service CANNOT — the framework IS the birth ruling's own word): [PROPOSED: [project] dependencies opens [\"fastapi\", \"uvicorn[standard]\"] (unbounded, uv.lock the pin); the dev group grows httpx (the TestClient's own engine + the live-arc client — an instrument, never runtime); the lean alternative (plain uvicorn, the performance extras unpriced) named. REASON: the framework is the birth ruling's own word and uvicorn[standard] its production form; httpx rides the dev group because the instruments are not the product.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21).",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "[project] dependencies opens [\"fastapi\", \"uvicorn[standard]\"] — the tree's FIRST runtime deps, uv.lock the pin; the dev group grows httpx (an instrument, never runtime). The zero-dep law's per-tier reading: the core and CLI held, the service tier carries the framework — the era's own price, named."
+    },
+    {
+      "id": "Q-service-concurrency",
+      "question": "THE LOAD-BEARING ONE — the concurrency question (the CLI's run-store is single-writer BY CONTRACT; concurrent HTTP clients break that contract): [PROPOSED: (a) PER-REQUEST RUN-STORE COMPOSITION under ONE process-wide lock — each request's whole act (load -> act -> write) inside the locked critical section, the CLI's own per-invocation form with the process boundary become a lock boundary; the serialization answered BY CONSTRUCTION (the single-writer contract held); the file the one truth (restart-safe, CLI-interoperable — a run registered at the command line is served over HTTP); (b) in-memory session state REJECTED at this tier (dissolves concurrency but reopens the persistence question + forks the store from the CLI's); (c) the lock-file store widening BANKED (multi-process safety buys nothing under the single-worker launch; the run-store brief's priced-out weight NOT re-entered). REASON: the lock holds the ruled contract BY CONSTRUCTION and costs only a load per request — sub-millisecond at the library's scale.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): the lock seam — the load-bearing design.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "PER-REQUEST RUN-STORE COMPOSITION under ONE process-wide lock: each request's whole act (load -> act -> write) inside the locked critical section; the single-writer contract held BY CONSTRUCTION; the file the one truth (restart-safe, CLI-interoperable). In-memory session state rejected at this tier (reopens persistence + forks the store); the lock-file widening banked (multi-process safety buys nothing under the single-worker launch)."
+    },
+    {
+      "id": "Q-service-store",
+      "question": "The wrapper-tier store question (rides Q-service-concurrency): [PROPOSED: THE RUN-STORE PER REQUEST — no in-memory state, no cache, no warm session at the service tier (the file the sole carrier, the CLI's own law carried; the home a launch config injected at the app's construction — store-as-parameter, never a hidden global); the \"both\" form (in-memory primary + the file behind it) priced and REJECTED. REASON: in-memory primary state buys latency the scale doesn't need and reopens two-sources-of-truth — the front tier's question (the web app's own state), never the service's.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21).",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "THE RUN-STORE PER REQUEST — no in-memory state, no cache, no warm session at the service tier (the file the sole carrier; the home a launch config injected at the app's construction — store-as-parameter). The \"both\" form rejected — two-sources-of-truth the front tier's question."
+    },
+    {
+      "id": "Q-service-routes",
+      "question": "The routes' shape: [PROPOSED: REST 1:1 — POST /runs (201, the run-id in the body), GET /runs/{run_id}/next, POST /runs/{run_id}/votes, GET /runs/{run_id}/state, GET /runs/{run_id}/tally; structured JSON bodies (the wire speaks the wire's native language; the marker+tab stays the CLI's stdout form); the run-id the FILE STEM (the cross-process identity; the in-file handle never crosses the wire); THE STATUS MAPPING: 200 success AND DONE (the exhausted body carrying the signal's three fields — DONE a state, never an error), 201 register, 404 the unknown run (the live set in the body), 422 the value refusals (the three-field grammar verbatim), 409 the SAFE HALT, 400 the request's own grammar, 500 the unexpected — the CLI's one exit-1 SPLIT BY REFUSAL KIND at the wire (the HTTP grammar's own nouns; the wire's consumers dispatch on refusal KIND); the JSON report shapes: the pair object, the cast/ack object, the census object, the ranking (TallyResult's frozen whole rendered faithfully). REASON: the REST form maps 1:1 on the ops with the run the noun and the op the verb; the status split is honest against the 0/1/2 precedent because the wire's own consumers dispatch on refusal kind.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21).",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "REST 1:1 (POST /runs 201; GET /runs/{id}/next; POST /runs/{id}/votes; GET /runs/{id}/state; GET /runs/{id}/tally); structured JSON bodies; the run-id the FILE STEM; the status mapping — 200 success AND DONE (the exhausted body carrying the signal's three fields), 201 register, 404 the unknown run (the live set), 422 the value refusals (the three-field grammar verbatim), 409 the SAFE HALT, 400 the request's grammar, 500 the unexpected — the CLI's one exit-1 SPLIT BY REFUSAL KIND at the wire; the JSON report shapes ruled (the pair/cast-ack/census/ranking objects — TallyResult's frozen whole faithful)."
+    },
+    {
+      "id": "Q-service-lifecycle",
+      "question": "The lifecycle + the test instruments: [PROPOSED: uvicorn the server; the module exposes the app (the launch form uvicorn prioritree.service:app — NO uvicorn.run() call in src, the boot the operator's own command); fastapi's TestClient the unit instrument (in-process, the ASGI surface — the face unit's routes exercised without a socket) + the LIVE socket arc at the acceptance unit ALONE (uvicorn booted as a fixed-argv subprocess per the no-shell law, an ephemeral port, httpx the client — the CLI's live-binary precedent carried to the wire tier). REASON: the TestClient exercises the app's contract at speed; only a live socket falsifies the wire itself — the CLI's own split (in-process at the units + the subprocess arc at the acceptance) carried 1:1.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21).",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "uvicorn the server; the module exposes the app (uvicorn prioritree.service:app the launch form; NO uvicorn.run() in src — the boot the operator's command); fastapi's TestClient the unit instrument + the live socket arc at the acceptance unit alone (uvicorn a fixed-argv subprocess, an ephemeral port, httpx the client)."
+    },
+    {
+      "id": "Q-service-acceptance",
+      "question": "The acceptance bar: [PROPOSED: YES — the service-acceptance unit, the deterministic e2e through the real socket: (i) the seven-request success arc (register -> next -> vote x k -> the exhausted turn (200, the done body, the tally pointer) -> tally — the persistence seam and the lock proven in the arc itself); (ii) the determinism replay (byte-identical bodies on two fresh homes); (iii) the refusal arcs (404/422/409/400 — never a partial ranking dressed as whole); (iv) THE CONCURRENCY ARC — two clients interleaved on one run through the live socket, every cast landed, the final counts exact. REASON: the service's whole value is the wire seam + the concurrency contract; only an arc through the real socket falsifies both — the in-process instruments cannot see the socket, and the property tests cannot see the interleaving.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21).",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "YES — the service-acceptance unit: the deterministic e2e through the real socket (the seven-request success arc; the determinism replay; the refusal arcs 404/422/409/400; THE CONCURRENCY ARC — two clients interleaved on one run, every cast landed, the counts exact — the lock's own proof at the wire)."
+    },
+    {
+      "id": "Q-service-granularity",
+      "question": "The unit granularity: [PROPOSED: THREE units — service-store (the lock seam), service-face (the five routes), service-acceptance (the e2e bar) + the close increment: the three surfaces carry three distinct falsification sets (the interleaving property under the lock, the status-mapping + body contract, the socket-level cross-process arc), each earning its own brief + gate; the routes+store as ONE unit priced and rejected (the lock's property and the routes' mapping fail differently, falsify differently, cure differently — one fat unit re-learns FR-MEM-0049's lesson at the service tier); the acceptance its own unit per the CLI's ruled precedent. REASON: the falsification sets name the decomposition — the sibling's own form (run-store/command-face/cli-acceptance) is the strongest precedent on the tree.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21).",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "THREE units — service-store (the lock seam), service-face (the five routes), service-acceptance (the e2e bar) + the close increment: three surfaces, three falsification sets (the interleaving property, the status/body contract, the socket-level arc), each earning its own brief + gate — the CLI's three-unit precedent carried 1:1."
+    },
+    {
+      "id": "Q-service-floor",
+      "question": "The floor: [PROPOSED: the deps land at the FACE unit per the tier fence (the store unit stays stdlib-only — pure threading.Lock + the existing store); uv.lock regenerated at the face unit's floor-green (the first runtime deps' own evidence); the zero-ignore law extended to the new surfaces — B008 dodged BY CONSTRUCTION (the store home injected at the app's construction via app.state, the routes reading request.app.state — Depends avoided, B008 never fires); S104 never firing in-tree (no uvicorn.run in src — the boot the operator's command; a deployment-era widening carries its own ruling); the pyright-strict framework edges cast-typed per the registry school's precedent (typed assertions, never ignores). REASON: the deps land per the tier fence, the lockfile's regeneration the first-deps landing's own evidence, and the named-ruling questions priced now keep the zero-findings bar ahead of the build — the surprises priced, never discovered.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21).",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "The deps land at the FACE unit per the tier fence (the store unit stdlib-only); uv.lock regenerated at the face unit's floor-green; the zero-ignore law extended — B008 dodged by construction (app.state injection, Depends avoided), S104 never firing in-tree (no uvicorn.run in src), the pyright-strict framework edges cast-typed per the registry school."
+    }
+  ]
+}
