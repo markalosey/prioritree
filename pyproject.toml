@@ -90,6 +90,13 @@ select = ["ALL"]
 # the call forms decide, the entry listed, the ignore IS the ruling, named.
 "src/prioritree/budget_curve.py" = ["S311", "ARG001"]
 
+# RULING (service-store-brief §5, G-SERVICE-STORE-BRIEF approved 2026-11-21): the seam's
+# cast signature IS the door's ruled cast_vote signature mapped 1:1 (the seven-argument
+# form mirroring Persist.cast — the run_store.py precedent re-cited at the request tier:
+# Q-service-concurrency's per-request composition preserves the frozen wrapper contract).
+# PLR0913/PLR0917 fire on exactly that ruled surface; the ignore IS the ruling, named.
+"src/prioritree/service_store.py" = ["PLR0913", "PLR0917"]
+
 [tool.ruff.format]
 quote-style = "double"
 
