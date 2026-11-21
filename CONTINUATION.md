@@ -38,7 +38,7 @@
 - **THE CURE SET, NAMED HONESTLY (each confirmed at kensho's read-backs):** the pyproject transit arc — the session's hardest landing (eight scrambled patches, the broken-build deadlock, the git discard escape, the scripts table context-pinned mid-file); the running-total fixtures — the floor's own falsifier (the vote line's count is the run's census count, not the per-pair count); the pyproject named rulings grown three (run_store PLR0913/0917 · cli T201/BLE001 · harness S603/S607 — each the ignore IS the ruling, named; the zero-in-code-ignores law held throughout).
 - **THE FLOOR AT CLOSE:** 102 passed, zero warnings; "All checks passed!"; "0 errors, 0 warnings, 0 informations" — kensho's independent re-runs the same three green at his own hand at every unit (79 → 96 → 102).
 - **THE LANDINGS (the tree's own hand throughout):** the store birth 6d4a921c → run-store 3dbeacaf → command-face aac11f36 → cli-acceptance bff5d503 — the refs equal at origin/main, the route whole at the remote.
-- **THE DONE-CALL STAGED (the collaborator's ruling):** G-CLI-RECORDS the one remaining gate — the close's collaborator-ruling gate; at this entry's landing the done call records same-turn through the junro and the route's status sets done at the ruling.
+- **THE DONE-CALL FIRED (2026-11-21, at the collaborator's ruling):** the route prioritree-cli is DONE — composed → done at the junro (three units green at both scopes, the landing complete, the store the record home); the first wrapper form whole — the CLI wraps the core, the five-op surface live at the command line.
 
 ## WHERE TO CONTINUE FROM — the next effort: the collaborator's ruling at the CLI close
 
