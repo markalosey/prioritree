@@ -1,0 +1,406 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "budget-curve",
+    "title": "Budget Curve — the comparative-empirical claim measured: pairs + tally vs absolute sizing at equal budget (R13's claim, acceptance-brief §5's priced option — the purpose sentence graduated from ruled language to measurement), the acceptance harness's second arm",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "the collaborator's ruling at the prioritree-cli close (2026-11-21: 'proceed' — suisen's primary recommendation executed; the recommendation at .plans/ideation/2026-11-20-prioritree-cli/recommend/next-effort.md)",
+      "acceptance-brief §5's priced mechanism (the in-harness baseline: each item sized by the same noisy comparator at the same p, the sizings repeated to equal budget — n0 judgments total — the sizes sorted into the sizer's own ranking, tau computed identically, the two taus compared per cell; the earning condition: seeds fixed, runs deterministic, the per-cell comparison recorded as data)",
+      "the k=1 baseline table (the opening evidence: 8 of 27 in-band cells sub-floor at single judgment, min tau 0.4714 — recorded at the core store's synthesize/acceptance-bytes.md)",
+      "the acceptance harness whole (src/prioritree/acceptance.py — the matrix, the seeds, the k=3 quorum, the tau-b integer measure, the RNG discipline: the curve's substrate)",
+      "CONTINUATION.md's staged pointer at the CLI close (the ruled candidates: the budget curve — the earned-later menu's first cousin — or the FastAPI service; the MCP tier banked beyond both)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE: the unit's discover → understand → synthesize before its build — discover/understand ride ungated packets (tansa's census, rikai's mechanisms); the synthesis the gated increment (togo, closing G-BUDGET-CURVE-BRIEF at the collaborator's approval). THE PRECEDENCE: no build dispatch fires until the brief gate is green.",
+        "entry_condition": "the collaborator's validation of this composition stands (the seven questions ruled, 2026-11-21); no build dispatch fires until the brief gate is green (the precedence law)",
+        "increments": [
+          {
+            "id": "synthesize/budget-curve",
+            "owner": "togo",
+            "gate": "G-BUDGET-CURVE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE CURVE'S BUILD: ONE unit — the sizer arm at equal budget in the ruled binary-threshold form, the paired comparison at both budget points (k=1 and k=3), the record at the store's build home, the ONE additive acceptance.py amendment (the quorum threading) named in the brief and priced at the gate — one-commit-per-increment through the tree's own git instrument.",
+        "entry_condition": "the unit's brief gate green — the exact-task law; the build fires only after G-BUDGET-CURVE-BRIEF",
+        "increments": [
+          {
+            "id": "build/budget-curve",
+            "owner": "jikko",
+            "gate": "G-BUDGET-CURVE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "tool": "make dev && make test && make lint && make typecheck at the prioritree root",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "close",
+        "purpose": "THE BOOKEND — CONTINUATION.md's budget-curve entry (the sizer-model ruling named, the measured curve at both budget points, the claim's graduation stated honestly at the collaborator's ruling), the next candidates staged (the FastAPI service — the stack's next layer), the done call at the collaborator's ruling.",
+        "entry_condition": "G-BUDGET-CURVE closed green on the route and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/curve-records",
+            "owner": "shinko",
+            "gate": "G-CURVE-RECORDS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "records-synthesis",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-landing",
+                "member": "shinko",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "done-call",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-BUDGET-CURVE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the budget_curve module lands per its approved brief — the exact-task law; the ONE additive acceptance.py amendment (accept_run's quorum: int = ACCEPTANCE_QUORUM parameter, the default pinned) lands with the acceptance suite re-run green and the default behavior byte-identical — the amendment recorded on the route, the landed unit never silently re-opened",
+          "the sizer arm green in the ruled model: the binary-threshold form at the same p (the deterministic round-robin schedule over the n-1 integer thresholds, one flip draw per judgment at rate p), the equal-budget law EXACT (the sizer's judgment count = n0 x quorum per run, asserted), the exact-Fraction scores (no floats in the ranking), the pairing law (both arms' latent orders identical per seed, asserted), the perfect case (p=0, n=10, seed 1109, k=3: tau = 1 exactly)",
+          "the determinism green: the same (n, p, seed, quorum) => byte-identical sizer record across replays (the clock-free surface); the measure invariants hold on the sizer's own groups (P+Q+T = n0) — accept_measure REUSED, never re-implemented",
+          "the curve's record landed at the store's build home (build/budget-curve-record.md, the acceptance-verification precedent): the per-cell table whole (both arms' taus, both budget points k=1 and k=3, the 9 cells x 3 seeds), the comparison as data, the reading stated honestly — the ordering claim asserted NOWHERE the data has not ruled it",
+          "pyright 0 errors 0 warnings and ruff zero findings on the landed code — zero convenience ignores (the S311-class per-file named ruling extends to budget_curve.py, priced at the brief); zero new runtime deps (random stdlib, already named); kensho's independent re-run green — the read-back the evidence, not the build's word"
+        ]
+      },
+      "G-CURVE-RECORDS": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "CONTINUATION.md carries the budget-curve entry — the sizer model named, the measured curve (both budget points), the claim's graduation stated honestly at the collaborator's ruling (supported => the README's claim gains the measured citation; falsified => the record states it and the claim's language re-ruled — never silent, never pre-written)",
+          "the next candidates staged (the FastAPI service — the stack's next layer, the deps/concurrency/store questions arriving intact; the MCP tier banked beyond), the ruling left to the collaborator",
+          "the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling"
+        ]
+      },
+      "G-BUDGET-CURVE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit budget-curve LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/budget-curve) + mechanism analysis (understand/budget-curve) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-curve-sizer\", \"text\": \"THE LOAD-BEARING ONE — the sizer arm's mechanism: what IS a \\\"size,\\\" and what is the noise on it? [PROPOSED: the binary-threshold form at the same p — every sizing judgment a binary answer at the same wrong-information rate (\\\"is item i's latent position above threshold j?\\\", j an integer in {1..n-1}, the scale's own midpoints, zero floats); the true answer deterministic from the truth; ONE draw per judgment, u < p => the FLIPPED answer (the same flip idiom, the same rate, the same grammar as the pairwise comparator); the threshold schedule deterministic round-robin (judgment m uses threshold ((m-1) mod (n-1)) + 1 — the exhaustive-coverage analog); the score the exact Fraction (yes-count / B_i); the ranking score-descending groups measured by accept_measure REUSED; the per-item budget B_i the even split of n0 x quorum with the deterministic remainder (the first r items in id order get the ceiling, r = n/2 at every ruled n); the pairing law: both arms run from random.Random(seed) fresh instances at the SAME seed => the latent permutation byte-identical across arms => the comparison PAIRED per cell. REASON: per-judgment information matched BY CONSTRUCTION — the only structural difference is the aggregation (pairwise + tally vs absolute score + sort), exactly the claim's subject; zero free parameters. The continuous-scale form REJECTED (the noise-family free parameter rigs the verdict); the reference forms REJECTED (the strawman / the drift model).]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:15:35Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-curve-name\", \"text\": \"The module + name (the naming law — acceptance.py and accept_run/accept_measure are taken): [PROPOSED: src/prioritree/budget_curve.py + tests/test_budget_curve.py; the surface size_run(item_count, noise_rate, seed, quorum) (the act \\\"Size the run's items at equal budget\\\" — first word Size, mirroring accept_run's derivation), compare_run(item_count, noise_rate, seed, quorum) (the act \\\"Compare the two arms at equal budget\\\" — one call, both arms, the equal-budget derivation's single home), SizerRecord (the frozen clock-free evidence whole: coordinates, latent_order, per-item judgments, scores, ranked_groups, the (P, Q, T) counts), the constants (the threshold grammar, the budget law's derivation — content-in-configuration). measure.py REJECTED (the verb class claimed by accept_measure's own act); curve.py REJECTED (under-named — budget the load-bearing word); budget_curve.py the unit's own minted name, zero collisions. REASON: the module names the unit, the functions name their acts' first words — the law held mechanically at every symbol.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:15:42Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-curve-granularity\", \"text\": \"The unit granularity: [PROPOSED: ONE build unit (+ the close increment). The unit's falsification set, named: (1) the budget law exact (sum B_i = n0 x quorum, asserted); (2) the pairing law (same seed => identical latent across arms); (3) the determinism (same coordinates => byte-identical record); (4) the model's mechanics (the flip grammar at p, the round-robin schedule, the exact-Fraction scores); (5) the measure invariants on the sizer's groups; (6) the perfect case (p=0 => tau = 1 exactly); (7) the record's completeness (every cell, both arms, both budget points). REASON: one module, one falsification set (the measured curve whole) — two units would split one ~200-line build across two gates, ceremony without falsification separation (FR-MEM-0049's lesson cuts both ways: units follow falsification sets, and this effort has one).]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:15:58Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-curve-matrix\", \"text\": \"The matrix: [PROPOSED: the 9 cells (n in {10, 20, 30} x p in {0.10, 0.15, 0.20} — R13's ruled band) x the 3 named seeds (1109, 2213, 3371) at BOTH budget points — quorum in {1, 3} (54 paired runs, 108 arm-runs) + the perfect case (p=0, n=10, seed 1109, k=3, both arms). The pairwise arm re-run FRESH at both points, never cited — which requires the ONE additive acceptance.py amendment: accept_run gains quorum: int = ACCEPTANCE_QUORUM (the default pinned; the landed suite untouched and green, re-verified inside this unit's own gate; the landed unit never silently re-opened). Alternatives REJECTED: a k-parameterized harness copy inside budget_curve.py (the silent-drift anti-pattern); citing the recorded k=1 table (the pairing would rest on recorded-not-reproduced numbers). The degradation cell and the pairwise perfect case belong to the acceptance suite — NOT re-run. REASON: the curve's own interest is the LOW-budget end (the k=1 fragility the opening evidence; the sizer's k=1 arm the missing half) — and a fresh paired k=1 beats a cited-stale one; the amendment the smallest honest enabler. Tool-verified: ~48,240 judgments, seconds-scale (~2.4x the acceptance suite).]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:16:07Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-curve-assertion\", \"text\": \"The comparison's assertion form (the claim's graduation question): [PROPOSED: the unit's tests assert the MECHANICAL invariants ONLY — budget equality, the pairing, byte-identical determinism replays, the measure invariants, the perfect case (tau = 1 exactly), the record's completeness — with the per-cell taus recorded as data and NO ordering assertion anywhere in the build unit. The ordering claim (pairs > sizer) is unknowable until measured; asserting it pre-measurement writes the conclusion before the experiment — the dishonest form. THE GRADUATION: the record lands (the per-cell table, the reading stated honestly — supported, falsified, or mixed); the collaborator rules at the close OVER the measured data (the acceptance unit's own proven form — a ruled bar banked over measured data, exactly like ACCEPTANCE_FLOOR): supported => the ordering may be ruled INTO the suite at the close (deterministic forever under the fixed seeds — the measure-then-rule-then-assert two-step); falsified => the record states the falsification and the claim's language re-ruled — the honest path (\\\"either result clears the debt\\\"). REASON: a deterministic test needs a deterministic outcome; the outcome is a datum, not a wish.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:16:13Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-curve-home\", \"text\": \"The result's home: [PROPOSED: the record lands at the STORE's build home — build/budget-curve-record.md inside the store (the acceptance-verification precedent: the curve is a build artifact, the record the unit's own evidence). The README's claim graduates AT THE CLOSE'S RULING, never before and never silently — the purpose sentence was ruled at Q-purpose's authority level; its graduation (supported => the measured citation added; falsified => the language re-ruled) is a ruling at the same level, carried by the close's records gate. REASON: the store is the record home (the standing law); the README is the tree's public face — its claim's wording is the collaborator's, and the close's gate is where the tree's story is authored.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:16:25Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-curve-floor\", \"text\": \"The floor: [PROPOSED: the standard form whole — pyright strict 0/0/0; ruff (ALL, line-length 120, the named test rulings) zero findings; ZERO convenience ignores, with the S311 per-file named ruling EXTENDING to budget_curve.py at the same approved-brief citation (the ignore IS the ruling, named — the seeded simulation's random import; ARG001 likewise if the call forms need it); zero new runtime deps (random stdlib, the module docstring naming it the simulation's own); the no-shell law (the curve pure in-memory, zero subprocess); five-field docstrings (Provenance citing R13, acceptance-brief §5, this composition, the brief); content-in-configuration (the cells, the seeds, the budget points, the threshold grammar, the remainder rule — named constants); the naming law at every symbol. REASON: the harness's own floor precedent carried whole — the curve adds no new surface class, so no new floor class.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:16:31Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-curve-sizer\", \"resolution\": \"THE BINARY-THRESHOLD FORM AT THE SAME p: every sizing judgment a binary answer at the same wrong-information rate (\\\"is item i's latent position above threshold j?\\\", j an integer in {1..n-1}, zero floats); the true answer deterministic from the truth; ONE draw per judgment, u < p => the FLIPPED answer (the same flip idiom, the same rate, the same grammar as the pairwise comparator); the threshold schedule deterministic round-robin; the score the exact Fraction; the ranking score-descending groups measured by accept_measure REUSED; the per-item budget the even split of n0 x quorum with the deterministic remainder; the pairing law (both arms' latent orders byte-identical per seed). Per-judgment information matched BY CONSTRUCTION — the only structural difference the aggregation, exactly the claim's subject; zero free parameters. The continuous-scale and reference forms rejected.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): the binary-threshold sizer at the same p.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:16:46Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-curve-name\", \"resolution\": \"src/prioritree/budget_curve.py + tests/test_budget_curve.py; the surface size_run(item_count, noise_rate, seed, quorum), compare_run(item_count, noise_rate, seed, quorum), SizerRecord (the frozen clock-free evidence whole), the constants (content-in-configuration). The module names the unit, the functions name their acts' first words — the law held mechanically at every symbol; zero collisions with the taken acceptance names.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): budget_curve.py + size_run/compare_run/SizerRecord.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:16:51Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-curve-granularity\", \"resolution\": \"ONE build unit (+ the close increment) — the unit's falsification set whole: the budget law exact, the pairing law, the determinism, the model's mechanics, the measure invariants, the perfect case, the record's completeness. One module, one falsification set — two units would split one ~200-line build across two gates, ceremony without falsification separation.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): one build unit + the close.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:16:57Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-curve-matrix\", \"resolution\": \"The 9 cells x 3 seeds at BOTH budget points (quorum in {1, 3} — 54 paired runs, 108 arm-runs) + the perfect case (p=0, n=10, seed 1109, k=3, both arms). The pairwise arm re-run FRESH at both points, never cited — enabled by the ONE additive acceptance.py amendment: accept_run gains quorum: int = ACCEPTANCE_QUORUM (the default pinned; the landed suite untouched and green, re-verified inside this unit's own gate). The degradation cell and the pairwise perfect case belong to the acceptance suite, not re-run. ~48,240 judgments, seconds-scale.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): both budget points fresh and paired; the one additive amendment.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:17:04Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-curve-assertion\", \"resolution\": \"The unit's tests assert the MECHANICAL invariants ONLY — NO ordering assertion anywhere in the build unit; the per-cell taus recorded as data, the reading stated honestly. THE GRADUATION: the collaborator rules at the close OVER the measured data (the acceptance unit's own proven form): supported => the ordering may be ruled INTO the suite at the close (deterministic forever under the fixed seeds — the measure-then-rule-then-assert two-step); falsified => the record states the falsification and the claim's language re-ruled. Either result clears the debt.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): mechanical invariants only; the ordering ruled at the close over the measured data.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:17:11Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-curve-home\", \"resolution\": \"The record lands at the STORE's build home — build/budget-curve-record.md (the acceptance-verification precedent). The README's claim graduates AT THE CLOSE'S RULING, never before and never silently — the purpose sentence was ruled at Q-purpose's authority level; its graduation (supported => the measured citation added; falsified => the language re-ruled) is a ruling at the same level, carried by the close's records gate.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): the record at the store's build home; the README graduates at the close's ruling.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:17:18Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-curve-floor\", \"resolution\": \"The standard form whole — pyright strict 0/0/0; ruff ALL zero findings; ZERO convenience ignores with the S311 per-file named ruling extending to budget_curve.py at the same approved-brief citation (ARG001 likewise if the call forms need it); zero new runtime deps (random stdlib); the no-shell law; five-field docstrings; content-in-configuration; the naming law at every symbol. The harness's own floor precedent carried whole.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-21): the standard floor; the S311 ruling extends.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:17:25Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the budget_curve module lands per its approved brief — the exact-task law; the ONE additive acceptance.py amendment (accept_run's quorum: int = ACCEPTANCE_QUORUM parameter, the default pinned) lands with the acceptance suite re-run green and the default behavior byte-identical — the amendment recorded on the route, the landed unit never silently re-opened\\\", \\\"the sizer arm green in the ruled model: the binary-threshold form at the same p (the deterministic round-robin schedule over the n-1 integer thresholds, one flip draw per judgment at rate p), the equal-budget law EXACT (the sizer's judgment count = n0 x quorum per run, asserted), the exact-Fraction scores (no floats in the ranking), the pairing law (both arms' latent orders identical per seed, asserted), the perfect case (p=0, n=10, seed 1109, k=3: tau = 1 exactly)\\\", \\\"the determinism green: the same (n, p, seed, quorum) => byte-identical sizer record across replays (the clock-free surface); the measure invariants hold on the sizer's own groups (P+Q+T = n0) — accept_measure REUSED, never re-implemented\\\", \\\"the curve's record landed at the store's build home (build/budget-curve-record.md, the acceptance-verification precedent): the per-cell table whole (both arms' taus, both budget points k=1 and k=3, the 9 cells x 3 seeds), the comparison as data, the reading stated honestly — the ordering claim asserted NOWHERE the data has not ruled it\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings on the landed code — zero convenience ignores (the S311-class per-file named ruling extends to budget_curve.py, priced at the brief); zero new runtime deps (random stdlib, already named); kensho's independent re-run green — the read-back the evidence, not the build's word\\\"]\", \"gate\": \"G-BUDGET-CURVE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:17:33Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"CONTINUATION.md carries the budget-curve entry — the sizer model named, the measured curve (both budget points), the claim's graduation stated honestly at the collaborator's ruling (supported => the README's claim gains the measured citation; falsified => the record states it and the claim's language re-ruled — never silent, never pre-written)\\\", \\\"the next candidates staged (the FastAPI service — the stack's next layer, the deps/concurrency/store questions arriving intact; the MCP tier banked beyond), the ruling left to the collaborator\\\", \\\"the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling\\\"]\", \"gate\": \"G-CURVE-RECORDS\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:17:43Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the collaborator's validation of this composition stands (the seven questions ruled, 2026-11-21); no build dispatch fires until the brief gate is green (the precedence law)\", \"purpose\": \"THE PER-UNIT PIPELINE: the unit's discover → understand → synthesize before its build — discover/understand ride ungated packets (tansa's census, rikai's mechanisms); the synthesis the gated increment (togo, closing G-BUDGET-CURVE-BRIEF at the collaborator's approval). THE PRECEDENCE: no build dispatch fires until the brief gate is green.\", \"stage\": \"pipeline\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:17:52Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the unit's brief gate green — the exact-task law; the build fires only after G-BUDGET-CURVE-BRIEF\", \"purpose\": \"THE CURVE'S BUILD: ONE unit — the sizer arm at equal budget in the ruled binary-threshold form, the paired comparison at both budget points (k=1 and k=3), the record at the store's build home, the ONE additive acceptance.py amendment (the quorum threading) named in the brief and priced at the gate — one-commit-per-increment through the tree's own git instrument.\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:18:22Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-BUDGET-CURVE closed green on the route and the collaborator has called the close\", \"purpose\": \"THE BOOKEND — CONTINUATION.md's budget-curve entry (the sizer-model ruling named, the measured curve at both budget points, the claim's graduation stated honestly at the collaborator's ruling), the next candidates staged (the FastAPI service — the stack's next layer), the done call at the collaborator's ruling.\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:18:37Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CURVE-RECORDS\", \"increment\": \"close/curve-records\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-synthesis\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-landing\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"done-call\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:18:44Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-BUDGET-CURVE\", \"increment\": \"build/budget-curve\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-BUDGET-CURVE-BRIEF\", \"packets\": [\"discover/budget-curve\", \"understand/budget-curve\"], \"synthesize_increment\": \"synthesize/budget-curve\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"tool\\\": \\\"make dev && make test && make lint && make typecheck at the prioritree root\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T19:19:22Z",
+        "op": "add-increment"
+      }
+    ],
+    "stop_conditions": [],
+    "record_layout": ".junro/ (the effort's record home)",
+    "landing_rhythm": "one-commit-per-increment"
+  },
+  "open_questions": [
+    {
+      "id": "Q-curve-sizer",
+      "question": "THE LOAD-BEARING ONE — the sizer arm's mechanism: what IS a \"size,\" and what is the noise on it? [PROPOSED: the binary-threshold form at the same p — every sizing judgment a binary answer at the same wrong-information rate (\"is item i's latent position above threshold j?\", j an integer in {1..n-1}, the scale's own midpoints, zero floats); the true answer deterministic from the truth; ONE draw per judgment, u < p => the FLIPPED answer (the same flip idiom, the same rate, the same grammar as the pairwise comparator); the threshold schedule deterministic round-robin (judgment m uses threshold ((m-1) mod (n-1)) + 1 — the exhaustive-coverage analog); the score the exact Fraction (yes-count / B_i); the ranking score-descending groups measured by accept_measure REUSED; the per-item budget B_i the even split of n0 x quorum with the deterministic remainder (the first r items in id order get the ceiling, r = n/2 at every ruled n); the pairing law: both arms run from random.Random(seed) fresh instances at the SAME seed => the latent permutation byte-identical across arms => the comparison PAIRED per cell. REASON: per-judgment information matched BY CONSTRUCTION — the only structural difference is the aggregation (pairwise + tally vs absolute score + sort), exactly the claim's subject; zero free parameters. The continuous-scale form REJECTED (the noise-family free parameter rigs the verdict); the reference forms REJECTED (the strawman / the drift model).]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): the binary-threshold sizer at the same p.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "THE BINARY-THRESHOLD FORM AT THE SAME p: every sizing judgment a binary answer at the same wrong-information rate (\"is item i's latent position above threshold j?\", j an integer in {1..n-1}, zero floats); the true answer deterministic from the truth; ONE draw per judgment, u < p => the FLIPPED answer (the same flip idiom, the same rate, the same grammar as the pairwise comparator); the threshold schedule deterministic round-robin; the score the exact Fraction; the ranking score-descending groups measured by accept_measure REUSED; the per-item budget the even split of n0 x quorum with the deterministic remainder; the pairing law (both arms' latent orders byte-identical per seed). Per-judgment information matched BY CONSTRUCTION — the only structural difference the aggregation, exactly the claim's subject; zero free parameters. The continuous-scale and reference forms rejected."
+    },
+    {
+      "id": "Q-curve-name",
+      "question": "The module + name (the naming law — acceptance.py and accept_run/accept_measure are taken): [PROPOSED: src/prioritree/budget_curve.py + tests/test_budget_curve.py; the surface size_run(item_count, noise_rate, seed, quorum) (the act \"Size the run's items at equal budget\" — first word Size, mirroring accept_run's derivation), compare_run(item_count, noise_rate, seed, quorum) (the act \"Compare the two arms at equal budget\" — one call, both arms, the equal-budget derivation's single home), SizerRecord (the frozen clock-free evidence whole: coordinates, latent_order, per-item judgments, scores, ranked_groups, the (P, Q, T) counts), the constants (the threshold grammar, the budget law's derivation — content-in-configuration). measure.py REJECTED (the verb class claimed by accept_measure's own act); curve.py REJECTED (under-named — budget the load-bearing word); budget_curve.py the unit's own minted name, zero collisions. REASON: the module names the unit, the functions name their acts' first words — the law held mechanically at every symbol.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): budget_curve.py + size_run/compare_run/SizerRecord.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "src/prioritree/budget_curve.py + tests/test_budget_curve.py; the surface size_run(item_count, noise_rate, seed, quorum), compare_run(item_count, noise_rate, seed, quorum), SizerRecord (the frozen clock-free evidence whole), the constants (content-in-configuration). The module names the unit, the functions name their acts' first words — the law held mechanically at every symbol; zero collisions with the taken acceptance names."
+    },
+    {
+      "id": "Q-curve-granularity",
+      "question": "The unit granularity: [PROPOSED: ONE build unit (+ the close increment). The unit's falsification set, named: (1) the budget law exact (sum B_i = n0 x quorum, asserted); (2) the pairing law (same seed => identical latent across arms); (3) the determinism (same coordinates => byte-identical record); (4) the model's mechanics (the flip grammar at p, the round-robin schedule, the exact-Fraction scores); (5) the measure invariants on the sizer's groups; (6) the perfect case (p=0 => tau = 1 exactly); (7) the record's completeness (every cell, both arms, both budget points). REASON: one module, one falsification set (the measured curve whole) — two units would split one ~200-line build across two gates, ceremony without falsification separation (FR-MEM-0049's lesson cuts both ways: units follow falsification sets, and this effort has one).]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): one build unit + the close.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "ONE build unit (+ the close increment) — the unit's falsification set whole: the budget law exact, the pairing law, the determinism, the model's mechanics, the measure invariants, the perfect case, the record's completeness. One module, one falsification set — two units would split one ~200-line build across two gates, ceremony without falsification separation."
+    },
+    {
+      "id": "Q-curve-matrix",
+      "question": "The matrix: [PROPOSED: the 9 cells (n in {10, 20, 30} x p in {0.10, 0.15, 0.20} — R13's ruled band) x the 3 named seeds (1109, 2213, 3371) at BOTH budget points — quorum in {1, 3} (54 paired runs, 108 arm-runs) + the perfect case (p=0, n=10, seed 1109, k=3, both arms). The pairwise arm re-run FRESH at both points, never cited — which requires the ONE additive acceptance.py amendment: accept_run gains quorum: int = ACCEPTANCE_QUORUM (the default pinned; the landed suite untouched and green, re-verified inside this unit's own gate; the landed unit never silently re-opened). Alternatives REJECTED: a k-parameterized harness copy inside budget_curve.py (the silent-drift anti-pattern); citing the recorded k=1 table (the pairing would rest on recorded-not-reproduced numbers). The degradation cell and the pairwise perfect case belong to the acceptance suite — NOT re-run. REASON: the curve's own interest is the LOW-budget end (the k=1 fragility the opening evidence; the sizer's k=1 arm the missing half) — and a fresh paired k=1 beats a cited-stale one; the amendment the smallest honest enabler. Tool-verified: ~48,240 judgments, seconds-scale (~2.4x the acceptance suite).]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): both budget points fresh and paired; the one additive amendment.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "The 9 cells x 3 seeds at BOTH budget points (quorum in {1, 3} — 54 paired runs, 108 arm-runs) + the perfect case (p=0, n=10, seed 1109, k=3, both arms). The pairwise arm re-run FRESH at both points, never cited — enabled by the ONE additive acceptance.py amendment: accept_run gains quorum: int = ACCEPTANCE_QUORUM (the default pinned; the landed suite untouched and green, re-verified inside this unit's own gate). The degradation cell and the pairwise perfect case belong to the acceptance suite, not re-run. ~48,240 judgments, seconds-scale."
+    },
+    {
+      "id": "Q-curve-assertion",
+      "question": "The comparison's assertion form (the claim's graduation question): [PROPOSED: the unit's tests assert the MECHANICAL invariants ONLY — budget equality, the pairing, byte-identical determinism replays, the measure invariants, the perfect case (tau = 1 exactly), the record's completeness — with the per-cell taus recorded as data and NO ordering assertion anywhere in the build unit. The ordering claim (pairs > sizer) is unknowable until measured; asserting it pre-measurement writes the conclusion before the experiment — the dishonest form. THE GRADUATION: the record lands (the per-cell table, the reading stated honestly — supported, falsified, or mixed); the collaborator rules at the close OVER the measured data (the acceptance unit's own proven form — a ruled bar banked over measured data, exactly like ACCEPTANCE_FLOOR): supported => the ordering may be ruled INTO the suite at the close (deterministic forever under the fixed seeds — the measure-then-rule-then-assert two-step); falsified => the record states the falsification and the claim's language re-ruled — the honest path (\"either result clears the debt\"). REASON: a deterministic test needs a deterministic outcome; the outcome is a datum, not a wish.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): mechanical invariants only; the ordering ruled at the close over the measured data.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "The unit's tests assert the MECHANICAL invariants ONLY — NO ordering assertion anywhere in the build unit; the per-cell taus recorded as data, the reading stated honestly. THE GRADUATION: the collaborator rules at the close OVER the measured data (the acceptance unit's own proven form): supported => the ordering may be ruled INTO the suite at the close (deterministic forever under the fixed seeds — the measure-then-rule-then-assert two-step); falsified => the record states the falsification and the claim's language re-ruled. Either result clears the debt."
+    },
+    {
+      "id": "Q-curve-home",
+      "question": "The result's home: [PROPOSED: the record lands at the STORE's build home — build/budget-curve-record.md inside the store (the acceptance-verification precedent: the curve is a build artifact, the record the unit's own evidence). The README's claim graduates AT THE CLOSE'S RULING, never before and never silently — the purpose sentence was ruled at Q-purpose's authority level; its graduation (supported => the measured citation added; falsified => the language re-ruled) is a ruling at the same level, carried by the close's records gate. REASON: the store is the record home (the standing law); the README is the tree's public face — its claim's wording is the collaborator's, and the close's gate is where the tree's story is authored.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): the record at the store's build home; the README graduates at the close's ruling.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "The record lands at the STORE's build home — build/budget-curve-record.md (the acceptance-verification precedent). The README's claim graduates AT THE CLOSE'S RULING, never before and never silently — the purpose sentence was ruled at Q-purpose's authority level; its graduation (supported => the measured citation added; falsified => the language re-ruled) is a ruling at the same level, carried by the close's records gate."
+    },
+    {
+      "id": "Q-curve-floor",
+      "question": "The floor: [PROPOSED: the standard form whole — pyright strict 0/0/0; ruff (ALL, line-length 120, the named test rulings) zero findings; ZERO convenience ignores, with the S311 per-file named ruling EXTENDING to budget_curve.py at the same approved-brief citation (the ignore IS the ruling, named — the seeded simulation's random import; ARG001 likewise if the call forms need it); zero new runtime deps (random stdlib, the module docstring naming it the simulation's own); the no-shell law (the curve pure in-memory, zero subprocess); five-field docstrings (Provenance citing R13, acceptance-brief §5, this composition, the brief); content-in-configuration (the cells, the seeds, the budget points, the threshold grammar, the remainder rule — named constants); the naming law at every symbol. REASON: the harness's own floor precedent carried whole — the curve adds no new surface class, so no new floor class.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-21): the standard floor; the S311 ruling extends.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "The standard form whole — pyright strict 0/0/0; ruff ALL zero findings; ZERO convenience ignores with the S311 per-file named ruling extending to budget_curve.py at the same approved-brief citation (ARG001 likewise if the call forms need it); zero new runtime deps (random stdlib); the no-shell law; five-field docstrings; content-in-configuration; the naming law at every symbol. The harness's own floor precedent carried whole."
+    }
+  ]
+}
