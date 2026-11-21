@@ -1,0 +1,55 @@
+# synthesize/service-store-brief — THE SERVICE-STORE UNIT'S BUILD BRIEF (the exact-task spec)
+
+**Status: PROPOSAL.** Togo proposes; the collaborator rules at G-SERVICE-STORE-BRIEF. Every [PROPOSED] element is an offered default with its one-line reason. The brief IS the spec (the exact-task law): once approved, jikko executes exactly, kensho re-runs independently.
+
+## §0 THE GROUND
+
+- The legs: tansa's census (the four race windows at the bytes, the lock's form, the seven gaps, the laws) + rikai's mechanisms (the windows walked with the exact failure forms; Lock-suffices + every-verb-locks; the interleaving property's oracle + determinism reading; the fence confirmed; the GIL answered) over the store's own bytes (run_store.py — the signatures cited byte-exact below). The rulings binding: Q-service-concurrency (per-request composition under ONE process-wide lock — the single-writer contract held BY CONSTRUCTION); Q-service-store (the run-store per request, store-as-parameter, no in-memory state — the file the sole carrier); Q-service-floor (this unit stdlib-only — pure threading.Lock + the existing store; the B008-dodge reserved for the face unit's app.state wiring); THE FENCE (zero edits to run_store.py or any core module). The unit's act: the CLI's process boundary become a lock boundary at the request tier — the seam the face unit's five routes delegate through.
+
+## §1 THE MODULE + THE SEAM'S SURFACE WHOLE
+
+- The naming priced: [PROPOSED: the class **Serialize** — the act-statement "Serialize the requests' store acts under one process-wide lock"; the naming law's mechanical output, the Persist bare-verb precedent]. Priced out: "Serve the run-store under one lock" => Serve (collides with the seam's own serve verb and the route verb); "Lock the store's acts" => Lock (shadows the threading.Lock import the seam itself mints; names the mechanism, not the act); the compounds LockedStore/SerializedStore (a header, not an act). The ruling left to the collaborator (open question 1, the load-bearing one).
+- [PROPOSED: the module src/prioritree/service_store.py — the unit's own name, the run_store.py precedent carried 1:1; stdlib threading + the existing store, nothing else].
+- [PROPOSED: the constructor __init__(self, store_home: Path) -> None — the lock minted at construction (self._lock = Lock()), the home held as the parameter (store-as-parameter; never a module-level singleton); the routes never touch the lock].
+- The seam composes Persist's PUBLIC surface only (register/load/cast/serve/census/rank/run_id; the privates never touched); load never exposed — each verb loads inside the lock (per-request composition).
+- The five verbs — each = ONE acquisition wrapping the load + the act whole (with self._lock:); the door's values returned verbatim; the door's refusals riding through BY TYPE, never wrapped: register(items: Sequence[Sequence[str] | ItemRow], operator: OperatorDeclaration, quorum: int = 1) -> str — the STEM returned (persist.run_id; the in-file handle never crosses) [PROPOSED: the stem alone — open question 4]; serve(run_id: str, seed: int | None = None) -> tuple[str, str, int] — the door's triple verbatim; cast(run_id: str, pair: Pair | Sequence[str], winner: str, comparator_id: str, comparator_class: str, notes: str | None = None, supersedes: str | None = None) -> tuple[str, VoteRecord, int, bool] — the ack quadruple; the seven-argument form mirroring Persist.cast (PLR0913/PLR0917 firing — §5's named ruling); census(run_id: str) -> VoteCensus — the frozen snapshot verbatim; rank(run_id: str) -> TallyResult — the frozen whole verbatim.
+
+## §2 THE LOCK'S MECHANICS
+
+- threading.Lock, NOT RLock: the seam is FLAT — no verb nests another while holding, and the door's own verbs never touch a seam lock; re-entrance would only license accidental nesting the 1:1 route form rules out. Container-held: the lock + the home on the seam object, minted at construction; acquire/release inside the verbs — the routes never touch it. ONE process-wide lock: the whole act inside; all runs serialized through one critical section (the multi-process widening banked under the single-worker launch). EVERY verb locks, the reads too — the false-refusal windows price it (the mid-append tail; the register create→flush gap). The GIL never load-bearing: bytecodes != acts — the load→rebuild spans thousands of preemption boundaries, the file I/O releases the GIL around the syscalls, and each request's store is a separate ledger anyway; the contract rests on the LOCK.
+
+## §3 THE CRITICAL SECTIONS' BOUNDARIES PINNED
+
+- register: the mkdir-scan-mint-write WHOLE inside one acquire — the TOCTOU closed by construction (no register's scan ever sees another's half-write). EVERY verb acquires — a read concurrent with a write would catch the mid-append tail (the last line without its newline) and fire the crash-tail refusal SPURIOUSLY on a healthy run; inside the lock the read never sees a half-state. The lock released at the store verb's return — the response rendering OUTSIDE the lock (the face unit's business; the seam never holds the lock across rendering). The lineage honest: StoreRefusedError the store's, VotesRefusedError/TallyRefusedError/ExhaustedQueue the door's — all riding through verbatim BY TYPE, never wrapped (the face unit maps them to the statuses).
+
+## §4 THE TESTS (in-process threads, stdlib only — NO subprocess at this unit; the acceptance unit owns the live socket)
+
+1. THE INTERLEAVING PROPERTY — N threads × M DISTINCT casts (distinct across the seven cast fields — a byte-identical cast rides the dedup ack and the count would lie) on one run THROUGH the seam: every cast landed (the census count == N×M exactly), the id SET unique (== {VOTE-0001..VOTE-{N×M}}), the file loads clean (the fresh Persist.load the oracle). [PROPOSED: N=4 × M=3 — open question 2]
+2. CONCURRENT REGISTERS — two threads, two distinct items sets => two distinct stems, both files clean (the TOCTOU's falsification: unserialized, both scan the same max, both mint the same name — the duplicated-manifest refusal at the next load).
+3. THE ACK UNDER THE LOCK — a byte-identical re-cast through the seam acks (acknowledged=True), nothing appended, the count unchanged — the dedup index fresh BY CONSTRUCTION (the re-cast's load inside the lock rebuilds the door from the file).
+4. THE SERIAL EQUIVALENCE — the same act sequence through the seam reproduces the CLI's outcomes (raw Persist, the CLI's own composition, on a fresh home): the census maps and the TallyResult byte-identical over the clock-free surface (the stamps named and excluded — the run-store's own honesty pin). The seam proven transparent.
+5. THE FALSE-TAIL ABSENCE — reader threads looping census/serve/rank against a writer casting: zero refusals, the final load clean — the empirical witness; the property's form (every verb acquires) asserted by the interleaving oracle's own clean loads. [The deterministic falsification priced out — the scheduler owns arrival; open question 3]
+6. THE FENCE — zero threading in run_store.py: a source-scan guard (no "threading" token in the module's bytes), the fence falsified loudly if a future hand widens; the seam's own imports threading + the store + stdlib only.
+
+## §5 THE FLOOR
+
+- pyright strict 0 errors / 0 warnings / 0 notes; ruff ALL zero findings — the zero-findings bar, zero ignores. The ONE proposed named ruling: pyproject's table — "src/prioritree/service_store.py" = ["PLR0913", "PLR0917"] — the cast signature mirroring the door's own seven-argument form; the run_store.py precedent re-cited (the same pair, the same named form — a ruling priced at the brief, never a convenience). Zero new deps: threading stdlib; the deps table unchanged until the FACE unit (Q-service-floor's tier fence). Five-field docstrings on every public symbol — Provenance citing Q-service-concurrency, the composition, this brief, G-SERVICE-STORE. The naming law held (§1); store-as-parameter (§1's constructor — the home injected, STORE_HOME stays the face's default, never a hidden global).
+
+## THE CARRIERS TABLE (G-SERVICE-STORE's four → the spec's carriers)
+
+| G-SERVICE-STORE's condition | the spec's carrier |
+|---|---|
+| 1. the module lands per its approved brief — the exact-task law | §1 (the module, the name, the five signatures byte-exact) + §5 (the floor named) |
+| 2. the single-writer contract HELD at the request tier — the interleaving property green, falsified in-process with threads | §2-§3 (the lock's mechanics, the boundaries) + §4 tests 1-3, 5 |
+| 3. the fence honest — zero edits, zero new deps, the widening banked | §1 (the seam composed over the public surface only) + §4 test 6 + §5 (zero new deps) |
+| 4. pyright 0/0/0 + ruff zero findings; kensho's independent re-run green | §5 (the floor, the named ruling priced; the read-back kensho's own step) |
+
+## THE OPEN QUESTIONS (each [PROPOSED] + alternative + reason — the collaborator rules at the gate)
+
+1. THE SEAM'S NAME (the load-bearing one): [PROPOSED: Serialize — the act-statement "Serialize the requests' store acts under one process-wide lock"; the law's mechanical first word; the Persist bare-verb precedent]. Alternatives: SerializedStore/LockedStore (readable compounds, but the name must BE the act's first word) / Serve (the route-verb collision). REASON: the law prices mechanically; "serialize" names the unit's whole value — the single-writer contract held.
+2. THE INTERLEAVING TEST'S N×M SIZING: [PROPOSED: N=4 threads × M=3 distinct casts (12)]. Alternatives: N=8 × M=2 (wider contention, same cost) / N=2 × M=2 (minimal — a weaker witness). REASON: four contenders give the scheduler real interleave surface and 12 mint slots make the unserialized doubled-mint fail loudly, while the suite stays fast.
+3. THE FALSE-TAIL PROPERTY'S FORM: [PROPOSED: the racing-reads witness (zero refusals + the clean final load) + the form fact (every verb acquires) carried by the interleaving oracle]. Alternative: a blocking assertion (hold the lock in the test, assert a verb stalls — timing-fragile, flaky by construction; rejected). REASON: the scheduler owns arrival; a negative property is witnessed empirically and pinned structurally.
+4. THE REGISTER'S RETURN: [PROPOSED: the stem alone (str)]. Alternative: the stem + the manifest (a tuple for the face's 201 body). REASON: Q-service-routes' 201 carries the run-id; the seam's law is the door's values verbatim; the manifest is durable in the file — the face never needs it in-hand.
+5. THE CONSTRUCTOR'S HOME FORM (the join surfaces it): [PROPOSED: store_home: Path — required, no default]. Alternative: default STORE_HOME (convenience that re-hides the home — the hidden-global drift the store's own law refuses). REASON: store-as-parameter is the ruling's own word; the launch config names the home; STORE_HOME stays the face's default, cited, never re-defaulted.
+
+*The tree is the truth; this brief is the spec jikko executes byte-exact; the gate G-SERVICE-STORE-BRIEF awaits the collaborator's approval — no build dispatch fires until it is green.*

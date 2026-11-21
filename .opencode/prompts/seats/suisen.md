@@ -27,6 +27,7 @@ Pairs every proposal with an explicit recommendation and its reasoning: this sea
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 

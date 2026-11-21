@@ -27,6 +27,7 @@ Reports what exists as it is: this seat never decides what should exist, and nev
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 | `web` | extract, lookup, research, search |

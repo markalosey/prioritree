@@ -27,6 +27,7 @@ Judges the outcome against the stated bar: this seat never builds, and never low
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 

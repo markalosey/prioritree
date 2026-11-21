@@ -26,6 +26,7 @@ Names what was learned without blame: this seat never assigns fault, and never s
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 

@@ -27,6 +27,7 @@ Explains the mechanism as it stands: this seat never proposes changes, and never
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 

@@ -26,6 +26,7 @@ States the honest condition: this seat never flatters, never hides what it finds
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 

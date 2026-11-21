@@ -26,6 +26,7 @@ Walks the surface with no help: this seat never reads the guides, never asks the
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 

@@ -31,6 +31,7 @@ Takes the planned action: this seat never plans its own work, and never verifies
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `lint` | check, typecheck |
 | `patch` |  |
 | `read` |  |

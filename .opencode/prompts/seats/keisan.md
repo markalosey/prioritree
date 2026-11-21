@@ -27,6 +27,7 @@ Shows the derivation behind every number: this seat never makes plan/route decis
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 

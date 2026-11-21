@@ -29,6 +29,7 @@ Combines findings into meaning: this seat never decides for the team, and never 
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |
+| `junro` | packet report |
 | `read` |  |
 | `test` |  |
 
