@@ -1,0 +1,379 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-cli",
+    "title": "Prioritree CLI — the first wrapper form: the core's five-op surface at the command line (register → next → vote → tally; both comparator classes through the one vote interface), the second layer of Q-setup-arch's four-form stack — the CLI wraps the pure-logic core, the core whole and green beneath it",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "the collaborator's ruling at the prioritree-core close (2026-11-20: 'proceed' — the CLI, the primary staged candidate; Q-setup-arch's four-form stack ruled: the pure-logic core, the CLI, the FastAPI service, the web app — 'the CLI wraps it')",
+      "the core whole and green (route prioritree-core DONE 2026-11-20 — six units landed: registry, scheduler, votes, tally, session, acceptance; Session's five-op public API the only door, the wrapper contract frozen at U5's surface; the measured bar at the ruled quorum k=3)",
+      "CONTINUATION.md's staged pointer at the core's close (the candidates: the CLI — the stack's next layer — or the budget curve; the CLI ruled in at the collaborator's 'proceed')"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE: each unit's discover → understand → synthesize before its build — discover/understand ride ungated packets (tansa's census, rikai's mechanisms); the synthesis the gated increment (togo, closing its own G-<UNIT>-BRIEF at the collaborator's approval). THE PRECEDENCE: no build unit's dispatch fires until its brief gate is green.",
+        "entry_condition": "the collaborator's 'proceed' at the composition validation (2026-11-20) stands — the five questions ruled (Q-cli-shape, Q-cli-persistence, Q-cli-granularity, Q-cli-acceptance, Q-cli-io); no build dispatch fires until its unit's brief gate is green (the precedence law)",
+        "increments": [
+          {
+            "id": "synthesize/run-store",
+            "owner": "togo",
+            "gate": "G-RUN-STORE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE CLI'S BUILD per the ruled unit decomposition (Q-cli-granularity's ruling): run-store (the file-backed persistence seam, Q-cli-persistence's ruling), command-face (the five subcommands over the frozen door), cli-acceptance (the e2e bar through the real argv surface) — one-commit-per-increment through the tree's own git instrument.",
+        "entry_condition": "each unit's brief gate green in turn — the exact-task law; each unit's build fires only after its own G-<UNIT>-BRIEF",
+        "increments": [
+          {
+            "id": "build/run-store",
+            "owner": "jikko",
+            "gate": "G-RUN-STORE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "tool": "make dev && make test && make lint && make typecheck at the prioritree root",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "close",
+        "purpose": "THE BOOKEND — CONTINUATION.md's CLI entry (the persistence ruling named honestly, the units, the gates, the floor at close, the landings through the tree's own instrument), the next candidates staged (the FastAPI service or the budget curve), the done call at the collaborator's ruling.",
+        "entry_condition": "G-RUN-STORE, G-COMMAND-FACE, and G-CLI-ACCEPTANCE are closed green on the route and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/cli-records",
+            "owner": "shinko",
+            "gate": "G-CLI-RECORDS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "records-synthesis",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-landing",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment"
+              },
+              {
+                "id": "done-call",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-RUN-STORE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the run-store module lands per its approved brief — the exact-task law: the brief is the spec, jikko executes byte-exact, nothing to figure out",
+          "the round-trip property green: a run saved and re-loaded reconstructs the identical library state — the manifest frozen once (register writes it; reloads never re-mint), the vote log append-only with the dedup index rebuilt at load, the census byte-identical before/after the round-trip",
+          "the seam honest: the store is CLI-tier surface — the core stays in-memory, zero-dep, untouched (no persistence verb added to the five-op door); a corrupt or truncated file refuses with expected/found/next-action naming the repair path, never a silent partial load",
+          "pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, zero ignores (a new ignore is a ruling at the brief); kensho's independent re-run green — the read-back is the evidence, not the build's word"
+        ]
+      },
+      "G-COMMAND-FACE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the command face lands per its approved brief — the exact-task law",
+          "the five subcommands map 1:1 onto the five ops — the frozen door cited, no op added, no op re-derived; the console-script entry live (prioritree answering at the dev install); argparse stdlib only — zero runtime deps held (never typer/click, the ruled floor)",
+          "the I/O contract green per the brief: the exit codes ruled (0 success AND DONE — ExhaustedQueue rendered as the tally pointer, never an error; 1 the refusal lineage with the three-field rendering; 2 the unexpected); the report shapes ruled (the pair line, the census, the ranking — TallyResult's frozen whole rendered faithfully, tie groups and coverage counts included)",
+          "pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green"
+        ]
+      },
+      "G-CLI-ACCEPTANCE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the acceptance harness lands per its approved brief — the exact-task law",
+          "the end-to-end arc green THROUGH THE REAL ARGV SURFACE (fixed-argv subprocess lists, never shell strings — the no-shell law): register → next → vote × k (the full scheduled queue at the ruled k) → the exhausted turn (exit 0, the tally pointer) → tally — across process boundaries: votes cast in one process visible to the next, the persistence seam proven in the arc itself",
+          "the determinism green: the same argv sequence yields byte-identical outputs on kensho's independent run; the refusal arc verified (the unknown run, the out-of-set verdict — exit 1, the three fields rendered); the SAFE HALT propagates whole (exit 1, U4's own message) — never a partial ranking dressed as whole",
+          "pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green"
+        ]
+      },
+      "G-CLI-RECORDS": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "CONTINUATION.md carries the CLI entry — the persistence ruling NAMED (the file-backed form ruled at the composition validation, priced honestly against the birth ruling's 'no DB' clause), the units, the gates green, the floor at close, the landings through the tree's own instrument",
+          "the next candidates staged (the FastAPI service — the stack's next layer — or the budget curve, the earned-later menu's first cousin), the ruling left to the collaborator",
+          "the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling"
+        ]
+      },
+      "G-RUN-STORE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit run-store LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/run-store) + mechanism analysis (understand/run-store) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-cli-shape\", \"text\": \"The CLI's shape: subcommands, an interactive session, or both? [PROPOSED default at the composition: SUBCOMMANDS ONLY, mapping 1:1 onto the five ops (register/next/vote/state/tally) — an LLM composes argv per judgment, a human types one command per judgment, and both compose with scripts; the interactive session an additive UX widening banked for a later ruling, never forced now.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:14Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-cli-persistence\", \"text\": \"THE LOAD-BEARING ONE: does the run state persist across CLI process exits? [PROPOSED default: FILE-BACKED — a flat JSON run store, NEW wrapper-tier surface (the subcommand shape demands state across exits: next/vote/tally are separate invocations by construction; a flat file leaves the ruled data plane untouched — the core stays zero-dep in-memory, \\\"no DB\\\" held, a file is not a database; the birth ruling's price \\\"persistence is a service-tier design ruling\\\" lands at this tier, which owns its store as its own surface — the tier-owns-its-weight form, the MCP ruling's kin). The zero-persistence alternative — one whole session per invocation — priced and rejected: it trades away the cross-invocation workflow both comparator classes' real use demands.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:19Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-cli-granularity\", \"text\": \"The unit granularity: one CLI unit or several? [PROPOSED default: THREE units — run-store, command-face, cli-acceptance (+ the close increment): the three surfaces carry three distinct falsification sets (the round-trip property, the argv contract, the cross-process arc), each earning its own brief + gate per the core's own unit law; one fat unit re-learns FR-MEM-0049's lesson at the wrapper tier.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:23Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-cli-acceptance\", \"text\": \"The CLI's acceptance bar: an end-to-end verification unit? [PROPOSED default: YES — the cli-acceptance unit, the deterministic e2e harness through the real argv surface (fixed-argv subprocess lists, never shell strings — the no-shell law): the wrapper's whole value IS the cross-invocation seam, and only an arc through the real surface can falsify it — the property tests at units 1-2 cannot see process boundaries.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:26Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-cli-io\", \"text\": \"The I/O forms: stdin/stdout, the report shapes, the exit codes. [PROPOSED default: argv for inputs, stdout for reports (the exact shapes banked at the brief: the pair line, the census summary, the ranking — TallyResult's frozen whole rendered faithfully); EXIT CODES 0/1/2 — 0 success AND DONE (ExhaustedQueue rendered as the tally pointer, never an error — the core's BY-TYPE distinction carried as the exit-code distinction), 1 the refusal lineage (the three-field rendering expected/found/next-action, the family grammar, VotesRefusedError and TallyRefusedError alike), 2 the unexpected.]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:29Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-cli-shape\", \"resolution\": \"SUBCOMMANDS ONLY, mapping 1:1 onto the five ops (register/next/vote/state/tally) — both comparator classes served mechanically (an LLM composes argv per judgment, a human types one command per judgment), script-composable; the interactive session banked as an additive later widening, never forced now.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-20): subcommands only, 1:1 on the five ops.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:37Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-cli-persistence\", \"resolution\": \"FILE-BACKED — a flat JSON run store, NEW wrapper-tier surface: the subcommand shape demands state across process exits (next/vote/tally are separate invocations by construction); a flat file leaves the ruled data plane untouched (the core stays zero-dep in-memory — \\\"no DB\\\" held, a file is not a database); the CLI tier owns its store as its own surface (the tier-owns-its-weight form, the banked MCP ruling's kin). The zero-persistence alternative priced and rejected — it trades away the cross-invocation workflow both comparator classes' real use demands.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-20): file-backed persistence, the wrapper-tier run store.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:42Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-cli-granularity\", \"resolution\": \"THREE units — run-store (the persistence seam), command-face (the five subcommands), cli-acceptance (the e2e bar) + the close increment: the three surfaces carry three distinct falsification sets (the round-trip property, the argv contract, the cross-process arc), each earning its own brief + gate per the core's own unit law.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-20): three units + the close.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:37:56Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-cli-acceptance\", \"resolution\": \"YES — the cli-acceptance unit: the deterministic e2e harness through the real argv surface (fixed-argv subprocess lists, never shell strings — the no-shell law); the wrapper's whole value IS the cross-invocation seam, and only an arc through the real surface can falsify it.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-20): the e2e verification unit stands.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:00Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-cli-io\", \"resolution\": \"argv for inputs, stdout for reports (the exact shapes banked at the brief: the pair line, the census summary, the ranking — TallyResult's frozen whole rendered faithfully); EXIT CODES 0/1/2 — 0 success AND DONE (ExhaustedQueue rendered as the tally pointer, never an error — the core's BY-TYPE distinction carried as the exit-code distinction), 1 the refusal lineage (the three-field rendering expected/found/next-action, the family grammar, VotesRefusedError and TallyRefusedError alike), 2 the unexpected.\", \"ruling\": \"The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \\\"proceed\\\", 2026-11-20): argv in, stdout out, exit codes 0/1/2 with DONE at 0.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:05Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the run-store module lands per its approved brief — the exact-task law: the brief is the spec, jikko executes byte-exact, nothing to figure out\\\", \\\"the round-trip property green: a run saved and re-loaded reconstructs the identical library state — the manifest frozen once (register writes it; reloads never re-mint), the vote log append-only with the dedup index rebuilt at load, the census byte-identical before/after the round-trip\\\", \\\"the seam honest: the store is CLI-tier surface — the core stays in-memory, zero-dep, untouched (no persistence verb added to the five-op door); a corrupt or truncated file refuses with expected/found/next-action naming the repair path, never a silent partial load\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings on the landed code — the zero-findings bar, zero ignores (a new ignore is a ruling at the brief); kensho's independent re-run green — the read-back is the evidence, not the build's word\\\"]\", \"gate\": \"G-RUN-STORE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:09Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the command face lands per its approved brief — the exact-task law\\\", \\\"the five subcommands map 1:1 onto the five ops — the frozen door cited, no op added, no op re-derived; the console-script entry live (prioritree answering at the dev install); argparse stdlib only — zero runtime deps held (never typer/click, the ruled floor)\\\", \\\"the I/O contract green per the brief: the exit codes ruled (0 success AND DONE — ExhaustedQueue rendered as the tally pointer, never an error; 1 the refusal lineage with the three-field rendering; 2 the unexpected); the report shapes ruled (the pair line, the census, the ranking — TallyResult's frozen whole rendered faithfully, tie groups and coverage counts included)\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green\\\"]\", \"gate\": \"G-COMMAND-FACE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:21Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the acceptance harness lands per its approved brief — the exact-task law\\\", \\\"the end-to-end arc green THROUGH THE REAL ARGV SURFACE (fixed-argv subprocess lists, never shell strings — the no-shell law): register → next → vote × k (the full scheduled queue at the ruled k) → the exhausted turn (exit 0, the tally pointer) → tally — across process boundaries: votes cast in one process visible to the next, the persistence seam proven in the arc itself\\\", \\\"the determinism green: the same argv sequence yields byte-identical outputs on kensho's independent run; the refusal arc verified (the unknown run, the out-of-set verdict — exit 1, the three fields rendered); the SAFE HALT propagates whole (exit 1, U4's own message) — never a partial ranking dressed as whole\\\", \\\"pyright 0 errors 0 warnings and ruff zero findings; kensho's independent re-run green\\\"]\", \"gate\": \"G-CLI-ACCEPTANCE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:28Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"CONTINUATION.md carries the CLI entry — the persistence ruling NAMED (the file-backed form ruled at the composition validation, priced honestly against the birth ruling's 'no DB' clause), the units, the gates green, the floor at close, the landings through the tree's own instrument\\\", \\\"the next candidates staged (the FastAPI service — the stack's next layer — or the budget curve, the earned-later menu's first cousin), the ruling left to the collaborator\\\", \\\"the collaborator rules the close — the done call recorded same-turn through the junro and the route's status set done at the ruling\\\"]\", \"gate\": \"G-CLI-RECORDS\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:32Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the collaborator's 'proceed' at the composition validation (2026-11-20) stands — the five questions ruled (Q-cli-shape, Q-cli-persistence, Q-cli-granularity, Q-cli-acceptance, Q-cli-io); no build dispatch fires until its unit's brief gate is green (the precedence law)\", \"purpose\": \"THE PER-UNIT PIPELINE: each unit's discover → understand → synthesize before its build — discover/understand ride ungated packets (tansa's census, rikai's mechanisms); the synthesis the gated increment (togo, closing its own G-<UNIT>-BRIEF at the collaborator's approval). THE PRECEDENCE: no build unit's dispatch fires until its brief gate is green.\", \"stage\": \"pipeline\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:36Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"each unit's brief gate green in turn — the exact-task law; each unit's build fires only after its own G-<UNIT>-BRIEF\", \"purpose\": \"THE CLI'S BUILD per the ruled unit decomposition (Q-cli-granularity's ruling): run-store (the file-backed persistence seam, Q-cli-persistence's ruling), command-face (the five subcommands over the frozen door), cli-acceptance (the e2e bar through the real argv surface) — one-commit-per-increment through the tree's own git instrument.\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:39Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-RUN-STORE, G-COMMAND-FACE, and G-CLI-ACCEPTANCE are closed green on the route and the collaborator has called the close\", \"purpose\": \"THE BOOKEND — CONTINUATION.md's CLI entry (the persistence ruling named honestly, the units, the gates, the floor at close, the landings through the tree's own instrument), the next candidates staged (the FastAPI service or the budget curve), the done call at the collaborator's ruling.\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:38:43Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLI-RECORDS\", \"increment\": \"close/cli-records\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"id\\\": \\\"records-synthesis\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-landing\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"done-call\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:39:12Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-RUN-STORE\", \"increment\": \"build/run-store\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-RUN-STORE-BRIEF\", \"packets\": [\"discover/run-store\", \"understand/run-store\"], \"synthesize_increment\": \"synthesize/run-store\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"tool\\\": \\\"make dev && make test && make lint && make typecheck at the prioritree root\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-21",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-21T01:39:29Z",
+        "op": "add-increment"
+      }
+    ],
+    "stop_conditions": [],
+    "record_layout": ".junro/ (the effort's record home)",
+    "landing_rhythm": "one-commit-per-increment"
+  },
+  "open_questions": [
+    {
+      "id": "Q-cli-shape",
+      "question": "The CLI's shape: subcommands, an interactive session, or both? [PROPOSED default at the composition: SUBCOMMANDS ONLY, mapping 1:1 onto the five ops (register/next/vote/state/tally) — an LLM composes argv per judgment, a human types one command per judgment, and both compose with scripts; the interactive session an additive UX widening banked for a later ruling, never forced now.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-20): subcommands only, 1:1 on the five ops.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "SUBCOMMANDS ONLY, mapping 1:1 onto the five ops (register/next/vote/state/tally) — both comparator classes served mechanically (an LLM composes argv per judgment, a human types one command per judgment), script-composable; the interactive session banked as an additive later widening, never forced now."
+    },
+    {
+      "id": "Q-cli-persistence",
+      "question": "THE LOAD-BEARING ONE: does the run state persist across CLI process exits? [PROPOSED default: FILE-BACKED — a flat JSON run store, NEW wrapper-tier surface (the subcommand shape demands state across exits: next/vote/tally are separate invocations by construction; a flat file leaves the ruled data plane untouched — the core stays zero-dep in-memory, \"no DB\" held, a file is not a database; the birth ruling's price \"persistence is a service-tier design ruling\" lands at this tier, which owns its store as its own surface — the tier-owns-its-weight form, the MCP ruling's kin). The zero-persistence alternative — one whole session per invocation — priced and rejected: it trades away the cross-invocation workflow both comparator classes' real use demands.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-20): file-backed persistence, the wrapper-tier run store.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "FILE-BACKED — a flat JSON run store, NEW wrapper-tier surface: the subcommand shape demands state across process exits (next/vote/tally are separate invocations by construction); a flat file leaves the ruled data plane untouched (the core stays zero-dep in-memory — \"no DB\" held, a file is not a database); the CLI tier owns its store as its own surface (the tier-owns-its-weight form, the banked MCP ruling's kin). The zero-persistence alternative priced and rejected — it trades away the cross-invocation workflow both comparator classes' real use demands."
+    },
+    {
+      "id": "Q-cli-granularity",
+      "question": "The unit granularity: one CLI unit or several? [PROPOSED default: THREE units — run-store, command-face, cli-acceptance (+ the close increment): the three surfaces carry three distinct falsification sets (the round-trip property, the argv contract, the cross-process arc), each earning its own brief + gate per the core's own unit law; one fat unit re-learns FR-MEM-0049's lesson at the wrapper tier.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-20): three units + the close.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "THREE units — run-store (the persistence seam), command-face (the five subcommands), cli-acceptance (the e2e bar) + the close increment: the three surfaces carry three distinct falsification sets (the round-trip property, the argv contract, the cross-process arc), each earning its own brief + gate per the core's own unit law."
+    },
+    {
+      "id": "Q-cli-acceptance",
+      "question": "The CLI's acceptance bar: an end-to-end verification unit? [PROPOSED default: YES — the cli-acceptance unit, the deterministic e2e harness through the real argv surface (fixed-argv subprocess lists, never shell strings — the no-shell law): the wrapper's whole value IS the cross-invocation seam, and only an arc through the real surface can falsify it — the property tests at units 1-2 cannot see process boundaries.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-20): the e2e verification unit stands.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "YES — the cli-acceptance unit: the deterministic e2e harness through the real argv surface (fixed-argv subprocess lists, never shell strings — the no-shell law); the wrapper's whole value IS the cross-invocation seam, and only an arc through the real surface can falsify it."
+    },
+    {
+      "id": "Q-cli-io",
+      "question": "The I/O forms: stdin/stdout, the report shapes, the exit codes. [PROPOSED default: argv for inputs, stdout for reports (the exact shapes banked at the brief: the pair line, the census summary, the ranking — TallyResult's frozen whole rendered faithfully); EXIT CODES 0/1/2 — 0 success AND DONE (ExhaustedQueue rendered as the tally pointer, never an error — the core's BY-TYPE distinction carried as the exit-code distinction), 1 the refusal lineage (the three-field rendering expected/found/next-action, the family grammar, VotesRefusedError and TallyRefusedError alike), 2 the unexpected.]",
+      "status": "ruled",
+      "rulings": [
+        {
+          "text": "The [PROPOSED] default approved wholesale at the composition validation (the collaborator's \"proceed\", 2026-11-20): argv in, stdout out, exit codes 0/1/2 with DONE at 0.",
+          "ruled_at": "2026-11-21",
+          "actor": "shinko"
+        }
+      ],
+      "resolution": "argv for inputs, stdout for reports (the exact shapes banked at the brief: the pair line, the census summary, the ranking — TallyResult's frozen whole rendered faithfully); EXIT CODES 0/1/2 — 0 success AND DONE (ExhaustedQueue rendered as the tally pointer, never an error — the core's BY-TYPE distinction carried as the exit-code distinction), 1 the refusal lineage (the three-field rendering expected/found/next-action, the family grammar, VotesRefusedError and TallyRefusedError alike), 2 the unexpected."
+    }
+  ]
+}
