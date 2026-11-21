@@ -58,6 +58,13 @@ select = ["ALL"]
 # ARE the rulings, named.
 "src/prioritree/acceptance.py" = ["S311", "ARG001"]
 
+# RULING (run-store-brief §1 + Q-cli-shape, G-RUN-STORE-BRIEF approved 2026-11-20): cast's
+# signature IS the door's ruled cast_vote signature mapped 1:1 (op 3's ruled seven arguments
+# — the frozen wrapper contract; the votes.py/session.py PLR0913/PLR0917 rulings re-cited at
+# the wrapper tier, Q-cli-shape's own 1:1 mapping). PLR0913/PLR0917 fire on exactly that
+# ruled surface; the ignore IS the ruling, named.
+"src/prioritree/run_store.py" = ["PLR0913", "PLR0917"]
+
 [tool.ruff.format]
 quote-style = "double"
 
