@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Priori-tree is a generalized prioritization system: for any list and comparison operator, run the pairwise permutations, store the votes, tally — the output list is in a superior order than sizing individual items, because discernment between two items is easy (for humans and LLMs) while absolute sizing is not."
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = ["fastapi", "uvicorn[standard]"]
 
 [build-system]
 requires = ["hatchling"]
@@ -97,6 +97,13 @@ select = ["ALL"]
 # PLR0913/PLR0917 fire on exactly that ruled surface; the ignore IS the ruling, named.
 "src/prioritree/service_store.py" = ["PLR0913", "PLR0917"]
 
+# RULING (service-face-brief §6, G-SERVICE-FACE-BRIEF approved 2026-11-21): BLE001 —
+# the 500 crash-envelope handler's except Exception IS the ruled catch-all (the app-level
+# fold: crashes first-class citizens, the article's three-part form; Starlette re-raises
+# so the traceback rides the log channel, never the body — the cli.py precedent re-cited:
+# the CLI's own exit-2 catch carries the same ruling). The ignore IS the ruling, named.
+"src/prioritree/service.py" = ["BLE001"]
+
 [tool.ruff.format]
 quote-style = "double"
 
@@ -117,4 +124,4 @@ venvPath = "."
 venv = ".venv"
 
 [dependency-groups]
-dev = ["pytest", "pyright", "ruff"]
+dev = ["pytest", "pyright", "ruff", "httpx2"]
