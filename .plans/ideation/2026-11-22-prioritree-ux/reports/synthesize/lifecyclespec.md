@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/lifecyclespec
 
-**Route:** prioritree-ux (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-ux (executing) | **Events:** 5 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,9 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-22T18:43:21Z |
 | 2 | report | togo | 2026-11-22T18:58:39Z |
+| 3 | gate | shinko | 2026-11-22T18:59:56Z |
+| 4 | dispatch | shinko | 2026-11-22T19:17:21Z |
+| 5 | report | togo | 2026-11-22T19:25:39Z |
 ## Reported by togo — 2026-11-22T18:58:39Z
 
 # THE LIFECYCLE UNIT'S EXACT-TASK SPEC (synthesize/lifecyclespec — togo, 2026-11-22)
@@ -137,3 +140,155 @@ THE COMMIT — at the coordinator's hand (shinko), ONE commit at the unit's clos
 ## §6 THE GATE'S MAPPING + THE TRADE-OFF CARRIED
 G-LIFECYCLESPEC-BRIEF's conditions -> this spec: (1) "every target's exact recipe bytes, every read-back named, the per-step dispatch plan whole" -> §2's fence + §2a (each target's read-back named at its recipe) + §5 (R8 whole). (2) "the ruled target set (start, stop, + the etc. the design/census pin — R3) with the handed constraints verbatim" -> the four-target set (R3's "etc." = restart, the brief §2's pin): start/stop/status/restart; 127.0.0.1; the named port; single-worker (both channels); the cwd discipline — all verbatim at §1 and in the bytes. (3) "the collaborator approves the spec — the build dispatches fire only after" -> the gate's own act: §5's three steps fire only at the approval.
 THE TRADE-OFF CARRIED (the brief §7, standing): the recipes are hand-authored shell — make IS the operator's shell (the no-shell law binds the seats' Python, never the operator's recipes); the pidfile discipline's known limits (a recycled PID makes kill -0 lie — the single-operator local tool's price) — carried knowingly; process-management machinery (launchd/launchctl) ruled out — zero precedents, the absence IS the finding.
+## Reported by togo — 2026-11-22T19:25:39Z
+
+# THE LIFECYCLE UNIT'S EXTENSION — THE MEMBER-CALLABLE SURFACE (synthesize/lifecyclespec, togo, 2026-11-22; the amended spec whole = this extension + the landed first spec, the chain composing both at this packet's projection)
+
+## §E0 THE GROUND, READ + CITED
+The ux store's junro.json whole — Q-ux-surface R12 (:635, the member-callable surface) + R13 (:643, the readable runtime), G-LIFECYCLESPEC-BRIEF :315-322, G-LIFECYCLE :323-330 · my landed spec (reports/synthesize/lifecyclespec.md — the 70-line fence, the tree at HEAD matching it byte-for-byte; the .gitignore's `.prioritree/` landed at :184) · the landed Makefile whole (70 l.) · .opencode/scripts/ read back: FIVE engines (calculate, curate, friction_ledger, patch, test_runner) — **the named ".opencode/scripts/lint.py" DOES NOT EXIST**: the lint tool has NO engine; it is the pure make shim (lint.ts:32/35 — runArgv(["make", "lint"])) — the closest fixed-argv act form is the wrapper itself, and that is this design's form · lint.ts whole (43 l. — the wrapper precedent) · _run.ts whole (the explicit-argv channel) · test_runner.py whole (the engine form where no make target exists) · kensho.md (the pack-routing table form, the regen header) · .opencode/tsconfig.json (the tsc scope + the family's Bun caveat) · the birth store's junro.json :595 (amendment 42's landed form) + the core store's :493 (the grant at HEAD, FR-MEM-0014's chain) · synthesize/tool-grants-brief.md §2 (the wrapper landing form: "tracked tree assets, NOT --check-covered; landed through the standing hands") · FR-MEM-0014/0024/0025 read whole via the friction ledger · the lifecycle unit brief (reports/synthesize/lifecycle.md — §2 the ruled target set, §3i/j the mechanisms, §4 the zero-test ruling) · packets.jsonl :183 (this dispatch). READ-ONLY held — nothing written beyond this report.
+
+## §E1 THE LANDING FORM RULED — (b) THE MID-ROUTE GRANT PRECEDENT, LANDING NOW (the design's first ruling; R12's named question)
+**RULED: (b) — amendment 42's own form, landing NOW, composed per the tree's two-surface discipline.** The two surfaces have two different homes, and the ruling names each:
+- **THE WRAPPER (.opencode/tools/lifecycle.ts): DIRECT, THIS TREE, THE STANDING HANDS — now.** The wrappers are NOT emission-covered: the harness's own record rules them "tracked tree assets, NOT --check-covered; landed through the standing hands" (tool-grants brief §2), and lint.ts:1 + _run.ts:1 carry the standing header "hand-maintained in prioritree's tree". The scaffold's 24 artifacts never included a wrapper; option (a)'s "the wrapper rides the scaffold's own cycle" has ZERO precedent — it invents an emission capability mid-route. The wrapper lands via patch (jikko's step), tracked, prioritree-owned.
+- **THE GRANT (opencode.json's permission rows + the seat prompts' Pack Routing rows): THE MID-ROUTE SOURCE-EDIT + REGEN — amendment 42's literal landed form (birth store :595: "the adapter edit + the re-emit lands the allow in the permission map and the row in kensho.md's pack table"), NEVER a hand-edit of the derived rows.** The derived surfaces carry the regen header ("do not edit manually"); the standing law is explicit ("never hand-edit cycle-generated files — the fix is a re-run"), and the tree's own record prices the hand-edit form: the amendment-28 togo stopgap — a hand-allow at a derived surface, CLOBBERED by the next ruled re-emit. So: the hikari-side adapter edit (prioritree-seats.yaml's pack rows + the universe entry) + the regen (--target prioritree) fired mid-route at the collaborator's hand — the same machinery amendment 42 fired, now rather than at a scheduled cycle. THE SYNC IS NOT BANKED — the source edit IS the sync, and it rides the same window as the landing: a banked sync leaves the clobber window open (the drift the never-hand-edit law exists to prevent).
+**WHY (b) OVER (a):** R12's own diagnosis — G-LIFECYCLE condition 2 is BLOCKED at kensho's hands NOW (no make verb; the live read-backs ran at the collaborator's shell — FR-MEM-0025's own record); the unit's close waits on the live sequence being a member's own act. (a) routes the whole landing through the hikari-side cycle — out of this tree's reach, the unit blocked meanwhile, and it still pays the same universe cost (below). (b) lands the capability in the unit's own window, through forms the tree has already used (the tool-grants unit's wrapper landing + amendment 42's grant), with every drift price named.
+**THE UNIVERSE COST — PAID EITHER WAY, NAMED:** a new tool id (lifecycle) grows the closed-world universe 26 → 27; the deny-lines re-derive at every seat in every tree — clarity's and input's opencode.json re-byte (the sibling-impact law, tool-grants brief §2's derivation), their --check legs re-run. This is the universe's price, not the landing form's — (a) pays it identically.
+**THE OPERATIONAL NOTE (FR-MEM-0014, THE DRIFT LESSON PRICED):** a landed grant is ABSENT from every live session's callable set — opencode registers .opencode/tools/*.ts and derives the seat's pack AT LAUNCH. The grant lands at the tree; the DELIVERY lands at the launch: after the regen, the collaborator RESTARTS opencode, and only post-restart sessions carry the lifecycle act. A live session's "no verb exists" refusal after the landing is the NAMED EXPECTED STATE (the stale-session class, FR-MEM-0007/0008's family), never a defect report; the verification step (§E6 step 4) dispatches into a post-restart session by construction.
+
+## §E2 THE WRAPPER'S DESIGN — THE FIXED-ARGV ACT FORM (R12)
+**THE NAME (the naming law):** the act-statement — "the lifecycle surface: the members call the service's lifecycle verbs directly" — first word: **lifecycle** → `.opencode/tools/lifecycle.ts` (the filename IS the tool id, Q-tool-registration).
+**THE DRY QUESTION RULED: THE WRAPPER SUBPROCESSES MAKE — ONE IMPLEMENTATION.** The recipes live ONCE in the Makefile (R3's ruled surface, G-LIFECYCLE's exact-task bytes, already landed and live-proven); the wrapper is the argv shim over them — lint.ts's own form (ops → runArgv(["make", "<target>"]), ZERO mechanism of its own; the "engine at .opencode/scripts/lint.py" does not exist precisely because the lint tool owns nothing). Re-implementing the verbs (the pid chain, the kill -0 guards, the drain-wait, the probe forms) would fork the mechanism: two truths to keep true, every cure (RUN-9999 itself) landing twice, the G-LIFECYCLE exact-task bytes re-authored — the divergence class the tree's whole discipline refuses. The wrapper NEVER owns a transition.
+**THE READ VERBS (R13) — TWO PURE READS, RULED:** the Makefile's set stays FOUR (the brief §2's ruling untouched — no log/output targets; the operator's surface and the members' surface are two surfaces, the transitions shared, the reads member-only):
+- **log** — the SERVER LOG's bounded tail (.prioritree/server.log — the boot banner, the request channel, the errors, the drain lines), default the last 100 lines, `tail` overridable; an in-wrapper read (node:fs — no subprocess, no shell, no engine: web.ts's zero-engine in-wrapper precedent). EARNED: the read tool reads from the HEAD (2000-line default) — a growing log's meaning lives at the TAIL, a moving target offset cannot express; R13's bounded-tail discipline is the form no standing instrument carries.
+- **output** — THE SERVICE'S LIVE ANSWER, VERBATIM: the RUN-9999 probe's response BODY whole (an in-wrapper fetch — web.ts's fetch precedent; status reports the CODE, output reports the BODY — the honest ThreePart refusal's own words, FR-MEM-0025's cure read at the surface it was built for; R13's "the port's answers" among the runtime's readable evidence). RULED REJECTED, priced: (i) the log-twin form (output = a second log read — an ungrounded duplicate verb); (ii) the tee form (the wrapper appending each transition's output to a second log home — a new write channel + a new artifact for a need the live body serves without mutation; R13: "the read verbs are read-only — never a mutation"). THE OPEN QUESTION NAMED for the gate: R13's "the output verbatim" read HERE as the live-answer body; the transitions' own outputs already ride verbatim by the wrapper's rendering law (formatOutput — stdout/stderr whole, exit codes passed through), so no verb is minted for them.
+**THE VERBS' ARGV + READ-BACKS (each):** start → `["make","start", +PORT=/HOST= overrides]` — the read-back: the recipe's own line (the port answers; 000 = still booting) · stop → `["make","stop"]` — the drain report / the refusal read-back · status → `["make","status"]` — the pid + the port, both labeled · restart → `["make","restart", +overrides]` — the refusal then the answer (both prerequisites' read-backs) · log → the tail verbatim, the window labeled (the last N of M lines — the budget named) · output → the body verbatim, the HTTP status named · help → the usage. The PORT/HOST overrides render the Makefile's own `?=` grammar as make variable assignments — the operator's override surface, never re-implemented. Exit codes: make's own, passed through (the recipes' ThreePart refusals ride exit 1; formatOutput renders them whole).
+**THE EXACT BYTES — THE COMPLETE NEW FILE (FR-MEM-0011's bytes-at-synthesis doctrine; lint.ts's form grown to six ops; node builtins + fetch only — no Bun global in THIS file, the _run import the one channel):**
+
+```ts
+// prioritree-owned (2026-11-22, G-LIFECYCLESPEC-BRIEF's extension — Q-ux-surface R12/R13): the member-callable lifecycle surface; hand-maintained in prioritree's tree (lint.ts's standing form)
+//
+// Purpose: the lifecycle act — the members call the service's runtime directly (R12): the transitions (start/stop/status/restart) subprocess make through the _run.ts explicit-argv channel (the Makefile's recipes the ONE implementation; this wrapper the argv shim); the READ verbs are pure reads (R13): log — the server log's bounded tail (.prioritree/server.log, default the last 100 lines); output — the service's live answer, the RUN-9999 probe's response body rendered verbatim. Every op's output renders verbatim, never summarized.
+// Refuses when: log finds .prioritree/server.log absent (the honest never-started report); output finds the port refused (the honest down report); the transitions refuse per the recipes' own guards — the exit codes pass through, never swallowed. NOT a shell, NOT a server manager beyond the ruled verbs: the four transitions + the two reads only.
+// Re-run: the reads are pure (idempotent); the transitions idempotent per the recipes' own guards (start refuses on a live pid; stop exits 0 on the absent pidfile); the wrapper's verification is kensho's live run through the wrapper itself (validate/lifecycle — the registration + the verbs' read-backs; no pytest arc).
+// Touches: nothing of its own — the recipes' writes (.prioritree/) are the only mutations; the read verbs never mutate (R13: the log is evidence, not state).
+// Provenance: Q-ux-surface R12/R13 (2026-11-22, the collaborator's two rulings); the lifecyclespec extension (togo, packet synthesize/lifecyclespec); FR-MEM-0025 (the RUN-9999 context-free probe); lint.ts the wrapper precedent; _run.ts the explicit-argv channel.
+import { tool } from "@opencode-ai/plugin"
+import { readFileSync } from "node:fs"
+import { join } from "node:path"
+import { runArgv } from "./_run"
+
+function formatOutput(result: {
+  exitCode: number
+  text(): string
+  stderr: Buffer | string
+}): string {
+  const stdout = result.text()
+  const stderr = result.stderr.toString()
+  if (result.exitCode === 0) {
+    return stdout.trim() || "Done."
+  }
+  if (stderr.trim()) {
+    return `${stdout}${stdout.trim() ? "\n" : ""}stderr:\n${stderr}`.trim()
+  }
+  return stdout.trim() || `Exited with code ${result.exitCode} (no output captured).`
+}
+
+export default tool({
+  description: "Lifecycle — the member-callable service-management surface: the transitions (start/stop/status/restart) over the host Makefile's targets via the explicit-argv runArgv channel (one implementation: the recipes; this wrapper the argv shim), plus the READ verbs (log — the server log's bounded tail, default 100; output — the service's live answer, the RUN-9999 probe's body verbatim). The reads are read-only; every op's output renders verbatim, never summarized. Host-only (no Docker, no worktrees); no shell.",
+  args: {
+    operation: tool.schema
+      .enum(["start", "stop", "status", "restart", "log", "output"])
+      .or(tool.schema.literal("help"))
+      .describe("Operation to perform (use \"help\" to print this tool's usage)"),
+    port: tool.schema.string().optional().describe("The service's port — appended as the make override PORT=<n> on the transitions (default 8000, the Makefile's own ?=); the probe's target on output"),
+    host: tool.schema.string().optional().describe("The service's bind host — appended as the make override HOST=<h> on the transitions (default 127.0.0.1, the Makefile's own ?=); the probe's target on output"),
+    tail: tool.schema.string().optional().describe("The log tail's line count (the log op only; default 100 — R13's bounded-tail discipline)"),
+  },
+  async execute(args, context) {
+    const makeTarget = (target: string): string[] => {
+      const argv = ["make", target]
+      if (args.port) argv.push(`PORT=${args.port}`)
+      if (args.host) argv.push(`HOST=${args.host}`)
+      return argv
+    }
+    switch (args.operation) {
+      case "start": {
+        return formatOutput(await runArgv(makeTarget("start"), { cwd: context.directory }))
+      }
+      case "stop": {
+        return formatOutput(await runArgv(makeTarget("stop"), { cwd: context.directory }))
+      }
+      case "status": {
+        return formatOutput(await runArgv(makeTarget("status"), { cwd: context.directory }))
+      }
+      case "restart": {
+        return formatOutput(await runArgv(makeTarget("restart"), { cwd: context.directory }))
+      }
+      case "log": {
+        const path = join(context.directory, ".prioritree", "server.log")
+        let text: string
+        try {
+          text = readFileSync(path, "utf8")
+        } catch {
+          return "log refused — Expected: .prioritree/server.log (the server's log, present after a start)\nFound: the file absent (the server has never been started)\nNext-action: lifecycle start first, or read the runtime state with lifecycle status"
+        }
+        const lines = text.split("\n")
+        const parsed = args.tail ? Number.parseInt(args.tail, 10) : 100
+        const n = Number.isFinite(parsed) && parsed > 0 ? parsed : 100
+        const shown = lines.slice(-n).join("\n")
+        return `log — ${path} (the last ${Math.min(n, lines.length)} of ${lines.length} lines; the bounded tail is the discipline — a full-file read is a budget question)\n${shown}`
+      }
+      case "output": {
+        const host = args.host ?? "127.0.0.1"
+        const port = args.port ?? "8000"
+        const url = `http://${host}:${port}/runs/RUN-9999/next`
+        try {
+          const res = await fetch(url, { signal: AbortSignal.timeout(5000) })
+          const body = await res.text()
+          return `output — ${url} answered HTTP ${res.status} (the body verbatim):\n${body}`
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error)
+          return `output refused — Expected: the service answering on ${url} (the RUN-9999 probe — the honest ThreePart refusal proving the chain)\nFound: the connection refused (${message} — the server is down)\nNext-action: lifecycle start, or read the runtime state with lifecycle status`
+        }
+      }
+      case "help": {
+        return "lifecycle — the member-callable service-management surface (the transitions subprocess make — the recipes the one implementation; the reads pure).\n\nOperations:\n  start  [make start (+ PORT=/HOST= overrides)]\n    Start the server in the background; the read-back: the port answers (the RUN-9999 honest 404; 000 = still booting)\n  stop  [make stop]\n    SIGTERM + the bounded drain; the read-back: the refusal (the port down)\n  status  [make status]\n    The pid + the port, both labeled, read-only\n  restart  [make restart (+ PORT=/HOST= overrides)]\n    Stop then start: the refusal then the answer\n  log  [read .prioritree/server.log]\n    The server log's bounded tail (default the last 100 lines; tail=<n> overrides)\n  output  [probe http://127.0.0.1:8000/runs/RUN-9999/next]\n    The service's live answer — the response body verbatim"
+      }
+    }
+    return `Unknown operation: ${args.operation}`
+  },
+})
+```
+
+## §E3 THE GRANT MAP RULED (R12's three + R13's candidates; the minimum-grant principle — every grant carries its citation, no cited need no grant)
+| Seat | Verbs granted | The reason (the citation) |
+|---|---|---|
+| jikko | ALL SIX (start/stop/status/restart/log/output) | THE BUILD FLOOR (R12's named grant): the lifecycle unit's own executor — the floor's live read-backs (G-LIFECYCLE condition 2, the targets-green step), the boot-diagnosis reads when a start fails; FR-MEM-0024's cure-class — the execution seat's needed acts all routed, never discovered at execution time |
+| kensho | ALL SIX | THE VERIFICATION (R12's named grant): G-LIFECYCLE conditions 2+3 — the independent re-run SELF-SUFFICIENT, the live evidence a member's own act; the reads are the evidence channels (the artifact contract: outputs verbatim — the log + the answer body are the runtime's word) |
+| shinko | ALL SIX | THE COORDINATION (R12's named grant): the convenor's live-sequence hand (the first spec's own form — "the make verb rides the coordinator's hand", now the wrapper's act) + the position reads at dispatch time |
+| shindan | READ THREE (status/log/output) — NEVER the transitions | THE DIAGNOSTIC EYE (R13's candidate, GRANTED read-only): the state + the history + the chain's own words; status is read-only by construction (brief §3i); an analysis seat never mutates the runtime — the competency boundary |
+| rikai | READ THREE (status/log/output) — NEVER the transitions | THE MECHANISM'S TRACE (R13's candidate, GRANTED read-only): the log IS the mechanism's own record (the request channel, the drain lines), the body IS the refusal mechanism's text; same boundary |
+| ALL OTHERS (tansa, suisen, keisan, hyoka, moho, togo, keikaku, hansei) | DENIED — the closed-world deny lines | No ruled need on the record (the minimum-grant principle); the static surfaces already serve the read/grep instruments; togo read-only by design and never acts on what it synthesizes |
+THE LANDING FORM (per §E1): the adapter rows at hikari's prioritree-seats.yaml (the five seats' pack rows — the full-six row at jikko/kensho/shinko, the read-three row at shindan/rikai) + the universe entry (lifecycle, 26→27); the regen lands opencode.json's five allow-rows + eight deny-lines + the five seat prompts' Pack Routing rows (kensho.md:31's own form: `| lifecycle | start, stop, status, restart, log, output |` / the read-three row); the siblings re-byte + their --check legs.
+
+## §E4 FR-MEM-0025'S CURE — THE RUN-9999 PROBE FLIP (the context-free 404-as-ready; four byte-sites, one token each: RUN-0001 → RUN-9999, same length, a clean swap)
+- **:31 (start's read-back probe):** `...http://127.0.0.1:$(PORT)/runs/RUN-0001/next || true` → `RUN-9999` — start's read-back now reads the honest 404 at ANY root, ANY store state (the real root's RUN-0001 serves its REAL pair at 200 — the mislabeled-healthy defect dead).
+- **:52 (stop's refusal read-back — the stop/restart probes' form-consistency):** `@curl -s -o /dev/null http://127.0.0.1:$(PORT)/runs/RUN-0001/next && echo ...` → `RUN-9999` (restart rides stop+start's own probes — no fifth site).
+- **:61 (status's port verdict):** `@code=$$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:$(PORT)/runs/RUN-0001/next); \` → `RUN-9999`.
+- **:62 (status's message path string):** `echo "port: $(PORT) answering (HTTP 404 on /runs/RUN-0001/next; the ready form)"` → `RUN-9999`.
+**THE WRAPPER'S OWN VERIFICATION FORMS: NONE — the DRY ruling's dividend.** The wrapper carries zero probe forms of its own (the read-backs ride the recipes; the wrapper's output = the recipe's own read-back, verbatim); its `output` verb probes RUN-9999 BY DESIGN — the context-free form born into the member surface. The flip lands ONCE, in the Makefile, and every surface (the operator's shell, the members' wrapper, kensho's verification) reads it through the one implementation.
+
+## §E5 THE TEST QUESTION RULED — NO PYTEST ARC; THE WRAPPER'S TEST IS KENSHO'S LIVE RUN THROUGH THE WRAPPER ITSELF
+The brief §4's zero-test ruling EXTENDS to the wrapper, the four reasons carrying over: (1) the acceptance harness (tests/test_service_acceptance.py) already proves the boot mechanism live (Popen, the sibling uvicorn, the scratch cwd, wait(5) — the tree's live-boot precedent, untouched and green); (2) the wrapper adds ZERO mechanism — the argv shim over the ruled recipes + two pure reads; (3) a pytest arc over the wrapper would be a test-of-the-shim — brittle to the TS bytes, needing bun/opencode runtime inside pytest, proving nothing the live run does not prove more honestly (the run IS the evidence — the verification seat's own contract); (4) the floor rides untouched (zero Python touched — the floor re-run a no-op formality at step 4). THE STATIC CHECK: the per-file tsc lane (the wrappers' own recorded discipline, _run.ts:5), executed at the collaborator's hand — `bunx tsc --noEmit --strict --target ES2022 --module ESNext --moduleResolution bundler --skipLibCheck --allowImportingTsExtensions --types node .opencode/tools/lifecycle.ts` (the flags mirrored from .opencode/tsconfig.json:19-29; no seat carries a tsc act — the instrument gap named honestly, FR-MEM-0024's form); the tsconfig's own comment names the family caveat (tools/ references Bun globals via _run — the lane's Bun-family errors there are the known class, which is why the file at hand carries node builtins + fetch only). THE AUTHORITATIVE VERDICT: the LIVE REGISTRATION — opencode auto-discovers and loads .opencode/tools/*.ts at session start; a wrapper that fails to parse fails the registration loudly — and kensho's step-4 run through the wrapper IS the test (the proof by use — the tool-grants unit's own form: "the live proof rides the first gate, where kensho fires the tool in verification").
+
+## §E6 THE PER-STEP DISPATCH PLAN (R8) — ONE STEP, ONE DISPATCH, ONE BOUNDED RETURN
+**STEP 1/4 — THE PROBE FLIP (jikko; one patch).** The Makefile's four byte-sites (:31, :52, :61, :62), RUN-0001 → RUN-9999 each; NOTHING else. READ-BACK: the four lines re-read verbatim; `grep -c RUN-0001 Makefile` = 0, `grep -c RUN-9999 Makefile` = 4. FILE THE STEP REPORT (R11). RETURN ≤8 lines.
+**STEP 2/4 — THE WRAPPER'S LANDING (jikko; one patch create).** §E2's fence WHOLE — the complete file at .opencode/tools/lifecycle.ts, byte-exact. READ-BACK: the file re-read whole vs the fence; the tsc lane at the collaborator's hand (§E5's command — named in the step's dispatch as the collaborator's check, no seat act). FILE THE STEP REPORT (R11). RETURN ≤8 lines.
+**STEP 3/4 — THE GRANT'S LANDING (one step, two hands, named).** THE SEAT'S PART (jikko through hikari's shinko-git choreography — the tool-grants unit's own precedent, patch's root override): the adapter rows at hikari's prioritree-seats.yaml (§E3's five rows) + the universe entry (lifecycle, 26→27). THE COLLABORATOR'S PART (the human shell — the regen and the restart are the operator's acts): `uv run python scripts/generation/clarity_scaffold.py --target prioritree` (+ the clarity/input re-emits, the sibling re-byte) → the --check legs PASS; then THE RESTART (§E1's operational note). READ-BACK: opencode.json's five allow-rows + eight deny-lines; the five seat prompts' pack rows; the --check legs. FILE THE STEP REPORT (R11). RETURN ≤10 lines.
+**STEP 4/4 — THE VERIFICATION (kensho; FROM A POST-RESTART SESSION; the packet validate/lifecycle — G-LIFECYCLE condition 3's independent leg, now SELF-SUFFICIENT).** The live sequence THROUGH THE WRAPPER: lifecycle start → the read-back (the port answers — the RUN-9999 honest 404 at the REAL root, the context-free form proven where FR-MEM-0025 broke) · lifecycle status → the pid + the port · lifecycle log → the tail (the boot banner, the request channel) · lifecycle output → the body verbatim (the ThreePart refusal's own words) · lifecycle restart → the refusal then the answer · lifecycle stop → the refusal. Each output VERBATIM in the report (the artifact contract). Plus the floor (the test + lint acts: 156 passed, All checks passed!, 0/0). FILE THE STEP REPORT (R11). RETURN ≤15 lines.
+**THE COMMIT — the coordinator's hand (shinko's git land, the tree's own instrument):** ONE commit at the unit's close covering the extension's files (the Makefile flip + lifecycle.ts + the regen's grant artifacts); proposed message: `the lifecycle extension: the member-callable surface (lifecycle.ts + the grants); the RUN-9999 probe flip`.
+
+## §E7 THE GATE'S MAPPING + THE TRADE-OFF CARRIED
+**G-LIFECYCLESPEC-BRIEF (re-presented; this extension + the landed first spec = the amended whole):** (1) "every target's exact recipe bytes, every read-back named, the per-step dispatch plan (R8) whole" → the first spec's fence STANDS (landed, live-proven); the extension carries the amended bytes (§E2's fence, §E4's four sites) + the read-backs (§E2's verb table) + §E6's plan whole. (2) "the ruled target set with the handed constraints verbatim" → UNTOUCHED (the four-target set + 127.0.0.1/the port/single-worker/the cwd discipline all stand; the extension ADDS the member surface per R12/R13, never re-opens the ruled set). (3) "the collaborator approves — the build dispatches fire only after" → this re-presentation IS the ask; §E6's steps fire at the approval.
+**G-LIFECYCLE (the unit's close, the extension inside it):** condition 2 ("the targets green live") → the live sequence now rides the wrapper AT KENSHO'S HAND (step 4 — R12's cure: the blocked condition unblocked, the evidence a member's own act; the collaborator's-shell run stands as the pre-grant record); condition 3 ("the floor green; kensho's independent re-run") → step 4's floor + the wrapper-borne sequence; condition 1 (the exact-task law) → the flip + the wrapper land per THIS spec's bytes.
+**THE TRADE-OFF THE PLAN CARRIES (named):** (1) the grant's landing depends on the cross-tree hand (the hikari adapter + the regen + the siblings' re-byte + the restart) — the unit's close is hostage to a non-seat window; the wrapper may sit on disk UNROUTED until the regen fires (harmless by the closed-world deny: discoverable, never callable — the drift window named, never hidden); (2) FR-MEM-0014's delivery-at-the-launch: post-landing live sessions stay grant-blind until the restart — the named expected state; (3) the `output` verb's ruling (the live-answer body reading of R13's "the output verbatim") carries interpretive risk — the alternatives priced at §E2, the gate's approval the settle; (4) the universe growth 26→27 re-bytes the sibling trees — the closed world's price, paid under either landing form.
