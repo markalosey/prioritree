@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/webspec
 
-**Route:** prioritree-ux (executing) | **Events:** 16 | **Reports:** 11
+**Route:** prioritree-ux (executing) | **Events:** 20 | **Reports:** 13
 
 ## The packet's chain (ledger order)
 
@@ -23,6 +23,10 @@
 | 14 | report | togo | 2026-11-22T17:13:03Z |
 | 15 | report | togo | 2026-11-22T17:13:41Z |
 | 16 | report | togo | 2026-11-22T17:14:09Z |
+| 17 | result | shinko | 2026-11-22T17:14:39Z |
+| 18 | dispatch | shinko | 2026-11-22T17:22:04Z |
+| 19 | report | togo | 2026-11-22T17:26:11Z |
+| 20 | report | togo | 2026-11-22T17:26:23Z |
 ## Reported by togo — 2026-11-22T16:07:28Z
 
 # THE WEB UNIT'S EXACT-TASK SPEC — PART 1 (synthesize/webspec; togo, 2026-11-22 — §1 the web module whole; parts 2-4 carry the structure, the generator, the edits, the tests, the sequence, the proofs)
@@ -3599,3 +3603,139 @@ def test_refusal_method_not_allowed_405(client: TestClient) -> None:
 **(6) THE G-WEB MAPPING (the build gate's four conditions).** (1) The exact-task law → parts 2-4: every file whole (16 authored frontend files + web.py + the test file), every modified file's exact regions + insertion points, the 13-step sequence with read-backs — the execution seat receives nothing to figure out. (2) The projection law (R1 AS CLARIFIED BY R9/R10 — §4's named gate reading) → §Y(3): the files the authored source, the loader/renderer the seam, zero content-in-Python, zero generated; Jinja2 always; Shoelace via CDN (the base template's pins); the Web Components under separation of concerns (app.js); the HTMX wire. (3) The comparator's flow end-to-end → §V's arcs: register → the sitting's server-side pair → the vote's two-step chain → the 5s progress poll → the ranked whole; the render gate (done:false NEVER renders the table); the 409-verbatim; the HX-Redirect. (4) R5 + the floor → §Y(1)/(2)/(5): every refusal ThreePart-verbatim on every touched surface (the child's 404/405 in the family grammar, the fragments' 200s rendering refusals visibly, the pages' honest statuses); pyright 0/0 + ruff zero findings; kensho's independent re-run green (validate/web).
 
 THE RE-SPEC CLOSES: the architecture re-settled per R9/R10 (the homes ruled, the fates ruled — both stranded files removed, the --check/regen discipline retired, the generator removed, the floor-scope growth dead), every byte authored (the 14 templates + the 2 static files + web.py + the test file whole; the 4 pyproject regions + the tail mount + the 405 arc exact), the command sequence re-planned per-step (12 jikko dispatches + the commit at the coordinator's hand), the no-break proofs named per frozen surface, v1's three latent defects caught and cured (the union import, the rows-list/render-subscript inconsistency, the static mount's check-dir boot-crash). G-WEBSPEC-BRIEF's conditions are met by this re-spec under R9/R10's clarified law; hyoka's adversarial pass rides before the presentation; the collaborator's approval is the gate. — togo, 2026-11-22
+## Reported by togo — 2026-11-22T17:26:11Z
+
+# THE FOLD — PART 1: THE LETTERS (synthesize/webspec; togo, 2026-11-22 — hyoka's seven adversarial findings folded into v3: the letter corrections whole — the route-8 carrier named, §3e + §8-item-5 amended, §Y's exception class ruled, G-WEB condition 2's letter re-composed for the collaborator's ruling; part 2 carries the byte corrections exact)
+
+READ-BACK (the fold's ground, whole): reports/design/adversarial-web.md (hyoka's pass — the seven findings verbatim, every cure named, the verdict: the architecture stands, the spec's defects mine to fold) · reports/synthesize/webspec.md (my own v2 whole, 3601 lines — the five rethink events + v1's six beneath) · reports/synthesize/web.md (the approved brief whole — §4 route 8's letter, §3e's letter, §8 item 5's letter, read at the bytes) · the ux store's junro.json (G-WEB's condition 2 verbatim; G-WEBSPEC-BRIEF's three conditions; R9/R10 the law) · THE CORE AT SOURCE: src/prioritree/votes.py:464-486 (the ack semantics verified — the dedup branch returns acknowledged=True at :468, "UNCHANGED count, acknowledged=True (never a silent dup)"; the fresh cast returns False at :486) + src/prioritree/service.py:168 (render_refusal — the refusal's one render point) + :269-298 (the refuse handler's found-texts composed in Python — the precedent finding 3 rides). READ-ONLY held — nothing written beyond these report events.
+
+## §0 THE FOLD'S VERDICT
+
+All seven findings folded, none deferred; hyoka's own verdict carried: the re-settled ARCHITECTURE meets R9/R10 — the corrections are the fold's. V3 = v2's bytes + the corrections exact: TWO byte-flips (§E's echo condition, §Q's vote docstring), the echo arc's re-target + the fresh-ack absence pin, ONE new face arc (the static pair), the §Y namings (three: the exception class, the mount-shadow residue, the scratch-cwd page residue), the letter amendments (the brief's route-8 carrier + §3e + §8 item 5), and G-WEB condition 2's re-composed letter prepared as the amendment the collaborator rules at the gates' presentation. THE FILE INVENTORY UNCHANGED IN COUNT: 18 authored + 3 edited + 2 removed — the new arc rides the already-counted test file; no file added, none dropped.
+
+## §1 FINDING 1 (BLOCKING) — THE IDEMPOTENT-ECHO INVERSION: THE LETTERS (the bytes ride part 2)
+
+The core's semantics, verified at the source this fold: a FRESH cast returns acknowledged=False (votes.py:486); the byte-identical RE-SEND returns acknowledged=True (:464-468). V2's §E renders the echo at `{% if not acknowledged %}` — INVERTED: every fresh vote tells the comparator "already recorded with the same answer" (a lie per cast); the true re-send renders nothing. §Q's vote docstring carries the same inversion ("acknowledged:false => the idempotent echo in words"). §V's echo arc masks it twice: its first post targets /runs/{_RUN_ID}/vote — NO such route exists (the fragment is /ui/.../vote; the service lane is /votes) — the vote never lands; the "again" post is a FRESH cast whose inverted echo satisfies the assertion. THE BRIEF'S CARRIER, NAMED: the approved brief's §4 route-8 letter reads "acknowledged:false → the idempotent echo in words — 'already recorded with the same answer — it stands once'" — the inversion's carrier, amendment-pending at the re-presentation. THE CORRECTED LETTER: "acknowledged:true → the idempotent echo in words — 'already recorded with the same answer — it stands once'". The re-presented brief carries the corrected letter; the collaborator rules the amendment at G-WEB-BRIEF. (§E's flip, §Q's flip, and the test's cure ride part 2.)
+
+## §2 FINDING 2 (HIGH) — G-WEB CONDITION 2'S RE-COMPOSED LETTER (the amendment prepared for the collaborator's ruling)
+
+The stale letter, verbatim at the route's heart: "the projection law green (R1): the ENTIRE front end generated from Python — Jinja2 always, Shoelace via CDN, Web Components under separation of concerns, the HTMX wire; zero hand-authored frontend artifacts on disk (out of grammar; the generated surface regenerates from its source structure, never hand-edited)" — as composed it CANNOT go green against v3's 18 authored files, and G-WEB is deterministic-check: no ruling seat lives there. THE RE-COMPOSED LETTER, prepared as the amendment the collaborator RECORDS at the gates' presentation (G-WEB-BRIEF + G-WEBSPEC-BRIEF, collaborator-ruling — never deferred to a gate with no ruling seat):
+
+"the projection law green (R1 as clarified by Q-ux-surface R9/R10): the ENTIRE front end is separate AUTHORED template/static files LOADED by Python, the served surface GENERATED at render time (template + context → the page) — Jinja2 always (the filesystem loader, autoescape ON), Shoelace via CDN, Web Components under separation of concerns, the HTMX wire; the authored template/static files ARE in grammar (the source of truth, tracked, edited by definition); zero hand-authored SERVED HTML without the loader, zero template content imprisoned in Python (no string constants, no giant concatenations — R9's own letter)"
+
+The stale "zero hand-authored frontend artifacts on disk" letter dies with the ruling; the condition's INTENT (no served surface without source; no content imprisoned in Python) is enforced by the architecture itself. G-WEBSPEC-BRIEF's condition-2 tail ("R1's projection law at the bytes level: zero hand-authored frontend artifacts") reads the same re-composition at its presentation. §Y(6)'s condition-2 mapping cites this letter.
+
+## §3 FINDING 3 (HIGH) — §Y(3)'s EXCEPTION CLASS, RULED
+
+The false claim: v2 §Y(3) says "web.py carries zero human-facing words" — FALSE at §Q's own bytes: the register controller's non-numeric-quorum refusal's three fields ("the quorum field a whole number 1 or greater" / the found composing the posted value / "enter a whole number for the quorum (1 means just you) and re-send") and the refuse/fold handlers' found-texts are human words in Python. THE RULING (the first cure taken; the file-tier move REFUSED): family-grammar field VALUES in Python are IN GRAMMAR — service.py's own precedent (render_refusal at :168, the refusal's one render point; the refuse handler's found-texts at :296/:298 composed in Python — the wire's refusal bodies have always carried their field values in Python): the refusal fields are the WIRE'S DATA composed at the controller, never template copy. The class, named exactly: (a) the register controller's quorum refusal (v1 §0 ruling 5's own form re-carried — the only web-authored ThreePart refusal, the honest cure at 200); (b) the child's refuse/fold handlers' found-texts (the family grammar's address letters — the parent's own shadowed handler the precedent). The alternative — moving the quorum copy to the file tier — REFUSED with the reason: the refusal's found composes the POSTED VALUE at the controller (a template cannot render the refusal without the controller composing its fields anyway; the family grammar's form is service.py's standing law). The exception class governs every zero-words letter in the chain (part 1's §4 gate-reading included); the byte-exact amendments land at §Y(3)/§Y(6) (part 2).
+
+## §4 FINDING 4 (MEDIUM) — THE STALE AMENDED-CLAUSE LETTERS (the re-presented brief made paper-coherent)
+
+- §3e's letter: the brief's §3e rules "next_action THE MOUNTED WHOLE'S LEGAL SET (the nine web routes + the six service routes, as data in the structure — the mounted whole IS the tree's HTTP face; the refusal teaches it honestly)" — "as data in the structure" is STALE: the structure is removed at step 1. THE AMENDED LETTER: "next_action THE MOUNTED WHOLE'S LEGAL SET (the nine web routes + the six service routes, as the module's own union — web.py's own route constants + the six service lanes as the frozen wire's literals, cited — the mounted whole IS the tree's HTTP face; the refusal teaches it honestly)". The clause stands otherwise (the grammar, the mount's price, the priced consequences).
+- §8 item 5's letter: the brief's item 5 names "the pyproject dep edits' bytes (dependencies, the dev group, pyright's include), the Makefile's bytes (web-check, .PHONY, the lint argv)" — BOTH STALE in v2/v3: pyright's include stays ["src", "tests"] (line 128 untouched); the Makefile is UNTOUCHED whole (the web-check regions never land — §1.8's retirement). THE AMENDED LETTER: "the service.py tail's exact bytes: the insertion point (after :528's describe — the file's end), the mount lines, the PLC0415 ruling text (the pyproject per-file-ignores entry's bytes), the pyproject dep edits' bytes (dependencies + the dev group ALONE — pyright's include untouched)". The dead letters dropped; the item's surviving content named.
+
+## §5 FINDING 5 (MEDIUM) — THE MOUNT-SHADOW'S FALSE FOUND: THE RESIDUE NAMED (§Y(2)'s amendment, part 2)
+
+The brief priced the 405→404 status change (§3e.2) but never the lying found: DELETE /runs now answers the child's 404 "no route matches the path /runs" — factually false (POST /runs matches the path; only the method is wrong); no arc pins the case (the one 405 arc re-targeted to GET /ui/register, a genuine 405). The residue NAMED, never silently riding: the whole's 404 grammar is honest only for paths NO route of the whole matches; the wrong-method-on-a-matched-path case renders the child's 404 letter with its path-alone found-text — the mount's own mechanics, priced and named at §Y(2) (part 2 carries the exact letter).
+
+## §6 FINDING 6 (MEDIUM) — THE STATIC PAIR'S PIN (the one new face arc; part 2's bytes)
+
+check_dir=False's silent-404 is UNPINNED: no v2 arc GETs /static/app.css or /static/app.js — a mis-named static home serves unstyled pages with zero test failures (the templates' home IS pinned by every page arc). THE CURE: ONE face arc pinning both 200s + a byte each — a mis-named static home then fails loudly. §V grows the arc (20 → 21); the floor count grows with it (135 standing + 21 = 156 passed); the module docstring's arc list names it.
+
+## §7 FINDING 7 (LOW) — THE SCRATCH-CWD PAGE RESIDUE, NAMED (§Y(1)'s amendment, part 2)
+
+§Y(1)'s harness proof holds — hyoka verified at the mechanism (check_dir=False at §Q's mount; Jinja2Templates' lazy loader; the acceptance arcs ride parent JSON routes; the boot survives). The residue: a page request at a scratch cwd answers the PARENT's JSON 500 — TemplateNotFound escapes the child's fold (the child's fold renders through the same broken loader), then the parent's fold: family grammar held, the PAGE TIER DEAD at a scratch cwd. NAMED in §Y(1); the repo-root launch serves the pages (the launch discipline's own letter). Part 2 also corrects §X step 7's confused note (under check_dir=False the import needs NO directory — "load-bearing" overstates).
+
+## §8 V3'S COMPOSITION RULE
+
+V3 composes on the chain: this part's letters + part 2's byte corrections; EVERY other v2 byte stands. The corrections' inventory, whole: §E's flip (one condition), §Q's vote-docstring flip (one clause), §V's three corrections (the chain arc's absence pin, the echo arc's re-target, the new static arc) + the docstring's arc list, §X's two letter-fixes (step 7's note; the counts 20→21, 155→156), §Y's three namings ((1) the scratch-cwd page residue, (2) the mount-shadow residue, (3) the exception class). The re-presentation at G-WEB-BRIEF + G-WEBSPEC-BRIEF carries: the amended brief clauses (§§1/3/4 here) + the re-composed condition-2 letter (§2 here) + the corrected bytes (part 2). The gates' rulings are the collaborator's acts; this fold hands them a paper-coherent whole.
+## Reported by togo — 2026-11-22T17:26:23Z
+
+# THE FOLD — PART 2: THE BYTES CORRECTED (synthesize/webspec; togo, 2026-11-22 — the exact corrections to v2's §E/§Q/§V/§X/§Y, findings 1 + 3 + 5 + 6 + 7 at the bytes; every other v2 byte stands; v3 closes)
+
+## §E′ web/templates/vote-ack.html — THE ECHO CONDITION FLIPPED (finding 1, blocking)
+
+REPLACE the echo line (v2 §E's body, the fourth line) — v2's bytes:
+
+```html
+  {% if not acknowledged %}<p class="quiet">This pair was already recorded with the same answer — it stands once.</p>{% endif %}
+```
+
+WITH v3's bytes:
+
+```html
+  {% if acknowledged %}<p class="quiet">This pair was already recorded with the same answer — it stands once.</p>{% endif %}
+```
+
+All other §E bytes stand (the ack-line's three-way restatement, the embedded pair fetch). The semantics, cited: the core returns acknowledged=True on the byte-identical re-send ALONE (votes.py:464-468); the echo renders there and only there.
+
+## §Q′ src/prioritree/web.py — THE VOTE DOCSTRING FLIPPED (finding 1)
+
+REPLACE in the vote controller's docstring — "acknowledged:false => the idempotent echo in words" WITH "acknowledged:true => the idempotent echo in words". All other §Q bytes stand.
+
+## §V′ tests/test_web_face.py — THREE CORRECTIONS + THE DOCSTRING (findings 1 + 6; the arc count 20 → 21)
+
+**(1) THE CHAIN ARC — REPLACE the function whole** (the fresh cast's ack gains the echo's ABSENCE pin):
+
+```python
+def test_vote_then_pair_chain(client: TestClient) -> None:
+    """The vote ack restates in item-label terms, chains to the pair, no echo on the fresh cast."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    response = client.post(f"/ui/runs/{_RUN_ID}/vote", data=_FORM_VOTE)
+    assert response.status_code == 200
+    assert "You preferred one (A) over two (B)." in response.text
+    assert "already recorded with the same answer" not in response.text
+    assert f'hx-get="/ui/runs/{_RUN_ID}/pair"' in response.text
+    assert 'hx-trigger="load"' in response.text
+    assert 'hx-target="#pair-region"' in response.text
+    assert "count" not in response.text
+    served = client.get(f"/ui/runs/{_RUN_ID}/pair")
+    assert served.status_code == 200
+    assert 'id="pair-region"' in served.text
+```
+
+**(2) THE ECHO ARC — REPLACE the function whole** (both posts through the FRAGMENT path; the echo asserted on the second — the re-send — alone; its ABSENCE pinned on the fresh ack):
+
+```python
+def test_vote_echo_already_recorded(client: TestClient) -> None:
+    """The byte-identical re-send renders the idempotent echo in words."""
+    client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
+    fresh = client.post(f"/ui/runs/{_RUN_ID}/vote", data=_FORM_VOTE)
+    assert fresh.status_code == 200
+    assert "already recorded with the same answer" not in fresh.text
+    again = client.post(f"/ui/runs/{_RUN_ID}/vote", data=_FORM_VOTE)
+    assert again.status_code == 200
+    assert "already recorded with the same answer" in again.text
+```
+
+**(3) THE NEW ARC — INSERT after test_landing_serves** (finding 6: the static pair's 200s pinned + a byte each — a mis-named static home fails loudly):
+
+```python
+def test_static_pair_serves(client: TestClient) -> None:
+    """The static home serves its pair: app.css + app.js at 200, a byte each."""
+    css = client.get("/static/app.css")
+    js = client.get("/static/app.js")
+    assert css.status_code == 200
+    assert js.status_code == 200
+    assert "--pt-gap" in css.text
+    assert "pt-copy" in js.text
+```
+
+**(4) THE MODULE DOCSTRING — the arcs list amended:** after "the state strip, the fold fragment);" INSERT "the static pair (the chrome's app.css + app.js — the 200s pinned, a mis-named home fails loudly);" — the docstring's other bytes stand.
+
+All other §V arcs stand byte-identical.
+
+## §X′ THE COMMAND SEQUENCE — TWO LETTER-FIXES
+
+- **STEP 7's NOTE, CORRECTED** (finding 7's second half): REPLACE "THE ORDER IS LOAD-BEARING: the static home must exist before anything imports web.py (the static mount's construction — §5's cure makes the boot green at any cwd, but the serving needs the files)" WITH "THE ORDER'S NOTE, CORRECTED (hyoka's finding 7): under check_dir=False the import needs NO directory (§5's cure — the boot green at any cwd); the order serves the floor's own review — the static pair present before the module that serves it, the face tests' static arc pinning the 200s".
+- **THE COUNTS**: step 10's READ-BACK — "20 test functions" → "21 test functions"; step 12's floor — "135 standing + the web face's 20 = 155 passed, 0 failed" → "135 standing + the web face's 21 = 156 passed, 0 failed". All other §X bytes stand.
+
+## §Y′ THE NO-BREAK PROOFS — THREE NAMINGS (findings 3, 5, 7)
+
+**(1) + THE SCRATCH-CWD PAGE RESIDUE — APPEND to §Y(1):** "THE RESIDUE NAMED (hyoka's finding 7, verified at the mechanism): at a scratch cwd a PAGE request answers the PARENT's JSON 500 — TemplateNotFound escapes the child's fold (the child's fold renders through the same broken loader), then the parent's fold renders the family grammar: the family grammar HELD, the PAGE TIER DEAD at a scratch cwd; the harness's own arcs ride parent JSON routes — the boot survives; the repo-root launch serves the pages (the launch discipline's own letter)."
+
+**(2) + THE MOUNT-SHADOW RESIDUE — APPEND to §Y(2):** "THE RESIDUE NAMED (hyoka's finding 5): the wrong-method-on-a-matched-path case (e.g. DELETE /runs — POST /runs matches the path) renders the child's 404 letter whose found names the path ALONE ('no route matches the path /runs' — factually false at a matched path); the whole's 404 grammar is honest only for paths NO route of the whole matches — the mount's own mechanics, priced with the 405→404 status change (the brief's §3e.2), the residue named, never silently riding."
+
+**(3) THE EXCEPTION CLASS — TWO REPLACEMENTS:** in §Y(3), REPLACE "ZERO template content lives in Python (web.py carries zero human-facing words — the copy, the pins, the CSS, the JS live in their files)" WITH "ZERO template content lives in Python (web.py carries zero human-facing words EXCEPT THE FAMILY-GRAMMAR FIELD VALUES — the exception class ruled at the fold, hyoka's finding 3: the register controller's quorum-refusal three fields + the refuse/fold handlers' found-texts, service.py's own precedent (render_refusal :168, the found-texts :296/:298) — the wire's refusal data composed at the controller, never template copy); the copy, the pins, the CSS, the JS live in their files". In §Y(6) condition (2), REPLACE "zero content-in-Python, zero generated" WITH "zero content-in-Python beyond the family-grammar field values (the named exception class), zero generated" and cite the condition's letter to part 1's §2 (the re-composed letter the collaborator rules at the presentation).
+
+THE FOLD CLOSES — V3 WHOLE: v2's bytes + these corrections exact (two byte-flips, three test corrections + the docstring's arc list, two sequence letter-fixes, three proof namings) + part 1's letters (the route-8 carrier named + corrected, §3e + §8-item-5 amended, the exception class ruled, the condition-2 letter re-composed); every other v2 byte stands; the file inventory unchanged in count (18 authored + 3 edited + 2 removed); all seven findings folded, none deferred. The re-spec re-presents at G-WEB-BRIEF + G-WEBSPEC-BRIEF; the gates' rulings are the collaborator's acts. — togo, 2026-11-22
