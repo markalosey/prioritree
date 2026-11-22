@@ -25,8 +25,101 @@
       "assess": "hyoka",
       "dispatch": "shinko"
     },
-    "structure": [],
-    "gates": {},
+    "structure": [
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE (the core store's precedent): THE CENSUS FIRST — ungated tansa/shindan/rikai packets over the existing ground (the FastAPI server, the tech notes, the current web state; shindan naming the API's current error shape — R5's census clause); then THE DESIGN LANE — ungated suisen/keisan/hyoka/moho packets; then togo's gated synthesis closing G-UX-DESIGN-BRIEF; each build unit's ungated discovery legs + gated brief precede its build; THE ROUTE GROWS UNIT-BY-UNIT (each build unit's pair auto-stamps at its build-add; its rich build gate mints before — the composition model).",
+        "entry_condition": "G-COMPOSITION is green (the composition validated at the route's head); the census fires first, its findings assumed by none of this composition.",
+        "increments": [
+          {
+            "id": "synthesize/ux-design",
+            "owner": "togo",
+            "gate": "G-UX-DESIGN-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE WEB TIER'S BUILD — the ruled unit set, one module per dispatch (the sizing law): service (the existing FastAPI server grown into the CQRS lanes over the core's five ops — R2; every touched API surface brought into ThreePart compliance as-we-go — R5, no separate remediation unit), web (the entire front end projected from Python — Shoelace via CDN, Web Components under separation of concerns, HTMX, Jinja2 always, generated from structure; hand-authored artifacts out of grammar — R1; the web fronts the service — Q-setup-arch's layering), lifecycle (the Makefile's service-management targets, start/stop/etc. — R3: \"room for service targets later\" is now); each lands per its approved brief (the exact-task law), kensho's independent verification per build gate, one-commit-per-increment.",
+        "entry_condition": "G-UX-DESIGN-BRIEF is green — the design is the spec; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the birth store's close form): hansei's retro (R4's debrief seat — the friction ledger the intake), the effort's records (the MCP-surface era named next, Q-mcp-surface banked — this effort prior to it), the done call at the collaborator's ruling.",
+        "entry_condition": "the route's build gates closed green and the collaborator has called the close.",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "retro",
+                "executor": "semantic",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-synthesis",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-landing",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment"
+              },
+              {
+                "id": "done-call",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's evidence home (.junro/evidence/Q-ux-surface/route-composition*.md — the set: the stages spine, gates-a, gates-b, increments) — the opening whole: stages, gates, increments, the census placed FIRST with none of its findings assumed, every seat placed (R4: no seat bypassed)",
+          "every choice cites its ruling: R1–R5 + the birth store's precedents (Q-frontend-stack's projection law, Q-solution-space's five-op interface, Q-setup-arch's web-app tier) + the core store's pipeline precedent",
+          "the collaborator validates the composition — the gate is the validation (the birth store's composition-validation entry condition, carried as the route's head gate); the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-UX-DESIGN-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE DESIGN BRIEF LANDED: togo's synthesis over the census (census/ground, census/error-shape, census/mechanism) + the design lane (design/flows, design/cqrs-mapping, design/presentation, design/adversarial, design/blind-walk); a divergence that survives reconciliation blocks the brief, never rides it silently (the pipeline-parallelism safeguard)",
+          "the brief carries the design-work whole R1/R2 leave open — never settled in the composition: the UX flows (the comparator's journey over the five ops), the CQRS op-mapping (the ops' command/query lanes at the service surface + the HTMX wire's lanes — cited back to R2), the tally presentation (the ranked whole rendered from tally_rank's frozen result — tie groups, coverage data, the safe halt shown honestly), the projection architecture (the front end's source structure + its Python generator — R1)",
+          "the brief carries the ThreePart remediation map (R5): the census's error-shape diagnosis folded forward — every build unit's brief names the API surfaces it touches + their expected/found/next-action compliance plan",
+          "THE COLLABORATOR'S APPROVAL: the design judged ready-to-build; the build units' briefs cite it; their dispatches fire only after their own brief gates green"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named",
+          "the effort's records landed: the CONTINUATION entry (the landing state named honestly); the MCP-surface era named next (banked, not composed)",
+          "the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling (the birth store's G-BIRTH-RECORDS form)"
+        ]
+      }
+    },
     "checkpoints": [],
     "protocol": "v2.1",
     "amendments": [
@@ -69,6 +162,78 @@
         "actor": "shinko",
         "timestamp": "2026-11-22T05:25:35Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-ux-surface\", \"ruling\": \"THE ERROR SHAPE, MANDATORY (collaborator ruling, 2026-11-22, verbatim ground: \\\"the api absolutely does not follow the errors teach methodology. So, we are going to have to fix that as we go. The ThreePart is mandatory in this codebase now.\\\"): the existing FastAPI API does not follow the errors-teach methodology — and the fix rides this effort as-we-go (no separate remediation effort; each unit that touches an API surface brings that surface into compliance as it lands). THE THREEPART IS MANDATORY IN THIS CODEBASE NOW: every error response carries expected / found / next-action — the shape this codebase's own instruments already teach (the junro engine's every refusal: \\\"REFUSED — Expected: ... Found: ... Next-action: ...\\\"; the core's ruled refusals — Q-granularity R2's \\\"expected/found/next-action naming the legal set\\\", R12's SAFE HALT \\\"carrying expected/found/next-action naming the isolated items/components and the exact closing pairs\\\"). At the API: every 4xx/5xx response body is a ThreePart error — expected (the legal state named), found (what the request actually carried / what occurred), next-action (the named cure or legal form — self-correcting) — never a bare status code, never a stack leak, never a silent OK where a refusal belongs. Every build unit of this route inherits this: the units touching the API bring the touched surfaces into ThreePart compliance as-we-go.\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:26:58Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's evidence home (.junro/evidence/Q-ux-surface/route-composition*.md — the set: the stages spine, gates-a, gates-b, increments) — the opening whole: stages, gates, increments, the census placed FIRST with none of its findings assumed, every seat placed (R4: no seat bypassed)\\\", \\\"every choice cites its ruling: R1–R5 + the birth store's precedents (Q-frontend-stack's projection law, Q-solution-space's five-op interface, Q-setup-arch's web-app tier) + the core store's pipeline precedent\\\", \\\"the collaborator validates the composition — the gate is the validation (the birth store's composition-validation entry condition, carried as the route's head gate); the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:36:40Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"THE DESIGN BRIEF LANDED: togo's synthesis over the census (census/ground, census/error-shape, census/mechanism) + the design lane (design/flows, design/cqrs-mapping, design/presentation, design/adversarial, design/blind-walk); a divergence that survives reconciliation blocks the brief, never rides it silently (the pipeline-parallelism safeguard)\\\", \\\"the brief carries the design-work whole R1/R2 leave open — never settled in the composition: the UX flows (the comparator's journey over the five ops), the CQRS op-mapping (the ops' command/query lanes at the service surface + the HTMX wire's lanes — cited back to R2), the tally presentation (the ranked whole rendered from tally_rank's frozen result — tie groups, coverage data, the safe halt shown honestly), the projection architecture (the front end's source structure + its Python generator — R1)\\\", \\\"the brief carries the ThreePart remediation map (R5): the census's error-shape diagnosis folded forward — every build unit's brief names the API surfaces it touches + their expected/found/next-action compliance plan\\\", \\\"THE COLLABORATOR'S APPROVAL: the design judged ready-to-build; the build units' briefs cite it; their dispatches fire only after their own brief gates green\\\"]\", \"gate\": \"G-UX-DESIGN-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:36:44Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named\\\", \\\"the effort's records landed: the CONTINUATION entry (the landing state named honestly); the MCP-surface era named next (banked, not composed)\\\", \\\"the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling (the birth store's G-BIRTH-RECORDS form)\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:36:47Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green (the composition validated at the route's head); the census fires first, its findings assumed by none of this composition.\", \"purpose\": \"THE PER-UNIT PIPELINE (the core store's precedent): THE CENSUS FIRST — ungated tansa/shindan/rikai packets over the existing ground (the FastAPI server, the tech notes, the current web state; shindan naming the API's current error shape — R5's census clause); then THE DESIGN LANE — ungated suisen/keisan/hyoka/moho packets; then togo's gated synthesis closing G-UX-DESIGN-BRIEF; each build unit's ungated discovery legs + gated brief precede its build; THE ROUTE GROWS UNIT-BY-UNIT (each build unit's pair auto-stamps at its build-add; its rich build gate mints before — the composition model).\", \"stage\": \"pipeline\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:36:50Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-UX-DESIGN-BRIEF is green — the design is the spec; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).\", \"purpose\": \"THE WEB TIER'S BUILD — the ruled unit set, one module per dispatch (the sizing law): service (the existing FastAPI server grown into the CQRS lanes over the core's five ops — R2; every touched API surface brought into ThreePart compliance as-we-go — R5, no separate remediation unit), web (the entire front end projected from Python — Shoelace via CDN, Web Components under separation of concerns, HTMX, Jinja2 always, generated from structure; hand-authored artifacts out of grammar — R1; the web fronts the service — Q-setup-arch's layering), lifecycle (the Makefile's service-management targets, start/stop/etc. — R3: \\\"room for service targets later\\\" is now); each lands per its approved brief (the exact-task law), kensho's independent verification per build gate, one-commit-per-increment.\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:36:54Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's build gates closed green and the collaborator has called the close.\", \"purpose\": \"THE EFFORT'S BOOKEND (the birth store's close form): hansei's retro (R4's debrief seat — the friction ledger the intake), the effort's records (the MCP-surface era named next, Q-mcp-surface banked — this effort prior to it), the done call at the collaborator's ruling.\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:36:57Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-UX-DESIGN-BRIEF\", \"increment\": \"synthesize/ux-design\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:37:05Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"id\\\": \\\"retro\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-synthesis\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-landing\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"done-call\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T05:37:09Z",
+        "op": "add-increment"
       }
     ]
   },
@@ -95,6 +260,11 @@
         },
         {
           "text": "THE GOVERNANCE FORM (collaborator ruling, 2026-11-22): this effort is managed via a full junro — all team member participation: every seat rides the route — keikaku composes; tansa, shindan, and rikai discover and diagnose; suisen and keisan recommend and calculate; hyoka assesses adversarially; moho blind-walks; togo synthesizes and integrates; jikko executes; kensho verifies; hansei debriefs; shinko dispatches. No seat is bypassed; the route's composition realizes this mandate.",
+          "ruled_at": "2026-11-22",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE ERROR SHAPE, MANDATORY (collaborator ruling, 2026-11-22, verbatim ground: \"the api absolutely does not follow the errors teach methodology. So, we are going to have to fix that as we go. The ThreePart is mandatory in this codebase now.\"): the existing FastAPI API does not follow the errors-teach methodology — and the fix rides this effort as-we-go (no separate remediation effort; each unit that touches an API surface brings that surface into compliance as it lands). THE THREEPART IS MANDATORY IN THIS CODEBASE NOW: every error response carries expected / found / next-action — the shape this codebase's own instruments already teach (the junro engine's every refusal: \"REFUSED — Expected: ... Found: ... Next-action: ...\"; the core's ruled refusals — Q-granularity R2's \"expected/found/next-action naming the legal set\", R12's SAFE HALT \"carrying expected/found/next-action naming the isolated items/components and the exact closing pairs\"). At the API: every 4xx/5xx response body is a ThreePart error — expected (the legal state named), found (what the request actually carried / what occurred), next-action (the named cure or legal form — self-correcting) — never a bare status code, never a stack leak, never a silent OK where a refusal belongs. Every build unit of this route inherits this: the units touching the API bring the touched surfaces into ThreePart compliance as-we-go.",
           "ruled_at": "2026-11-22",
           "actor": "shinko"
         }
