@@ -14,11 +14,11 @@ The comparator class is both human AND LLM — both vote through the same vote i
 
 All four forms, one layered architecture, library-first (the collaborator's Q-setup-arch ruling, 2026-11-19):
 
-- **Library — `src/prioritree`:** the pure-logic core (items, comparison operator, pair scheduling, votes, tally) at the bottom of the stack. Data plane = pure logic: stateless scoring/ranking core, votes are data in/out, no DB at birth.
-- **CLI:** wraps the core.
-- **API service (FastAPI):** serves the core.
-- **Web app:** fronts the service (the human comparator's vote surface).
+- **Library — `src/prioritree` — BUILT (2026-11-20, the prioritree-core effort):** the pure-logic core (items, comparison operator, pair scheduling, votes, tally) at the bottom of the stack. Data plane = pure logic: stateless scoring/ranking core, votes are data in/out, no DB at birth.
+- **CLI — BUILT (2026-11-21, the prioritree-cli effort):** wraps the core — the five-op surface at the command line (register → next → vote → state → tally).
+- **API service (FastAPI) — LIVE (2026-11-21, the prioritree-service effort):** serves the core — the five routes over HTTP (the lock seam beneath, the 500 crash envelope, the live-socket acceptance arc proven; the tree's first runtime deps: fastapi + uvicorn[standard]).
+- **Web app — banked (the stack's fourth layer):** fronts the service (the human comparator's vote surface).
 
-## Status at birth
+## Status
 
-The setup builds the skeleton only — the core library is the product effort's first increment. This tree carries the skeleton: the `src/prioritree` namespace, the smoke test, and the tooling floor (uv, ruff, pyright, pytest; the Makefile floor `dev`/`test`/`lint`/`typecheck`). CI is deferred — git hooks and local gates stand in at birth.
+Born 2026-11-19 (the setup: the skeleton, the kumi harness, the tool grants). The core library built 2026-11-20 (six units, all gates green); the CLI built 2026-11-21 (three units); the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the API service live 2026-11-21 (three units, the live-socket acceptance proven, 131 tests green at close). The MCP tier is the ruled next effort (OunceMCP lands the five ops as its tools — Q-mcp-surface's banked ruling, the condition fired at the service era's arrival). CI is deferred — git hooks and local gates stand in.
