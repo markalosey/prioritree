@@ -1,0 +1,36 @@
+<!-- regen: uv run python scripts/generation/kumi_views.py -->
+# Packet Report — design/adversarial
+
+**Route:** prioritree-ux (executing) | **Events:** 2 | **Reports:** 1
+
+## The packet's chain (ledger order)
+
+| # | Op | Actor | Timestamp |
+|---|---|---|---|
+| 1 | dispatch | shinko | 2026-11-22T09:39:15Z |
+| 2 | report | hyoka | 2026-11-22T09:44:38Z |
+## Reported by hyoka — 2026-11-22T09:44:38Z
+
+# design/adversarial — hyoka's completion report — the design whole attacked against the rulings and the seams
+
+READ-BACK (files read): reports/design/flows.md + cqrs-mapping.md + presentation.md (whole, the design whole) · the census set whole (.junro/evidence/Q-ux-surface/census-ground-a/b, census-mechanism-a/b, census-error-shape-a/b) · the ux store's junro.json (R1-R6 verbatim) · the birth store's junro.json (Q-granularity R1/R2/R3/R6, Q-solution-space R4/R5/R9/R10, Q-problem-space R7/R8/R11/R12, Q-frontend-stack) · birth evidence/Q-solution-space/suisen.md (the no-anchoring ground) · src/prioritree/service.py (whole — the wire's request/response shapes verified at source, not assumed from the census).
+
+THE VERDICT FIRST: the design does NOT meet the bar as written — three blocking findings, all one family: the screens consume wire surfaces that do not exist. The lanes, the no-anchoring architecture, and the R10-R12 presentation discipline hold; the wire-seams do not.
+
+BLOCKING 1 — THE JSON/HTML CONTRADICTION (flows.md FLOWS 1-4 × cqrs-mapping §2). The flows point HTMX at the five routes and design rendered panels off their responses ("swap to the ack panel: run_id shown…", "the ack embeds hx-get next", "DONE body → screen sitting-done", the 5s state poll); cqrs-mapping §2 rules the same surface "current routes 1:1 — CONFIRMED, no amendment" — and every route returns a JSON body (service.py :253/:283/:319/:346/:393). HTMX swaps the response body into the DOM: a JSON body renders as raw text, and the crude fallback renders the cast ack's `count` and the next body's `count` INTO the comparator's sight — breaching FLOW 2's own "hide every count from the comparator" (the no-anchoring ground: ops 2+4 must not merge). Forced answer: the synthesis NAMES the mechanism — (a) the web tier's own fragment routes (amending §2 to "no op-surface amendment; the web tier's route surface named"), or (b) content negotiation on the five routes (HX-Request → a Jinja2 fragment; JSON preserved for non-HTMX clients, the pinned tests untouched). Unnamed, no buildable web brief exists.
+
+BLOCKING 2 — THE MANIFEST READ GAP (flows.md FLOW 2/4/5). The sitting screen renders "the stated question as prompt" + "verdict buttons from the DECLARED set"; the ranked whole renders "the stated question as heading"; FLOW 5's resume "may be a different seat". No read route serves the manifest: /next = {item_a,item_b,count} (:283), /state = {total,items} (:346), /tally = asdict(TallyResult) — no question, no verdict set (:393); register's 201 elides it (census-mechanism-b seam 1). The elicitation context itself — R3's operator binding made visible — is unservable, and the ruled layering (the web fronts the service, Q-setup-arch) forbids the web tier reading the store. Forced answer: rule the manifest-read mechanism into the SERVICE unit's brief (a sixth query at core + wire — manifest lookups already ruled deterministic at Q-solution-space — or an amended read response) BEFORE it lands; cqrs-mapping's "no amendment" locks the very surface the web unit depends on.
+
+BLOCKING 3 — THE VERDICT-SET FIELD HAS NO WIRE HOME (flows.md FLOW 1 × R4). The register form carries "verdict set (the weak-order triple, tie per declaration, R4)" — RegisterRunRequest accepts items/operator_id/question/quorum ONLY (service.py :113-116); the route stamps the default triple (:246). R4's "tie per the operator's declaration" is undeclarable over the wire: the field silently drops (the operator believes a declaration landed — a silent lie, against R5's own spirit) or the wire is amended. Forced answer: drop the field and render the ruled default honestly, or amend the request model — ruled in the brief, never discovered mid-build.
+
+MEDIUM 4 — THE ERROR-SWAP MECHANISM UNDESIGNED (cqrs-mapping §2's own deferral). The flows depend on non-2xx swaps as load-bearing — FLOW 1's inline 422 refusals, FLOW 2's retryable pair, FLOW 4's whole safe-halt screen off the 409 body — yet "HTMX swaps nothing on non-2xx by default" is deferred unnamed: the mechanism class (response-targets extension = a client dep; 200-wrapping = R5's silent-OK breach; page navigation) must be named. Also unaddressed: FLOW 5's unknown-run resume (the first GET /next 404s into the pair region, no designed rendering), the web tier's own 500-fold rendering, and the new page routes' 404/405. The census's 5 gap-cures are mapped and ride the right brief — those hold.
+
+MEDIUM 5 — THE GENERATOR ASSERTED, NOT DESIGNED (R1 + G-UX-DESIGN-BRIEF's "the projection architecture"). The reports name screens as "Jinja2 slots" and the Shoelace inventory but never design the generator: its source structure, its emission + regen/check channel (the scaffold's own --check idiom), what lands vs what is gitignored. Hand-authoring sneaks in at exactly this seam: FLOW 1's "the form pre-checks the common refusals before the wire" is client-side logic — authored JS breaches R1 — and it duplicates the registry's refusal rules (a second source of truth under content-in-configuration). Also unnamed: HTMX's own delivery (Shoelace is ruled via CDN; the wire library is not) and the jinja2 dependency (census-ground-b §6: absent from pyproject).
+
+MEDIUM-LOW 6 — THE NO-ANCHORING RESIDUE, PRICED BUT UNRULED. The law holds architecturally (bare pair, counts unrendered, the pair never rides a command's response, the 409 does the hiding, no seed control). The residue: /state and /tally are unauthenticated and URL-reachable — a comparator CAN deliberately self-anchor (per-item exposure ambient on the progress screen). flows.md prices it ("a deliberate act, never ambient") — defensible, but the brief must carry the acceptance explicitly for the collaborator's ruling, not inherit it silently.
+
+LOW 7 — THE ORDERING FRAME. The service unit lands FIRST with its surface locked "no amendment" — Blockers 1-3's reconciliations must ride ITS brief or the web unit breaks mid-build. The lifecycle unit's constraints (port/host policy — "Port: NOT stated in src", census-ground-a; single-worker launch) are never handed forward; the brief should carry them.
+
+THE HELD LINES (the met half, cited for fairness): the CQRS lanes clean — 2 commands / 3 queries, no conflation (the ack-embeds-get is a trigger chain, never a merge); the elisions respected (per_pair_counts not resurrected, VoteRecord unrendered, pair_counts re-split on "|"); the two id spaces ruled stem-only; R10 held (no win-fraction column — the score never re-derived); R11 held (the cycle neutral, data quality); R12 held (binary terminals, never partial dressed as whole, the 409 rendered verbatim — the web renders refusals, never authors them); R6 held (the reports seat-authored).
+
+THE CALL: BLOCKED at the design bar — the three wire-seam blockers must be reconciled and ruled in togo's synthesis before G-UX-DESIGN-BRIEF can honestly green; the mediums ride the brief as named mechanisms, never deferred holes.
