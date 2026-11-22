@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — build/mcp-server
 
-**Route:** prioritree-mcp (executing) | **Events:** 6 | **Reports:** 3
+**Route:** prioritree-mcp (executing) | **Events:** 14 | **Reports:** 7
 
 ## The packet's chain (ledger order)
 
@@ -13,6 +13,14 @@
 | 4 | report | jikko | 2026-11-22T21:59:12Z |
 | 5 | dispatch | shinko | 2026-11-22T21:59:34Z |
 | 6 | report | jikko | 2026-11-22T22:43:31Z |
+| 7 | dispatch | shinko | 2026-11-22T22:45:02Z |
+| 8 | report | jikko | 2026-11-22T23:22:16Z |
+| 9 | dispatch | shinko | 2026-11-22T23:22:33Z |
+| 10 | dispatch | shinko | 2026-11-22T23:22:38Z |
+| 11 | report | jikko | 2026-11-22T23:43:47Z |
+| 12 | report | jikko | 2026-11-22T23:55:54Z |
+| 13 | dispatch | shinko | 2026-11-22T23:56:05Z |
+| 14 | report | jikko | 2026-11-22T23:56:44Z |
 ## Reported by jikko — 2026-11-22T21:34:02Z
 
 # JIKKO — build/mcp-server step 1 — the dep + the sync-check (2026-11-22)
@@ -40,3 +48,47 @@ Docstring clause lines updated per the spec: each verb/handler names the machine
 Choice reported (collision resolved): the pre-existing `from threading import Lock` aliased `as ThreadLock` (:27) — the spec's bare `Lock` at the heads demands the name for store_lock's Lock; `self._lock = ThreadLock()` (:96); the HTTPException-as-StarletteHTTPException alias precedent.
 Same-turn findings: two E501 (serve/manifest summaries at 124>120) trimmed to "under the file lock outermost"; zero new per-file-ignores.
 Not done: nothing beyond §3's regions — service.py/web.py untouched (the flock rides inside the seam), zero core edits.
+## Reported by jikko — 2026-11-22T23:22:16Z
+
+STEP 4 DONE — the MCP module landed whole, both instruments green.
+
+THE VERIFICATION (the deferred first move, all green): the installed ouncemcp 1.0.0rc3 at the venv's site-packages matches the spec's authored forms — OunceServer(name=...) constructor, the tool decorator's name/effect/idempotency/result_tokens/budget_reason, Effect READ/WRITE/DESTRUCTIVE, the Budget form (4,000 startup default — no override), the error-value forms (OunceError message+hint; InvalidInput/NotFound the raise-at-the-render classes). ONE NON-STOPPING FINDING: the installed middleware clips every error message at Limits.max_error_chars=300 at the Failure render — the ThreePart rides whole in the RAISED error's payload but the WIRE text clips for long refusals (the halt's capped render far exceeds 300); the constructor's pinned form left untouched, the fold rides the author (e.g., a Limits(max_error_chars=...) ruling).
+
+THE LANDING: src/prioritree/mcp_server.py whole (562 lines) — the module-level OunceServer(name="prioritree") (no Budget), the five tools byte-exact (the VERBATIM descriptions + Field texts with "--" em-dashes, the effects, the idempotency flags, result_tokens=4500 + budget_reason on runs.tally), the return models (NextOutcome done-the-tag, CastAck acknowledged's ruled semantics, TallyView's coverage with pairs_expected/pairs_at_quorum, pair_counts elided), DONE a value never an error, the K=10 cap at the halt (<=10 shortfalls pass verbatim; >10 re-derives the weighted legs from a fresh manifest+census read under the module's _lock, legs 1-2 whole + the capped leg 3 with the elision named), the sync bodies, the __main__'s two forms (bare stdio, --serve HTTP), __all__ = ["server"].
+
+ONE DIVERGENCE REPORTED, NEVER ABSORBED: the spec's (h) `with _lock:` wrapping each seam call would SELF-DEADLOCK — the step-3-landed seam verbs already flock, and a second Lock opens a second open file description on the same lockfile (flock binds the open description) — the bodies ride the seam bare (its own flock holds (h)'s ruled order, released before render); the module's _lock guards the halt shaper's fresh-read window alone.
+
+THE NAMED RULING: pyproject per-file-ignores gains mcp_server.py = ["D205"] (the tool docstrings ARE the descriptions VERBATIM — a blank line would fork the accepted wire bytes; SS3(c)'s pre-authorized fire, cited, retires-when named). THE CHOICES: the error class per family (StoreRefusedError => NotFound, VotesRefusedError + the halt => InvalidInput, the service's 404/422 lineage); the payload the labeled ThreePart; the comparator-class Literal static with a runtime fork-guard (the dynamic Literal[tuple(...)] is not a valid static type); pairs_at_quorum = the weighted-count universe (the gate's guarantee at the DONE-only render); LOCK_HOME landed per (c) verbatim (inert — nothing reads it).
+
+INSTRUMENTS: ruff zero findings, pyright 0/0 (run this seat); the ouncemcp check NOT RUN (no fixed-argv act here — step 6 + kensho's instrument per the spec SS6); the runtime import proof rides step 5's tests. NOTHING ELSE touched: the core, the routes, the Makefile, the grant rows — all untouched.
+## Reported by jikko — 2026-11-22T23:43:47Z
+
+Step 5b landed: tests/test_store_lock_face.py whole — 516 lines, 10 test arcs, all green (10 passed in 2.05s).
+The arcs per the spec's SS5(a) fence: lockfile created on demand (absent before, present at __enter__); never truncated (the preseeded-sentinel probe); the home-injection derivation (two homes, two lock paths); release at the with-block's exit (second acquisition immediate); the reentrant second open (two Lock opens on one path from one process — the second BLOCKS until the first releases, per the fence, observed through a 0.5s window); the exclusivity bounded wait (Popen child holds 1s, the parent's enter observed against a 0.5s FLOOR, never a ceiling); the two-process probe (the fixed-argv sys.executable -c child casting N=4 beside the parent's M=3 on one shared store — the mint-order load green, the torn-tail refusal absent, census total 7 with contiguous VOTE-0001..0007 ids and both processes' comparators counted); the CLI-subprocess register beside the in-process register (stems exactly {RUN-0001, RUN-0002}, both manifests intact); the service verb beside the core register (Serialize.register + Persist.register concurrently, distinct stems, no half-write); the never-deleted law (the lockfile present after the acts).
+Also landed: pyproject.toml's per-file ruling for the file — three S603 fires at the Popen sites named, S607 carried per the re-carried test_harness/test_service_acceptance precedent (the spec's step-5 mandate; the only touch beyond the file itself).
+Instruments: ruff check src/ tests/ zero findings; pyright 0 errors/0 warnings; the file's 10 arcs green.
+NOT done: test_mcp_server_face.py (5a's own dispatch — untouched per the fence); the whole-floor run (step 6's own); nothing else touched.
+## Reported by jikko — 2026-11-22T23:55:54Z
+
+STEP 5a LANDED -- tests/test_mcp_server_face.py whole per the spec's SS5(b) fence: 614 lines, 30 arcs, all green.
+
+THE ARCS: the five tools' success forms field-for-field (the register ack with the verdicts echo, the one-model pair triple, the cast ack, the census's exact two-key body, TallyView whole at full coverage) + DONE a value never an error (done=true the RESULT, the seven-key shape, the three fields); the structured ThreePart asserts at every refusal surface (unknown run at next/census/tally over the wire's labeled segments, the out-of-set verdict, the class refused at the SCHEMA via the typed form AND at the CORE on a model_constructed corrupted body); the SAFE HALT both ways (the under-cap passthrough whole on the wire, the K=10 capped render probed at the payload -- legs 1-2 whole, the elision named in found AND next_action, the tenth shown / eleventh capped -- and at the wire, where the 300-char clip [the step-4 finding] ends the text at the asserted ellipsis); the idempotency replay arcs riding fresh as_caller sessions (the byte-identical re-send acknowledged=true with the count unchanged and the original's vote_id; the changed verdict a new record; the cross-session re-register minting RUN-0002); the stamps' gates, supersedes both ways, the seed's stability, the llm class at equal weight, the un-served-pair cast, the census's AS-IS after a correction, the quorum skip, the full sitting end-to-end, and the re-tally after the cure.
+
+THE HARNESS + ISOLATION: as_caller around asyncio.run(server.call_tool) (the census's proof form); a unique caller subject per test -- the guard replays per principal, a shared subject would cross-wire tests through the server's MemoryStore; the module's _seam/_lock re-bound and STORE_HOME redirected (the halt shaper's fresh read) via monkeypatch's string form -- the real store home never touched on disk.
+
+ONE DIVERGENCE REPORTED, NEVER ABSORBED: the installed pydantic's literal-error renders "human or llm" (not "human, llm" as ouncemcp's own phrasing suggested) -- the assert landed at the installed bytes, the import-verification lesson carried by construction.
+
+INSTRUMENTS: this file 30/30 green; ruff whole-tree "All checks passed"; pyright 0 errors, 0 warnings, 0 informations -- zero new per-file-ignores (S603/S607 never fired: no Popen in this file).
+
+NOT DONE (honest): test_store_lock_face.py (5b's own dispatch, untouched); the floor-wide pytest run + the ouncemcp check re-run (step 6's own read-backs); zero pyproject bytes, zero core bytes, zero edits beyond the one new file.
+## Reported by jikko — 2026-11-22T23:56:44Z
+
+Step 6 of 7 — the floor (jikko's fixed-argv acts), run 2026-11-22.
+
+Test act (all): "196 passed in 25.65s" — matches expectation exactly (156 + 30 MCP face arcs + 10 flock face arcs). No failures, no skips shown.
+
+Lint act (check): "uv run ruff check src/ tests/ — All checks passed!" — zero findings.
+
+Typecheck act: "uv run pyright — 0 errors, 0 warnings, 0 informations" — zero findings.
+
+No findings outside expectations — nothing to edit, nothing deferred. The floor is green across all three acts; step 6 complete.

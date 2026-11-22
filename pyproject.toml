@@ -121,6 +121,26 @@ select = ["ALL"]
 # fold at 200, the page lane the honest 500). The ignore IS the ruling, named.
 "src/prioritree/web.py" = ["BLE001"]
 
+# RULING (mcp-server-brief SS2 + the spec reports/synthesize/mcpserverspec.md SS2(g),
+# G-MCPSERVER approved 2026-11-22): D205 -- the five tool docstrings ARE the tool
+# descriptions VERBATIM (the design brief SS2's authored texts, the build's acceptance):
+# a blank line after the summary line would insert a newline INTO the tool's wire
+# description, forking the accepted bytes; the rule's summary-blank-line intent never
+# applies to a single-paragraph description. The ignore IS the ruling, named. It
+# retires only if the descriptions are re-authored multi-paragraph.
+"src/prioritree/mcp_server.py" = ["D205"]
+
+# RULING (mcp-server-brief SS5a + the exact-task spec
+# reports/synthesize/mcpserverspec.md SS5(a)/SS3(c), G-MCPSERVER approved
+# 2026-11-22): S603 — the lock-face harness's Popen IS the no-shell law's own
+# form (the fixed-argv lists — sys.executable + "-c" + the fixed in-source
+# child programs, the console script at its full venv path; the
+# untrusted-input intent never rides a deterministic concurrency probe).
+# S607 named for the ruling's form's stability (dodged by the full-path form —
+# the tests/test_harness.py + tests/test_service_acceptance.py rulings
+# re-carried at the lock-seam tier; the entry IS the ruling, named).
+"tests/test_store_lock_face.py" = ["S603", "S607"]
+
 [tool.ruff.format]
 quote-style = "double"
 
