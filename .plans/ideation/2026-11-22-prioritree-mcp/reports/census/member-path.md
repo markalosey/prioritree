@@ -1,0 +1,31 @@
+<!-- regen: uv run python scripts/generation/kumi_views.py -->
+# Packet Report — census/member-path
+
+**Route:** prioritree-mcp (executing) | **Events:** 2 | **Reports:** 1
+
+## The packet's chain (ledger order)
+
+| # | Op | Actor | Timestamp |
+|---|---|---|---|
+| 1 | dispatch | shinko | 2026-11-22T20:24:28Z |
+| 2 | report | rikai | 2026-11-22T20:30:57Z |
+## Reported by rikai — 2026-11-22T20:30:57Z
+
+# RIKAI — census/member-path — the member-path design space's mechanism map (2026-11-22)
+
+## 1. THE STANDING PRECEDENT (the form to extend)
+The lifecycle tool is an argv shim: `.opencode/tools/lifecycle.ts:29-39` declares the op enum + port/host/tail args; `:41-46` builds `["make", target, "PORT=…", "HOST=…"]`; `_run.ts:24-58` spawns it (Bun.spawn, fixed argv, no shell, stdout/stderr captured whole, the exit code passed through); `lifecycle.ts:13-27` renders verbatim. The reads are in-wrapper: log = readFileSync of `.prioritree/server.log`, bounded tail (`:60-73`); output = fetch probe of `/runs/RUN-9999/next` (`:74-85`).
+The grant map is TWO layers, both in opencode.json + the prompts: the per-seat permission row (`"lifecycle": "allow"` at jikko opencode.json:105, kensho :216, rikai :293, shindan :330, shinko :367; deny at the other eight) + the Pack Routing row (full six ops at jikko.md:35, kensho.md:31, shinko.md:30; read-only log/output/status at rikai.md:31, shindan.md:30; the row absent elsewhere). The prompt layer is @generated (rikai.md:1-2) from hikari's scaffold — `clarity_scaffold.py --target prioritree` + the `prioritree-seats.yaml` adapter (the birth ruling, prioritree-birth junro.json:328); the source is OUT OF TREE (scripts/generation/ here is empty — verified); the emission lands here (13 prompts + opencode.json + AGENTS.md). The wrappers are hand-maintained in prioritree's tree (lifecycle.ts:1).
+THE RESTART LAW (FR-MEM-0014, .plans/state/friction-ledger.jsonl): opencode registers `.opencode/tools/*.ts` and derives the seat's pack AT LAUNCH — a grant landing mid-session never reaches the live session; the cure is the restart, which delivers to NEW sessions only. The member-usable law carries it verbatim: "the grant lands at the tree, the delivery at the launch — the restart note" (mcp store junro.json:243).
+
+## 2. THE MCP CLIENT PATH (a seat calling the server from its own pack)
+(a) HARNESS-NATIVE: opencode's own `mcp` config block (opencode.json:514-521 — context7/tavily, both `enabled:false`; no enabled MCP server today, the birth ruling's "no hikari_* MCP pins"). A wired server's tools ride into sessions as harness tools; the seats' live MCP surface today is read-only resources (FR-MEM-0014's workaround: hikari-prod's resources, verified by listing). Delivery rides the restart law — the config is read at launch.
+(b) WRAPPER → CLIENT CLI: the argv-shim form carries a client CLI whole (runArgv's fixed argv + captured stdout; calculate.ts:42 shows the `uv run python` form). The store's own census names a CLI client: `ouncemcp context server.py <tool>` prints the exact JSON a client receives (packets.jsonl:10). The member-facing wrappers render verbatim today (lifecycle.ts:30) — JSON parsing would be new wrapper surface, precedented once (web.ts:137, shinko-only).
+(c) WRAPPER → HTTP DIRECT: the wrapper CAN speak HTTP in-process — lifecycle.ts:74-85 is the probe precedent (fetch + 5s timeout); web.ts:15-49 is the full form (POST JSON, parse response, AbortController timeouts) — shinko-only today. Speaking MCP's streamable-HTTP transport from a wrapper (JSON-RPC over fetch) is heavier than any standing member-facing wrapper.
+FastMCP's client API forms (in-memory? stdio? HTTP): the sibling census's ask 6 (packets.jsonl:6); its findings ride the report event (packets.jsonl:10) beyond this session's read horizon (the 2,000-char line truncation) — the design lane consumes it; the mechanics above are the tree's own precedents.
+
+## 3. THE IN-PROCESS PATH (an engine driving the server in-memory)
+The engine form: `.opencode/scripts/*.py` — argparse subcommands + `--flag=value` argv, the payload on stdout, doctrine refusals (REFUSED/Expected/Found/Next-action) on stderr, exits 0/1/2 (calculate.py:43-47, :63-71, :238-285); invoked per call via runArgv(["uv","run","python",…]) (calculate.ts:42) — the project venv's deps available per call. An engine importing the MCP server module + FastMCP's in-memory client (client+server in one process) fits the form mechanically: per-call process composition is the CLI's own shape ("the CLI's process boundary" — service_store.py:5-6), and the tier-imports-core form is proven (service.py:61-66, the seam at :165). PRICES at the tree's facts: ouncemcp is absent from pyproject.toml:7 today (the build era adds it); the per-call interpreter boot; OunceMCP's idempotency store defaults in-process (MemoryStore, packets.jsonl:10) — a per-call engine resets the replay state each call unless the persistent store form (RedisStore) rides.
+
+## 4. THE DIRECT-CORE BOUNDARY
+The five ops live at the core: session.py:161 register_run, :191 next_pair, :240 cast_vote, :278 read_vote_state, :294 tally_rank (the Session class; registry+ledger injected :124-138). The core IS importable in-process — the service proves it (service.py:61-66; app.state.seam at :165) — under the tier fence ("the core and CLI stay zero-dep" — service.py:44-45). NO seat engine imports prioritree today (grep over .opencode/scripts: zero matches) — the direct path has no instance; landing one needs a new engine + a grant + the launch delivery (FR-MEM-0014's law). The law's letter (mcp store junro.json:243): a member-facing path TO THE MCP TOOLS, the members' calls carrying the same stamps (comparator_id, class) the external agents carry. A direct-core call carries the stamps as plain arguments (cast_vote's seven — session.py:240-249; the CLI's positionals — cli.py:122-125) but bypasses the tier's machinery the banked ruling prices (token budgets, idempotent replay, approvals, caller-bound handles — junro.json:238): the stamps carried, not verified. The law's "or another form the design settles" (junro.json:243) is the design lane's room; mechanically the direct path fails the letter as written — a path PAST the MCP surface, not to it.
