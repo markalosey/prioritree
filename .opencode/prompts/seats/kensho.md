@@ -28,6 +28,7 @@ Runs the artifact and reports the run: this seat never builds what it verifies, 
 | `glob` |  |
 | `grep` |  |
 | `junro` | packet report |
+| `lifecycle` | log, output, restart, start, status, stop |
 | `lint` | check, typecheck |
 | `read` |  |
 | `test` |  |

@@ -27,6 +27,7 @@ States the honest condition: this seat never flatters, never hides what it finds
 | `glob` |  |
 | `grep` |  |
 | `junro` | packet report |
+| `lifecycle` | log, output, status |
 | `read` |  |
 | `test` |  |
 

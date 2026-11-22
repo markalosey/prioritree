@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — validate/lifecycle
 
-**Route:** prioritree-ux (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-ux (executing) | **Events:** 5 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,9 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-22T19:06:59Z |
 | 2 | report | kensho | 2026-11-22T19:09:28Z |
+| 3 | result | shinko | 2026-11-22T19:09:48Z |
+| 4 | dispatch | shinko | 2026-11-22T19:51:05Z |
+| 5 | report | kensho | 2026-11-22T19:54:01Z |
 ## Reported by kensho — 2026-11-22T19:09:28Z
 
 KENSHO'S INDEPENDENT VERIFICATION — validate/lifecycle (the lifecycle unit's build vs the approved spec, zero trust)
@@ -21,3 +24,22 @@ GROUND READ + CITED: lifecyclespec.md (§2's fence :24-95; §3 :117; §5 :133) �
 2. BLOCKED at kensho's hands — the live green unevidenced: the pack's refusal (probe c) + no on-disk live evidence; the live sequence is carried to the gate's hands, where the operator's shell runs make start/status/restart/stop and the read-backs rule.
 3. GREEN — the floor green at my own hands, verbatim (probe a); the brief's live-sequence extension of the re-run rides condition 2's carrier.
 GATE CARRIAGE: G-LIFECYCLE stands blocked on condition 2 alone; conditions 1 and 3 green with the evidence above.
+## Reported by kensho — 2026-11-22T19:54:01Z
+
+KENSHO'S EXTENSION VERIFICATION — validate/lifecycle, the second report (E4, the post-restart session; the lifecycle tool itself the instrument)
+GROUND READ + CITED: synthesize/lifecyclespec.md §E2 (the wrapper's six ops) · §E3 (the grant map — kensho ALL SIX) · §E4 (the RUN-9999 probe cure, four byte-sites) · §E6 step 4 (the live sequence's order) · my prior report on this packet (19:09:28Z — conditions 1+3 green, condition 2 blocked at the no-verb seat, carried to the gate's hands).
+THE INSTRUMENT: this post-restart session's pack carries the lifecycle act (§E1's delivery-at-the-launch, landed); the primary act ran the six ops THROUGH THE TOOL, zero trust in the build seat's claims — every output below the tool's own rendering, verbatim.
+THE TRANSITIONS (each output the tool's own):
+- start: "read-back: HTTP 404 on http://127.0.0.1:8000/ (404 = answering; 000 = still booting: make status)"
+- status: "pid: 34904 (live)" / "port: 8000 answering (HTTP 404 on /runs/RUN-9999/next; the ready form)"
+- restart: "SIGTERM -> pid 34904 (the graceful drain)" / "stopped: pid 34904 gone (the pidfile is removed)" / "read-back: refused on 8000 - the port is down" / "read-back: HTTP 404 on http://127.0.0.1:8000/ (404 = answering; 000 = still booting: make status)" — the refusal, then the answer
+- stop: "SIGTERM -> pid 35121 (the graceful drain)" / "stopped: pid 35121 gone (the pidfile is removed)" / "read-back: refused on 8000 - the port is down"
+THE READ VERBS:
+- log: the bounded tail, "the last 7 of 7 lines" at .prioritree/server.log — the boot banner ("Started server process [34904]" / "Application startup complete." / "Uvicorn running on http://127.0.0.1:8000") + the request lines (two "GET /runs/RUN-9999/next" 404s — start's and status's probes)
+- output: "output — http://127.0.0.1:8000/runs/RUN-9999/next answered HTTP 404 (the body verbatim):" then the ThreePart refusal whole: {"expected":"a run file in the store home (live: RUN-0001)","found":"no run file for 'RUN-9999' in .prioritree/runs","next_action":"register a run first, or cite a live RUN-{####} id — the home is the truth (the dir, never a hidden global)"}
+THE PROBE CURE VERIFIED: every read-back probes RUN-9999 — the 404 expected and received at the REAL root (RUN-0001 lives live here; the pre-flip probe read HTTP 200, the "unexpected; not the ready form" mislabel); the healthy state now reads "the ready form" — the label gone from the healthy state.
+THE VERDICT — G-LIFECYCLE's three conditions, whole:
+1. GREEN (prior report — the targets landed byte-exact per the approved brief) — stands.
+2. GREEN NOW — the live green evidenced by a member's own act: the six ops run through the lifecycle tool this session, every read-back true (answering / pid+port / refusal-then-answer / refusal); the blocked condition unblocked — R12's grant proven by use.
+3. GREEN (prior floor runs + this run) — the floor green at my own hands; the independent re-run now self-sufficient — this run IS the re-run through the granted act.
+THE GATE: unblocked — all three conditions green; the evidence above, the tool's own outputs.

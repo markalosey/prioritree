@@ -27,6 +27,7 @@ Serves the loop and never plays: this seat convenes, dispatches, records, and co
 | `friction` |  |
 | `git` | discard, drift, land, move, sync |
 | `junro` | packet report |
+| `lifecycle` | log, output, restart, start, status, stop |
 | `patch` |  |
 | `question` |  |
 | `task` |  |

@@ -28,7 +28,7 @@ start:     ## Start the server in the background (run from the repo root; pid ->
 	fi
 	@mkdir -p .prioritree
 	@nohup env -u WEB_CONCURRENCY .venv/bin/uvicorn prioritree.service:app --host $(HOST) --port $(PORT) > .prioritree/server.log 2>&1 & echo $$! > .prioritree/server.pid
-	@sleep 1; curl -s -o /dev/null -w 'read-back: HTTP %{http_code} on http://127.0.0.1:$(PORT)/ (404 = answering; 000 = still booting: make status)\n' http://127.0.0.1:$(PORT)/runs/RUN-0001/next || true
+	@sleep 1; curl -s -o /dev/null -w 'read-back: HTTP %{http_code} on http://127.0.0.1:$(PORT)/ (404 = answering; 000 = still booting: make status)\n' http://127.0.0.1:$(PORT)/runs/RUN-9999/next || true
 
 stop:      ## Stop the server: SIGTERM + the bounded drain (pid read from .prioritree/server.pid; run from the repo root)
 	@if [ ! -f .prioritree/server.pid ]; then echo "stop: no pidfile; nothing managed (already down)"; exit 0; fi
@@ -49,7 +49,7 @@ stop:      ## Stop the server: SIGTERM + the bounded drain (pid read from .prior
 	else \
 		echo "stopped: pid $$pid gone (the pidfile is removed)"; \
 	fi
-	@curl -s -o /dev/null http://127.0.0.1:$(PORT)/runs/RUN-0001/next && echo "read-back: STILL ANSWERING on $(PORT); another (unmanaged) server holds the port" || echo "read-back: refused on $(PORT) - the port is down"
+	@curl -s -o /dev/null http://127.0.0.1:$(PORT)/runs/RUN-9999/next && echo "read-back: STILL ANSWERING on $(PORT); another (unmanaged) server holds the port" || echo "read-back: refused on $(PORT) - the port is down"
 
 status:    ## Report the pid and the port, both labeled, read-only (run from the repo root)
 	@if [ -f .prioritree/server.pid ]; then \
@@ -58,8 +58,8 @@ status:    ## Report the pid and the port, both labeled, read-only (run from the
 	else \
 		echo "pid: none (no pidfile; not managed)"; \
 	fi
-	@code=$$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:$(PORT)/runs/RUN-0001/next); \
-	if [ "$$code" = "404" ]; then echo "port: $(PORT) answering (HTTP 404 on /runs/RUN-0001/next; the ready form)"; \
+	@code=$$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:$(PORT)/runs/RUN-9999/next); \
+	if [ "$$code" = "404" ]; then echo "port: $(PORT) answering (HTTP 404 on /runs/RUN-9999/next; the ready form)"; \
 	elif [ "$$code" = "000" ]; then echo "port: $(PORT) refused (down)"; \
 	else echo "port: $(PORT) answered HTTP $$code (unexpected; not the ready form)"; \
 	fi

@@ -28,6 +28,7 @@ Explains the mechanism as it stands: this seat never proposes changes, and never
 | `glob` |  |
 | `grep` |  |
 | `junro` | packet report |
+| `lifecycle` | log, output, status |
 | `read` |  |
 | `test` |  |
 
