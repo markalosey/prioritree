@@ -44,6 +44,34 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/service",
+            "owner": "togo",
+            "gate": "G-SERVICE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/probe",
+            "owner": "togo",
+            "gate": "G-PROBE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -51,7 +79,28 @@
         "id": "build",
         "purpose": "THE WEB TIER'S BUILD — the ruled unit set, one module per dispatch (the sizing law): service (the existing FastAPI server grown into the CQRS lanes over the core's five ops — R2; every touched API surface brought into ThreePart compliance as-we-go — R5, no separate remediation unit), web (the entire front end projected from Python — Shoelace via CDN, Web Components under separation of concerns, HTMX, Jinja2 always, generated from structure; hand-authored artifacts out of grammar — R1; the web fronts the service — Q-setup-arch's layering), lifecycle (the Makefile's service-management targets, start/stop/etc. — R3: \"room for service targets later\" is now); each lands per its approved brief (the exact-task law), kensho's independent verification per build gate, one-commit-per-increment.",
         "entry_condition": "G-UX-DESIGN-BRIEF is green — the design is the spec; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).",
-        "increments": []
+        "increments": [
+          {
+            "id": "build/probe",
+            "owner": "jikko",
+            "gate": "G-SERVICE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "close",
@@ -117,6 +166,30 @@
           "hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named",
           "the effort's records landed: the CONTINUATION entry (the landing state named honestly); the MCP-surface era named next (banked, not composed)",
           "the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling (the birth store's G-BIRTH-RECORDS form)"
+        ]
+      },
+      "G-SERVICE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the build brief for service landed + approved — togo's synthesis over discover/service + understand/service + the approved design + the census; the brief carrying the CQRS lanes per the op-mapping, the touched surfaces' ThreePart plan (R5), the scope fence, the return forms; the collaborator approves — the dispatches fire only after",
+          "the brief carries the sixth query's exact spec (GET /runs/{run_id}/manifest via Serialize.manifest + Persist.manifest, zero core edits — the reconciliation's answer to the manifest gap, divergence ledger #1)",
+          "the brief carries the ThreePart cure map (×3 the 400 re-badge family → the schema-violation ThreePart form; ×2 the framework-default 404/405 → the app-level StarletteHTTPException handler — 21/21 after, per the approved design)"
+        ]
+      },
+      "G-SERVICE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the service surface lands per its approved brief — the exact-task law",
+          "the CQRS segregation green: commands (the state-changing acts) segregated from queries (the state reads) at the service surface over the five ops (R2); the core's ruled refusals + the DONE signal carried at the API by type, in the family grammar",
+          "the ThreePart compliance green on every touched surface (R5, as-we-go): every 4xx/5xx body carries expected/found/next-action — never a bare status, never a stack leak, never a silent OK where a refusal belongs; the census's error-shape map cured on the touched surfaces",
+          "pyright 0 errors 0 warnings + ruff zero findings, zero ignores; kensho's independent re-run green (validate/service)"
+        ]
+      },
+      "G-PROBE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit probe LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/probe) + mechanism analysis (understand/probe) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
     },
@@ -250,6 +323,51 @@
         "actor": "shinko",
         "timestamp": "2026-11-22T09:35:26Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the build brief for service landed + approved — togo's synthesis over discover/service + understand/service + the approved design + the census; the brief carrying the CQRS lanes per the op-mapping, the touched surfaces' ThreePart plan (R5), the scope fence, the return forms; the collaborator approves — the dispatches fire only after\\\", \\\"the brief carries the sixth query's exact spec (GET /runs/{run_id}/manifest via Serialize.manifest + Persist.manifest, zero core edits — the reconciliation's answer to the manifest gap, divergence ledger #1)\\\", \\\"the brief carries the ThreePart cure map (×3 the 400 re-badge family → the schema-violation ThreePart form; ×2 the framework-default 404/405 → the app-level StarletteHTTPException handler — 21/21 after, per the approved design)\\\"]\", \"gate\": \"G-SERVICE-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T09:58:06Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the service surface lands per its approved brief — the exact-task law\\\", \\\"the CQRS segregation green: commands (the state-changing acts) segregated from queries (the state reads) at the service surface over the five ops (R2); the core's ruled refusals + the DONE signal carried at the API by type, in the family grammar\\\", \\\"the ThreePart compliance green on every touched surface (R5, as-we-go): every 4xx/5xx body carries expected/found/next-action — never a bare status, never a stack leak, never a silent OK where a refusal belongs; the census's error-shape map cured on the touched surfaces\\\", \\\"pyright 0 errors 0 warnings + ruff zero findings, zero ignores; kensho's independent re-run green (validate/service)\\\"]\", \"gate\": \"G-SERVICE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T09:58:12Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SERVICE-BRIEF\", \"increment\": \"synthesize/service\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T09:58:17Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "amend-increment {\"field\": \"gate\", \"increment\": \"synthesize/service\", \"value\": \"G-SERVICE-BRIEF\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T09:58:56Z",
+        "op": "amend-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SERVICE\", \"increment\": \"build/probe\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-PROBE-BRIEF\", \"packets\": [\"discover/probe\", \"understand/probe\"], \"synthesize_increment\": \"synthesize/probe\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T10:03:12Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "The service unit's build-add collision, cured by the engine's different-id path: the manually pre-composed synthesize/service (mimicking the core store's static shape, against the composition model's own 'no manual pre-composition' note) claimed the 'service' suffix, blocking build/service (the build-add's auto-stamp demands the pipeline free). The build rides as build/probe · jikko · G-SERVICE (the core store's registry-collision precedent); the stamp minted G-PROBE-BRIEF + synthesize/probe — the probe lane carrying the EXACT-TASK SPEC (FR-MEM-0011's doctrine: the bytes authored at synthesis, nothing to figure out at the execution seat). The two-lane form: synthesize/service · G-SERVICE-BRIEF = the UNIT BRIEF (the scope fence, the CQRS lanes, the ThreePart cure map, the return forms — the minted conditions); synthesize/probe · G-PROBE-BRIEF = the EXACT-TASK SPEC (the bytes-level build plan). The flow: discovery legs → unit brief green → exact-task spec green → build (G-SERVICE, kensho independent). The web and lifecycle units ride their build-adds directly (no manual pre-composition — the lesson held).",
+        "ruled_at": "2026-11-22",
+        "why": "The append-only route cannot remove the manual pair; the engine's next-action offered the different-id path; the probe form is the core store's own collision precedent and maps the extra lane onto real work (the exact-task brief discipline) — every structure carries work, none orphaned."
       }
     ]
   },
