@@ -100,6 +100,34 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/lifecyclespec",
+            "owner": "togo",
+            "gate": "G-LIFECYCLESPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/lifecycle",
+            "owner": "togo",
+            "gate": "G-LIFECYCLE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -142,6 +170,26 @@
               },
               {
                 "id": "floor-green",
+                "executor": "deterministic",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/lifecycle",
+            "owner": "jikko",
+            "gate": "G-LIFECYCLE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "targets-green",
                 "executor": "deterministic",
                 "tool": "make",
                 "verification": "gate"
@@ -261,6 +309,29 @@
         "type": "collaborator-ruling",
         "conditions": [
           "THE BUILD BRIEF for the unit web LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/web) + mechanism analysis (understand/web) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-LIFECYCLESPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed — togo's bytes whole over the approved unit brief: every target's exact recipe bytes, every read-back named, the per-step dispatch plan (R8) whole",
+          "the spec carries the ruled target set (start, stop, + the etc. the design/census pin — R3) with the handed constraints (127.0.0.1, the named port, single-worker, the cwd discipline) verbatim",
+          "the collaborator approves the spec — the build dispatches fire only after"
+        ]
+      },
+      "G-LIFECYCLE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the lifecycle targets land per the approved brief — the exact-task law (R3)",
+          "the targets green live: make start brings the service up (the read-back: the port answers); make stop brings it down (the read-back: the refusal); the rest per the brief's own read-backs",
+          "the floor green; kensho's independent re-run green (validate/lifecycle)"
+        ]
+      },
+      "G-LIFECYCLE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit lifecycle LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/lifecycle) + mechanism analysis (understand/lifecycle) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
@@ -527,6 +598,38 @@
         "actor": "shinko",
         "timestamp": "2026-11-22T17:39:05Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed — togo's bytes whole over the approved unit brief: every target's exact recipe bytes, every read-back named, the per-step dispatch plan (R8) whole\\\", \\\"the spec carries the ruled target set (start, stop, + the etc. the design/census pin — R3) with the handed constraints (127.0.0.1, the named port, single-worker, the cwd discipline) verbatim\\\", \\\"the collaborator approves the spec — the build dispatches fire only after\\\"]\", \"gate\": \"G-LIFECYCLESPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T18:26:45Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-LIFECYCLESPEC-BRIEF\", \"increment\": \"synthesize/lifecyclespec\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T18:26:51Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the lifecycle targets land per the approved brief — the exact-task law (R3)\\\", \\\"the targets green live: make start brings the service up (the read-back: the port answers); make stop brings it down (the read-back: the refusal); the rest per the brief's own read-backs\\\", \\\"the floor green; kensho's independent re-run green (validate/lifecycle)\\\"]\", \"gate\": \"G-LIFECYCLE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T18:26:56Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-LIFECYCLE\", \"increment\": \"build/lifecycle\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-LIFECYCLE-BRIEF\", \"packets\": [\"discover/lifecycle\", \"understand/lifecycle\"], \"synthesize_increment\": \"synthesize/lifecycle\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"targets-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T18:27:01Z",
+        "op": "add-increment"
       }
     ]
   },
