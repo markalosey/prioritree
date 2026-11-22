@@ -30,6 +30,7 @@ from typing import TYPE_CHECKING, Final, cast
 from prioritree.registry import OperatorDeclaration
 from prioritree.run_store import STORE_HOME, Persist, StoreRefusedError
 from prioritree.session import ExhaustedQueue
+from prioritree.store_lock import Lock
 from prioritree.tally import TallyRefusedError
 from prioritree.votes import VotesRefusedError
 
@@ -182,7 +183,9 @@ def _command_register(args: argparse.Namespace, parser: argparse.ArgumentParser)
     OperatorDeclaration(id=..., question=...), quorum) — the verdicts field
     the dataclass default's triple (no --verdicts flag: the door refuses any
     set but the triple — a no-op surface, never banked); print the BARE STEM
-    (persist.run_id — the id IS the whole report).
+    (persist.run_id — the id IS the whole report). The register whole rides under
+    one machine-wide file lock (store_lock.Lock, the flock seam), released before
+    the stem renders.
     Refuses when: a colon-less item token (parser.error → SystemExit 2, the
     CLI's own channel); otherwise the door's refusals ride through (the
     handler's caller catches).
@@ -199,12 +202,14 @@ def _command_register(args: argparse.Namespace, parser: argparse.ArgumentParser)
         if not separator:
             parser.error(f"each item token the id:label form (split on the FIRST colon) — got {token!r}")
         parsed_items.append((item_id, label))
-    persist = Persist.register(
-        cast("Path", args.home),
-        parsed_items,
-        OperatorDeclaration(id=cast("str", args.operator_id), question=cast("str", args.question)),
-        cast("int", args.quorum),
-    )
+    home = cast("Path", args.home)
+    with Lock(home):
+        persist = Persist.register(
+            home,
+            parsed_items,
+            OperatorDeclaration(id=cast("str", args.operator_id), question=cast("str", args.question)),
+            cast("int", args.quorum),
+        )
     _report(persist.run_id)
     return EXIT_OK
 
@@ -215,7 +220,9 @@ def _command_next(args: argparse.Namespace) -> int:
     Purpose: load the run and serve its next under-quorum pair —
     Persist.load(home, run_id) then .serve(seed) with the --seed value passed
     verbatim (None included — the door derives when None, no re-derivation);
-    print pair\t{item_a}\t{item_b}\t{count} — the serve triple whole.
+    print pair\t{item_a}\t{item_b}\t{count} — the serve triple whole. The load+serve
+    window rides under one machine-wide file lock (store_lock.Lock, the flock
+    seam), released before the pair line renders.
     Refuses when: never here — ExhaustedQueue rides through BY TYPE (the
     DONE signal, caught by the caller) and the refusals ride through (the
     caller's tuple clause).
@@ -225,8 +232,10 @@ def _command_next(args: argparse.Namespace) -> int:
     Provenance: command-face-brief §1 (the 1:1 map), §3 (the pair line),
     Q-cli-shape, G-COMMAND-FACE.
     """
-    persist = Persist.load(cast("Path", args.home), cast("str", args.run_id))
-    item_a, item_b, count = persist.serve(cast("int | None", args.seed))
+    home = cast("Path", args.home)
+    with Lock(home):
+        persist = Persist.load(home, cast("str", args.run_id))
+        item_a, item_b, count = persist.serve(cast("int | None", args.seed))
     _report(FIELD_SEPARATOR.join((MARKER_PAIR, item_a, item_b, str(count))))
     return EXIT_OK
 
@@ -239,7 +248,8 @@ def _command_vote(args: argparse.Namespace) -> int:
     winner/comparator values passed through UNVALIDATED (the door's exit-1
     refusals — no re-derivation); the acknowledged flag picks the marker:
     ack\t{vote_id}\t{count} (the loud dedup ack) or vote\t{vote_id}\t{count}
-    (a new cast).
+    (a new cast). The load+cast window rides under one machine-wide file lock
+    (store_lock.Lock, the flock seam), released before the vote/ack line renders.
     Refuses when: never here — the door's refusals ride through (the caller's
     tuple clause).
     Re-run: deterministic given the store state; a byte-identical re-cast is
@@ -248,15 +258,17 @@ def _command_vote(args: argparse.Namespace) -> int:
     Provenance: command-face-brief §2 (the vote grammar), §3 (the vote/ack
     lines), Q-cli-shape, G-COMMAND-FACE.
     """
-    persist = Persist.load(cast("Path", args.home), cast("str", args.run_id))
-    vote_id, _record, count, acknowledged = persist.cast(
-        [cast("str", args.item_a), cast("str", args.item_b)],
-        cast("str", args.winner),
-        cast("str", args.comparator_id),
-        cast("str", args.comparator_class),
-        cast("str | None", args.notes),
-        cast("str | None", args.supersedes),
-    )
+    home = cast("Path", args.home)
+    with Lock(home):
+        persist = Persist.load(home, cast("str", args.run_id))
+        vote_id, _record, count, acknowledged = persist.cast(
+            [cast("str", args.item_a), cast("str", args.item_b)],
+            cast("str", args.winner),
+            cast("str", args.comparator_id),
+            cast("str", args.comparator_class),
+            cast("str | None", args.notes),
+            cast("str | None", args.supersedes),
+        )
     marker = MARKER_ACK if acknowledged else MARKER_VOTE
     _report(FIELD_SEPARATOR.join((marker, vote_id, str(count))))
     return EXIT_OK
@@ -272,15 +284,19 @@ def _command_state(args: argparse.Namespace) -> int:
     (an elided zero is indistinguishable from an absent item). Elided by
     ruling: per_pair_counts (the weighted view renders at tally), vote_log
     (recorded_at re-mints at load — rendering re-minted stamps lies),
-    census.run_id (the in-file handle never crosses the CLI).
+    census.run_id (the in-file handle never crosses the CLI). The load+census
+    window rides under one machine-wide file lock (store_lock.Lock, the flock
+    seam), released before the summary lines render.
     Refuses when: never here — the door's refusals ride through.
     Re-run: pure — re-reading is stable between casts.
     Touches: nothing — a read through the store.
     Provenance: command-face-brief §3 (the census summary), Q-cli-io, Q-cli-shape,
     G-COMMAND-FACE.
     """
-    persist = Persist.load(cast("Path", args.home), cast("str", args.run_id))
-    census = persist.census()
+    home = cast("Path", args.home)
+    with Lock(home):
+        persist = Persist.load(home, cast("str", args.run_id))
+        census = persist.census()
     _report(FIELD_SEPARATOR.join((MARKER_VOTES, str(len(census.vote_log)))))
     for item_id, item_count in census.per_item_counts.items():
         _report(FIELD_SEPARATOR.join((MARKER_ITEM, item_id, str(item_count))))
@@ -297,7 +313,9 @@ def _command_tally(args: argparse.Namespace) -> int:
     item (map order, zeros included); coverage\t{len(components)}\t{done};
     cycle\t{a>b}\t{b>c}... ONLY when non-empty (a cycle is structural, named
     never hidden); pairs\t{a}\t{b}\t{n} per pair (the WEIGHTED counts, map
-    order); version\t{algorithm_version}.
+    order); version\t{algorithm_version}. The load+rank window rides under one
+    machine-wide file lock (store_lock.Lock, the flock seam), released before
+    the ranked whole renders.
     Refuses when: never here — TallyRefusedError (the SAFE HALT) rides
     through VERBATIM (the caller's tuple clause).
     Re-run: pure — same store state yields the byte-identical emission.
@@ -305,8 +323,10 @@ def _command_tally(args: argparse.Namespace) -> int:
     Provenance: command-face-brief §0 (the convergence — the frozen whole),
     §3 (the tally lines), Q-cli-shape, G-COMMAND-FACE.
     """
-    persist = Persist.load(cast("Path", args.home), cast("str", args.run_id))
-    result = persist.rank()
+    home = cast("Path", args.home)
+    with Lock(home):
+        persist = Persist.load(home, cast("str", args.run_id))
+        result = persist.rank()
     for group in result.ranked_groups:
         _report(MARKER_RANK + FIELD_SEPARATOR + FIELD_SEPARATOR.join(group))
     for item_id in result.per_item_wins:

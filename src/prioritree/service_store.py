@@ -2,7 +2,9 @@
 """service_store — the lock seam: the CLI's process boundary become a lock boundary at the request tier.
 
 The service-store unit (Q-service-concurrency's ruling: the single-writer contract held
-AT THE REQUEST TIER — one process-wide threading.Lock wrapping each request's whole act;
+AT THE REQUEST TIER — the machine-wide file lock OUTERMOST (the mcp-server unit's
+flock seam, store_lock.Lock — the lock that spans processes), the process-wide
+threading.Lock within, wrapping each request's whole act;
 the CLI's one-act-per-process shape translated to many-requests-per-process BY
 CONSTRUCTION, not by convention). Each verb is ONE acquisition around the load + the
 act whole: the lock serializes ACTS (each act spans thousands of bytecodes plus file I/O
@@ -14,17 +16,19 @@ The FENCE: zero edits to run_store.py or any core module — the seam composes P
 public surface only (register/load, the verbs delegated; the privates never touched);
 load never exposed (each verb loads INSIDE the lock — per-request composition, the
 dedup index fresh by construction). The door's values returned verbatim; the door's and
-store's refusals ride through BY TYPE, never wrapped. The multi-process widening banked
-under the single-worker launch: one process, one lock, all runs serialized through one
-critical section. Five-field docstrings on every public symbol; stdlib only (threading).
+store's refusals ride through BY TYPE, never wrapped. The multi-process widening held
+by the flock outermost: every standing writer local, none bypassing the seam (the
+single-worker banking superseded). Five-field docstrings on every public symbol;
+stdlib only (threading; the flock seam store_lock, itself stdlib-only).
 """
 
 from __future__ import annotations
 
-from threading import Lock
+from threading import Lock as ThreadLock
 from typing import TYPE_CHECKING
 
 from prioritree.run_store import Persist
+from prioritree.store_lock import Lock
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -42,9 +46,10 @@ __all__ = [
 
 
 class Serialize:
-    """Serialize — the requests' store acts under one process-wide lock.
+    """Serialize — the requests' store acts under the file lock outermost, the process-wide lock within.
 
-    Purpose: serialize the requests' store acts under ONE process-wide lock — each verb
+    Purpose: serialize the requests' store acts under the machine-wide file lock
+    OUTERMOST and the process-wide threading.Lock within — each verb
     is a single acquisition wrapping the load + the act whole (register's mkdir-scan-
     mint-write inside one acquire: the TOCTOU closed by construction; every other verb
     loads the run file INSIDE the lock, acts, returns — a read never sees a half-state,
@@ -53,15 +58,17 @@ class Serialize:
     seam composes Persist's PUBLIC surface only (the fence: zero edits to run_store.py
     or any core module); load never exposed — each verb loads inside the lock. The GIL
     never load-bearing: the lock serializes acts, the GIL bytecodes — the contract rests
-    on the lock alone. The multi-process widening banked under the single-worker launch.
+    on the lock alone. The multi-process widening held by the flock outermost (every
+    standing writer local, none bypassing the seam).
     Refuses when: never its own refusal — the door's refusals (VotesRefusedError,
     TallyRefusedError, ExhaustedQueue) and the store's own (StoreRefusedError) ride
     through verbatim BY TYPE, never wrapped, never conflated (the face unit maps them
     to the statuses; this seam never holds the lock across rendering).
     Re-run: deterministic given the store state — the lock never changes values, only
     interleavings (the door's re-run semantics ride through unchanged).
-    Touches: only the run files through Persist (the seam adds no state of its own —
-    the lock and the injected home are its whole holdings).
+    Touches: the run files through Persist, and the lockfile at the home (the flock
+    seam's own — created on demand, never truncated, never deleted); the seam adds
+    no state of its own — the threading lock and the injected home are its whole holdings.
     Provenance: Q-service-concurrency (per-request composition under one process-wide
     lock), Q-service-store (the run-store per request, store-as-parameter), the
     composition (service-store §0-§5), G-SERVICE-STORE (the four conditions), the
@@ -86,7 +93,7 @@ class Serialize:
         question 5 ruled), §2 (the lock minted at construction, container-held),
         Q-service-store (store-as-parameter), G-SERVICE-STORE.
         """
-        self._lock = Lock()
+        self._lock = ThreadLock()
         self._store_home = store_home
 
     def register(
@@ -95,7 +102,7 @@ class Serialize:
         operator: OperatorDeclaration,
         quorum: int = 1,
     ) -> str:
-        """Register the run under the lock — the whole mkdir-scan-mint-write in one acquire.
+        """Register the run under the file lock outermost — the whole mkdir-scan-mint-write in one acquire.
 
         Purpose: serialize the register act — ONE acquisition wrapping Persist.register
         WHOLE (the door's register_run, the store home's mkdir, the scan, the mint, the
@@ -115,11 +122,11 @@ class Serialize:
         stem-alone ruling — open question 4 ruled), Q-service-concurrency,
         G-SERVICE-STORE.
         """
-        with self._lock:
+        with Lock(self._store_home), self._lock:
             return Persist.register(self._store_home, items, operator, quorum).run_id
 
     def serve(self, run_id: str, seed: int | None = None) -> tuple[str, str, int]:
-        """Serve the next under-quorum pair under the lock — the load and the read in one acquire.
+        """Serve the next under-quorum pair under the file lock outermost — the load and the read in one acquire.
 
         Purpose: serialize the serve act — load the run file INSIDE the lock (the fresh
         door rebuilt from the file; load never exposed), delegate to the door's
@@ -136,7 +143,7 @@ class Serialize:
         Touches: only the run file (a read) — through Persist only.
         Provenance: service-store-brief §2-§3, Q-service-concurrency, G-SERVICE-STORE.
         """
-        with self._lock:
+        with Lock(self._store_home), self._lock:
             return Persist.load(self._store_home, run_id).serve(seed)
 
     def cast(
@@ -149,7 +156,7 @@ class Serialize:
         notes: str | None = None,
         supersedes: str | None = None,
     ) -> tuple[str, VoteRecord, int, bool]:
-        """Cast the vote under the lock — the load, the cast, and the append in one acquire.
+        """Cast the vote under the file lock outermost — the load, the cast, and the append in one acquire.
 
         Purpose: serialize the cast act — load the run file INSIDE the lock (the dedup
         index fresh BY CONSTRUCTION: the re-cast's load rebuilds the door from the file,
@@ -165,13 +172,13 @@ class Serialize:
         Touches: the run file (append) and the door's own stores — through Persist only.
         Provenance: service-store-brief §2-§3, Q-service-concurrency, G-SERVICE-STORE.
         """
-        with self._lock:
+        with Lock(self._store_home), self._lock:
             return Persist.load(self._store_home, run_id).cast(
                 pair, winner, comparator_id, comparator_class, notes, supersedes,
             )
 
     def census(self, run_id: str) -> VoteCensus:
-        """Census the run under the lock — the load and the read in one acquire.
+        """Census the run under the file lock outermost — the load and the read in one acquire.
 
         Purpose: serialize the census act — load the run file INSIDE the lock, delegate
         to the door's read_vote_state, return the frozen snapshot VERBATIM (the counts
@@ -186,11 +193,11 @@ class Serialize:
         Touches: only the run file (a read) — through Persist only.
         Provenance: service-store-brief §2-§3, Q-service-concurrency, G-SERVICE-STORE.
         """
-        with self._lock:
+        with Lock(self._store_home), self._lock:
             return Persist.load(self._store_home, run_id).census()
 
     def rank(self, run_id: str) -> TallyResult:
-        """Rank the run under the lock — the load and the tally in one acquire.
+        """Rank the run under the file lock outermost — the load and the tally in one acquire.
 
         Purpose: serialize the rank act — load the run file INSIDE the lock, delegate
         to the door's tally_rank, return the frozen TallyResult WHOLE VERBATIM. The
@@ -205,11 +212,11 @@ class Serialize:
         Touches: only the run file (a read) — through Persist only.
         Provenance: service-store-brief §2-§3, Q-service-concurrency, G-SERVICE-STORE.
         """
-        with self._lock:
+        with Lock(self._store_home), self._lock:
             return Persist.load(self._store_home, run_id).rank()
 
     def manifest(self, run_id: str) -> RunManifest:
-        """Manifest the run's frozen ground under the lock — the load and the read in one acquire.
+        """Manifest the run's frozen ground under the file lock outermost — the load and the read in one acquire.
 
         Purpose: serialize the manifest act — load the run file INSIDE the
         lock, delegate to the container's manifest accessor, return the frozen
@@ -230,5 +237,5 @@ class Serialize:
         verb — ONE lock acquisition), the ux design §2 (the mechanism named),
         Q-service-concurrency (the read-locks-too law), G-SERVICE-STORE.
         """
-        with self._lock:
+        with Lock(self._store_home), self._lock:
             return Persist.load(self._store_home, run_id).manifest()
