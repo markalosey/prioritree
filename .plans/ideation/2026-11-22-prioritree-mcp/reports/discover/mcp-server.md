@@ -1,0 +1,26 @@
+<!-- regen: uv run python scripts/generation/kumi_views.py -->
+# Packet Report — discover/mcp-server
+
+**Route:** prioritree-mcp (executing) | **Events:** 2 | **Reports:** 1
+
+## The packet's chain (ledger order)
+
+| # | Op | Actor | Timestamp |
+|---|---|---|---|
+| 1 | dispatch | shinko | 2026-11-22T20:55:51Z |
+| 2 | report | tansa | 2026-11-22T20:58:54Z |
+## Reported by tansa — 2026-11-22T20:58:54Z
+
+TANSA — discover/mcp-server — the mcp-server unit's build-surface census (2026-11-22)
+
+1. THE MODULE'S GROUND. src/prioritree is FLAT — 13 modules, zero subpackages (acceptance, budget_curve, cli, registry, run_store, scheduler, service_store, service, session, tally, votes, web + __init__): mcp_server.py lands as the next flat module. The wrapper tiers' precedent: tier-named flat modules, ONE public symbol each, named by the act-statement's first word (cli.py:39 __all__=["command"]; service.py:68 __all__=["app"]; service_store.py:38-40 __all__=["Serialize"]). The package __init__.py carries NO __all__ (2 lines: copyright + docstring, src/prioritree/__init__.py:1-2) — the __all__ convention is per-module.
+
+2. THE DEP'S LANDING. pyproject.toml:7 verbatim: dependencies = ["fastapi", "httpx2", "jinja2", "python-multipart", "uvicorn[standard]"]; the dev group (:143-144) = ["pytest", "pyright", "ruff"]; requires-python ">=3.13" (:6). ouncemcp (reports/census/ouncemcp.md:22): pip install ouncemcp, release 1.0.0rc3, Python >= 3.11, API frozen — the tree's >= 3.13 holds (.python-version "3.13"; uv.lock:3). uv.lock: version 1 / revision 3, 37 packages alphabetically (:6-777) — NO ouncemcp, NO fastmcp, NO mcp entry (grep + scan evidence); the root prioritree package at :360. The dep lands at [project.dependencies] with the lock regen (F6's order: dep + module BEFORE the config rows wire them).
+
+3. THE COMPOSITION POINTS. service_store.py: the process-wide threading.Lock minted at construction (:89-90 — self._lock = Lock(); store_home the injected parameter, never a singleton); EVERY verb ONE acquisition around load+act whole — register :118-119, serve :139-140, cast :168-171, census :189-190, rank :208-209, manifest :233-234 (the `with self._lock: return Persist.load(self._store_home, run_id)...` shape). cli.py: direct Persist access, NO lock — register Persist.register :202-207; load+serve :228-229; load+cast :251-259; load+census :282-283; load+rank :308-309; --home default=STORE_HOME (:141-145), STORE_HOME = Path(".prioritree/runs") CWD-relative (run_store.py:53). The flock seam composes at BOTH plus the new server (F1: the file lock outermost, the threading.Lock retained within).
+
+4. THE RUN FORMS. The design's ruled launch: uv run python -m prioritree.mcp_server (F6, reports/synthesize/mcp-design.md:33) — the __main__ module form is the tree's FIRST: no src module carries a __main__ block (grep over src: zero matches), no __main__.py exists (glob: none); today's launches are the console script (pyproject.toml:14) and uvicorn prioritree.service:app. The shared HTTP form: OunceMCP offers server.run("http", host=, port=, allowed_hosts=, allowed_origins=) AND server.http_app() for ASGI (census :22); the tree's precedent is the module-level ASGI object booted OUTSIDE src (service.py:33-34, :164 — NO uvicorn.run in src, S104 never fires; zero http_app in src), the lifecycle unit's own form the Makefile targets (Makefile:20-52 — nohup .venv/bin/uvicorn prioritree.service:app --host --port, pidfile .prioritree/server.pid, stop the SIGTERM bounded drain, status the read-backs).
+
+5. THE TEST SURFACE. 15 test files + __init__.py, the suffix grammar test_{unit}.py with _face/_acceptance/_harness variants (test_service_face, test_web_face; test_service_acceptance; test_harness the CLI e2e). The live-boot form (tests/test_service_acceptance.py:41-54, :67-102): the sibling uvicorn binary's full path, FIXED-ARGV Popen [uvicorn, "prioritree.service:app", --host 127.0.0.1, --port 0, --no-access-log], the stderr banner parsed for the kernel port (:54), the 404-as-ready probe (:105-137); S603/S607 the named per-file ruling. The MCP tests' own ground (census ouncemcp.md:24): ouncemcp.testing.as_caller, ouncemcp context server.py <tool>, ouncemcp eval suite.yaml, ouncemcp check server.py, traces. THE FLOOR VERIFIED: 156 passed in 29.08s (the full run, this turn).
+
+6. THE FLOOR'S EXTENSION. Ruff: select=["ALL"] (pyproject:29), target-version py313, line-length 120, the per-file-ignores NAMED-RULING form (:31-122) — 13 entries, each an approved-brief/gate citation with the retires-when named: tests/** [S101, PLR2004] :36; scheduler.py [ARG001] :42; votes.py [PLR0913, PLR0917] :48; session.py [N818, PLR0913, PLR0917] :53; acceptance.py [S311, ARG001] :62; run_store.py [PLR0913, PLR0917] :69; cli.py [T201, BLE001] :78; tests/test_harness.py [S603, S607] :85; budget_curve.py [S311, ARG001] :91; service_store.py [PLR0913, PLR0917] :98; service.py [BLE001, E402, PLC0415] :109; tests/test_service_acceptance.py [S603, S607] :116; web.py [BLE001] :122; format quote-style double :125. Pyright: strict, enableTypeIgnoreComments false, five error-tightened reports, include [src, tests], pythonVersion 3.13 (:127-141). The new module's entry: a named ruling per fire, the zero-ignore bar standing.
