@@ -6,7 +6,7 @@
     "type": "build_route",
     "methodology": "MPIR",
     "instance": 1,
-    "status": "composed",
+    "status": "executing",
     "worktree": "prioritree",
     "inputs": [
       "the collaborator's rulings of 2026-11-22 (the UX ask prior to the MCP surface; the stack re-anchor: Shoelace + HTMX + separation-of-concerns Web Components, all frontend things generated from Python — the front end a projection from Python things; the CQRS agenda; the existing FastAPI server; lifecycle make targets; the full-junro all-seats mandate)",
@@ -234,6 +234,22 @@
         "actor": "shinko",
         "timestamp": "2026-11-22T05:37:09Z",
         "op": "add-increment"
+      },
+      {
+        "what": "set-route-status {\"from\": \"composed\", \"status\": \"executing\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T09:20:02Z",
+        "op": "set-route-status"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-ux-surface\", \"ruling\": \"THE REPORT AUTHORSHIP LAW (collaborator ruling, 2026-11-22, verbatim ground: \\\"the seats write their reports via the report op... translating from returns is not how we do things anymore... each seat is supposed to write its own report.\\\"): every dispatched seat writes its own completion report via the junro packet report op — actor = the seat, packet = its packet, content = the seat's own report in its own words; the report rides the ledger from the seat's own actor stamp. shinko NEVER translates a seat's return into a report — the convenor's ledger duties are the machinery events alone (dispatch, result, gate) and the evidence landing (the result's output artifact); the report is the member's act, the member's voice. THE STANDING DISPATCH FORM: every dispatch prompt carries the report step — \\\"file your completion report via the junro packet report op (actor=<seat>, packet=<id>, store=<path>) before returning\\\" — a dispatch without the report step is out of grammar. THE TRANSITION (this effort): the three census packets' shinko-recorded reports (census/ground, census/error-shape, census/mechanism) were filed pre-correction in the translation form — they stand as the machinery's pre-correction records, SUPERSEDED by the seats' own reports when the seats file them (append-only; the seat-authored reports are the packet's authoritative voice); the design packets' reports (design/flows, design/cqrs-mapping, design/presentation) are filed by their seats from the start — no translated report ever lands for them.\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T09:35:26Z",
+        "op": "add-ruling"
       }
     ]
   },
@@ -265,6 +281,11 @@
         },
         {
           "text": "THE ERROR SHAPE, MANDATORY (collaborator ruling, 2026-11-22, verbatim ground: \"the api absolutely does not follow the errors teach methodology. So, we are going to have to fix that as we go. The ThreePart is mandatory in this codebase now.\"): the existing FastAPI API does not follow the errors-teach methodology — and the fix rides this effort as-we-go (no separate remediation effort; each unit that touches an API surface brings that surface into compliance as it lands). THE THREEPART IS MANDATORY IN THIS CODEBASE NOW: every error response carries expected / found / next-action — the shape this codebase's own instruments already teach (the junro engine's every refusal: \"REFUSED — Expected: ... Found: ... Next-action: ...\"; the core's ruled refusals — Q-granularity R2's \"expected/found/next-action naming the legal set\", R12's SAFE HALT \"carrying expected/found/next-action naming the isolated items/components and the exact closing pairs\"). At the API: every 4xx/5xx response body is a ThreePart error — expected (the legal state named), found (what the request actually carried / what occurred), next-action (the named cure or legal form — self-correcting) — never a bare status code, never a stack leak, never a silent OK where a refusal belongs. Every build unit of this route inherits this: the units touching the API bring the touched surfaces into ThreePart compliance as-we-go.",
+          "ruled_at": "2026-11-22",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE REPORT AUTHORSHIP LAW (collaborator ruling, 2026-11-22, verbatim ground: \"the seats write their reports via the report op... translating from returns is not how we do things anymore... each seat is supposed to write its own report.\"): every dispatched seat writes its own completion report via the junro packet report op — actor = the seat, packet = its packet, content = the seat's own report in its own words; the report rides the ledger from the seat's own actor stamp. shinko NEVER translates a seat's return into a report — the convenor's ledger duties are the machinery events alone (dispatch, result, gate) and the evidence landing (the result's output artifact); the report is the member's act, the member's voice. THE STANDING DISPATCH FORM: every dispatch prompt carries the report step — \"file your completion report via the junro packet report op (actor=<seat>, packet=<id>, store=<path>) before returning\" — a dispatch without the report step is out of grammar. THE TRANSITION (this effort): the three census packets' shinko-recorded reports (census/ground, census/error-shape, census/mechanism) were filed pre-correction in the translation form — they stand as the machinery's pre-correction records, SUPERSEDED by the seats' own reports when the seats file them (append-only; the seat-authored reports are the packet's authoritative voice); the design packets' reports (design/flows, design/cqrs-mapping, design/presentation) are filed by their seats from the start — no translated report ever lands for them.",
           "ruled_at": "2026-11-22",
           "actor": "shinko"
         }
