@@ -104,6 +104,13 @@ select = ["ALL"]
 # the CLI's own exit-2 catch carries the same ruling). The ignore IS the ruling, named.
 "src/prioritree/service.py" = ["BLE001"]
 
+# RULING (service-acceptance-brief §7, G-SERVICE-ACCEPTANCE-BRIEF approved 2026-11-22): S603 —
+# the acceptance harness's Popen IS the no-shell law's own form (the fixed-argv boot list —
+# the sibling uvicorn binary, the module:app target, the pinned flags; the untrusted-input
+# intent never rides a deterministic e2e harness). S607 named for the ruling's form's stability.
+# The tests/test_harness.py ruling re-carried at the service tier; the entry IS the ruling, named.
+"tests/test_service_acceptance.py" = ["S603", "S607"]
+
 [tool.ruff.format]
 quote-style = "double"
 

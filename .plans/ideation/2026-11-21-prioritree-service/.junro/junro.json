@@ -59,6 +59,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/service-acceptance",
+            "owner": "togo",
+            "gate": "G-SERVICE-ACCEPTANCE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -91,6 +105,26 @@
             "id": "build/service-face",
             "owner": "jikko",
             "gate": "G-SERVICE-FACE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "tool": "make dev && make test && make lint && make typecheck at the prioritree root",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/service-acceptance",
+            "owner": "jikko",
+            "gate": "G-SERVICE-ACCEPTANCE",
             "revert": "one-increment",
             "steps": [
               {
@@ -190,6 +224,13 @@
         "type": "collaborator-ruling",
         "conditions": [
           "THE BUILD BRIEF for the unit service-face LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/service-face) + mechanism analysis (understand/service-face) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-SERVICE-ACCEPTANCE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit service-acceptance LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/service-acceptance) + mechanism analysis (understand/service-acceptance) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
@@ -410,6 +451,14 @@
         "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
         "actor": "shinko",
         "timestamp": "2026-11-22T00:29:12Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SERVICE-ACCEPTANCE\", \"increment\": \"build/service-acceptance\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-SERVICE-ACCEPTANCE-BRIEF\", \"packets\": [\"discover/service-acceptance\", \"understand/service-acceptance\"], \"synthesize_increment\": \"synthesize/service-acceptance\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"tool\\\": \\\"make dev && make test && make lint && make typecheck at the prioritree root\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T02:34:07Z",
         "op": "add-increment"
       }
     ],
