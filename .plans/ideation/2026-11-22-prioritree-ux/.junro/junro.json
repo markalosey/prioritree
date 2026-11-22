@@ -72,6 +72,34 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/webspec",
+            "owner": "togo",
+            "gate": "G-WEBSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/web",
+            "owner": "togo",
+            "gate": "G-WEB-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -84,6 +112,26 @@
             "id": "build/probe",
             "owner": "jikko",
             "gate": "G-SERVICE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/web",
+            "owner": "jikko",
+            "gate": "G-WEB",
             "revert": "one-increment",
             "steps": [
               {
@@ -189,6 +237,30 @@
         "type": "collaborator-ruling",
         "conditions": [
           "THE BUILD BRIEF for the unit probe LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/probe) + mechanism analysis (understand/probe) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-WEBSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed — togo's bytes whole over the approved unit brief: every edit fenced-bytes-exact, every insertion point named, every expected outcome byte-named (FR-MEM-0011's doctrine: the execution seat receives nothing to figure out)",
+          "the spec carries the generator's emission whole — the source structure to the artifacts, the regen/check discipline, the exact new-file contents (R1's projection law at the bytes level: zero hand-authored frontend artifacts)",
+          "the collaborator approves the spec — the build dispatch fires only after"
+        ]
+      },
+      "G-WEB": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the web surface lands per its approved brief — the exact-task law",
+          "the projection law green (R1): the ENTIRE front end generated from Python — Jinja2 always, Shoelace via CDN, Web Components under separation of concerns, the HTMX wire; zero hand-authored frontend artifacts on disk (out of grammar; the generated surface regenerates from its source structure, never hand-edited)",
+          "the comparator's flow green end-to-end through the CQRS lanes: register a run → the pair → the vote → the progress → the ranked whole; the tally presentation renders tally_rank's frozen result honestly (tie groups, coverage data, the safe halt shown, never a partial ranking dressed as whole)",
+          "the ThreePart mandate green on touched surfaces (R5); pyright 0/0 + ruff zero findings; kensho's independent re-run green (validate/web)"
+        ]
+      },
+      "G-WEB-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit web LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/web) + mechanism analysis (understand/web) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
@@ -368,6 +440,43 @@
         "what": "The service unit's build-add collision, cured by the engine's different-id path: the manually pre-composed synthesize/service (mimicking the core store's static shape, against the composition model's own 'no manual pre-composition' note) claimed the 'service' suffix, blocking build/service (the build-add's auto-stamp demands the pipeline free). The build rides as build/probe · jikko · G-SERVICE (the core store's registry-collision precedent); the stamp minted G-PROBE-BRIEF + synthesize/probe — the probe lane carrying the EXACT-TASK SPEC (FR-MEM-0011's doctrine: the bytes authored at synthesis, nothing to figure out at the execution seat). The two-lane form: synthesize/service · G-SERVICE-BRIEF = the UNIT BRIEF (the scope fence, the CQRS lanes, the ThreePart cure map, the return forms — the minted conditions); synthesize/probe · G-PROBE-BRIEF = the EXACT-TASK SPEC (the bytes-level build plan). The flow: discovery legs → unit brief green → exact-task spec green → build (G-SERVICE, kensho independent). The web and lifecycle units ride their build-adds directly (no manual pre-composition — the lesson held).",
         "ruled_at": "2026-11-22",
         "why": "The append-only route cannot remove the manual pair; the engine's next-action offered the different-id path; the probe form is the core store's own collision precedent and maps the extra lane onto real work (the exact-task brief discipline) — every structure carries work, none orphaned."
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed — togo's bytes whole over the approved unit brief: every edit fenced-bytes-exact, every insertion point named, every expected outcome byte-named (FR-MEM-0011's doctrine: the execution seat receives nothing to figure out)\\\", \\\"the spec carries the generator's emission whole — the source structure to the artifacts, the regen/check discipline, the exact new-file contents (R1's projection law at the bytes level: zero hand-authored frontend artifacts)\\\", \\\"the collaborator approves the spec — the build dispatch fires only after\\\"]\", \"gate\": \"G-WEBSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T15:17:24Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-WEBSPEC-BRIEF\", \"increment\": \"synthesize/webspec\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T15:17:30Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the web surface lands per its approved brief — the exact-task law\\\", \\\"the projection law green (R1): the ENTIRE front end generated from Python — Jinja2 always, Shoelace via CDN, Web Components under separation of concerns, the HTMX wire; zero hand-authored frontend artifacts on disk (out of grammar; the generated surface regenerates from its source structure, never hand-edited)\\\", \\\"the comparator's flow green end-to-end through the CQRS lanes: register a run → the pair → the vote → the progress → the ranked whole; the tally presentation renders tally_rank's frozen result honestly (tie groups, coverage data, the safe halt shown, never a partial ranking dressed as whole)\\\", \\\"the ThreePart mandate green on touched surfaces (R5); pyright 0/0 + ruff zero findings; kensho's independent re-run green (validate/web)\\\"]\", \"gate\": \"G-WEB\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T15:17:37Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-WEB\", \"increment\": \"build/web\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-WEB-BRIEF\", \"packets\": [\"discover/web\", \"understand/web\"], \"synthesize_increment\": \"synthesize/web\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T15:17:43Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "The two-lane build-unit form adopted as the STANDING SHAPE (the service unit's collision cure, now deliberate): each build unit rides (1) the UNIT-BRIEF lane — synthesize/<unit> · G-<UNIT>-BRIEF, minted by the build-add's own auto-stamp (never manually pre-composed — FR-MEM-0020's law held: build/web's add stamped G-WEB-BRIEF + synthesize/web clean), closing at the collaborator's approval; (2) the EXACT-TASK-SPEC lane — synthesize/<unit>spec · G-<UNITSPEC>-BRIEF, manually composed with a UNIQUE SUFFIX (the collision guard is suffix-based: 'webspec' cannot collide with the stamp's 'web'), carrying FR-MEM-0011's bytes-at-synthesis doctrine, closing at its own collaborator approval; (3) the BUILD — build/<unit> · G-<UNIT>, jikko executing the spec, kensho independent (validate/<unit>). The web unit composes first under this form: G-WEBSPEC-BRIEF + synthesize/webspec minted manual (3 conditions), G-WEB minted with the composition's four conditions, build/web's stamp minting G-WEB-BRIEF + synthesize/web.",
+        "ruled_at": "2026-11-22",
+        "why": "The service unit's accidental two-lane form (the collision's cure) mapped onto real work — the brief's approval point before the bytes are authored; adopting it deliberately for every build unit keeps the rhythm (brief → spec → build) without the collision that forced it the first time; the unique-suffix manual lane is the engine-legal composition (the guard is suffix-based, verified at the service unit's own recovery)."
       }
     ]
   },
