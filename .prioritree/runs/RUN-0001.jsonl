@@ -1,0 +1,1 @@
+{"items": [["Tony", "Mark"], ["Jack", "Eddie"]], "kind": "manifest", "operator": {"id": "beauty", "question": "Who is prettier?", "verdicts": ["prefer-a", "prefer-b", "tie"]}, "quorum": 1, "registered_at": "2026-11-22T05:22:15.763491+00:00", "run_id": "RUN-0001"}
