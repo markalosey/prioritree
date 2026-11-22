@@ -1,13 +1,15 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
 """test_service_acceptance — the service accepted over the real socket, e2e.
 
-The service-acceptance unit's test surface (service-acceptance-brief §1-§7):
-six arcs over a live uvicorn subprocess — the seven-request arc (register
-=> next => vote x3 => the exhausted turn => tally, each body asserted
-against the named-constant literals); the determinism replay (two fresh
-homes, byte-identical [r.content] lists); the four refusal arcs (404 the
-unknown run, 422 the bogus winner, 409 the SAFE HALT, 400 the malformed
-items); the concurrency arc (N=2 threads x M=2 casts through the seam's
+The service-acceptance unit's test surface (service-acceptance-brief §1-§7 +
+the ux build's sixth query + ThreePart cures): six arcs over a live uvicorn
+subprocess — the eight-request arc (register => manifest => next => vote x3
+=> the exhausted turn => tally, each body asserted against the
+named-constant literals); the determinism replay (two fresh homes,
+byte-identical [r.content] lists); the four refusal arcs (404 the unknown
+run, 422 the bogus winner, 409 the SAFE HALT, 400 the malformed items —
+the family grammar taught, the violation named in found); the concurrency
+arc (N=2 threads x M=2 casts through the seam's
 process-wide lock, aggregate-only assertions, the file's direct read via
 Persist.load the oracle). The honest count: ~5 test functions. The
 no-shell law honored: every Popen a fixed-argv LIST, never a shell string
@@ -172,24 +174,29 @@ def service(tmp_path: Path) -> Iterator[tuple[httpx.Client, str]]:
 
 
 def _drive_arc(client: httpx.Client, base_url: str) -> list[httpx.Response]:
-    """Drive the seven-request arc and return the responses in arc order.
+    """Drive the eight-request arc and return the responses in arc order.
 
     Purpose: the arc shared by the assertion test and the replay test —
-    register (POST /runs, _ITEMS + _OPERATOR), next (GET .../next), vote x3
-    over the three pairs (a,b)/(a,c)/(b,c), each body the _VOTE_BODY form
-    with the pair swapped, the exhausted next turn, and tally; return the
-    responses whole — the parsed-body assertions are the CALLER's own
-    (test 1 asserts .json(), test 2 compares the .content byte lists).
+    register (POST /runs, _ITEMS + _OPERATOR), the manifest read (GET
+    .../manifest — the sixth query over the live seam, the lock + the full
+    load under the real process), next (GET .../next), vote x3 over the
+    three pairs (a,b)/(a,c)/(b,c), each body the _VOTE_BODY form with the
+    pair swapped, the exhausted next turn, and tally; return the responses
+    whole — the parsed-body assertions are the CALLER's own (test 1 asserts
+    .json(), test 2 compares the .content byte lists).
     Refuses when: never — a driver (the responses returned unasserted; the
     caller owns the judgment).
     Re-run: deterministic — the arc's bodies carry no timestamps (the census
-    elides the vote_log), the fresh home's stems identical.
+    elides the vote_log; the manifest body elides the registration stamp),
+    the fresh home's stems identical.
     Touches: the socket only; the home's store via the service.
     Provenance: service-acceptance-brief §3-§4 (the arc, the replay), the
-    dispatch synthesize/service-acceptance-bytes (region 2).
+    dispatch synthesize/service-acceptance-bytes (region 2), the ux build's
+    sixth query (the manifest leg — the service unit brief §5).
     """
     responses: list[httpx.Response] = []
     responses.append(client.post(f"{base_url}/runs", json={"items": _ITEMS, **_OPERATOR}))
+    responses.append(client.get(f"{base_url}/runs/{_RUN_ID}/manifest"))
     responses.append(client.get(f"{base_url}/runs/{_RUN_ID}/next"))
     for pair in (("a", "b"), ("a", "c"), ("b", "c")):
         responses.extend([client.post(f"{base_url}/runs/{_RUN_ID}/votes", json={**_VOTE_BODY, "pair": list(pair)})])
@@ -198,39 +205,50 @@ def _drive_arc(client: httpx.Client, base_url: str) -> list[httpx.Response]:
     return responses
 
 
-def test_accept_the_seven_request_arc(service: tuple[httpx.Client, str]) -> None:
-    """Register => next => vote x3 => the exhausted turn => tally, each body asserted.
+def test_accept_the_eight_request_arc(service: tuple[httpx.Client, str]) -> None:
+    """Register => manifest => next => vote x3 => the exhausted turn => tally, each body asserted.
 
-    Purpose: the full seven-request arc over the real socket — register
-    201 {"run_id": _RUN_ID}; next 200 the first pair with count 0; the
-    three votes 200 with the acks {"vote_id": "VOTE-000N", "count": N,
-    "acknowledged": False} (the wire's count the run's census count 1..3,
-    the running total); the exhausted next 200 the DONE body (done is
-    True, "tally" in next_action — DONE a state, never an error); tally
-    200 the frozen whole, the exact literal the face tests assert.
+    Purpose: the full eight-request arc over the real socket — register
+    201 {"run_id": _RUN_ID}; the manifest read 200 the five-key body (the
+    stem echoed, the question, the verdicts sorted, the quorum, the items
+    payload-order-preserved — the operator id and the stamp elided); next
+    200 the first pair with count 0; the three votes 200 with the acks
+    {"vote_id": "VOTE-000N", "count": N, "acknowledged": False} (the wire's
+    count the run's census count 1..3, the running total); the exhausted
+    next 200 the DONE body (done is True, "tally" in next_action — DONE a
+    state, never an error); tally 200 the frozen whole, the exact literal
+    the face tests assert.
     Refuses when: any step's status or body diverges — each response's
     status and .json() asserted against the named-constant literals
     (content-in-configuration).
-    Re-run: deterministic — the fresh home's stems and the census's
-    frozen whole carry no timestamps across the wire.
+    Re-run: deterministic — the fresh home's stems and the census's frozen
+    whole carry no timestamps across the wire.
     Touches: the socket; the home's store via the service.
     Provenance: service-acceptance-brief §3 (the arc), the dispatch
-    synthesize/service-acceptance-bytes (region 2).
+    synthesize/service-acceptance-bytes (region 2), the ux build's sixth
+    query (the manifest leg — the service unit brief §5).
     """
     client, base_url = service
     responses = _drive_arc(client, base_url)
-    assert len(responses) == 7  # the arc's own shape: 1 register, 1 next, 3 votes, 1 done, 1 tally
-    assert [response.status_code for response in responses] == [201, 200, 200, 200, 200, 200, 200]
+    assert len(responses) == 8  # the arc's own shape: 1 register, 1 manifest, 1 next, 3 votes, 1 done, 1 tally
+    assert [response.status_code for response in responses] == [201, 200, 200, 200, 200, 200, 200, 200]
     bodies = [response.json() for response in responses]
     assert bodies[0] == {"run_id": _RUN_ID}
-    assert bodies[1] == {"item_a": "a", "item_b": "b", "count": 0}
-    assert bodies[2] == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
-    assert bodies[3] == {"vote_id": "VOTE-0002", "count": 2, "acknowledged": False}
-    assert bodies[4] == {"vote_id": "VOTE-0003", "count": 3, "acknowledged": False}
-    done = bodies[5]
+    assert bodies[1] == {
+        "run_id": _RUN_ID,
+        "question": "Which matters more?",
+        "verdicts": ["prefer-a", "prefer-b", "tie"],
+        "quorum": 1,
+        "items": [["a", "one"], ["b", "two"], ["c", "three"]],
+    }
+    assert bodies[2] == {"item_a": "a", "item_b": "b", "count": 0}
+    assert bodies[3] == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
+    assert bodies[4] == {"vote_id": "VOTE-0002", "count": 2, "acknowledged": False}
+    assert bodies[5] == {"vote_id": "VOTE-0003", "count": 3, "acknowledged": False}
+    done = bodies[6]
     assert done["done"] is True
     assert "tally" in done["next_action"]
-    assert bodies[6] == {
+    assert bodies[7] == {
         "ranked_groups": [["a"], ["b"], ["c"]],
         "per_item_wins": {"a": 2, "b": 1, "c": 0},
         "per_item_losses": {"a": 0, "b": 1, "c": 2},
@@ -249,12 +267,13 @@ def test_replay_byte_identical(tmp_path: Path) -> None:
     """Two fresh homes driven through the same arc => byte-identical content lists.
 
     Purpose: the determinism replay — two homes (tmp_path/"one",
-    tmp_path/"two"), a boot at each, the same seven-request arc against
+    tmp_path/"two"), a boot at each, the same eight-request arc against
     each via _drive_arc; assert the .content byte lists equal — THE BYTES,
     not parsed dicts; byte-identity IS the claim (no recorded_at crosses
-    the wire: the register body the stem alone, the acks the triple, the
-    tally the frozen whole). The teardown the test's own finally (the
-    fixture manages one boot; the replay manages its pair).
+    the wire: the register body the stem alone, the manifest the five
+    clock-free keys, the acks the triple, the tally the frozen whole).
+    The teardown the test's own finally (the fixture manages one boot; the
+    replay manages its pair).
     Refuses when: the byte lists diverge — any timestamped or
     order-dependent byte escaping into a body fails the equality.
     Re-run: deterministic — the fresh homes' stems identical, the port
@@ -304,8 +323,8 @@ def test_refuse_the_four_arcs(service: tuple[httpx.Client, str]) -> None:
     "RUN-9999" in found; 422 the vote with winner "bogus-winner" (the
     run registered so the VALUE owns the refusal); 409 a fresh cast then
     GET tally with "at quorum" in expected (the SAFE HALT never
-    swallowed); 400 POST /runs with items "not-a-list" with the
-    {"detail": [...]} array present (the native grammar re-badged — 422
+    swallowed); 400 POST /runs with items "not-a-list" with the family
+    grammar, the violation taught in found (the re-badge cured — 422
     exclusively the door's value refusals).
     Refuses when: any status or grammar diverges — the three-field set
     asserted exactly where the family grammar owns the body.
@@ -337,12 +356,13 @@ def test_refuse_the_four_arcs(service: tuple[httpx.Client, str]) -> None:
     response = client.get(f"{base_url}/runs/{_RUN_ID}/tally")
     assert response.status_code == 409
     assert "at quorum" in response.json()["expected"]
-    # 400 — the malformed items (the native detail grammar re-badged).
+    # 400 — the malformed items (the family grammar taught; 422 the door's alone).
     response = client.post(f"{base_url}/runs", json={"items": "not-a-list", **_OPERATOR})
     assert response.status_code == 400
-    detail = response.json()["detail"]
-    assert isinstance(detail, list)
-    assert detail
+    body = response.json()
+    assert set(body) == _REFUSAL_KEYS
+    assert "items" in body["expected"]
+    assert "body.items" in body["found"]
 
 
 def test_interleave_the_concurrency_arc(service: tuple[httpx.Client, str], tmp_path: Path) -> None:

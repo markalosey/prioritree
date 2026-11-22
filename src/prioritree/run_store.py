@@ -34,7 +34,7 @@ from prioritree.votes import COMPARATOR_CLASSES, VOTE_PREFIX
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
 
-    from prioritree.registry import ItemRow
+    from prioritree.registry import ItemRow, RunManifest
     from prioritree.scheduler import Pair
     from prioritree.tally import TallyResult
     from prioritree.votes import VoteCensus, VoteRecord
@@ -473,8 +473,10 @@ class Persist:
     Purpose: Persist the run state across CLI invocations — ONE JSONL file per
     run (the manifest line FIRST, then one vote line per cast in mint order),
     the door composed ONLY (fresh Registry() + Session(registry) at the
-    factories; the reads delegate through the door; no core store attribute
-    ever touched — the fence held by construction); SAVE-AT-CAST: the capture
+    factories; the reads delegate through the door — the manifest read the
+    one held-record exception (register_run's own mint, re-minted at load's
+    reconstruction); no core store attribute ever touched — the fence held
+    by construction); SAVE-AT-CAST: the capture
     point at cast_vote's OWN return, one write of one complete line + newline,
     flush (the crash window bounded to one cast, named); acknowledged=True
     appends NOTHING (the dedup IS the idempotence); the failed append refuses
@@ -501,22 +503,26 @@ class Persist:
     the run state across CLI invocations" — the act's first word).
     """
 
-    def __init__(self, session: Session, handle: str, run_file: Path) -> None:
+    def __init__(self, session: Session, handle: str, run_file: Path, manifest: RunManifest) -> None:
         """Initialize the container over the injected parts.
 
         Purpose: hold the door's session, the run's in-file handle (the door's
-        verbatim run_id), and the run file's path — the parts injected; the
+        verbatim run_id), the run file's path, and the run's frozen ground (the
+        RunManifest register_run mints — captured whole at BOTH factories:
+        register's own mint, load's reconstruction — the parts injected; the
         factories compose (store-as-parameter; never a module-level
         singleton — test isolation).
         Refuses when: never.
         Re-run: idempotent — a fresh container over the given parts.
         Touches: only its own references.
         Provenance: run-store-brief §1 (the container's constructor, the
-        parts-injected ruling), G-RUN-STORE.
+        parts-injected ruling), the ux build's sixth query (the manifest held
+        from construction), G-RUN-STORE.
         """
         self._session = session
         self._handle = handle
         self._run_file = run_file
+        self._manifest = manifest
 
     @classmethod
     def register(
@@ -552,7 +558,7 @@ class Persist:
         run_id, manifest, _count = session.register_run(items, operator, quorum)
         store_home.mkdir(parents=True, exist_ok=True)
         run_file = store_home / f"{_RUN_FILE_PREFIX}{cls._scan_next_run_number(store_home):04d}{_RUN_FILE_SUFFIX}"
-        persist = cls(session, run_id, run_file)
+        persist = cls(session, run_id, run_file, manifest)
         manifest_line = {
             "kind": _KIND_MANIFEST,
             "run_id": manifest.run_id,
@@ -587,10 +593,12 @@ class Persist:
         VOTE-{i+1:04d}; a vote line's run_id != the manifest's — trigger 6);
         then the reconstruction — a fresh door, register_run from the wire's
         arrays (the door re-derives every frozen type; the stamps RE-MINTED
-        — named and excluded from the equality surface), then the in-order
-        re-casts through the door (the dedup index rebuilt BY the re-casts
-        themselves; a doubled line absorbs loudly as the ack — the count
-        unchanged, never double-counted).
+        — named and excluded from the equality surface), the minted
+        RunManifest CAPTURED (the container's own holding — the manifest
+        accessor's return), then the in-order re-casts through the door
+        (the dedup index rebuilt BY the re-casts themselves; a doubled line
+        absorbs loudly as the ack — the count unchanged, never
+        double-counted).
         Refuses when: the file is missing (found renders the home's live
         set); the file is corrupt — every trigger in StoreRefusedError's
         three-field grammar, found carrying the line number + the parser's
@@ -687,7 +695,7 @@ class Persist:
             question=operator_question,
             verdicts=declared_verdicts_set,
         )
-        _new_run_id, _manifest, _count = session.register_run(manifest_items, operator, quorum_value)
+        _new_run_id, manifest, _count = session.register_run(manifest_items, operator, quorum_value)
         # The in-order re-casts through the door — the dedup index rebuilt BY
         # the re-casts themselves (the key's members are the seven fields,
         # neither stamp nor id; the file never carries it); a doubled line
@@ -703,7 +711,7 @@ class Persist:
                 notes,
                 supersedes,
             )
-        return cls(session, manifest_run_id, run_file)
+        return cls(session, manifest_run_id, run_file, manifest)
 
     def _append_line(self, line: Mapping[str, object], expected: str) -> None:
         """Append one complete line to the run file — the single synchronous write.
@@ -864,6 +872,30 @@ class Persist:
         whole on the equality surface), G-RUN-STORE condition 2.
         """
         return self._session.tally_rank(self._handle)
+
+    def manifest(self) -> RunManifest:
+        """Manifest the run's frozen ground — the container's own held record, whole.
+
+        Purpose: return the run's RunManifest VERBATIM — the container's own
+        holding (minted at register_run, captured at BOTH factories: register's
+        own mint, load's reconstruction — the clock-free fields re-derived
+        identically at every load, the stamp named and excluded from any
+        equality claim). The sixth query's store-tier read: the face route's
+        five-key body builds from this whole, the elisions (the operator id,
+        the registration stamp) riding at the FACE alone — the store tier
+        returns the frozen whole, never projecting.
+        Refuses when: never — the record IS the container's own holding (the
+        pre-pass already refused the corrupt file whole at load; this read
+        adds no refusal of its own).
+        Re-run: deterministic given the store state — the clock-free surface
+        re-derives identically at every load (the round-trip property held).
+        Touches: nothing — a read of the container's own holding.
+        Provenance: the service unit brief §1-§2 (the sixth query's
+        store-tier accessor), the ux design §2 (the mechanism named),
+        run-store-brief §1 (the verb tail), the naming law ("Manifest the
+        run's frozen ground" — the act's first word), G-RUN-STORE.
+        """
+        return self._manifest
 
     @property
     def run_id(self) -> str:

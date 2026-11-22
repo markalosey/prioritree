@@ -1,20 +1,24 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
 """test_service_face — the wire face's falsification set, in-process.
 
-The service-face unit's test surface (service-face-brief §5): six arcs over
-TestClient(app) in-process — (1) the five successes (register/serve/cast/
-state/tally, each route's exact body asserted); (2) the refusal arcs (404 the
-unknown run, 422 the out-of-set verdict, 409 the SAFE HALT); (3) the re-badge
-both (a malformed register body => 400 the native detail grammar; a door
-refusal => 422 the family grammar); (4) the DONE 200 (the exhausted turn:
-done marker + the three fields, the tally pointer in next_action); (5) the
-500 arc (the monkeypatched seam verb raising, the three-part body, the
-traceback's absence from the body); (6) the 201 register re-assertion (the
-stem in the body). Isolation by injection (Q-service-lifecycle): each test
-overwrites app.state.seam = Serialize(tmp_path) — store-as-parameter, no env,
-no CWD games; the fixture creates the tmp home's parent (Serialize's register
-does the mkdir itself, the parent the test's own duty). The S101/PLR2004
-tests ruling stands.
+The service-face unit's test surface (service-face-brief §5 + the ux build's
+sixth query + ThreePart cures): seven arcs over TestClient(app) in-process —
+(1) the six successes (register/serve/cast/state/tally, each route's exact
+body asserted + the manifest's five-key 200, the stamps elided); (2) the
+refusal arcs (404 the unknown run — next AND manifest; 422 the out-of-set
+verdict; 409 the SAFE HALT); (3) the re-badge both (a malformed register body
+=> 400 the family grammar, the violation taught in found; a door refusal =>
+422 the family grammar — the two grammars never conflated); (4) the framework
+arcs (the unmatched path => 404 the family grammar, the path named in found;
+the disallowed method => 405 the family grammar, the method named in found);
+(5) the DONE 200 (the exhausted turn: done marker + the three fields, the
+tally pointer in next_action); (6) the 500 arc (the monkeypatched seam verb
+raising, the three-part body, the traceback's absence from the body); (7) the
+201 register re-assertion (the stem in the body). Isolation by injection
+(Q-service-lifecycle): each test overwrites app.state.seam = Serialize(tmp_path)
+— store-as-parameter, no env, no CWD games; the fixture creates the tmp home's
+parent (Serialize's register does the mkdir itself, the parent the test's own
+duty). The S101/PLR2004 tests ruling stands.
 """
 
 from __future__ import annotations
@@ -139,6 +143,20 @@ def test_tally_success(client: TestClient) -> None:
     }
 
 
+def test_manifest_200(client: TestClient) -> None:
+    """GET manifest after register => 200, the five-key body, the stamps elided."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    response = client.get(f"/runs/{_RUN_ID}/manifest")
+    assert response.status_code == 200
+    assert response.json() == {
+        "run_id": _RUN_ID,
+        "question": "Which matters more?",
+        "verdicts": ["prefer-a", "prefer-b", "tie"],
+        "quorum": 1,
+        "items": [["a", "one"], ["b", "two"], ["c", "three"]],
+    }
+
+
 # Region 2's near-use vocabulary (the file's continuation; service.py's own
 # mid-file idiom — constants at their use): the refusal grammar's three fields
 # as a set, asserted EXACTLY (the family grammar — the native detail grammar of
@@ -153,6 +171,15 @@ _ESCALATION = "check the server logs — the traceback is recorded there; escala
 def test_refusal_unknown_run(client: TestClient) -> None:
     """GET next on an unregistered run => 404, the three fields, the run id in found."""
     response = client.get("/runs/RUN-9999/next")
+    assert response.status_code == 404
+    body = response.json()
+    assert set(body) == _REFUSAL_KEYS
+    assert "RUN-9999" in body["found"]
+
+
+def test_refusal_manifest_unknown_run(client: TestClient) -> None:
+    """GET manifest on an unregistered run => 404, the three fields, the stem in found."""
+    response = client.get("/runs/RUN-9999/manifest")
     assert response.status_code == 404
     body = response.json()
     assert set(body) == _REFUSAL_KEYS
@@ -197,13 +224,14 @@ def test_refusal_safe_halt(client: TestClient) -> None:
 
 
 def test_rebadge_malformed_body_400(client: TestClient) -> None:
-    """A register body with mistyped items => 400, the native detail grammar re-badged."""
+    """A register body with mistyped items => 400, the family grammar, the violation taught."""
     response = client.post(_RUNS, json={"items": "not-a-list", **_OPERATOR})
     assert response.status_code == 400
     body = response.json()
-    assert "detail" in body
-    assert isinstance(body["detail"], list)
-    assert body["detail"]
+    assert set(body) == _REFUSAL_KEYS
+    assert "items" in body["expected"]
+    assert "body.items" in body["found"]
+    assert "re-send" in body["next_action"]
 
 
 def test_rebadge_door_refusal_422(client: TestClient) -> None:
@@ -220,6 +248,28 @@ def test_rebadge_door_refusal_422(client: TestClient) -> None:
     )
     assert response.status_code == 422
     assert set(response.json()) == _REFUSAL_KEYS
+
+
+def test_refusal_unmatched_path_404(client: TestClient) -> None:
+    """A path no route matches => 404, the family grammar, the path named in found."""
+    response = client.get("/no-such-path")
+    assert response.status_code == 404
+    body = response.json()
+    assert set(body) == _REFUSAL_KEYS
+    assert body["expected"] == "GET /no-such-path"
+    assert body["found"] == "no route matches the path /no-such-path"
+    assert "POST /runs" in body["next_action"]
+
+
+def test_refusal_method_not_allowed_405(client: TestClient) -> None:
+    """A disallowed method at a legal path => 405, the family grammar, the method taught."""
+    response = client.delete("/runs")
+    assert response.status_code == 405
+    body = response.json()
+    assert set(body) == _REFUSAL_KEYS
+    assert body["expected"] == "DELETE /runs"
+    assert body["found"] == "the method DELETE is not allowed at the path /runs"
+    assert "POST /runs" in body["next_action"]
 
 
 def test_done_200(client: TestClient) -> None:

@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     from collections.abc import Sequence
     from pathlib import Path
 
-    from prioritree.registry import ItemRow, OperatorDeclaration
+    from prioritree.registry import ItemRow, OperatorDeclaration, RunManifest
     from prioritree.scheduler import Pair
     from prioritree.tally import TallyResult
     from prioritree.votes import VoteCensus, VoteRecord
@@ -207,3 +207,28 @@ class Serialize:
         """
         with self._lock:
             return Persist.load(self._store_home, run_id).rank()
+
+    def manifest(self, run_id: str) -> RunManifest:
+        """Manifest the run's frozen ground under the lock — the load and the read in one acquire.
+
+        Purpose: serialize the manifest act — load the run file INSIDE the
+        lock, delegate to the container's manifest accessor, return the frozen
+        RunManifest WHOLE VERBATIM. The read locks too: a manifest read
+        concurrent with a cast would catch the mid-append tail and fire the
+        crash-tail refusal spuriously on a healthy run — inside the lock the
+        read never sees a half-state. The load is the FULL pre-pass (every
+        public verb rides it — a manifest read prices the file's WHOLE
+        integrity: a corrupt vote line refuses it as StoreRefusedError).
+        Refuses when: never its own refusal — the store's own
+        (StoreRefusedError) rides through verbatim BY TYPE; no value refusal
+        exists at this read (the manifest line already validated at load's
+        pre-pass).
+        Re-run: deterministic given the store state (the clock-free surface
+        re-derives identically at every load).
+        Touches: only the run file (a read) — through Persist only.
+        Provenance: the service unit brief §1-§2 (the sixth query's seam
+        verb — ONE lock acquisition), the ux design §2 (the mechanism named),
+        Q-service-concurrency (the read-locks-too law), G-SERVICE-STORE.
+        """
+        with self._lock:
+            return Persist.load(self._store_home, run_id).manifest()

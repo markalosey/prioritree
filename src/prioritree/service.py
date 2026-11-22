@@ -1,27 +1,35 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""service — the wire face: the five routes REST 1:1 over the lock seam.
+"""service — the wire face: the five routes REST 1:1 + the sixth query over the lock seam.
 
-The service-face unit (Q-service-routes' ruling: the five routes REST 1:1 through
-Serialize — register/serve/cast/census/rank, one route per verb; the fence: the routes
-compose Serialize ONLY, zero edits to any core module, no Persist at this tier). The
-handlers sync def — FastAPI's threadpool runs them off the event loop, the seam's
-process-wide lock serializing the acts across threads (Q-service-concurrency held at
-the handler tier); each body reads the seam as cast(Serialize, request.app.state.seam)
+The service-face unit (Q-service-routes' ruling + the ux design's sixth
+query: the five routes REST 1:1 through Serialize — register/serve/cast/
+census/rank, one route per verb — plus THE SIXTH QUERY (GET /runs/{run_id}/
+manifest: the store-tier manifest read; NOT one of the five ops — the
+interface untouched); the fence: the routes compose Serialize ONLY, zero
+edits to any core module, no Persist at this tier). The handlers sync def —
+FastAPI's threadpool runs them off the event loop, the seam's process-wide
+lock serializing the acts across threads (Q-service-concurrency held at the
+handler tier); each body reads the seam as cast(Serialize, request.app.state.seam)
 — no Depends, no default-argument calls, B008 never fires by construction.
-THE STATUS MAPPING (Q-service-routes): 200 success AND DONE (the exhausted queue a
-STATE, never an error — the signal's three fields + the done marker, the tally pointer
-already in next_action); 201 register's alone; 404 StoreRefusedError's both families
-(the unknown run AND the corrupt file — the honest label, the found field carrying the
-family's own words verbatim); 422 EXCLUSIVELY the door's value refusals
-(VotesRefusedError) — THE RE-BADGE: the native RequestValidationError re-badged to 400
-(the ruled record — the wire's consumers dispatch on refusal KIND, not framework
-default; the 400 body carries the native detail grammar, the client's own fix map);
-409 the SAFE HALT (TallyRefusedError); 500 THE CRASH ENVELOPE (Q-error-teaching's gap 1
-— crashes first-class citizens: the article's three-part form, expected the request
-attempted, found the exception verbatim, next_action the escalation path; Starlette's
-ServerErrorMiddleware sends the envelope then re-raises — the traceback rides uvicorn's
-LOG channel, never the body). The refusals caught BY TYPE, the three fields read as
-DATA (never str(e) reparsed), rendered at ONE point (render_refusal). The module-level
+THE STATUS MAPPING (Q-service-routes + the ux build's ThreePart cures): 200
+success AND DONE (the exhausted queue a STATE, never an error — the signal's
+three fields + the done marker, the tally pointer already in next_action);
+201 register's alone; 404 StoreRefusedError's both families (the unknown run
+AND the corrupt file — the honest label, the found field carrying the
+family's own words verbatim) AND the framework's unmatched path (the refuse
+handler — the bare Not Found never on the wire); 405 the disallowed method
+(the same handler — the route table taught); 422 EXCLUSIVELY the door's
+value refusals (VotesRefusedError) — THE RE-BADGE, taught (R5's cure): the
+native RequestValidationError re-badged to 400 (the ruled record — the
+wire's consumers dispatch on refusal KIND, not framework default; the body
+the family grammar CONSTRUCTED from the route's schema + the violation as
+carried); 409 the SAFE HALT (TallyRefusedError); 500 THE CRASH ENVELOPE
+(Q-error-teaching's gap 1 — crashes first-class citizens: the article's
+three-part form, expected the request attempted, found the exception
+verbatim, next_action the escalation path; Starlette's ServerErrorMiddleware
+sends the envelope then re-raises — the traceback rides uvicorn's LOG channel,
+never the body). The refusals caught BY TYPE, the three fields read as DATA
+(never str(e) reparsed), rendered at ONE point (render_refusal). The module-level
 app the whole ASGI surface — the launch form uvicorn prioritree.service:app; NO
 uvicorn.run in src (S104 never fires, the boot the operator's command); the seam
 injected at construction (app.state.seam = Serialize(STORE_HOME) — STORE_HOME the CLI's
@@ -48,6 +56,7 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from prioritree.registry import OperatorDeclaration
 from prioritree.run_store import STORE_HOME, StoreRefusedError
@@ -70,10 +79,12 @@ ACKNOWLEDGED: Final[str] = "acknowledged"
 DONE: Final[str] = "done"
 TOTAL: Final[str] = "total"
 ITEMS: Final[str] = "items"
+QUESTION: Final[str] = "question"
+VERDICTS: Final[str] = "verdicts"
+QUORUM: Final[str] = "quorum"
 EXPECTED: Final[str] = "expected"
 FOUND: Final[str] = "found"
 NEXT_ACTION: Final[str] = "next_action"
-DETAIL: Final[str] = "detail"
 
 # The 500 envelope's escalation path (the crash a first-class citizen: the
 # traceback rides uvicorn's logging channel, never the body — the next_action
@@ -86,6 +97,7 @@ _RUNS_PATH: Final[str] = "/runs"
 _NEXT_PATH: Final[str] = "/runs/{run_id}/next"
 _VOTES_PATH: Final[str] = "/runs/{run_id}/votes"
 _STATE_PATH: Final[str] = "/runs/{run_id}/state"
+_MANIFEST_PATH: Final[str] = "/runs/{run_id}/manifest"
 
 
 class RegisterRunRequest(BaseModel):
@@ -172,27 +184,50 @@ def render_refusal(
 
 
 @app.exception_handler(RequestValidationError)
-def rebadge(_request: Request, exc: RequestValidationError) -> JSONResponse:
-    """Re-badge the native validation errors to 400 — 422 exclusively the door's.
+def rebadge(request: Request, exc: RequestValidationError) -> JSONResponse:
+    """Re-badge the native validation errors to 400 — the schema violation taught.
 
-    Purpose: THE 422 RE-BADGE — the join's key reconciliation carried as the ruled
-    form: FastAPI's native validation failure re-badged from its framework-default
-    422 to 400 (the request's own grammar — the wire's consumers dispatch on refusal
-    KIND, not framework default), the body carrying the native detail grammar
-    ({DETAIL: exc.errors()} — loc/msg/type, the client's own fix map, machine-
-    readable; the three-field form is the door's VALUE-refusal grammar — fabricating
-    expected/found/next_action for a schema violation would dress the wrong family).
-    Refuses when: never — the handler renders; the validation refusal IS the input
-    (the error object rides the door's own grammar — never re-derived).
+    Purpose: THE 400 RE-BADGE, cured (R5's as-we-go mandate): FastAPI's native
+    validation failure re-badged from its framework-default 422 to 400 (the
+    malformed request's own status — the wire's consumers dispatch on refusal
+    KIND, not framework default; 422 stays exclusively the door's), the body
+    now the FAMILY GRAMMAR CONSTRUCTED from schema + violation — expected the
+    legal body/query form named from the address's own route (the request's
+    path identifies the schema: register's body, serve's seed query, the vote
+    body), found the violation AS CARRIED (each error's loc + msg verbatim,
+    ';'-joined — never re-derived), next_action the named cure. The old
+    defense (the native detail grammar, {DETAIL: exc.errors()}) is amended by
+    this cure — the census's in-code defense answered; the two grammars still
+    never conflated: 400 the request's own malformed-body status, 422 the
+    door's value refusals by type at the routes.
+    Refuses when: never — the handler renders; the validation refusal IS the
+    input (the error objects ride the door's own grammar — never re-derived).
     Re-run: deterministic — the same validation error renders the same body.
-    Touches: nothing — a rendering over the validation exception's own payload (the
-    request body never re-read here; the door already refused it).
-    Provenance: service-face-brief §3 (THE RE-BADGE — the join's key reconciliation,
-    open question 5 ruled: the native detail grammar re-badged), Q-service-routes
-    ("400 the request's own grammar" + "422 exclusively the door's"), G-SERVICE-
-    ACCEPTANCE (the malformed request => 400), G-SERVICE-FACE.
+    Touches: nothing — a rendering over the validation exception's own payload
+    (the request body never re-read here; the door already refused it).
+    Provenance: the service unit brief §3 (cure 1 — the family construction),
+    the ux design §10 (the cure map), R5 (THE THREEPART IS MANDATORY),
+    Q-service-routes ("400 the request's own grammar" + "422 exclusively the
+    door's"), G-SERVICE-FACE.
     """
-    return JSONResponse(status_code=400, content={DETAIL: exc.errors()})
+    _violation = "; ".join(
+        f"{'.'.join(str(part) for part in error['loc'])}: {error['msg']}" for error in exc.errors()
+    )
+    if request.url.path == _RUNS_PATH:
+        _fields = "items a list of [id, label] two-string arrays (payload order preserved)"
+        _expected = f"a register body: {_fields}; operator_id, question strings; quorum an integer"
+        _cure = "correct the named field(s) and re-send the register request"
+    elif request.url.path.endswith("/next"):
+        _expected = "an optional integer seed query parameter on the next query (GET next carries no body)"
+        _cure = "correct the seed query parameter and re-send the next request"
+    else:
+        _fields = "pair a [item_a, item_b] two-string array; winner, comparator_id, comparator_class strings"
+        _expected = f"a vote body: {_fields}; notes, supersedes strings or null"
+        _cure = "correct the named field(s) and re-send the vote request"
+    return JSONResponse(
+        status_code=400,
+        content={EXPECTED: _expected, FOUND: _violation, NEXT_ACTION: _cure},
+    )
 
 
 @app.exception_handler(Exception)
@@ -221,7 +256,66 @@ def fold(request: Request, exc: Exception) -> JSONResponse:
         status_code=500,
         content={EXPECTED: _attempted, FOUND: f"{type(exc).__name__}: {exc}", NEXT_ACTION: ESCALATION},
     )
+
+
+# The framework-refusal statuses (named per the zero-magic-value-in-src
+# discipline — the handler branches on them; the codes FROZEN: the cure flips
+# BODIES only, never the machine-dispatchable statuses).
+_NOT_FOUND: Final[int] = 404
+_METHOD_NOT_ALLOWED: Final[int] = 405
+
+
+@app.exception_handler(StarletteHTTPException)
+def refuse(request: Request, exc: StarletteHTTPException) -> JSONResponse:
+    """Refuse the framework's bare HTTP exceptions in the family grammar — 404/405 taught.
+
+    Purpose: R5's census cure x2 — the framework's routing refusals ride bare
+    from Starlette ({"detail": "Not Found"} / {"detail": "Method Not
+    Allowed"}); this handler renders them in the family grammar CONSTRUCTED
+    from the request's own address — expected the method + path as addressed
+    (the fold's own _attempted form), found the routing violation named (404:
+    no route matches the path; 405: the method not allowed at the path), and
+    next_action the route table's legal lanes (the route/method set taught —
+    the constant cited, content-in-configuration). The STATUS rides
+    exc.status_code verbatim — the codes FROZEN (machine-dispatchable; the
+    acceptance harness's 404-as-ready probe rides the status, untouched);
+    any other StarletteHTTPException (none raised by this surface) carries
+    the family fields with found the framework's own detail. The typed
+    refusals ride through BY TYPE untouched — the routes' catch tables stand;
+    this handler never sees them.
+    Refuses when: never — the handler renders; the framework's refusal IS the
+    input (exc.status_code + exc.detail, never re-derived).
+    Re-run: deterministic — the same request renders the same body.
+    Touches: nothing — a rendering over the exception and the request's own
+    method and path.
+    Provenance: the service unit brief §3 (cure 2 — the framework defaults),
+    the ux design §10 (the cure map), R5, G-SERVICE-FACE.
+    """
+    _address = f"{request.method} {request.url.path}"
+    if exc.status_code == _NOT_FOUND:
+        _found = f"no route matches the path {request.url.path}"
+    elif exc.status_code == _METHOD_NOT_ALLOWED:
+        _found = f"the method {request.method} is not allowed at the path {request.url.path}"
+    else:
+        _found = exc.detail
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={EXPECTED: _address, FOUND: _found, NEXT_ACTION: _ROUTE_TABLE},
+    )
 _TALLY_PATH: Final[str] = "/runs/{run_id}/tally"
+# The route table as the wire's own cure vocabulary (the legal lanes named
+# ONCE from the path constants — content-in-configuration; the framework-
+# refusal handler's next_action cites it: the route/method set taught).
+_ROUTE_TABLE: Final[str] = "address a legal route — " + ", ".join(
+    (
+        f"POST {_RUNS_PATH}",
+        f"GET {_NEXT_PATH}",
+        f"POST {_VOTES_PATH}",
+        f"GET {_STATE_PATH}",
+        f"GET {_TALLY_PATH}",
+        f"GET {_MANIFEST_PATH}",
+    ),
+)
 
 
 @app.post(_RUNS_PATH, status_code=201)
@@ -391,3 +485,44 @@ def rank(request: Request, run_id: str) -> JSONResponse:
     }
     whole[COVERAGE][PAIR_COUNTS] = _counts
     return JSONResponse(status_code=200, content=whole)
+
+
+@app.get(_MANIFEST_PATH)
+def describe(request: Request, run_id: str) -> JSONResponse:
+    """Describe the run's frozen ground over the seam — 200 the manifest body, the stamps elided.
+
+    Purpose: the manifest route 1:1 — THE SIXTH QUERY (the ux design's
+    blocker-2 amendment; NOT one of the five ops — the store-tier read):
+    delegate to the seam's manifest verb, return 200 with the five-key body
+    — the STEM echoed from the path param (the wire's id law: the in-file
+    handle never crosses), the stated question, the declared verdict set as
+    a sorted array, the quorum as data, the items the [id, label] pairs
+    payload order preserved; the operator id and the registration stamp
+    ELIDED (the census's discipline — the query returns what the front end
+    renders; the register ack holds the operator id from its own posted
+    body).
+    Refuses when: never by this hand — the seam's refusals ride through BY
+    TYPE: StoreRefusedError => 404 (both families — the honest label); no
+    value refusal exists at this read (422 never — the manifest line already
+    validated at load's pre-pass).
+    Re-run: deterministic given the store state — the manifest's clock-free
+    fields re-derive identically at every load (the stamp named and excluded
+    from any equality claim).
+    Touches: only the run file through the seam (a read).
+    Provenance: the service unit brief §2 (the sixth query's exact spec),
+    the ux design §2 (BLOCKER 2's amendment), Q-ux-surface R2 (the query
+    lane), G-SERVICE-FACE.
+    """
+    seam = cast("Serialize", request.app.state.seam)
+    try:
+        manifest = seam.manifest(run_id)
+    except StoreRefusedError as refusal:
+        return JSONResponse(status_code=404, content=render_refusal(refusal))
+    _body = {
+        RUN_ID: run_id,
+        QUESTION: manifest.operator.question,
+        VERDICTS: sorted(manifest.operator.verdicts),
+        QUORUM: manifest.quorum,
+        ITEMS: [[row.id, row.label] for row in manifest.items],
+    }
+    return JSONResponse(status_code=200, content=_body)
