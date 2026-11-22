@@ -1,0 +1,91 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-mcp",
+    "title": "Prioritree MCP — the agent-callable surface: the core's five-op interface exposed as OunceMCP tools — the banked tooling decision realized (the tier's own effort: composition, gates, the exposure's shape), the core staying zero-dep; the surface USABLE BY THE APPROPRIATE TEAM MEMBERS, not only external agents; the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "Q-mcp-surface's banked ruling at the prioritree-core store (2026-11-20): the MCP surface uses OunceMCP (subbusainath.github.io/ouncemcp/ — a Python framework on FastMCP: token-budgeted tool definitions and results, idempotent writes replayed never repeated, approvals before changes, verified-token identity, caller-bound handles, large-catalog discovery, proof tooling); the five ops land as its tools; the core stays zero-dep; OunceMCP rides the MCP tier's wrapper, exactly as the CLI wraps, FastAPI serves, and the web fronts",
+      "THE COLLABORATOR'S CONVENING RULING (2026-11-22): the MCP surface must be usable BY THE APPROPRIATE TEAM MEMBERS — the agent-facing analogue of the member-callable law (prioritree-ux R12/R13): the appropriate seats call/interact with the MCP tools directly from their own seats (a member-facing client path, a tool grant, or the MCP server's own callable surface — the design rules the form)",
+      "the service era's whole record (the prioritree-ux effort, done 2026-11-22): the six JSON routes (the five ops + the manifest query) live and ThreePart 21/21; the web tier live (the comparator's flow whole); the lifecycle targets + the member-callable lifecycle tool (the grant map's own precedent — the form this effort extends to the MCP tier)",
+      "the standing laws carried from prioritree-ux (R1-R13): the full-junro all-seats mandate; the seat-authored report (R6/R11 — the record never rides the return channel); the per-step dispatch (R8 — one step, one dispatch, one bounded return); the ThreePart error shape mandatory (R5); the member-callable surface + the readable runtime (R12/R13)",
+      "CONTINUATION.md's WHERE section (the named next era: the MCP-surface effort composing at the collaborator's hand)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [],
+    "gates": {},
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-mcp-tools\", \"text\": \"What is prioritree's MCP surface — the core's five-op interface (register_run, next_pair, cast_vote, read_vote_state, tally_rank) exposed as OunceMCP tools (the banked ruling realized), the tier's own shape (composition, gates, the exposure's budgeting/approval/handle discipline), the core staying zero-dep — AND the surface usable by the appropriate team members directly from their own seats (the member-callable law's agent-facing analogue)?\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T20:19:23Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-mcp-tools\", \"ruling\": \"THE BANKED DECISION CARRIED (Q-mcp-surface's ruling at the prioritree-core store, 2026-11-20, realized by this effort): the MCP surface uses OunceMCP (subbusainath.github.io/ouncemcp/ — a Python framework built on FastMCP: small tool definitions, results that fit the context window, token-budgeted tools and results, idempotent writes replayed never repeated, approvals before changes, verified-token identity, caller-bound handles, large-catalog discovery, proof tooling). THE FIVE OPS LAND AS ITS TOOLS: register_run, next_pair, cast_vote, read_vote_state, tally_rank — the same interface the CLI wraps, FastAPI serves, and the web fronts. THE CORE STAYS ZERO-DEP (the ruled data plane); OunceMCP rides the MCP tier's wrapper. THE RESONANCE (recorded at the bank): the framework's built-ins implement the product's own ruled disciplines — idempotent writes replayed-never-repeated is R9's loud idempotent dedup; token-budgeted small tool definitions is the narrow-interface doctrine; approvals-before-changes and caller-bound handles harden the write path where the design spends its strictness.\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T20:19:29Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-mcp-tools\", \"ruling\": \"THE MEMBER-USABLE MCP LAW (collaborator ruling, 2026-11-22, verbatim ground: \\\"we need to also be able to use the MCP from the appropriate team members.\\\"): the MCP surface is NOT only an external-agent-facing tier — THE APPROPRIATE TEAM MEMBERS use it directly from their own seats: the agent-facing analogue of the member-callable law (prioritree-ux R12/R13, whose lifecycle tool is the standing precedent). THE REQUIREMENT: a member-facing path to the MCP tools (the design rules the form — a member-callable MCP client path, a tool grant wrapping the client, the MCP server's own callable surface exposed to the seats, or another form the design settles); the appropriate seats' map (which members get which tools — the minimum-grant principle, the lifecycle grant map's own form); the members' calls carrying the same stamps the external agents carry (comparator_id, class — the vote's provenance whole). THE STANDING PRECEDENT CARRIED: the lifecycle tool's grant map (full at the working seats, read at the analysis seats, deny elsewhere) is the form this effort extends; the FR-MEM-0014 drift lesson rides (the grant lands at the tree, the delivery at the launch — the restart note).\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T20:19:35Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-mcp-tools\", \"ruling\": \"THE GOVERNANCE FORM CARRIED (the full junro, all seats — the ux effort's standing law R4, held at this effort from birth): every seat rides the route — keikaku composes; tansa, shindan, and rikai discover and diagnose (the MCP-era ground: OunceMCP's own surface, the banked decision's fit, the FastMCP substrate); suisen and keisan recommend and calculate (the exposure's shape, the tool definitions' budgets); hyoka assesses adversarially; moho blind-walks; togo synthesizes; jikko executes per-step; kensho verifies independently; hansei debriefs; shinko dispatches. THE STANDING LAWS RIDE WHOLE: the seat-authored report (R6/R11 — the record never rides the return channel); the per-step dispatch (R8 — one step, one dispatch, one bounded return; the spec's sequence IS the dispatch plan); the TwoPart brief→spec→build form (the two-lane standing shape); the ThreePart error shape mandatory (R5 — the MCP tools' refusals carry expected/found/next-action as the wire's family grammar does); the transit-envelope discipline (the set-form evidence, the sized dispatches).\"}",
+        "ruled_at": "2026-11-22",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-22T20:19:42Z",
+        "op": "add-ruling"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-mcp-tools",
+      "question": "What is prioritree's MCP surface — the core's five-op interface (register_run, next_pair, cast_vote, read_vote_state, tally_rank) exposed as OunceMCP tools (the banked ruling realized), the tier's own shape (composition, gates, the exposure's budgeting/approval/handle discipline), the core staying zero-dep — AND the surface usable by the appropriate team members directly from their own seats (the member-callable law's agent-facing analogue)?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE BANKED DECISION CARRIED (Q-mcp-surface's ruling at the prioritree-core store, 2026-11-20, realized by this effort): the MCP surface uses OunceMCP (subbusainath.github.io/ouncemcp/ — a Python framework built on FastMCP: small tool definitions, results that fit the context window, token-budgeted tools and results, idempotent writes replayed never repeated, approvals before changes, verified-token identity, caller-bound handles, large-catalog discovery, proof tooling). THE FIVE OPS LAND AS ITS TOOLS: register_run, next_pair, cast_vote, read_vote_state, tally_rank — the same interface the CLI wraps, FastAPI serves, and the web fronts. THE CORE STAYS ZERO-DEP (the ruled data plane); OunceMCP rides the MCP tier's wrapper. THE RESONANCE (recorded at the bank): the framework's built-ins implement the product's own ruled disciplines — idempotent writes replayed-never-repeated is R9's loud idempotent dedup; token-budgeted small tool definitions is the narrow-interface doctrine; approvals-before-changes and caller-bound handles harden the write path where the design spends its strictness.",
+          "ruled_at": "2026-11-22",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE MEMBER-USABLE MCP LAW (collaborator ruling, 2026-11-22, verbatim ground: \"we need to also be able to use the MCP from the appropriate team members.\"): the MCP surface is NOT only an external-agent-facing tier — THE APPROPRIATE TEAM MEMBERS use it directly from their own seats: the agent-facing analogue of the member-callable law (prioritree-ux R12/R13, whose lifecycle tool is the standing precedent). THE REQUIREMENT: a member-facing path to the MCP tools (the design rules the form — a member-callable MCP client path, a tool grant wrapping the client, the MCP server's own callable surface exposed to the seats, or another form the design settles); the appropriate seats' map (which members get which tools — the minimum-grant principle, the lifecycle grant map's own form); the members' calls carrying the same stamps the external agents carry (comparator_id, class — the vote's provenance whole). THE STANDING PRECEDENT CARRIED: the lifecycle tool's grant map (full at the working seats, read at the analysis seats, deny elsewhere) is the form this effort extends; the FR-MEM-0014 drift lesson rides (the grant lands at the tree, the delivery at the launch — the restart note).",
+          "ruled_at": "2026-11-22",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE GOVERNANCE FORM CARRIED (the full junro, all seats — the ux effort's standing law R4, held at this effort from birth): every seat rides the route — keikaku composes; tansa, shindan, and rikai discover and diagnose (the MCP-era ground: OunceMCP's own surface, the banked decision's fit, the FastMCP substrate); suisen and keisan recommend and calculate (the exposure's shape, the tool definitions' budgets); hyoka assesses adversarially; moho blind-walks; togo synthesizes; jikko executes per-step; kensho verifies independently; hansei debriefs; shinko dispatches. THE STANDING LAWS RIDE WHOLE: the seat-authored report (R6/R11 — the record never rides the return channel); the per-step dispatch (R8 — one step, one dispatch, one bounded return; the spec's sequence IS the dispatch plan); the TwoPart brief→spec→build form (the two-lane standing shape); the ThreePart error shape mandatory (R5 — the MCP tools' refusals carry expected/found/next-action as the wire's family grammar does); the transit-envelope discipline (the set-form evidence, the sized dispatches).",
+          "ruled_at": "2026-11-22",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}
