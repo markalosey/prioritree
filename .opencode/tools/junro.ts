@@ -82,7 +82,9 @@ export default tool({
     output: tool.schema.string().optional()
       .describe("the output path (must exist at the op; a relative path resolves against the store's directory, not the invocation cwd — Strain O, tool-fix increment 2026-09-24)"),
     content: tool.schema.string().optional()
-      .describe("the report's content — the whole report body (bounded at 65,536 bytes, Q-REPORT-OP's ruled number; over-bound refuses doctrine-shaped, the store byte-untouched; a report exceeding the bound splits into multiple report events — append-only pieces)"),
+      .describe(
+        "the report's content — the whole report body (bounded at 65,536 bytes, Q-REPORT-OP's ruled number; over-bound refuses doctrine-shaped, the store byte-untouched; a report exceeding the bound splits into multiple report events — append-only pieces); the event's report chain is PROJECTED to <store>/reports/<packet>.md as a consequence of the write (the standing renderer — the read model materialized; a projection failure never rolls back the append: the degradation names the manual re-fire, the op's exit stays 0); do NOT treat a projection degradation as a failed report — the event landed; re-fire the named command.",
+      ),
     id: tool.schema.string().optional()
       .describe("the question's stable id"),
   },
