@@ -1,0 +1,63 @@
+<!-- regen: uv run python scripts/generation/kumi_views.py -->
+# Packet Report — compose/route
+
+**Route:** prioritree-mcp (composed) | **Events:** 2 | **Reports:** 1
+
+## The packet's chain (ledger order)
+
+| # | Op | Actor | Timestamp |
+|---|---|---|---|
+| 1 | dispatch | shinko | 2026-11-22T20:20:10Z |
+| 2 | report | keikaku | 2026-11-22T20:22:11Z |
+## Reported by keikaku — 2026-11-22T20:22:11Z
+
+# THE COMPOSITION — the prioritree-mcp route's opening whole
+
+*(packet compose/route · keikaku · 2026-11-22 · cites: Q-mcp-tools' THREE rulings at this store [THE BANKED DECISION CARRIED — OunceMCP on FastMCP, the five ops as its tools, the core zero-dep; THE MEMBER-USABLE MCP LAW; THE GOVERNANCE FORM CARRIED]; the ux store's standing law R1-R13 carried whole [prioritree-ux/.junro/junro.json]; the ux store's composition precedent [route-composition*.md at .junro/evidence/Q-ux-surface/]; the banked Q-mcp-surface decision at prioritree-core, 2026-11-20)*
+
+## STAGES
+
+**pipeline** — purpose: THE PER-UNIT PIPELINE (the ux store's precedent): THE CENSUS FIRST — ungated tansa/shindan/rikai packets over the MCP-era ground (OunceMCP's own surface — the framework's actual API; the FastMCP substrate; the five ops' exposure shape today; the member-usable path's design space — the member-usable law's named forms); then THE DESIGN LANE — ungated suisen/keisan/hyoka/moho packets (the exposure's shape, the budgets, the member path, the adversarial pass, the blind walk); then togo's gated synthesis closing G-MCP-DESIGN-BRIEF; each build unit's ungated discovery legs + gated brief precede its build; THE ROUTE GROWS UNIT-BY-UNIT (the census earns the units — nothing pre-pinned). entry_condition: G-COMPOSITION is green (the composition validated at the route's head); the census fires first, its findings assumed by none of this composition.
+
+**build** — purpose: THE MCP TIER'S BUILD — one module per dispatch (the sizing law); THE LIKELY UNIT SET (named, NOT pre-pinned — the census/design earn the units): mcp-server (the OunceMCP wrapper over the five ops — the banked decision realized: register_run, next_pair, cast_vote, read_vote_state, tally_rank as its tools, token-budgeted definitions and results, idempotent writes replayed never repeated, approvals before changes, verified-token identity, caller-bound handles; the core stays zero-dep — OunceMCP rides the tier's wrapper exactly as the CLI wraps, FastAPI serves, and the web fronts), member-path (the member-usable path per the design's settled form — the client path / the tool grant / the server's callable surface, + the minimum-grant map), lifecycle integration (the MCP server's own start/stop riding the standing lifecycle form — R12/R13's surface extended or its own targets, the design settles); each lands per its approved brief (the two-lane brief→spec→build standing shape), the per-step dispatch at build time (R8 — one step, one dispatch, one bounded return), kensho's independent verification per build gate, one-commit-per-increment. entry_condition: G-MCP-DESIGN-BRIEF is green — the design is the spec; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law); the unit set confirmed by the census/design at each build-add.
+
+**close** — purpose: THE EFFORT'S BOOKEND (the ux store's close form): hansei's retro (R4's debrief seat — the friction ledger the intake), the effort's records (the CONTINUATION entry, the landing state named honestly; the next era named at the collaborator's hand), the done call at the collaborator's ruling. entry_condition: the route's build gates closed green and the collaborator has called the close.
+
+## GATES (the opening mint — three head gates; the per-unit gates ride their build-adds)
+
+**G-COMPOSITION** — collaborator-ruling:
+- the composition lands (this report — the whole at the store's reports home, projected at reports/compose/route.md; the evidence set landing at shinko's hand under .junro/evidence/Q-mcp-tools/route-composition*.md) — the opening whole: stages, gates, increments, the census placed FIRST with none of its findings assumed, every seat placed (R4 carried: no seat bypassed)
+- every choice cites its ruling: Q-mcp-tools' three rulings (the banked OunceMCP decision; the member-usable MCP law; the governance form carried) + the standing law R1-R13 carried whole + the ux store's pipeline/composition precedent + the banked Q-mcp-surface decision
+- the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green
+
+**G-MCP-DESIGN-BRIEF** — collaborator-ruling:
+- THE DESIGN BRIEF LANDED: togo's synthesis over the census (census/ouncemcp, census/exposure, census/member-path) + the design lane (design/tools, design/member-path, design/budgets, design/adversarial, design/blind-walk); a divergence that survives reconciliation blocks the brief, never rides it silently (the pipeline-parallelism safeguard)
+- the brief carries the design-work the rulings leave open — never settled in the composition: the five tools' definitions (the tool-definition forms per the framework's actual API, the token budgets per its discipline — the banked decision); the member-usable path's form (the ruling's named space: a member-callable MCP client path, a tool grant wrapping the client, the MCP server's own callable surface exposed to the seats, or another form the design settles); the minimum-grant map (the lifecycle grant map's form — full at the working seats, read at the analysis seats, deny elsewhere; FR-MEM-0014's drift lesson — the grant lands at the tree, the delivery at the launch); the members' calls carrying the same stamps the external agents carry (comparator_id, class — the vote's provenance whole); the ThreePart ride at the MCP seam (R5 carried — the tools' refusals carry expected/found/next-action); the framework-discipline mapping (idempotent writes = R9's loud idempotent dedup; token budgets = the narrow-interface doctrine; approvals + caller-bound handles hardening the write path where the design spends its strictness)
+- the brief names the build unit set the census/design earn (the likely set confirmed or overturned — the composition pins nothing the census could overturn)
+- THE COLLABORATOR'S APPROVAL: the design judged ready-to-build; the build units' briefs cite it; their dispatches fire only after their own brief gates green
+
+**G-CLOSE** — collaborator-ruling:
+- hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named
+- the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named at the collaborator's hand
+- the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling
+
+**THE PER-UNIT GATES (minted at each build-add's turn — the composition model; the likely forms, nothing pre-pinned)**: G-<UNIT>-BRIEF (collaborator-ruling — togo's synthesis over discover/<unit> + understand/<unit> + the approved design + the census; the scope fence, the return forms; the collaborator approves — the dispatches fire only after) · G-<UNIT> (deterministic-check — the surface lands per the approved spec, the ruled disciplines green at the seam [the budgets, the idempotency, the approvals, the handles, the ThreePart refusals], pyright 0 errors 0 warnings + ruff zero findings zero ignores, kensho's independent re-run green [validate/<unit>]) · the exact-task spec lane per the two-lane standing shape (synthesize/<unit>spec · G-<UNITSPEC>-BRIEF with the unique suffix — FR-MEM-0011's bytes-at-synthesis doctrine; hyoka's adversarial pass rides before the presentation — the spec-defect history earns it).
+
+## INCREMENTS (the opening pair; the build increments ride their build-adds)
+
+- **synthesize/mcp-design** — owner togo · gate G-MCP-DESIGN-BRIEF · stage pipeline · steps: [synthesize (semantic, togo, gate)]
+- **close/retro** — owner shinko · gate G-CLOSE · stage close · steps: [retro (semantic, hansei, assessment); records-synthesis (semantic, togo, assessment); records-landing (semantic, shinko, assessment); done-call (semantic, shinko, assessment)]
+- the build increments (build/<unit> · jikko · G-<UNIT> · steps: [build (semantic, jikko, gate); the unit's deterministic floor (tool: make, gate)]) ride their build-adds at their turns, each auto-stamping its synthesize/<unit> + G-<UNIT>-BRIEF pair.
+
+## UNGATED PACKETS (placements — shinko dispatches; evidence under .junro/evidence/Q-mcp-tools/)
+
+- **THE CENSUS (FIRST, findings unassumed)**: census/ouncemcp (tansa: OunceMCP's own surface — the framework's actual API: the tool-definition forms, the token-budgeting discipline, the approval/handle machinery, verified-token identity, caller-bound handles, large-catalog discovery, proof tooling; the FastMCP substrate beneath; the banked decision's fit named against the framework's real shape — the web-research reach named at the dispatch: the seats carrying the web grants, or the package on disk where the grant is absent) · census/exposure (shindan: the five ops' exposure shape today — the signatures, the ruled refusals, the DONE signal, what a tool definition must carry at the seam — R5's census clause at the MCP tier) · census/member-path (rikai: the member-usable path's design space — the members' packs/callable sets today, the lifecycle tool's grant-map precedent [R12/R13's standing form], the fixed-argv/no-shell law, FR-MEM-0014's drift lesson)
+- **THE DESIGN LANE (after the census)**: design/tools (suisen: the five tools' definitions + the budgets) · design/member-path (suisen: the member-usable path's design + the grant map) · design/budgets (keisan: the token budgets calculated over the tools' inputs/outputs) · design/adversarial (hyoka: the design drafts attacked) · design/blind-walk (moho: the member's call and the external agent's call walked blind)
+- **PER-UNIT LEGS**: discover/<unit> (tansa) + understand/<unit> (rikai) before each brief · validate/<unit> (kensho) at each build gate
+
+## APPLICATION ORDER (the engine's mechanics — shinko's opening moves, the ux precedent)
+
+1. Opening: add-gate G-COMPOSITION, G-MCP-DESIGN-BRIEF, G-CLOSE; compose-stage pipeline/build/close; add-increment synthesize/mcp-design, close/retro → the collaborator validates (G-COMPOSITION) → the census fires first.
+2. The build units ride the build-add at their turns (the census/design earn the set — the likely order: mcp-server first [the banked decision realized], member-path when the server stands, lifecycle integration per the standing form): each build-add auto-stamps synthesize/<unit> + G-<UNIT>-BRIEF; the exact-task spec lane mints with its unique suffix; the rich build gates mint before the adds; no build dispatch until its brief gate green; the per-step dispatch plan at build time (R8 — the spec's sequence IS the dispatch plan); kensho independent per build gate.
+
+*(the standing laws ride whole at every leg: R4 all seats; R5 ThreePart at the MCP seam; R6/R11 the seat-authored report — this report the instance; R8 the per-step dispatch; R9 the idempotency the framework's own writes carry; the transit-envelope discipline — set-form evidence, sized dispatches.)*
