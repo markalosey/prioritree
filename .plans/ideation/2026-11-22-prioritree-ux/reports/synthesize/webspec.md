@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/webspec
 
-**Route:** prioritree-ux (executing) | **Events:** 20 | **Reports:** 13
+**Route:** prioritree-ux (executing) | **Events:** 26 | **Reports:** 15
 
 ## The packet's chain (ledger order)
 
@@ -27,6 +27,12 @@
 | 18 | dispatch | shinko | 2026-11-22T17:22:04Z |
 | 19 | report | togo | 2026-11-22T17:26:11Z |
 | 20 | report | togo | 2026-11-22T17:26:23Z |
+| 21 | result | shinko | 2026-11-22T17:26:53Z |
+| 22 | gate | shinko | 2026-11-22T17:27:54Z |
+| 23 | dispatch | shinko | 2026-11-22T18:06:24Z |
+| 24 | report | togo | 2026-11-22T18:11:52Z |
+| 25 | dispatch | shinko | 2026-11-22T18:16:48Z |
+| 26 | report | togo | 2026-11-22T18:17:37Z |
 ## Reported by togo — 2026-11-22T16:07:28Z
 
 # THE WEB UNIT'S EXACT-TASK SPEC — PART 1 (synthesize/webspec; togo, 2026-11-22 — §1 the web module whole; parts 2-4 carry the structure, the generator, the edits, the tests, the sequence, the proofs)
@@ -3739,3 +3745,117 @@ All other §V arcs stand byte-identical.
 **(3) THE EXCEPTION CLASS — TWO REPLACEMENTS:** in §Y(3), REPLACE "ZERO template content lives in Python (web.py carries zero human-facing words — the copy, the pins, the CSS, the JS live in their files)" WITH "ZERO template content lives in Python (web.py carries zero human-facing words EXCEPT THE FAMILY-GRAMMAR FIELD VALUES — the exception class ruled at the fold, hyoka's finding 3: the register controller's quorum-refusal three fields + the refuse/fold handlers' found-texts, service.py's own precedent (render_refusal :168, the found-texts :296/:298) — the wire's refusal data composed at the controller, never template copy); the copy, the pins, the CSS, the JS live in their files". In §Y(6) condition (2), REPLACE "zero content-in-Python, zero generated" WITH "zero content-in-Python beyond the family-grammar field values (the named exception class), zero generated" and cite the condition's letter to part 1's §2 (the re-composed letter the collaborator rules at the presentation).
 
 THE FOLD CLOSES — V3 WHOLE: v2's bytes + these corrections exact (two byte-flips, three test corrections + the docstring's arc list, two sequence letter-fixes, three proof namings) + part 1's letters (the route-8 carrier named + corrected, §3e + §8-item-5 amended, the exception class ruled, the condition-2 letter re-composed); every other v2 byte stands; the file inventory unchanged in count (18 authored + 3 edited + 2 removed); all seven findings folded, none deferred. The re-spec re-presents at G-WEB-BRIEF + G-WEBSPEC-BRIEF; the gates' rulings are the collaborator's acts. — togo, 2026-11-22
+## Reported by togo — 2026-11-22T18:11:52Z
+
+# THE FLOOR-FOLD ADDENDUM — v3's two defects, both cures at the exact bytes (synthesize/webspec; togo, 2026-11-22 — the step-12 floor's 9 failed findings folded; READ-ONLY held — this addendum fences the corrected regions, the execution seat applies them)
+
+READ-BACK (the evidence, at disk): jikko's step-12 report (reports/build/web.md — 9 failed, 147 passed; lint `All checks passed!`; typecheck 0/0/0) + the floor's own tracebacks (both redirect arcs `assert 200 == 303` at tests/test_web_face.py:93/:120 — the FOLLOWED page's 200, `<Response [200 OK]>`) + src/prioritree/web.py's two page-redirect regions (:331-333, :375-377) + the pair fragment's green 200-carry precedent (web.py:568 + tests/test_web_face.py:269-275) + pyproject.toml:7 + the design brief §4 (web.md:58-73, the nine routes; route 7's HX-Redirect law; ux-design.md:61 the mechanism class) + my v3's §6a notes (2)/(3) — the falsified premises, named below.
+
+## DEFECT 1 — THE SEVEN FORM ARCS (python-multipart undeclared)
+
+The floor's failure, verbatim: "AssertionError: The python-multipart library must be installed to use form parsing." at starlette's request.form(), reached from web.py:510 (register) + web.py:607 (vote). The seven arcs post form-encoded (urlencoded) and STILL hit the multipart assert — starlette's form() gates on parse_options_header BEFORE the content-type dispatch, so EVERY request.form() call needs the library installed. v3's §6a note (3) ("urlencoded, no multipart dep") is the second falsified premise, folded with this cure; v3's dep list (fastapi, httpx2, jinja2, uvicorn[standard]) omits the library, so the sync cannot mint it.
+
+THE CURE — pyproject.toml line 7 (the runtime dependencies line), the exact new bytes:
+
+```toml
+dependencies = ["fastapi", "httpx2", "jinja2", "python-multipart", "uvicorn[standard]"]
+```
+
+python-multipart slotted alphabetically (between jinja2 and uvicorn[standard]); the next uv sync mints it into the venv + the lock — the floor's own first-run auto-sync already demonstrated the mechanism (jinja2 minted, "1 package swapped"). Nothing else: the seven arcs' own bytes are right (the wire the sole validator); the dep was the sole gap.
+
+## DEFECT 2 — THE TWO REDIRECT ARCS (the 303-status form vs the design's 200-carry law)
+
+THE ROOT DEFECT, MY OWN v3 BYTES: §6a note (2) claimed "TestClient does not follow redirects by default — the 303 arcs assert the status + the location header." FALSE at the floor — starlette's TestClient follows redirects by default (follow_redirects=True), so both 303s were followed into the landing pages' 200s: `assert 200 == 303` (the traceback's `where 200 = <Response [200 OK]>.status_code`). The contradiction inside v3: the two PAGE redirect regions carry the 303-STATUS form (RedirectResponse + the location header) while the design's own law carries the redirect as the HX-Redirect RESPONSE HEADER at 200 — brief §4 route 7: "DONE → the HX-Redirect RESPONSE HEADER to /runs/{stem}/done (core HTMX's navigation verb — no extension, no JS)"; the design's mechanism class (ux-design.md:61): the web routes' consumers are "HTMX's swap engine and the human's eyes" — a status-redirect is a form no consumer of this tier reads. The pair fragment's branch (web.py:568) + its arc (tests/test_web_face.py:269-275) already carry the 200-carry form GREEN at the floor; the fold brings the two page regions + their two arcs to the same form.
+
+THE RULING'S DIRECTION: the observed 200 is right — the pages 200-carry, the redirect rides the header ("HTMX follows the header, never the status"). The alternative cure — pinning the 303 via follow_redirects=False — is REFUSED: it would preserve the status-redirect form the design's law forbids, and pin the harness rather than cure the bytes.
+
+THE CURE — four regions, exact bytes:
+
+**(a) src/prioritree/web.py:332-333 — the sitting route's DONE branch** (neighborhood: after `body = nxt.json()` at :331, before `manifest_body = manifest.json()` at :334). REPLACE:
+
+```python
+        return RedirectResponse(f"/runs/{stem}/done", status_code=_SEE_OTHER)
+```
+
+WITH (byte-identical in form to the pair fragment's :568):
+
+```python
+        return Response(status_code=_OK, headers={"HX-Redirect": f"/runs/{stem}/done"})
+```
+
+**(b) src/prioritree/web.py:376-377 — the done route's re-opened branch** (neighborhood: after `body = nxt.json()` at :375, before the done.html TemplateResponse at :378). REPLACE:
+
+```python
+        return RedirectResponse(f"/runs/{stem}", status_code=_SEE_OTHER)
+```
+
+WITH:
+
+```python
+        return Response(status_code=_OK, headers={"HX-Redirect": f"/runs/{stem}"})
+```
+
+**(c) THE ORPHAN CULLS — the same cure's zero-findings companions** (both _SEE_OTHER uses die with (a)/(b); the lint zero-findings + typecheck 0/0/0 floor must survive the cure): web.py:52 `from fastapi.responses import JSONResponse, RedirectResponse, Response` → `from fastapi.responses import JSONResponse, Response` (F401 fires on the orphaned import otherwise); web.py:85 `_SEE_OTHER: Final[int] = 303` → deleted (the orphaned private constant, reportUnusedVariable's domain under the pyright battery at pyproject:130-137).
+
+**(d) tests/test_web_face.py — the two arcs' assertion pairs, the same false premise's bytes, converged to the 200-carry form** (mirroring the green precedent at :274-275; the arcs' docstrings stand — "redirects to the done page" remains true, the header is the redirect's carrier):
+
+:93-94 REPLACE:
+
+```python
+    assert response.status_code == 303
+    assert response.headers["location"] == f"/runs/{_RUN_ID}/done"
+```
+
+WITH:
+
+```python
+    assert response.status_code == 200
+    assert response.headers["hx-redirect"] == f"/runs/{_RUN_ID}/done"
+```
+
+:120-121 REPLACE:
+
+```python
+    assert response.status_code == 303
+    assert response.headers["location"] == f"/runs/{_RUN_ID}"
+```
+
+WITH:
+
+```python
+    assert response.status_code == 200
+    assert response.headers["hx-redirect"] == f"/runs/{_RUN_ID}"
+```
+
+(the header access case-insensitive, httpx's own law — the green fragment arc proves the form through the same TestClient.)
+
+THE TRADE-OFF THE CURE CARRIES, NAMED: the 200-carry + HX-Redirect form is HTMX-native — a plain full-page browser GET of a done run's sitting URL (or a fresh run's done URL) now renders an empty 200 carrying the header (browsers ignore HX-Redirect outside HTMX-driven requests), where the 303 once followed. The design prices it: the sitting URL's DONE state is reached through the app's own flows (the ack's BEGIN link, the resume affordance at registration time), and the web tier's consumers are the HTMX wire + the human's eyes — the collaborator's ruling (the observed 200 is right) takes the trade-off knowingly; the open question, should the collaborator want the browser edge served too: a future era may render the done/sitting page's own content at the 200 instead of the empty carrier (a body + the header compose), never a status-redirect's return.
+
+NOTHING ELSE touched: the fragment routes' bytes, the refuse/fold handlers, the union block, the templates, the seven other web arcs, the 147 green arcs, the docstrings. THE FLOOR'S EXPECTED OUTCOME: 156 green (the seven form arcs minted by the dep; the two redirect arcs green at the 200-carry form — no follow, no status), lint + typecheck green (the orphan culls hold the zero-findings law).
+
+togo, 2026-11-22
+## Reported by togo — 2026-11-22T18:17:37Z
+
+THE CURE — one line, tests/test_service_acceptance.py:32, the import flip (no downstream adaptation):
+
+```
+-import httpx  # httpx2 the lock's name; the floor verifies the import resolves
++import httpx2 as httpx  # httpx2 the lock's name; the floor verifies the import resolves
+```
+
+The comment stays byte-untouched: with the flip it is true verbatim (the statement imports httpx2, the lock's name; the floor's test act verifies the import resolves — now it does).
+
+THE FORM'S PROVENANCE — the canonical form starlette itself carries (testclient.py:26-29): TYPE_CHECKING branch `import httpx2 as httpx` (:26), runtime branch `import httpx2 as httpx` (:29); the bare-httpx fallback (:31-32) is the path starlette warns deprecated (:40-41). The alias import satisfies the spec's law — import httpx2, never httpx: the statement imports httpx2, nothing imports bare httpx. It is also the statically-resolvable form: pyright resolves `import httpx2 as httpx`, so the 115 errors (1 root at :32 + 114 unknown-type cascades) all clear at the one line's flip.
+
+THE COMPAT CONFIRMATION — every downstream `httpx.` usage in the file resolves against the httpx2 module (httpx2/__init__.py's __all__ carries each name, read at disk):
+- `httpx.Client` — __all__:43 — annotations at :105, :141, :176, :208, :288, :318, :368; constructors at :163, :295, :402
+- `httpx.Response` — __all__:85 — annotations at :176, :197, :398
+- `httpx.ConnectError` — __all__:54 — the except clause at :127
+- `httpx.ConnectTimeout` — __all__:55 — the except clause at :127
+Instance surface: client.get(url, timeout=), client.post(url, json=), response.status_code/.text/.json()/.content, client.close() — the same API starlette's testclient exercises through the identical alias. The alias binds the name `httpx` in the module's own namespace; every downstream usage is byte-untouched, zero adaptation needed.
+
+WHY NOT alias_httpx(): the module httpx2/_alias.py:58-71 requires the call before anything imports httpx, and its docstring says "Libraries should never call this" — the test file is not a migrating application; the meta_path mutation is process-wide and invisible to pyright (the runtime alias cannot clear the typecheck errors), where the alias import is statically resolvable. Starlette's own choice settles it.
+
+IMPORT ORDER: `httpx2` sorts before `pytest` at :32-33 — ruff's isort block stays valid; no I001 finding rides the flip.
+
+Read-back basis: tests/test_service_acceptance.py whole (437 lines, every httpx token accounted); starlette/testclient.py:1-60; httpx2/_alias.py whole; httpx2/__init__.py:1-100. No edits made — this seat is read-only; the bytes above are the dispatched cure for the mutation seat.

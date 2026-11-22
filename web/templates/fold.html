@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Priori-tree — the fold{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>The request failed.</h1>
+  <dl class="three-part">
+    <dt>Expected</dt><dd>{{ fields.expected }}</dd>
+    <dt>Found</dt><dd>{{ fields.found }}</dd>
+    <dt>Next action</dt><dd>{{ fields.next_action }}</dd>
+  </dl>
+</section>
+{% endblock %}

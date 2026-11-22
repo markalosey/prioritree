@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Priori-tree — the result{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>The ranked whole.</h1>
+  <sl-badge variant="success">done</sl-badge>
+  <table class="ranked">
+    <thead><tr><th>Rank</th><th>Item</th><th>W</th><th>L</th><th>T</th><th>Comparisons</th></tr></thead>
+    <tbody>
+      {% for rank, group in ranked %}{% set outer = loop %}{% for item in group %}
+      <tr>
+        {% if outer.first %}<td rowspan="{{ group | length }}">{{ rank }}</td>{% endif %}
+        <td>{{ rows[item].label }} <sl-badge>{{ item }}</sl-badge></td>
+        <td>{{ rows[item].wins }}</td>
+        <td>{{ rows[item].losses }}</td>
+        <td>{{ rows[item].ties }}</td>
+        <td>{{ rows[item].wins + rows[item].losses + rows[item].ties }}</td>
+      </tr>
+      {% endfor %}{% endfor %}
+    </tbody>
+  </table>
+  <p class="coverage-strip">Every scheduled pair at quorum — the comparison graph is connected ({{ components | length }} component).</p>
+  {% if cycle %}
+  <p>
+    <sl-tag>A cycle is named in the coverage data:</sl-tag>
+    <sl-tooltip content="This cycle is structural, never an error, never resolved by judgment — the wins, losses, and ties in the table are the honest numbers behind each item's position.">
+      {% for edge in cycle %}{{ edge[0] }} &gt; {{ edge[1] }}{% if not loop.last %}, {% endif %}{% endfor %}
+    </sl-tooltip>
+  </p>
+  {% endif %}
+  <sl-details summary="The coverage datum">
+    <p>The pair matrix — judgments per pair:</p>
+    <ul>
+      {% for pair, count in pair_counts.items() %}<li>{{ pair.split("|")[0] }} vs {{ pair.split("|")[1] }}: {{ count }}</li>{% endfor %}
+    </ul>
+  </sl-details>
+  <footer><sl-badge>{{ algorithm_version }}</sl-badge> — Ranked by {{ algorithm_version }}</footer>
+</section>
+{% endblock %}

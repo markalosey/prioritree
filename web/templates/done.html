@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Priori-tree — done{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>The sitting is complete.</h1>
+  <sl-badge variant="success">done</sl-badge>
+  <p class="coverage">{{ fields.expected }}</p>
+  <p>The run is complete — each pair has its judgments.</p>
+  <sl-button variant="primary" href="/runs/{{ stem }}/result">See the result</sl-button>
+</section>
+{% endblock %}

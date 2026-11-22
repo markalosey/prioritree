@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Priori-tree — begin{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Priori-tree</h1>
+  <p>Priori-tree turns easy pairwise judgments into a reliable ranking. You register a list, then judge the items two at a time — the site tallies your judgments into a superior order.</p>
+  <p>Each pair is judged with three answers: prefer the first, prefer the second, or a tie.</p>
+</section>
+<section class="card">
+  <h2>Register a run</h2>
+  <form hx-post="/ui/register" hx-target="#register-result" hx-swap="innerHTML">
+    <label>Your name for yourself on this run. <input name="operator_id" required minlength="1"></label>
+    <label>The question to answer. <input name="question" required minlength="1"></label>
+    <label>How many judgments each pair needs — 1 means just you; 2 or more means you need other judges, and a pair stays open until it has them. <input type="number" name="quorum" value="1" min="1"></label>
+    <fieldset>
+      <legend>The items — an id and a label for each. The first two rows are required; the list is locked once registered.</legend>
+      <div class="item-row"><input name="item-id" required minlength="1" placeholder="id"> <input name="item-label" required minlength="1" placeholder="label"></div>
+      <div class="item-row"><input name="item-id" required minlength="1" placeholder="id"> <input name="item-label" required minlength="1" placeholder="label"></div>
+      <div class="item-row"><input name="item-id" placeholder="id"> <input name="item-label" placeholder="label"></div>
+      <div class="item-row"><input name="item-id" placeholder="id"> <input name="item-label" placeholder="label"></div>
+      <div class="item-row"><input name="item-id" placeholder="id"> <input name="item-label" placeholder="label"></div>
+      <div class="item-row"><input name="item-id" placeholder="id"> <input name="item-label" placeholder="label"></div>
+    </fieldset>
+    <button type="submit">Register the run</button>
+  </form>
+  <div id="register-result"></div>
+</section>
+<section class="card">
+  <h2>Resume</h2>
+  <form method="get" action="/" data-pt-path="/runs/{stem}">
+    <label>Have a run id? Resume its sitting. <input name="stem" placeholder="RUN-0001"></label>
+    <button type="submit">Resume the sitting</button>
+  </form>
+  <p class="quiet">The run id looks like RUN-0001 — it was shown when the run was registered.</p>
+  <form method="get" action="/" data-pt-path="/runs/{stem}/result">
+    <label>Have a run id? See its result. <input name="stem" placeholder="RUN-0001"></label>
+    <button type="submit">See the result</button>
+  </form>
+</section>
+{% endblock %}

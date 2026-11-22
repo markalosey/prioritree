@@ -1,0 +1,9 @@
+<!-- ack — the register ack: the begin link, the run id + sitting URL with click-to-copy, the frozen warning (web-brief §4 route 6; the design §7b) -->
+<div id="register-ack">
+  <p><strong>Run registered.</strong></p>
+  <p>The run id: <strong>{{ run_id }}</strong> <pt-copy value="{{ run_id }}" label="Copy run id"></pt-copy></p>
+  <p>The sitting URL: <code>{{ sitting_url }}</code> <pt-copy value="{{ sitting_url }}" label="Copy sitting URL"></pt-copy></p>
+  {% if quorum > 1 %}<p class="share">Each pair needs {{ quorum }} judgments — share this sitting URL with your other judges.</p>{% endif %}
+  <p class="quiet">The list is locked once registered — a changed list is a new run.</p>
+  <sl-button variant="primary" href="/runs/{{ run_id }}">BEGIN THE SITTING</sl-button>
+</div>

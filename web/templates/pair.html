@@ -1,0 +1,15 @@
+<!-- pair — the shared pair region: the sitting includes it, the fragment route serves it (web-brief §4 routes 2+7; the design §7a) -->
+<div id="pair-region">
+  <form hx-post="/ui/runs/{{ stem }}/vote" hx-target="#ack-region" hx-swap="innerHTML" hx-include="[name='comparator_id']">
+    <input type="hidden" name="item_a" value="{{ item_a }}">
+    <input type="hidden" name="item_b" value="{{ item_b }}">
+    <div class="cards">
+      <sl-card class="pair-card"><sl-badge slot="header">A</sl-badge><span class="card-label">{{ label_a }}</span></sl-card>
+      <sl-card class="pair-card"><sl-badge slot="header">B</sl-badge><span class="card-label">{{ label_b }}</span></sl-card>
+    </div>
+    <div class="verdicts">
+      {% set labels = {"prefer-a": "Prefer A", "prefer-b": "Prefer B", "tie": "Tie"} %}
+      {% for verdict in verdicts %}<button class="verdict" name="winner" value="{{ verdict }}">{{ labels.get(verdict, verdict) }}</button>{% endfor %}
+    </div>
+  </form>
+</div>

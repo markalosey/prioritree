@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Priori-tree — the sitting{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>{{ question }}</h1>
+  <label for="comparator-id">Your name for yourself as a judge — it stamps your votes. The same entry rides every judgment you cast on this page.</label>
+  <input id="comparator-id" name="comparator_id" required minlength="1">
+  {% if quorum > 1 %}<p class="quiet">Each pair needs {{ quorum }} judgments — you may see pairs you already judged until every pair has {{ quorum }} judgments.</p>{% endif %}
+  {% include "pair.html" %}
+  <div id="ack-region"></div>
+</section>
+{% endblock %}

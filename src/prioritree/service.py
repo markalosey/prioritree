@@ -526,3 +526,15 @@ def describe(request: Request, run_id: str) -> JSONResponse:
         ITEMS: [[row.id, row.label] for row in manifest.items],
     }
     return JSONResponse(status_code=200, content=_body)
+
+
+# The web tier's tail mount (web-brief §3c): the child app mounted at the
+# root — the six JSON routes above match FIRST (the router serves the first
+# FULL match, the Mount catching the rest); the web module imports THIS app
+# at its own top, bound above before the tail import fires (the import
+# cycle's only legal form — a top-of-file import would fire before the app
+# binds; an importlib dodge would HIDE the cycle, not name it; the PLC0415
+# named ruling rides pyproject).
+from prioritree.web import web_app
+
+app.mount("/", web_app)

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Priori-tree — not ready{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>{% if gated %}The ranking is not complete.{% else %}The ranking is not ready.{% endif %}</h1>
+  {% if gated %}<sl-badge variant="neutral">withheld</sl-badge><p>The ranking will not be shown until every pair has its judgments — never a partial ranking dressed as whole.</p>{% else %}<sl-badge variant="warning">safe halt</sl-badge>
+  <dl class="three-part">
+    <dt>Expected</dt><dd>{{ fields.expected }}</dd>
+    <dt>Found</dt><dd>{{ fields.found }}</dd>
+    <dt>Next action</dt><dd>{{ fields.next_action }}</dd>
+  </dl>
+  <ul>
+    <li>Bridging pairs — connectivity needs NEW comparisons: a comparator provides them — sit again (the resume link serves exactly the named closing pairs); the solo operator re-sits under a NEW comparator id (a new id's judgments are new samples — a changed verdict is a new sample).</li>
+    <li>Shortfall pairs — quorum needs MORE VOTES: more judgments from any comparator — existing judges (a changed verdict is a new sample) or new ones (share the sitting URL).</li>
+  </ul>{% endif %}
+  <sl-button variant="primary" href="/runs/{{ stem }}">Resume the sitting</sl-button>
+  <a href="/runs/{{ stem }}/progress">See the run's progress</a>
+</section>
+{% endblock %}

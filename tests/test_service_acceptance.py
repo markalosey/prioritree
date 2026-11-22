@@ -29,7 +29,7 @@ from threading import Barrier, Thread
 from time import monotonic, sleep
 from typing import TYPE_CHECKING
 
-import httpx  # httpx2 the lock's name; the floor verifies the import resolves
+import httpx2 as httpx  # httpx2 the lock's name; the floor verifies the import resolves
 import pytest
 
 from prioritree.run_store import Persist  # THE ORACLE IMPORT — the file's direct read

@@ -1,0 +1,9 @@
+<!-- refuse — the ThreePart fields labeled verbatim + the fold heading swap (web-brief §5; R5; the design §4) -->
+<div class="refusal">
+  <p><strong>{% if fold %}Something broke — the fold's three fields:{% else %}The request was refused — the wire's own three fields:{% endif %}</strong></p>
+  <dl class="three-part">
+    <dt>Expected</dt><dd>{{ fields.expected }}</dd>
+    <dt>Found</dt><dd>{{ fields.found }}</dd>
+    <dt>Next action</dt><dd>{{ fields.next_action }}</dd>
+  </dl>
+</div>

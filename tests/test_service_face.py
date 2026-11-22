@@ -262,14 +262,24 @@ def test_refusal_unmatched_path_404(client: TestClient) -> None:
 
 
 def test_refusal_method_not_allowed_405(client: TestClient) -> None:
-    """A disallowed method at a legal path => 405, the family grammar, the method taught."""
-    response = client.delete("/runs")
+    """A disallowed method at a legal web path => 405, the family grammar, the method taught.
+
+    The arc re-targeted (web-brief §3e, the mount's price, the collaborator's
+    approved amendment): the tail mount makes the CHILD own the
+    disallowed-method surface (the parent's partial-match 405 never fires —
+    the Mount fully matches any path the parent does not); the child's own
+    handler renders the identical grammar, so the arc's INTENT holds exactly
+    (a disallowed method at a legal path => 405, the method named in found,
+    the legal set taught — now the mounted whole's set, which carries
+    POST /ui/register).
+    """
+    response = client.get("/ui/register")
     assert response.status_code == 405
     body = response.json()
     assert set(body) == _REFUSAL_KEYS
-    assert body["expected"] == "DELETE /runs"
-    assert body["found"] == "the method DELETE is not allowed at the path /runs"
-    assert "POST /runs" in body["next_action"]
+    assert body["expected"] == "GET /ui/register"
+    assert body["found"] == "the method GET is not allowed at the path /ui/register"
+    assert "POST /ui/register" in body["next_action"]
 
 
 def test_done_200(client: TestClient) -> None:

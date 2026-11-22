@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Priori-tree is a generalized prioritization system: for any list and comparison operator, run the pairwise permutations, store the votes, tally — the output list is in a superior order than sizing individual items, because discernment between two items is easy (for humans and LLMs) while absolute sizing is not."
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["fastapi", "uvicorn[standard]"]
+dependencies = ["fastapi", "httpx2", "jinja2", "python-multipart", "uvicorn[standard]"]
 
 [build-system]
 requires = ["hatchling"]
@@ -100,9 +100,13 @@ select = ["ALL"]
 # RULING (service-face-brief §6, G-SERVICE-FACE-BRIEF approved 2026-11-21): BLE001 —
 # the 500 crash-envelope handler's except Exception IS the ruled catch-all (the app-level
 # fold: crashes first-class citizens, the article's three-part form; Starlette re-raises
-# so the traceback rides the log channel, never the body — the cli.py precedent re-cited:
-# the CLI's own exit-2 catch carries the same ruling). The ignore IS the ruling, named.
-"src/prioritree/service.py" = ["BLE001"]
+# so the traceback rides the log channel, never the body — the cli.py precedent re-cited).
+# PLC0415 (web-brief §3c + G-WEBSPEC-BRIEF approved 2026-11-22): the tail's mid-file
+# web import IS the import cycle's only legal form — the web module binds service.app at
+# ITS top, so the import must fire AFTER the app binds; a top-of-file import would fire
+# before, an importlib dodge would HIDE the cycle, not name it. The ignores ARE the
+# rulings, named.
+"src/prioritree/service.py" = ["BLE001", "E402", "PLC0415"]
 
 # RULING (service-acceptance-brief §7, G-SERVICE-ACCEPTANCE-BRIEF approved 2026-11-22): S603 —
 # the acceptance harness's Popen IS the no-shell law's own form (the fixed-argv boot list —
@@ -110,6 +114,12 @@ select = ["ALL"]
 # intent never rides a deterministic e2e harness). S607 named for the ruling's form's stability.
 # The tests/test_harness.py ruling re-carried at the service tier; the entry IS the ruling, named.
 "tests/test_service_acceptance.py" = ["S603", "S607"]
+
+# RULING (web-brief §3b + G-WEBSPEC-BRIEF approved 2026-11-22): BLE001 — the child's own
+# fold handler's except Exception IS the ruled catch-all (the service.py precedent
+# re-carried at the child: crashes first-class citizens; the fragment lane renders the
+# fold at 200, the page lane the honest 500). The ignore IS the ruling, named.
+"src/prioritree/web.py" = ["BLE001"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -131,4 +141,4 @@ venvPath = "."
 venv = ".venv"
 
 [dependency-groups]
-dev = ["pytest", "pyright", "ruff", "httpx2"]
+dev = ["pytest", "pyright", "ruff"]

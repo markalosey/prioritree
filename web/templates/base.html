@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!-- base — the chrome: the CDN pins (Shoelace 2.20.1 + HTMX 2.0.7), the static tags, the title/content blocks (web-brief §3d; the design §5; R10: the file is the source of truth) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Priori-tree{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js"></script>
+  <link rel="stylesheet" href="/static/app.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+<main class="wrap">
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>

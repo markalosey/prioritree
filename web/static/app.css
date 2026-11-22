@@ -1,0 +1,27 @@
+/* app.css — the web tier's stylesheet (web-brief §3d; the design §5 — authored source per R9/R10) */
+:root { --pt-gap: 0.75rem; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #fafafa; color: #1a1a1a; }
+.wrap { max-width: 40rem; margin: 0 auto; padding: var(--pt-gap); }
+.card { background: white; border-radius: 0.5rem; padding: var(--pt-gap); margin-bottom: var(--pt-gap); }
+label { display: block; margin: 0.5rem 0; }
+input { display: block; width: 100%; box-sizing: border-box; padding: 0.4rem; margin-top: 0.2rem; }
+.item-row input { display: inline-block; width: calc(50% - 0.25rem); }
+.cards { display: flex; gap: var(--pt-gap); margin: var(--pt-gap) 0; }
+.pair-card { flex: 1; }
+.card-label { font-size: 1.1rem; }
+.verdicts { display: flex; gap: var(--pt-gap); flex-wrap: wrap; }
+button.verdict { padding: 0.6rem 1.2rem; }
+table.ranked { border-collapse: collapse; width: 100%; margin: var(--pt-gap) 0; }
+table.ranked th, table.ranked td { border: 1px solid #ddd; padding: 0.4rem; text-align: left; }
+table.ranked th { background: #f0f0f0; }
+.coverage-strip { color: #666; }
+.three-part dt { font-weight: bold; margin-top: 0.5rem; }
+.three-part dd { margin: 0; }
+.wire-found { font-family: monospace; background: #f4f4f4; padding: 0.5rem; border-radius: 0.3rem; }
+.quiet { color: #666; }
+.share { background: #eef6ff; padding: 0.5rem; border-radius: 0.3rem; }
+.refusal { background: #fff7f0; border-left: 3px solid #e67e22; padding: var(--pt-gap); }
+#state-strip { background: #f4f4f4; padding: var(--pt-gap); border-radius: 0.3rem; }
+.involvement { columns: 2; margin: 0.5rem 0; }
+.ack-line { font-size: 1.1rem; }
+footer { color: #666; margin-top: var(--pt-gap); }
