@@ -45,6 +45,34 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/ciworkflowspec",
+            "owner": "togo",
+            "gate": "G-CIWORKFLOWSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/ci-workflow",
+            "owner": "togo",
+            "gate": "G-CI-WORKFLOW-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -52,7 +80,28 @@
         "id": "build",
         "purpose": "THE CI SURFACE'S BUILD — the units the census and design earn (the likely set, named not pinned: ci-workflow — the floor in Actions + the CodeQL config owned + the hook's note amendment via the generator's source), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, one-commit-per-increment; the free-tier law held at every step; the Makefile's targets the entrypoints; the store home CWD-relative at the runner.",
         "entry_condition": "G-CI-DESIGN-BRIEF is green — the design is the spec; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).",
-        "increments": []
+        "increments": [
+          {
+            "id": "build/ci-workflow",
+            "owner": "jikko",
+            "gate": "G-CI-WORKFLOW",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "first-run-green",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "close",
@@ -117,6 +166,30 @@
           "hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named",
           "the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the inward direction: auth first — the write-exposure cure — then the order-bias probe, outward after inward; per R3)",
           "the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling"
+        ]
+      },
+      "G-CIWORKFLOWSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed — the bytes whole over the approved design: the workflow's YAML (the floor job's steps + the CodeQL job's chain + the triggers per the no-PR law + the concurrency form), the codeql-config.yml (the positive paths), the hook's amendment source bytes, the README's lines (:189/:185/:57 + the direct-push story), the per-file dispatch plan",
+          "the free-tier law held at every byte (nothing paid; the schedule guard dropped per the synthesis's ruling; the flip leg named as the gate's blocking condition)",
+          "the collaborator approves — the build fires only after"
+        ]
+      },
+      "G-CI-WORKFLOW": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the ci-workflow unit lands per the approved spec — the exact-task law: the workflow's YAML whole (the floor job's steps with the Makefile's targets as entrypoints; the CodeQL job's chain with the owned config; the triggers push[main] + the weekly cron alone per the no-PR law; the concurrency form with the guard dropped), the codeql-config.yml (paths: [src/, tests/]), the README's lines (:189 CI live; :185 the remainder closed; :57 the 203 drift folded; the direct-push story)",
+          "the ruff-phase-2 landing whole: the hook's amendment at the hikari source (the collaborator's hand — the source edit, the regen, the emission landing here, kensho verifying the bytes); the workflow's lint step the enforcement's home",
+          "THE FLIP LEG ATTESTED (blocking): the collaborator attests the GitHub-side default-setup flip same-turn — the default disabled at their hand, the advanced config the owner",
+          "the first live run green at the collaborator's read-back (the landing push fires the workflow — the floor + the CodeQL jobs green at GitHub's own surface); kensho's independent verification green (validate/ci-workflow)"
+        ]
+      },
+      "G-CI-WORKFLOW-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit ci-workflow LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/ci-workflow) + mechanism analysis (understand/ci-workflow) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
     },
@@ -234,6 +307,38 @@
         "actor": "shinko",
         "timestamp": "2026-11-23T23:12:51Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed — the bytes whole over the approved design: the workflow's YAML (the floor job's steps + the CodeQL job's chain + the triggers per the no-PR law + the concurrency form), the codeql-config.yml (the positive paths), the hook's amendment source bytes, the README's lines (:189/:185/:57 + the direct-push story), the per-file dispatch plan\\\", \\\"the free-tier law held at every byte (nothing paid; the schedule guard dropped per the synthesis's ruling; the flip leg named as the gate's blocking condition)\\\", \\\"the collaborator approves — the build fires only after\\\"]\", \"gate\": \"G-CIWORKFLOWSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T23:21:35Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CIWORKFLOWSPEC-BRIEF\", \"increment\": \"synthesize/ciworkflowspec\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T23:21:48Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the ci-workflow unit lands per the approved spec — the exact-task law: the workflow's YAML whole (the floor job's steps with the Makefile's targets as entrypoints; the CodeQL job's chain with the owned config; the triggers push[main] + the weekly cron alone per the no-PR law; the concurrency form with the guard dropped), the codeql-config.yml (paths: [src/, tests/]), the README's lines (:189 CI live; :185 the remainder closed; :57 the 203 drift folded; the direct-push story)\\\", \\\"the ruff-phase-2 landing whole: the hook's amendment at the hikari source (the collaborator's hand — the source edit, the regen, the emission landing here, kensho verifying the bytes); the workflow's lint step the enforcement's home\\\", \\\"THE FLIP LEG ATTESTED (blocking): the collaborator attests the GitHub-side default-setup flip same-turn — the default disabled at their hand, the advanced config the owner\\\", \\\"the first live run green at the collaborator's read-back (the landing push fires the workflow — the floor + the CodeQL jobs green at GitHub's own surface); kensho's independent verification green (validate/ci-workflow)\\\"]\", \"gate\": \"G-CI-WORKFLOW\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T23:22:03Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CI-WORKFLOW\", \"increment\": \"build/ci-workflow\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-CI-WORKFLOW-BRIEF\", \"packets\": [\"discover/ci-workflow\", \"understand/ci-workflow\"], \"synthesize_increment\": \"synthesize/ci-workflow\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"first-run-green\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T23:22:15Z",
+        "op": "add-increment"
       }
     ]
   },
