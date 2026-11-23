@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "Priori-tree is a generalized prioritization system: for any list and comparison operator, run the pairwise permutations, store the votes, tally — the output list is in a superior order than sizing individual items, because discernment between two items is easy (for humans and LLMs) while absolute sizing is not."
 readme = "README.md"
 requires-python = ">=3.13"
+license = "MIT"
+authors = [{ name = "Mark Losey" }]
 dependencies = ["fastapi", "httpx2", "jinja2", "ouncemcp", "python-multipart", "uvicorn[standard]"]
 
 [build-system]
