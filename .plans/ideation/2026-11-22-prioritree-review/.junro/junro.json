@@ -43,6 +43,90 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/hygienespec",
+            "owner": "togo",
+            "gate": "G-HYGIENESPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/hygiene",
+            "owner": "togo",
+            "gate": "G-HYGIENE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/readmespec",
+            "owner": "togo",
+            "gate": "G-READMESPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/readme",
+            "owner": "togo",
+            "gate": "G-README-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/installspec",
+            "owner": "togo",
+            "gate": "G-INSTALLSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/install",
+            "owner": "togo",
+            "gate": "G-INSTALL-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -50,7 +134,68 @@
         "id": "build",
         "purpose": "THE CURE UNITS — the units the census and design earn (the likely set, named not pinned: readme-docs — the consistency + instruction rewrites; hygiene — the secrets/paths remediation per the ruled classes; install-deliverable — the recommended form landed, the uv tool candidate among them), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S RE-WALK at the install-deliverable gate (the post-cure README walk, R4's precedent), one-commit-per-increment.",
         "entry_condition": "G-REVIEW-BRIEF is green — the findings judged, the recommendation ruled, the cure set pinned; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).",
-        "increments": []
+        "increments": [
+          {
+            "id": "build/hygiene",
+            "owner": "jikko",
+            "gate": "G-HYGIENE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/readme",
+            "owner": "jikko",
+            "gate": "G-README",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/install",
+            "owner": "jikko",
+            "gate": "G-INSTALL",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "close",
@@ -115,6 +260,76 @@
           "hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named",
           "the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the mcp effort's resumption — member-path + lifecycle-integration resting at the boundary — or the collaborator's next call)",
           "the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling"
+        ]
+      },
+      "G-HYGIENESPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed — the bytes whole: the LICENSE file (the standard MIT text verbatim), pyproject's license + authors fields, CONTINUATION.md:11's rewrite (the absolute path cured)",
+          "the shrunk scope honored (the scrub DEFERRED per the collaborator's call — the .plans records untouched by this unit; the family-name comments kept)",
+          "the collaborator approves — the build fires only after"
+        ]
+      },
+      "G-HYGIENE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the cures land per the approved spec: the LICENSE file (the standard MIT text), pyproject's license = MIT + the authors field, CONTINUATION.md:11 rewritten (no absolute path)",
+          "the cured surfaces' marker greps clean (CONTINUATION.md: /Users/ absent; pyproject: the license + authors fields present; the LICENSE at the root, the standard form)",
+          "the floor green (pyright 0/0, ruff zero findings, the suite green); kensho's independent re-run green (validate/hygiene)"
+        ]
+      },
+      "G-HYGIENE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit hygiene LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/hygiene) + mechanism analysis (understand/hygiene) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-READMESPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed — the README's whole bytes (the Quickstart, the corrections, the tier-by-tier usage, the discipline block, the honest no-PyPI + uv-tool lines) + CONTINUATION's refresh + AGENTS.md's regen-line truth",
+          "moho's three fixes authored in (the Quickstart with a first comparison end-to-end; the input/output examples; the per-tier launch lines) + every stale number cured per the census (deps 6, routes 6, the five tiers, 197 tests, the eras current)",
+          "the collaborator approves — the build fires only after"
+        ]
+      },
+      "G-README": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the README rewrite lands per the approved spec: the Quickstart (install + a first comparison end-to-end), every stale number cured, the tier-by-tier usage (the CLI's invocation + flags, the service's launch, the web's make targets, the MCP's two run forms), the discipline block (the CWD law, the hooksPath truth + the ruff-pending fact, the port collision note), the honest no-PyPI line + the uv tool install . lane",
+          "CONTINUATION refreshed (the eras current) + AGENTS.md's regen-line truth (the unrunnable command cured or annotated honestly)",
+          "the floor green; kensho's independent check green (validate/readme: every claim verified against the tree — the README's numbers match pyproject/service/the floor)"
+        ]
+      },
+      "G-README-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit readme LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/readme) + mechanism analysis (understand/readme) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-INSTALLSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed — the packaging fix's bytes whole (web/ into the wheel: the ruled mechanism [package-data/importlib-resources or the spec's form]; the CWD question at an installed location answered honestly; the MCP confirmed riding) + the documented install lanes' exact commands (the README's Install lines verified runnable)",
+          "nothing promised that doesn't run — every documented command verified at the spec's own form (uv tool install . tested; the CLI-anywhere story; the web tier's serve at an installed location or its honest limitation named)",
+          "the collaborator approves — the build fires only after"
+        ]
+      },
+      "G-INSTALL": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the packaging fix lands per the approved spec: the wheel carries web/ AND the MCP (the ruled mechanism; the resolution honest at an installed location — the CWD question answered per the spec, never silently wrong)",
+          "the documented install lanes run (uv tool install . tested at the spec's form; the CLI-anywhere lane verified; the fresh-clone story whole)",
+          "MOHO'S RE-WALK: the cold user's walk of the CURED README (the install + the first session — the ease-of-use evidence riding this gate)",
+          "the floor green; kensho's independent re-run green (validate/install)"
+        ]
+      },
+      "G-INSTALL-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit install LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/install) + mechanism analysis (understand/install) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
     },
@@ -224,6 +439,110 @@
         "actor": "shinko",
         "timestamp": "2026-11-23T01:05:10Z",
         "op": "set-route-status"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-repo-review\", \"ruling\": \"THE GATE'S FOUR CALLS RULED (collaborator ruling, 2026-11-22, verbatim: \\\"License file: let's do it. MIT. --- ship web in the package and mcp --- defer the scrub. --- pypi deferred.\\\"): (1) THE LICENSE — MIT: the LICENSE file lands (the standard MIT text) + the pyproject fields (license = \\\"MIT\\\", the authors field); (2) THE WHEEL — SHIP WEB IN THE PACKAGE AND MCP: the wheel carries the web tier AND the MCP — the packaging fix rides the install-deliverable unit (web/ into the installed package; the resolution mechanics the spec lane rules — the CWD question at an installed location answered honestly); (3) THE SCRUB — DEFERRED: the .plans private-path scrub banked (the live-scrub ruling stands recorded for a later trigger; the hygiene unit's scope the shrunk set: the LICENSE + CONTINUATION:11; the family-name comments kept per the recommendation); (4) PYPI — DEFERRED: the preconditions progress (the LICENSE + the packaging both cured by this effort; CI named) — the publish trigger a later call. THE CURE SET CONFIRMED: readme-docs, hygiene (the shrunk scope), install-deliverable (grown by call 2) — composing now.\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:19:25Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed — the bytes whole: the LICENSE file (the standard MIT text verbatim), pyproject's license + authors fields, CONTINUATION.md:11's rewrite (the absolute path cured)\\\", \\\"the shrunk scope honored (the scrub DEFERRED per the collaborator's call — the .plans records untouched by this unit; the family-name comments kept)\\\", \\\"the collaborator approves — the build fires only after\\\"]\", \"gate\": \"G-HYGIENESPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:19:44Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-HYGIENESPEC-BRIEF\", \"increment\": \"synthesize/hygienespec\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:19:50Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the cures land per the approved spec: the LICENSE file (the standard MIT text), pyproject's license = MIT + the authors field, CONTINUATION.md:11 rewritten (no absolute path)\\\", \\\"the cured surfaces' marker greps clean (CONTINUATION.md: /Users/ absent; pyproject: the license + authors fields present; the LICENSE at the root, the standard form)\\\", \\\"the floor green (pyright 0/0, ruff zero findings, the suite green); kensho's independent re-run green (validate/hygiene)\\\"]\", \"gate\": \"G-HYGIENE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:07Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-HYGIENE\", \"increment\": \"build/hygiene\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-HYGIENE-BRIEF\", \"packets\": [\"discover/hygiene\", \"understand/hygiene\"], \"synthesize_increment\": \"synthesize/hygiene\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:13Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed — the README's whole bytes (the Quickstart, the corrections, the tier-by-tier usage, the discipline block, the honest no-PyPI + uv-tool lines) + CONTINUATION's refresh + AGENTS.md's regen-line truth\\\", \\\"moho's three fixes authored in (the Quickstart with a first comparison end-to-end; the input/output examples; the per-tier launch lines) + every stale number cured per the census (deps 6, routes 6, the five tiers, 197 tests, the eras current)\\\", \\\"the collaborator approves — the build fires only after\\\"]\", \"gate\": \"G-READMESPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:20Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-READMESPEC-BRIEF\", \"increment\": \"synthesize/readmespec\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:26Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the README rewrite lands per the approved spec: the Quickstart (install + a first comparison end-to-end), every stale number cured, the tier-by-tier usage (the CLI's invocation + flags, the service's launch, the web's make targets, the MCP's two run forms), the discipline block (the CWD law, the hooksPath truth + the ruff-pending fact, the port collision note), the honest no-PyPI line + the uv tool install . lane\\\", \\\"CONTINUATION refreshed (the eras current) + AGENTS.md's regen-line truth (the unrunnable command cured or annotated honestly)\\\", \\\"the floor green; kensho's independent check green (validate/readme: every claim verified against the tree — the README's numbers match pyproject/service/the floor)\\\"]\", \"gate\": \"G-README\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:33Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-README\", \"increment\": \"build/readme\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-README-BRIEF\", \"packets\": [\"discover/readme\", \"understand/readme\"], \"synthesize_increment\": \"synthesize/readme\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:38Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed — the packaging fix's bytes whole (web/ into the wheel: the ruled mechanism [package-data/importlib-resources or the spec's form]; the CWD question at an installed location answered honestly; the MCP confirmed riding) + the documented install lanes' exact commands (the README's Install lines verified runnable)\\\", \\\"nothing promised that doesn't run — every documented command verified at the spec's own form (uv tool install . tested; the CLI-anywhere story; the web tier's serve at an installed location or its honest limitation named)\\\", \\\"the collaborator approves — the build fires only after\\\"]\", \"gate\": \"G-INSTALLSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:44Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-INSTALLSPEC-BRIEF\", \"increment\": \"synthesize/installspec\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:49Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the packaging fix lands per the approved spec: the wheel carries web/ AND the MCP (the ruled mechanism; the resolution honest at an installed location — the CWD question answered per the spec, never silently wrong)\\\", \\\"the documented install lanes run (uv tool install . tested at the spec's form; the CLI-anywhere lane verified; the fresh-clone story whole)\\\", \\\"MOHO'S RE-WALK: the cold user's walk of the CURED README (the install + the first session — the ease-of-use evidence riding this gate)\\\", \\\"the floor green; kensho's independent re-run green (validate/install)\\\"]\", \"gate\": \"G-INSTALL\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:20:55Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-INSTALL\", \"increment\": \"build/install\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-INSTALL-BRIEF\", \"packets\": [\"discover/install\", \"understand/install\"], \"synthesize_increment\": \"synthesize/install\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:21:00Z",
+        "op": "add-increment"
       }
     ]
   },
@@ -245,6 +564,11 @@
         },
         {
           "text": "THE GOVERNANCE FORM (the full junro, all seats — the standing mandate carried): every seat rides the route — keikaku composes; tansa censuses (the doc surface inventory: every tracked documentation surface inventoried); shindan diagnoses (the hygiene sweep's findings: the secrets/private-path/personal-data map); rikai maps the mechanisms (the docs' claims vs the tree: where each doc's story breaks); suisen recommends (the install story's deliverable form per R2); keisan calculates (the commands' honesty: the documented install/usage commands verified runnable — the fresh-clone simulation's arithmetic); hyoka attacks; MOHO WALKS THE README (R4's law's natural extension: the cold user's blind install — the README's instructions followed with no help, the friction named); togo synthesizes; jikko lands the cures per-step (the file-unit law); kensho verifies; hansei debriefs; shinko dispatches. THE STANDING LAWS RIDE WHOLE: the seat-authored report (R6/R11), the per-step dispatch (R8), the two-lane form, the ThreePart, the census-first composition.",
+          "ruled_at": "2026-11-23",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE GATE'S FOUR CALLS RULED (collaborator ruling, 2026-11-22, verbatim: \"License file: let's do it. MIT. --- ship web in the package and mcp --- defer the scrub. --- pypi deferred.\"): (1) THE LICENSE — MIT: the LICENSE file lands (the standard MIT text) + the pyproject fields (license = \"MIT\", the authors field); (2) THE WHEEL — SHIP WEB IN THE PACKAGE AND MCP: the wheel carries the web tier AND the MCP — the packaging fix rides the install-deliverable unit (web/ into the installed package; the resolution mechanics the spec lane rules — the CWD question at an installed location answered honestly); (3) THE SCRUB — DEFERRED: the .plans private-path scrub banked (the live-scrub ruling stands recorded for a later trigger; the hygiene unit's scope the shrunk set: the LICENSE + CONTINUATION:11; the family-name comments kept per the recommendation); (4) PYPI — DEFERRED: the preconditions progress (the LICENSE + the packaging both cured by this effort; CI named) — the publish trigger a later call. THE CURE SET CONFIRMED: readme-docs, hygiene (the shrunk scope), install-deliverable (grown by call 2) — composing now.",
           "ruled_at": "2026-11-23",
           "actor": "shinko"
         }
