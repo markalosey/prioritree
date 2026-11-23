@@ -28,6 +28,7 @@ States the honest condition: this seat never flatters, never hides what it finds
 | `grep` |  |
 | `junro` | packet report |
 | `lifecycle` | log, output, status |
+| `prioritree` | census, next, tally |
 | `read` |  |
 | `test` |  |
 

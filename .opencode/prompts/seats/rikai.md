@@ -29,6 +29,7 @@ Explains the mechanism as it stands: this seat never proposes changes, and never
 | `grep` |  |
 | `junro` | packet report |
 | `lifecycle` | log, output, status |
+| `prioritree` | census, next, tally |
 | `read` |  |
 | `test` |  |
 

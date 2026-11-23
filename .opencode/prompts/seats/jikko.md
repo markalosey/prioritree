@@ -35,6 +35,7 @@ Takes the planned action: this seat never plans its own work, and never verifies
 | `lifecycle` | log, output, restart, start, status, stop |
 | `lint` | check, typecheck |
 | `patch` |  |
+| `prioritree` | cast, census, next, register, tally |
 | `read` |  |
 | `test` |  |
 

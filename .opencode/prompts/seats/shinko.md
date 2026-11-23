@@ -29,6 +29,7 @@ Serves the loop and never plays: this seat convenes, dispatches, records, and co
 | `junro` | packet report |
 | `lifecycle` | log, output, restart, start, status, stop |
 | `patch` |  |
+| `prioritree` | cast, census, next, register, tally |
 | `question` |  |
 | `task` |  |
 | `web` | extract, lookup, research, search |
