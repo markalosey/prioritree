@@ -26,8 +26,100 @@
       "assess": "hyoka",
       "dispatch": "shinko"
     },
-    "structure": [],
-    "gates": {},
+    "structure": [
+      {
+        "id": "pipeline",
+        "purpose": "THE CI PIPELINE (the standing form): THE CENSUS FIRST — FOUR ungated legs (tansa's actions-free-forms: the runner's free class, the workflow-native uv, the workflow grammar; shindan's current-state: no .github/ at HEAD, the CodeQL default live, the hook's phase-2 state; rikai's mechanism: the workflow's construction forms, the store home's fate at the runner; keisan's pricing: the free-tier arithmetic — the floor's runtime vs the free minutes, the CodeQL limits); then THE DESIGN LANE — ungated (suisen's workflow recommendation, hyoka's adversarial pass, MOHO'S COLD-CLONE WALK: the fresh-clone story the workflow serves); then togo's gated synthesis closing G-CI-DESIGN-BRIEF; the build units' discovery legs + gated briefs precede their builds.",
+        "entry_condition": "G-COMPOSITION is green (the composition validated at the route's head); the census fires first, its findings assumed by none of this composition.",
+        "increments": [
+          {
+            "id": "synthesize/ci-design",
+            "owner": "togo",
+            "gate": "G-CI-DESIGN-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE CI SURFACE'S BUILD — the units the census and design earn (the likely set, named not pinned: ci-workflow — the floor in Actions + the CodeQL config owned + the hook's note amendment via the generator's source), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, one-commit-per-increment; the free-tier law held at every step; the Makefile's targets the entrypoints; the store home CWD-relative at the runner.",
+        "entry_condition": "G-CI-DESIGN-BRIEF is green — the design is the spec; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry; the next era named — the inward direction: auth first, the probe second, outward after inward), the done call at the collaborator's ruling.",
+        "entry_condition": "the route's build gates closed green and the collaborator has called the close.",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "retro",
+                "executor": "semantic",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-synthesis",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-landing",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "id": "done-call",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: stages, gates, increments, the ungated placements, the load-bearing decisions) — the opening whole, the census placed FIRST with none of its findings assumed, every seat placed (R3: no seat bypassed)",
+          "every choice cites its ruling: Q-ci-surface's three (the free-tier law R1; the configurability carry + the ruff landing + the CodeQL config owned R2; the governance form + the inward direction R3) + the standing laws carried",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-CI-DESIGN-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE DESIGN BRIEF LANDED: togo's synthesis over the census (actions-free-forms, current-state, mechanism, pricing) + the design lane (workflow, adversarial, the cold-clone walk); the free-tier law held whole (nothing paid: the runner class, the CodeQL free form, the arithmetic verified); a divergence that survives reconciliation blocks the brief, never rides silently",
+          "the brief carries the design-work whole the rulings leave open: the workflow's shape (the floor job's steps — checkout, uv, the Makefile's targets as entrypoints per R2; the CodeQL job's config form owned by the tree), the ruff-phase-2 landing (the hook's note amendment riding the generator's source — hikari -> regen, never a hand-edit; CI the enforcement's home), the store home CWD-relative at the runner, the one-unit-vs-split ruling, the pricing verdict (the free minutes' arithmetic)",
+          "THE COLLABORATOR'S APPROVAL: the design judged ready-to-build; the build units' briefs cite it; their dispatches fire only after"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named",
+          "the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the inward direction: auth first — the write-exposure cure — then the order-bias probe, outward after inward; per R3)",
+          "the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling"
+        ]
+      }
+    },
     "checkpoints": [],
     "protocol": "v2.1",
     "amendments": [
@@ -62,6 +154,70 @@
         "actor": "shinko",
         "timestamp": "2026-11-23T22:20:20Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: stages, gates, increments, the ungated placements, the load-bearing decisions) — the opening whole, the census placed FIRST with none of its findings assumed, every seat placed (R3: no seat bypassed)\\\", \\\"every choice cites its ruling: Q-ci-surface's three (the free-tier law R1; the configurability carry + the ruff landing + the CodeQL config owned R2; the governance form + the inward direction R3) + the standing laws carried\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:32:05Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"THE DESIGN BRIEF LANDED: togo's synthesis over the census (actions-free-forms, current-state, mechanism, pricing) + the design lane (workflow, adversarial, the cold-clone walk); the free-tier law held whole (nothing paid: the runner class, the CodeQL free form, the arithmetic verified); a divergence that survives reconciliation blocks the brief, never rides silently\\\", \\\"the brief carries the design-work whole the rulings leave open: the workflow's shape (the floor job's steps — checkout, uv, the Makefile's targets as entrypoints per R2; the CodeQL job's config form owned by the tree), the ruff-phase-2 landing (the hook's note amendment riding the generator's source — hikari -> regen, never a hand-edit; CI the enforcement's home), the store home CWD-relative at the runner, the one-unit-vs-split ruling, the pricing verdict (the free minutes' arithmetic)\\\", \\\"THE COLLABORATOR'S APPROVAL: the design judged ready-to-build; the build units' briefs cite it; their dispatches fire only after\\\"]\", \"gate\": \"G-CI-DESIGN-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:32:18Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named\\\", \\\"the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the inward direction: auth first — the write-exposure cure — then the order-bias probe, outward after inward; per R3)\\\", \\\"the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:32:37Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green (the composition validated at the route's head); the census fires first, its findings assumed by none of this composition.\", \"purpose\": \"THE CI PIPELINE (the standing form): THE CENSUS FIRST — FOUR ungated legs (tansa's actions-free-forms: the runner's free class, the workflow-native uv, the workflow grammar; shindan's current-state: no .github/ at HEAD, the CodeQL default live, the hook's phase-2 state; rikai's mechanism: the workflow's construction forms, the store home's fate at the runner; keisan's pricing: the free-tier arithmetic — the floor's runtime vs the free minutes, the CodeQL limits); then THE DESIGN LANE — ungated (suisen's workflow recommendation, hyoka's adversarial pass, MOHO'S COLD-CLONE WALK: the fresh-clone story the workflow serves); then togo's gated synthesis closing G-CI-DESIGN-BRIEF; the build units' discovery legs + gated briefs precede their builds.\", \"stage\": \"pipeline\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:32:49Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-CI-DESIGN-BRIEF is green — the design is the spec; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).\", \"purpose\": \"THE CI SURFACE'S BUILD — the units the census and design earn (the likely set, named not pinned: ci-workflow — the floor in Actions + the CodeQL config owned + the hook's note amendment via the generator's source), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, one-commit-per-increment; the free-tier law held at every step; the Makefile's targets the entrypoints; the store home CWD-relative at the runner.\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:32:59Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's build gates closed green and the collaborator has called the close.\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry; the next era named — the inward direction: auth first, the probe second, outward after inward), the done call at the collaborator's ruling.\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:33:09Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CI-DESIGN-BRIEF\", \"increment\": \"synthesize/ci-design\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:33:22Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"id\\\": \\\"retro\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-synthesis\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-landing\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"done-call\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T22:33:32Z",
+        "op": "add-increment"
       }
     ]
   },
