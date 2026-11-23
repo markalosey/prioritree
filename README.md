@@ -12,9 +12,11 @@ The comparator class is both human AND LLM — both vote through the same vote i
 
 License: MIT — the [LICENSE](LICENSE) file at the repo root (Copyright (c) 2026 Mark Losey).
 
+[HUMAND.md](HUMAND.md) — the only human-written thing in this repository; everything else is generated.
+
 ## Quickstart
 
-The first comparison, end-to-end, from a fresh clone. Run every command from the repo root (see [Discipline](#discipline)):
+The first comparison, end-to-end, from a fresh clone. Requirements: Python 3.13+ and uv. Run every command from the repo root (see [Discipline](#discipline)):
 
 ```console
 $ git clone git@github.com:markalosey/prioritree.git
@@ -52,7 +54,7 @@ Five tiers, one layered architecture, library-first:
 - **Web — built 2026-11-22.** Fronts the service: `src/prioritree/web.py` (654 lines, nine routes, 14 authored Jinja2 templates + 2 static files) over the in-process seam — the human comparator's vote surface at the browser.
 - **MCP — live 2026-11-22.** The agent-callable tier: `src/prioritree/mcp_server.py` (580 lines, the five OunceMCP tools — `runs.register`, `runs.next`, `votes.cast`, `votes.census`, `runs.tally`; the `store_lock.py` flock seam), two run forms.
 
-Runtime dependencies: six — `fastapi`, `httpx2`, `jinja2`, `ouncemcp`, `python-multipart`, `uvicorn[standard]` (`pyproject.toml`). The quality floor: 197 tests green, pyright clean, ruff clean.
+Runtime dependencies: six — `fastapi`, `httpx2`, `jinja2`, `ouncemcp`, `python-multipart`, `uvicorn[standard]` (`pyproject.toml`). The quality floor: 200 tests green, pyright clean, ruff clean.
 
 ## Usage
 
@@ -68,6 +70,7 @@ The five ops, one console script. The report language is marker-first, tab-separ
 | state | `prioritree state <run_id>` |
 | tally | `prioritree tally <run_id>` |
 
+- Both lanes speak the table's ops: `uv run prioritree <op> ...` at the repo root (the clone lane — `make dev`'s editable install); the bare `prioritree` form is the tool lane's (`uv tool install .`).
 - Item tokens are `id:label`, split on the FIRST colon — ids may not contain colons; labels may.
 - The verdict set (the `winner` positional): `prefer-a`, `prefer-b`, `tie`.
 - `--home <path>` rides all five ops — the store home (default `.prioritree/runs`, CWD-relative).
@@ -156,14 +159,14 @@ Reading the lines:
 
 ## Discipline
 
-- **The CWD law.** The store (`.prioritree/runs`) and the web mounts (`web/templates`, `web/static`) resolve CWD-relative — run from the repo root, or your data lands where you stood (the directories mint silently on demand). The CLI's `--home` is the per-invocation escape.
+- **The CWD law.** The store (`.prioritree/runs`) resolves CWD-relative — run from the repo root, or your data lands where you stood (the directory mints silently on demand); the CLI's `--home` is the per-invocation escape. The web homes resolve in order: the CWD's `web/templates` + `web/static` first (the repo's authored files — the clone's form), the installed package's copies the fallback — a wrong cwd in the clone folds honestly (the honest 500); an installed location always renders.
 - **The git hook.** `.githooks/pre-commit` is tracked, but the pointer never clones — set it by hand: `git config core.hooksPath .githooks`. The hook enforces pyright only; ruff is named, pending — run `make lint` for the full floor. `PRIORITREE_HOOK_BYPASS=1` is the tracked bypass.
 - **The port collision.** `make start` and `mcp_server --serve` both default to port 8000 — run one at a time, or override (`make start PORT=8100`).
 - **`.prioritree/` mints at runtime** — the server pid and log, the runs store; gitignored, never present in a clone.
 
 ## Install
 
-**The clone — the whole product.** The only path that operates all five tiers: the web tier's templates and static files ride the repo, and the CWD-relative homes resolve at the root. Requirements: Python 3.13+ and uv. The full honest sequence:
+**The clone — the source and the floor.** The web tier's templates and static files ride the repo (`web/`), the homes resolve at the root, and the tool lane below serves the same pages from the installed package. Requirements: Python 3.13+ and uv. The full honest sequence:
 
 ```console
 $ git clone git@github.com:markalosey/prioritree.git
@@ -177,13 +180,13 @@ $ make start
 $ open http://127.0.0.1:8000/
 ```
 
-**`uv tool install .` — the CLI anywhere.** Installs the `prioritree` console script and its six dependencies, usable from any directory. State is per-project by design: the store mints at `.prioritree/runs` under your CWD; `--home` redirects. The web tier does not ride this lane today: the wheel carries `src/prioritree` only (no web templates) — the clone is the web tier's only home.
+**`uv tool install .` — the tool lane.** Installs the `prioritree` console script and its six dependencies — the five CLI ops run from any directory. State is per-project by design: the store mints at `.prioritree/runs` under your CWD; `--home` redirects. The web tier rides this lane too: the wheel ships the templates and static files as package data, and the web homes resolve them from the installed package. Serve the web with the tool env's uvicorn — `$(uv tool dir)/prioritree/bin/uvicorn prioritree.service:app` (any directory; the store mints where you stood). The MCP rides the same install: `$(uv tool dir)/prioritree/bin/python -m prioritree.mcp_server` for stdio, or the same command with `--serve` (port 8000 — one at a time with the web).
 
-**Not on PyPI.** `uv tool install prioritree` and `pip install prioritree` do not resolve — Priori-tree is not published. The publish is deferred: the license has landed; packaging and CI remain.
+**Not on PyPI.** `uv tool install prioritree` and `pip install prioritree` do not resolve — Priori-tree is not published. The publish is deferred: the license and the packaging have landed; CI remains.
 
 ## Status
 
-Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools). CI is deferred — the git hook and the local gates stand in. The quality floor: 197 tests green, pyright clean, ruff clean.
+Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools). CI is deferred — the git hook and the local gates stand in. The quality floor: 200 tests green, pyright clean, ruff clean.
 
 ## License
 

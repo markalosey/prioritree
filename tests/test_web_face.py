@@ -5,12 +5,16 @@ The web unit's test surface (web-brief §6.1): the mounted app under the
 injection fixture — the SAME app now carries the mount; the child's
 controllers call the service through the in-process client and the service
 reads the PARENT's state.seam (the fixture's injection) — the isolation
-extends to the web tier whole (store-as-parameter; no env, no CWD games).
+extends to the web tier whole (store-as-parameter; no env, no CWD games —
+the resolver arcs alone chdir, by pytest's own monkeypatch fixture with
+its guaranteed restore: the CWD IS the resolution's own input).
 The arcs: the page arcs (landing, sitting, done, progress, result
 200/409/404); the fragment arcs (register 201/422/bad-quorum, the two-step
 chain, the idempotent echo, the HX-Redirect, the 422 pair-untouched, the
 state strip, the fold fragment); the static pair (the chrome's app.css +
-app.js — the 200s pinned, a mis-named home fails loudly); the no-anchoring
+app.js — the 200s pinned, a mis-named home fails loudly); the resolver arcs (the loader
+seam's ordered resolution: the CWD's copy first, the package's the
+fallback, the fold preserved at a wrong cwd); the no-anchoring
 pins (byte-level: no sitting-context response carries the count; the
 sitting surface never links state/tally). The S101/PLR2004 tests ruling
 stands.
@@ -18,17 +22,14 @@ stands.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 import pytest
-
-if TYPE_CHECKING:
-    from pathlib import Path
-
 from fastapi.testclient import TestClient
 
 from prioritree.service import app
 from prioritree.service_store import Serialize
+from prioritree.web import resolve
 
 # The wire's own vocabulary (the service face file's literals, carried 1:1 —
 # the literals ARE the specification under test).
@@ -66,6 +67,29 @@ def test_static_pair_serves(client: TestClient) -> None:
     assert js.status_code == 200
     assert "--pt-gap" in css.text
     assert "pt-copy" in js.text
+
+
+def test_resolve_prefers_the_cwd_home(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """A present CWD home resolves to itself — the clone's form, the order's first branch."""
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "web" / "templates").mkdir(parents=True)
+    assert resolve("web/templates", "templates") == "web/templates"
+
+
+def test_resolve_falls_back_to_the_package(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """An absent CWD home derives the package path — the installed form, the order's second branch."""
+    monkeypatch.chdir(tmp_path)
+    resolved = resolve("web/templates", "templates")
+    assert resolved != "web/templates"
+    assert Path(resolved).is_absolute()
+    assert resolved.endswith("templates")
+
+
+def test_resolve_keeps_the_fold_at_a_wrong_cwd(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """The wrong-cwd fold preserved: both branches miss, the resolution never raises."""
+    monkeypatch.chdir(tmp_path)
+    resolved = resolve("web/templates", "templates")
+    assert not Path(resolved).exists()
 
 
 def test_sitting_serves_first_pair_server_side(client: TestClient) -> None:

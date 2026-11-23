@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/installspec
 
-**Route:** prioritree-review (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-review (executing) | **Events:** 8 | **Reports:** 3
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,12 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-23T02:17:35Z |
 | 2 | report | togo | 2026-11-23T02:26:43Z |
+| 3 | result | shinko | 2026-11-23T02:26:59Z |
+| 4 | gate | shinko | 2026-11-23T02:28:50Z |
+| 5 | dispatch | shinko | 2026-11-23T02:48:52Z |
+| 6 | report | togo | 2026-11-23T02:50:29Z |
+| 7 | dispatch | shinko | 2026-11-23T02:57:31Z |
+| 8 | report | togo | 2026-11-23T02:58:27Z |
 ## Reported by togo — 2026-11-23T02:26:43Z
 
 # THE INSTALL UNIT'S EXACT-TASK SPEC — the four files' bytes whole (synthesize/installspec; togo, 2026-11-22)
@@ -282,3 +288,23 @@ def test_resolve_keeps_the_fold_at_a_wrong_cwd(monkeypatch: pytest.MonkeyPatch, 
 3. **"the collaborator approves — the build fires only after"** → this spec + its ONE open question ride the gate: the two count-lines (:52/:55 — the brief's fence named four; the counts are the unit's own consequences, hyoka's rank-1 class; RECOMMENDED: land both at step 4 with the measured numbers). **THE TRADE-OFF THE UNIT CARRIES** (the brief's own, carried whole): the loader's seam grows the fork (CWD-first, package-fallback) — the price of curing the install WITHOUT moving the clone's ruled layout; and the fallback branch's installed reality is provable only at the gate's live install — the suite covers the order logic, the gate covers the truth.
 
 — togo, the synthesis leg, read-only by design; this report is the one write.
+## Reported by togo — 2026-11-23T02:50:29Z
+
+R6 — the reportPrivateUsage remainder RULED: (b) the resolver made public.
+THE EXACT BYTES: src/prioritree/web.py — `_resolve` → `resolve` at :126 (the def), :157/:158 (the two mounts), `__all__ = ["web_app"]` → `["web_app", "resolve"]` at :66; tests/test_web_face.py — the import :32 + the three arcs' call sites :76/:82/:91. Naming law re-checked: the act-statement "Resolve the web home..." — the first word is already the name; only the privacy underscore drops. Retires-when: none — a public symbol carries no retirement.
+WHY (b): the diagnostic is CORRECT — a true mislabeling, not a disagreement. The resolver IS a public surface: a gated contract (its docstring's own Provenance: install-brief §2/§3, Q-repo-review ruling 4, G-INSTALLSPEC-BRIEF — the same provenance as pyproject:21-31's force-include RULING), consumed deliberately by the spec's own falsification set (the N=3 resolver arcs), already authored at the public bar (the five-field docstring — web.py's own header law).
+WHY NOT (a): the named form is unsupported — [tool.pyright] (:161-175) is global-only; pyright carries NO per-file rule overrides (executionEnvironments scope paths, never rules), so the ruff per-file-ignores precedent (:45-156) does not carry across tools; the degraded forms are doubly barred: global reportPrivateUsage="false" blinds the whole tree; the in-source `# pyright: ignore` comment is the suppression the zero-ignore law bars (jikko's step-3 own words). The ruling form is reserved for rule-intent-vs-law disagreement (:39-42) — here rule and law AGREE.
+WHY NOT (c): the mounts resolve ONCE at import (web.py:157-158), before any chdir — the ORDER is unobservable through the mounts without importlib.reload surgery that breaks the mounted whole's identity (service.py's app holds the old child); the fold arc needs the return (check_dir=False never raises — unobservable at the mount). The direct call is the spec's own form (installspec §3).
+THE TRADE-OFF (named): web.py's export contract grows by one (web_app + resolve) — the resolution importable by any consumer. Honest: the contract was already real; the underscore was the lie. Precedent cited: this is the tree's ONLY private import (grep-whole-tests) — no other test touches a private symbol; the per-module __all__ convention (cli "command", service "app", store_lock "Lock") grows to two symbols at web.py by this ruling, the first module to own two.
+## Reported by togo — 2026-11-23T02:58:27Z
+
+```diff
+(1) THE COUNT — README:55 and :186, both sites:
+- The quality floor: 197 tests green, pyright clean, ruff clean.
++ The quality floor: 200 tests green, pyright clean, ruff clean.
+(2) THE CLONE-LANE CLI — new bullet, the Usage/CLI list after the five-op table (:63-69):
++ - Both lanes speak the table's ops: `uv run prioritree <op> ...` at the repo root (the clone lane — `make dev`'s editable install); the bare `prioritree` form is the tool lane's (`uv tool install .`).
+(3) UV NAMED EARLY — README:17, the Quickstart's requirement line, before the first make command:
+- The first comparison, end-to-end, from a fresh clone. Run every command from the repo root (see [Discipline](#discipline)):
++ The first comparison, end-to-end, from a fresh clone. Requirements: Python 3.13+ and uv. Run every command from the repo root (see [Discipline](#discipline)):
+```

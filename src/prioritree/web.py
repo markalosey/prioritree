@@ -20,12 +20,16 @@ StaticFiles mount) and GENERATES the served surface from them at request
 time (template + context -> the page); ZERO template content lives in
 Python (no string constants, no giant concatenations — the superseded
 web_structure.py form out of grammar), ZERO generated artifacts (nothing
-emits, nothing regens, no --check). The CWD-relative homes ride the
-repo-root launch discipline (STORE_HOME run_store.py:53 the precedent);
-the static mount's check_dir=False is the named cure for the acceptance
-harness's scratch-cwd boot (StaticFiles raises at import on an absent
-directory; the store mkdirs on demand — the asymmetry named at the
-re-settle). The child's OWN fold + refuse handlers (the mount's price:
+emits, nothing regens, no --check). The web homes resolve IN ORDER
+(install-brief §2/§3): the CWD-relative copy FIRST (the repo-root launch
+discipline, STORE_HOME run_store.py:53 the precedent — the authored files
+win when present), the shipped package's copy the FALLBACK
+(importlib.resources over the wheel's force-include mapping — the
+installed lane renders from the package); the static mount's
+check_dir=False is the named cure for the acceptance harness's
+scratch-cwd boot (StaticFiles raises at import on an absent directory;
+the store mkdirs on demand — the asymmetry named at the re-settle; a
+wrong cwd in the clone folds honestly — both branches miss). The child's OWN fold + refuse handlers (the mount's price:
 after the tail mount every path the parent does not fully match lands on
 the child — starlette routing.py serves the FIRST FULL match and the
 Mount matches FULL on path alone, so the child owns the unmatched-path and
@@ -45,6 +49,8 @@ asserts, no prints.
 
 from __future__ import annotations
 
+from importlib.resources import files
+from pathlib import Path
 from typing import Any, Final
 
 import httpx2
@@ -57,7 +63,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from prioritree.service import ESCALATION
 from prioritree.service import app as service_app
 
-__all__ = ["web_app"]
+__all__ = ["resolve", "web_app"]
 
 # The web tier's named constants (content-in-configuration): the route paths
 # (the child's own surface, collision-free against the service's six), the
@@ -75,6 +81,13 @@ _VOTE: Final[str] = "/ui/runs/{stem}/vote"
 _STATE_STRIP: Final[str] = "/ui/runs/{stem}/state"
 _TEMPLATES_HOME: Final[str] = "web/templates"
 _STATIC_HOME: Final[str] = "web/static"
+# The fallback's own vocabulary (install-brief §2): the shipped package's
+# name — the force-include dest root, pyproject's mapping naming the same
+# package — + the two tails (the dests' tails; one spelling across the
+# mapping, these constants, and the resolver's derivation).
+_PACKAGE: Final[str] = "prioritree"
+_TEMPLATES_TAIL: Final[str] = "templates"
+_STATIC_TAIL: Final[str] = "static"
 _BASE_URL: Final[str] = "http://prioritree.internal"
 _OK: Final[int] = 200
 _CREATED: Final[int] = 201
@@ -109,6 +122,31 @@ _SERVICE_LANES: Final[tuple[str, ...]] = (
 )
 UNION_LANES: Final[str] = "address a legal route — " + ", ".join(_WEB_LANES + _SERVICE_LANES)
 
+
+def resolve(home: str, tail: str) -> str:
+    """Resolve the web home: the CWD's copy first, the shipped package's the fallback.
+
+    Purpose: the ordered resolution for both authored homes (the templates
+    + the static): the CWD-relative copy WINS when present (the clone's
+    repo-root discipline byte-preserved — the mounts receive the same
+    bytes they receive today), else the shipped package's own copy
+    (importlib.resources' files() over the wheel's force-include mapping
+    — the installed lane renders from the package).
+    Refuses when: never — a missing directory is a VALUE, never an error
+    (the resolution lands on the derived path; the fold is the render
+    tier's honest behavior — the wrong-cwd clone folds at the honest 500,
+    the scratch-cwd boot stands on check_dir=False).
+    Re-run: deterministic given the filesystem (the CWD's state + the
+    package's own).
+    Touches: nothing — a pure resolution over the filesystem's state.
+    Provenance: install-brief §2/§3 (the ordered resolution),
+    Q-repo-review ruling 4, G-INSTALLSPEC-BRIEF.
+    """
+    if Path(home).is_dir():
+        return home
+    return str(files(_PACKAGE).joinpath(tail))
+
+
 # The child app (web-brief §3e: the docs routes DISABLED — the parent's own
 # /docs, /redoc, /openapi.json stay live, registered before the mount). The
 # static mount's check_dir=False: the acceptance harness boots at a scratch
@@ -116,8 +154,8 @@ UNION_LANES: Final[str] = "address a legal route — " + ", ".join(_WEB_LANES + 
 # at construction on an absent directory, the store mkdirs on demand — the
 # flag is the asymmetry's named cure (the re-settle's §5).
 web_app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
-web_app.mount("/static", StaticFiles(directory=_STATIC_HOME, check_dir=False), name="static")
-templates = Jinja2Templates(directory=_TEMPLATES_HOME)
+web_app.mount("/static", StaticFiles(directory=resolve(_STATIC_HOME, _STATIC_TAIL), check_dir=False), name="static")
+templates = Jinja2Templates(directory=resolve(_TEMPLATES_HOME, _TEMPLATES_TAIL))
 
 # THE IN-PROCESS CLIENT (web-brief §3a, ruled exact): ONE module-level
 # instance, built at import against the imported service app, shared by all

@@ -18,6 +18,18 @@ prioritree = "prioritree.cli:command"
 [tool.hatch.build.targets.wheel]
 packages = ["src/prioritree"]
 
+# RULING (install-brief §2 + Q-repo-review ruling 4, G-INSTALL-BRIEF approved
+# 2026-11-22): the wheel SHIPS the web tier's authored homes as package data —
+# web/templates + web/static map INTO the package at flat dests (prioritree/
+# templates, prioritree/static — NO prioritree/web/ directory: the web.py
+# module's namespace-portion is never shadowed). The clone is untouched (the
+# mapping is build-time only, zero moves on disk); web.py's loader seam
+# resolves the CWD's copy first, this shipped copy the fallback. The MCP rides
+# by construction (mcp_server.py among the fifteen modules packages carries).
+[tool.hatch.build.targets.wheel.force-include]
+"web/templates" = "prioritree/templates"
+"web/static" = "prioritree/static"
+
 [tool.ruff]
 target-version = "py313"
 line-length = 120
