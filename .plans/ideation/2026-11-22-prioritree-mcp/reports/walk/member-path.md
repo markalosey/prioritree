@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — walk/member-path
 
-**Route:** prioritree-mcp (executing) | **Events:** 3 | **Reports:** 1
+**Route:** prioritree-mcp (executing) | **Events:** 6 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -10,6 +10,9 @@
 | 1 | dispatch | shinko | 2026-11-23T16:22:20Z |
 | 2 | dispatch | shinko | 2026-11-23T16:36:44Z |
 | 3 | report | moho | 2026-11-23T16:41:22Z |
+| 4 | result | shinko | 2026-11-23T16:41:43Z |
+| 5 | dispatch | shinko | 2026-11-23T16:47:18Z |
+| 6 | report | moho | 2026-11-23T16:50:51Z |
 ## Reported by moho — 2026-11-23T16:41:22Z
 
 moho (盲歩) — packet walk/member-path — the report of what was, not a new act.
@@ -23,3 +26,16 @@ ENCOUNTERED, the returns as I got them: (1) the first glob on ".prioritree/runs/
 EASE-OF-USE, as experienced: the walk's ease-of-use question never opened — no prioritree tool served me, so I hold no unaided teaching from register/next/cast. The only teaching my session carries comes from the reads: trust the directory read over glob for dot-directories, and read the manifest's run_id field, never the filename's number.
 
 HONEST HEADLINE: the session cancelled (or the surface never attached) before the first walk act. Nothing was registered, nothing sat, nothing was cast. This report is what remains of the journey.
+## Reported by moho — 2026-11-23T16:50:51Z
+
+THE HONEST HALT AT ARRIVAL — moho's blind walk of walk/member-path, 2026-11-23.
+
+ARRIVAL, what the names alone taught: prioritree_runs_register / runs_next / votes_cast / votes_census / runs_tally — two nouns (runs, votes) and a sequence that reads itself: register a run, ask the next pair, cast which is greater, repeat, tally the ranked whole, census the audit. A pairwise-comparison ranker: judgments as votes, tallies as order.
+
+THE HALT, what the unaided walk found: the session does NOT carry the five tools. The callable surface is ten tools — calculate, friction, glob, grep, junro, list_mcp_resources, list_mcp_resource_templates, read, read_mcp_resource, test — and none is prioritree_*. The only live connection serves hikari-local and hikari-prod, a different product (query algebra, deliverables, provenance surfaces). No prioritree server, no prioritree resource.
+
+THE REFUSAL HARVEST, verbatim: reaching for the register through the only bridge (read_mcp_resource, server "prioritree", uri "prioritree://runs/register") returned only: "Failed to read MCP resource: prioritree/prioritree://runs/register". A mute refusal — no expected/found/next-action, no list of what IS served. The two listing calls (list_mcp_resources, list_mcp_resource_templates) were the only teachers, and they confirmed absence.
+
+REGISTER, SITTING, TALLY, CENSUS: all unreachable. No schema served, no tool-side refusal to read — the tools that would teach are not in the room. The walk cannot even fail informatively; it fails by absence.
+
+EASE-OF-USE VERDICT (G-MEMBERPATH evidence): the break is upstream of the tool surface — the handoff, not the tools. A walker dispatched with a five-tool manifest arrives to find none seated. Nothing errored at dispatch, nothing named the gap, and the mute refusal corrected nothing. Worst failure class: silent absence, discoverable only by exhausting the session's listing verbs. For the member path: a dispatch-time check that the granted tool manifest matches the seated session would have caught this before the walk began.
