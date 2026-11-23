@@ -1,0 +1,246 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-review",
+    "title": "Prioritree Review — the exhaustive repo review: the consistency of every documentation surface, the install/usage instructions' honesty (the fresh-clone path to green), the hygiene sweep (secrets, private filesystem paths, leaked personal data) over the ENTIRE tracked repo; the install deliverable's form the team's recommendation (the uv tool install candidate among the priced forms); the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "THE COLLABORATOR'S DIRECTIVE (2026-11-22, verbatim): \"We need to conduct an exhaustive review of the entire repo for consistency, install instructions, usage instructions, README etc... We need to look for any leakage of secrets, private paths (full paths on this file system) etc... We should do this an an entire junro effort with the appropriate team members involved.\" + \"We should likely end up with some sort of uv tool install... but I'll leave that up to the team.\"",
+      "the repo's shipped surfaces whole: the core library + CLI + the FastAPI service (six routes, ThreePart 21/21) + the web tier (14 authored templates, the projection law live) + the MCP server (five OunceMCP tools, the flock seam, two run forms) + the lifecycle targets + the member-callable lifecycle tool",
+      "the era's records: three efforts done (birth, core, ux) + the mcp effort executing at its first unit boundary (mcp-server green; member-path + lifecycle-integration resting) — the records themselves reviewable surfaces (the hygiene sweep exempts nothing)",
+      "the standing laws carried: the seat-authored report (R6/R11), the per-step dispatch (R8, the file-unit), the two-lane form, the ThreePart mandatory, the census-first composition, the implementation-walk law (R4) — the cold-user walk applies to the README's install story as it did to the tools"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "pipeline",
+        "purpose": "THE REVIEW PIPELINE (the standing form): THE CENSUS FIRST — FOUR ungated legs over the repo whole (tansa's doc-surface inventory; shindan's hygiene diagnosis — the secrets/private-path/personal-data map, every tracked file, no exemption; rikai's consistency map — the docs' claims vs the tree; keisan's command honesty — the documented commands' runnability); then THE DESIGN LANE — ungated suisen's install-story recommendation (R2's candidates priced, the uv leaning carried), hyoka's adversarial pass, MOHO'S README WALK (the cold user's blind install, R4's law extended); then togo's gated synthesis closing G-REVIEW-BRIEF; the cure units' discovery legs + gated briefs precede their builds; the route grows unit-by-unit.",
+        "entry_condition": "G-COMPOSITION is green (the composition validated at the route's head); the census fires first, its findings assumed by none of this composition.",
+        "increments": [
+          {
+            "id": "synthesize/review-brief",
+            "owner": "togo",
+            "gate": "G-REVIEW-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE CURE UNITS — the units the census and design earn (the likely set, named not pinned: readme-docs — the consistency + instruction rewrites; hygiene — the secrets/paths remediation per the ruled classes; install-deliverable — the recommended form landed, the uv tool candidate among them), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S RE-WALK at the install-deliverable gate (the post-cure README walk, R4's precedent), one-commit-per-increment.",
+        "entry_condition": "G-REVIEW-BRIEF is green — the findings judged, the recommendation ruled, the cure set pinned; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry; the next era named — the mcp effort's resumption or the collaborator's next call), the done call at the collaborator's ruling.",
+        "entry_condition": "the route's build gates closed green and the collaborator has called the close.",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "retro",
+                "executor": "semantic",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-synthesis",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-landing",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "id": "done-call",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: stages, gates, increments, the ungated placements, the application order) — the opening whole, the census placed FIRST with none of its findings assumed, every seat placed (R3: no seat bypassed)",
+          "every choice cites its ruling: Q-repo-review's three (R1 the exhaustive scope, R2 the deliverable's discretion with the uv leaning carried, R3 the governance with moho's README walk) + the standing laws carried",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-REVIEW-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE REVIEW BRIEF LANDED: togo's synthesis over the four census legs (doc-surface, hygiene, consistency, commands) + the design lane (install-story, adversarial, the blind walk); a divergence that survives reconciliation blocks the brief, never rides silently",
+          "the brief carries the findings whole (the consistency breaks, the hygiene map with the remediation classes RULED, the commands' honesty) + the install story's RECOMMENDATION (R2: the candidates priced, the uv tool install leaning carried, the team's reasoning whole) + the cure set pinned (the units the findings earn, named)",
+          "THE COLLABORATOR'S APPROVAL: the findings judged, the recommendation ruled (the deliverable's form chosen), the cure units' briefs cite this gate; their dispatches fire only after"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named",
+          "the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the mcp effort's resumption — member-path + lifecycle-integration resting at the boundary — or the collaborator's next call)",
+          "the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-repo-review\", \"text\": \"What is the prioritree repo's honest whole — the exhaustive review: the consistency of every documentation surface (README, AGENTS.md, CONTINUATION.md, every doc against the code and each other), the install/usage instructions' honesty (the fresh-clone path to green, every tier's usage story), the hygiene sweep over the entire tracked repo (secrets leakage, private filesystem paths, leaked personal data — no surface exempt), with the install deliverable's form (the uv tool install candidate among the priced forms) left to the team's recommendation?\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T00:59:54Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-repo-review\", \"ruling\": \"THE REVIEW SCOPE (collaborator ruling, 2026-11-22, verbatim ground: \\\"We need to conduct an exhaustive review of the entire repo for consistency, install instructions, usage instructions, README etc... We need to look for any leakage of secrets, private paths (full paths on this file system) etc...\\\"): THE EXHAUSTIVE REVIEW, four axes over the ENTIRE tracked repo — (1) CONSISTENCY: every documentation surface's claims vs the tree's reality and each other (README.md, AGENTS.md, CONTINUATION.md, the docstrings' public claims, the stores' records as cited surfaces); (2) INSTALL INSTRUCTIONS: the fresh-clone path to green (the clone -> the deps -> the venv -> the first green floor — every documented command's honesty); (3) USAGE INSTRUCTIONS: every tier's usage story (the CLI, the service, the web, the MCP server, the lifecycle targets + tool — the README/user's path to each); (4) THE HYGIENE SWEEP: secrets leakage (tokens, keys, credentials, .env residue, API markers), PRIVATE PATHS (full filesystem paths — /Users/... — in every tracked file, the shipped surfaces especially, the .plans records INCLUDED: no surface exempt, the team rules the remediation classes), leaked personal data. THE ENTIRETY: every tracked file, no exemption — the sweep's own honesty includes the effort records.\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:00:01Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-repo-review\", \"ruling\": \"THE DELIVERABLE'S FORM — THE TEAM'S DISCRETION (collaborator ruling, 2026-11-22, verbatim ground: \\\"We should likely end up with some sort of uv tool install... but I'll leave that up to the team.\\\"): the install story's deliverable form is a DESIGN QUESTION for the team, never a mandate: the candidates priced with reasoning (uv tool install prioritree — the CLI as a globally installable tool; pip install prioritree; the repo-relative uv run forms; the documented quickstart's shape), suisen recommends with the fit argued (the CLI's console script, the tier fences, the service/web/MCP's own run forms as distinct stories), the collaborator rules at the gate; THE COLLABORATOR'S LEANING RECORDED as exactly that — a leaning toward \\\"some sort of uv tool install\\\", the team's recommendation free to confirm, refine, or decline it with the reasons carried.\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:00:10Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-repo-review\", \"ruling\": \"THE GOVERNANCE FORM (the full junro, all seats — the standing mandate carried): every seat rides the route — keikaku composes; tansa censuses (the doc surface inventory: every tracked documentation surface inventoried); shindan diagnoses (the hygiene sweep's findings: the secrets/private-path/personal-data map); rikai maps the mechanisms (the docs' claims vs the tree: where each doc's story breaks); suisen recommends (the install story's deliverable form per R2); keisan calculates (the commands' honesty: the documented install/usage commands verified runnable — the fresh-clone simulation's arithmetic); hyoka attacks; MOHO WALKS THE README (R4's law's natural extension: the cold user's blind install — the README's instructions followed with no help, the friction named); togo synthesizes; jikko lands the cures per-step (the file-unit law); kensho verifies; hansei debriefs; shinko dispatches. THE STANDING LAWS RIDE WHOLE: the seat-authored report (R6/R11), the per-step dispatch (R8), the two-lane form, the ThreePart, the census-first composition.\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:00:21Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: stages, gates, increments, the ungated placements, the application order) — the opening whole, the census placed FIRST with none of its findings assumed, every seat placed (R3: no seat bypassed)\\\", \\\"every choice cites its ruling: Q-repo-review's three (R1 the exhaustive scope, R2 the deliverable's discretion with the uv leaning carried, R3 the governance with moho's README walk) + the standing laws carried\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:03:37Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"THE REVIEW BRIEF LANDED: togo's synthesis over the four census legs (doc-surface, hygiene, consistency, commands) + the design lane (install-story, adversarial, the blind walk); a divergence that survives reconciliation blocks the brief, never rides silently\\\", \\\"the brief carries the findings whole (the consistency breaks, the hygiene map with the remediation classes RULED, the commands' honesty) + the install story's RECOMMENDATION (R2: the candidates priced, the uv tool install leaning carried, the team's reasoning whole) + the cure set pinned (the units the findings earn, named)\\\", \\\"THE COLLABORATOR'S APPROVAL: the findings judged, the recommendation ruled (the deliverable's form chosen), the cure units' briefs cite this gate; their dispatches fire only after\\\"]\", \"gate\": \"G-REVIEW-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:03:43Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named\\\", \\\"the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the mcp effort's resumption — member-path + lifecycle-integration resting at the boundary — or the collaborator's next call)\\\", \\\"the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:03:49Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green (the composition validated at the route's head); the census fires first, its findings assumed by none of this composition.\", \"purpose\": \"THE REVIEW PIPELINE (the standing form): THE CENSUS FIRST — FOUR ungated legs over the repo whole (tansa's doc-surface inventory; shindan's hygiene diagnosis — the secrets/private-path/personal-data map, every tracked file, no exemption; rikai's consistency map — the docs' claims vs the tree; keisan's command honesty — the documented commands' runnability); then THE DESIGN LANE — ungated suisen's install-story recommendation (R2's candidates priced, the uv leaning carried), hyoka's adversarial pass, MOHO'S README WALK (the cold user's blind install, R4's law extended); then togo's gated synthesis closing G-REVIEW-BRIEF; the cure units' discovery legs + gated briefs precede their builds; the route grows unit-by-unit.\", \"stage\": \"pipeline\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:03:55Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-REVIEW-BRIEF is green — the findings judged, the recommendation ruled, the cure set pinned; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).\", \"purpose\": \"THE CURE UNITS — the units the census and design earn (the likely set, named not pinned: readme-docs — the consistency + instruction rewrites; hygiene — the secrets/paths remediation per the ruled classes; install-deliverable — the recommended form landed, the uv tool candidate among them), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S RE-WALK at the install-deliverable gate (the post-cure README walk, R4's precedent), one-commit-per-increment.\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:04:00Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's build gates closed green and the collaborator has called the close.\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry; the next era named — the mcp effort's resumption or the collaborator's next call), the done call at the collaborator's ruling.\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:04:05Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-REVIEW-BRIEF\", \"increment\": \"synthesize/review-brief\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:04:11Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"id\\\": \\\"retro\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-synthesis\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-landing\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"done-call\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T01:04:18Z",
+        "op": "add-increment"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-repo-review",
+      "question": "What is the prioritree repo's honest whole — the exhaustive review: the consistency of every documentation surface (README, AGENTS.md, CONTINUATION.md, every doc against the code and each other), the install/usage instructions' honesty (the fresh-clone path to green, every tier's usage story), the hygiene sweep over the entire tracked repo (secrets leakage, private filesystem paths, leaked personal data — no surface exempt), with the install deliverable's form (the uv tool install candidate among the priced forms) left to the team's recommendation?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE REVIEW SCOPE (collaborator ruling, 2026-11-22, verbatim ground: \"We need to conduct an exhaustive review of the entire repo for consistency, install instructions, usage instructions, README etc... We need to look for any leakage of secrets, private paths (full paths on this file system) etc...\"): THE EXHAUSTIVE REVIEW, four axes over the ENTIRE tracked repo — (1) CONSISTENCY: every documentation surface's claims vs the tree's reality and each other (README.md, AGENTS.md, CONTINUATION.md, the docstrings' public claims, the stores' records as cited surfaces); (2) INSTALL INSTRUCTIONS: the fresh-clone path to green (the clone -> the deps -> the venv -> the first green floor — every documented command's honesty); (3) USAGE INSTRUCTIONS: every tier's usage story (the CLI, the service, the web, the MCP server, the lifecycle targets + tool — the README/user's path to each); (4) THE HYGIENE SWEEP: secrets leakage (tokens, keys, credentials, .env residue, API markers), PRIVATE PATHS (full filesystem paths — /Users/... — in every tracked file, the shipped surfaces especially, the .plans records INCLUDED: no surface exempt, the team rules the remediation classes), leaked personal data. THE ENTIRETY: every tracked file, no exemption — the sweep's own honesty includes the effort records.",
+          "ruled_at": "2026-11-23",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE DELIVERABLE'S FORM — THE TEAM'S DISCRETION (collaborator ruling, 2026-11-22, verbatim ground: \"We should likely end up with some sort of uv tool install... but I'll leave that up to the team.\"): the install story's deliverable form is a DESIGN QUESTION for the team, never a mandate: the candidates priced with reasoning (uv tool install prioritree — the CLI as a globally installable tool; pip install prioritree; the repo-relative uv run forms; the documented quickstart's shape), suisen recommends with the fit argued (the CLI's console script, the tier fences, the service/web/MCP's own run forms as distinct stories), the collaborator rules at the gate; THE COLLABORATOR'S LEANING RECORDED as exactly that — a leaning toward \"some sort of uv tool install\", the team's recommendation free to confirm, refine, or decline it with the reasons carried.",
+          "ruled_at": "2026-11-23",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE GOVERNANCE FORM (the full junro, all seats — the standing mandate carried): every seat rides the route — keikaku composes; tansa censuses (the doc surface inventory: every tracked documentation surface inventoried); shindan diagnoses (the hygiene sweep's findings: the secrets/private-path/personal-data map); rikai maps the mechanisms (the docs' claims vs the tree: where each doc's story breaks); suisen recommends (the install story's deliverable form per R2); keisan calculates (the commands' honesty: the documented install/usage commands verified runnable — the fresh-clone simulation's arithmetic); hyoka attacks; MOHO WALKS THE README (R4's law's natural extension: the cold user's blind install — the README's instructions followed with no help, the friction named); togo synthesizes; jikko lands the cures per-step (the file-unit law); kensho verifies; hansei debriefs; shinko dispatches. THE STANDING LAWS RIDE WHOLE: the seat-authored report (R6/R11), the per-step dispatch (R8), the two-lane form, the ThreePart, the census-first composition.",
+          "ruled_at": "2026-11-23",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}

@@ -12,9 +12,9 @@ elided), the census's exact two-key body, TallyView whole at full coverage
 error (done=true a RESULT, the three fields populated, no error raised).
 (2) The structured error assertions: the ThreePart's three fields as data
 at every refusal surface -- the unknown run at next/census/tally (the wire
-text's labeled segments, the live set named), the out-of-set verdict, and
-the class refused BOTH ways: at the SCHEMA (the Literal's own gate, the
-typed validation form) and at the CORE (a corrupted-class body past
+text's labeled segments, the live set named), and the out-of-set winner
+AND the class refused BOTH ways: at the SCHEMA (the Literal's own gate,
+the typed validation form) and at the CORE (a corrupted body past
 validation fed to the handler, the raised ThreePart the payload). (3) The
 SAFE HALT: the under-cap refusal's own three fields whole on the wire
 (unclipped), and the K=10 capped render probed twice -- the raised payload
@@ -262,16 +262,37 @@ def test_tally_unknown_run_refused(caller: str) -> None:
     assert "next_action: register a run first" in text
 
 
-def test_cast_out_of_set_verdict_refused(caller: str) -> None:
-    """A cast whose winner is outside the declared set => Invalid input, the value in found."""
+def test_cast_winner_refused_at_the_schema(caller: str) -> None:
+    """A cast whose winner is outside the declared set => the Literal's gate, the typed form."""
     _register(caller, _ITEMS)
     result = _cast(caller, ["a", "b"], "bogus-winner", "x")
     assert result.is_error is True
     text = _join(result)
     assert "Invalid input:" in text
-    assert "expected: a verdict from the run's declared set" in text
-    assert "'bogus-winner'" in text
-    assert "next_action: cast a verdict from the declared set" in text
+    assert "`winner` must be one of" in text
+    assert "expected:" not in text
+
+
+def test_cast_winner_refused_at_the_core(caller: str) -> None:
+    """A corrupted-winner body past the schema => the core's gate, the ThreePart the payload.
+
+    The schema always gates first on the wire (the Literal mirrors the
+    declared set); the core leg rides a body constructed past validation
+    (model_construct) fed to the handler directly -- the only path where
+    the schema passes and the core refuses.
+    """
+    _register(caller, _ITEMS)
+    body = CastInput.model_construct(
+        run_id=_RUN_ID,
+        pair=["a", "b"],
+        winner="bogus-winner",
+        comparator_id="x",
+        comparator_class="human",
+        notes=None,
+        supersedes=None,
+    )
+    with pytest.raises(InvalidInput, match="a verdict from the run's declared set"):
+        mcp_server.cast(body)
 
 
 def test_cast_class_refused_at_the_schema(caller: str) -> None:

@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/mcpserverspec
 
-**Route:** prioritree-mcp (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-mcp (executing) | **Events:** 6 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,10 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-22T21:12:24Z |
 | 2 | report | togo | 2026-11-22T21:28:40Z |
+| 3 | result | shinko | 2026-11-22T21:29:01Z |
+| 4 | gate | shinko | 2026-11-22T21:30:30Z |
+| 5 | dispatch | shinko | 2026-11-23T00:44:22Z |
+| 6 | report | togo | 2026-11-23T00:49:24Z |
 ## Reported by togo — 2026-11-22T21:28:40Z
 
 # TOGO — synthesize/mcpserverspec — THE EXACT-TASK SPEC: the mcp-server unit's bytes whole (2026-11-22)
@@ -306,3 +310,184 @@ The commit at the coordinator's hand (shinko) — no seat commits.
 The concurrency cure widens this unit's fence into service_store.py + cli.py (twelve composition hunks beyond the two new modules) — the seam must cover EVERY standing writer or it is no cure; a lock one writer takes is no lock. The cost: the wider review surface, kensho's probe spanning all three compositions. The declined alternatives priced and standing: the single-writer deployment form (F1's five reasons) and the separate store-lock unit (ceremony over wholeness). The second trade-off: the MCP tier's register elides the label (items as bare ids, label=id) — the tool tier's narrow-interface doctrine against the door's [id, label] pairs; the CLI and service keep their full form; the divergence named here, never silent.
 
 READY TO BUILD at the collaborator's approval — the bytes whole over the approved briefs, the seven steps named, the no-break proofs carried.
+## Reported by togo — 2026-11-23T00:49:24Z
+
+THE FOLD (R6) -- moho's six walk findings -> the spec's description bytes
+
+Provenance: moho's blind walk R4 (reports/walk/mcp-server.md, the six cures) folded into the exact amendment bytes for src/prioritree/mcp_server.py's tool definitions plus the face suite's winner arcs. D205 holds -- the docstrings ARE the wire descriptions: these bytes ride the wire as teaching, and the fold's provenance rides this report and the build's commit, never the wire bytes. Ground checks on disk (no claim without evidence): WEAK_ORDER_TRIPLE is frozenset({"prefer-a", "prefer-b", "tie"}) at registry.py:20 (the guard compares DIRECTLY, COMPARATOR_CLASSES' own form); the default seed is derive_seed(run_id) when None (session.py:221, scheduler.py:87-101 -- R7, "the default derived from run_id" grounded); the core's winner refusal carries expected="a verdict from the run's declared set" (the live wire test's own asserts -- the core arc's match). The TEXT_* Field texts are UNCHANGED (the design-brief verbatim note at mcp_server.py:50-51 holds): the six fixes touch three tool docstrings (regions A-C), the winner's TYPE + guard (region D), and the face suite (region E). Every AFTER fence below is the whole region -- apply verbatim.
+
+REGION A -- register's docstring (mcp_server.py:446-453; amendments 1 + 6)
+
+BEFORE:
+    """Register items for a pairwise-comparison sitting: pairs are judged one
+    against another, the votes tallied into a ranked whole. The sequence:
+    runs.next serves each under-quorum pair, votes.cast records the judgment,
+    runs.tally emits the rank, votes.census audits. quorum is the judgments
+    each pair needs before the tally. The ack's run_id is the sitting's
+    handle -- carry it to every later call; re-registering the same items
+    mints a NEW run.
+    """
+
+AFTER (amendment 1: the one-line teaching of operator_id + question; amendment 6: the idempotency reconciliation):
+    """Register items for a pairwise-comparison sitting: pairs are judged one
+    against another, the votes tallied into a ranked whole. The sequence:
+    runs.next serves each under-quorum pair, votes.cast records the judgment,
+    runs.tally emits the rank, votes.census audits. quorum is the judgments
+    each pair needs before the tally. operator_id is the operator's own
+    identity (the sitting's owner); question is the comparison question
+    the voters answer on each pair. The ack's run_id is the sitting's
+    handle -- carry it to every later call; re-registering the same items
+    mints a NEW run -- the idempotency replay covers a retried identical
+    call within a session; a deliberately changed list is a new run.
+    """
+
+Amendment 1's added bytes: "operator_id is the operator's own identity (the sitting's owner); question is the comparison question the voters answer on each pair." -- the one line; the Fields stay description-less by the named cure (the docstring IS the wire description, D205).
+Amendment 6's added bytes: "-- the idempotency replay covers a retried identical call within a session; a deliberately changed list is a new run." -- the reconciling clause: idempotency=True names the TRANSPORT's within-session replay (the retried identical call acks the original, no new run); every deliberate re-register is a new run -- the unchanged case already taught by the retained "re-registering the same items mints a NEW run" (test_register_cross_session_new_run's law), the changed case named here.
+
+REGION B -- runs.next's docstring (mcp_server.py:469-473; amendments 2 + 4)
+
+BEFORE:
+    """Serve the sitting's next under-quorum pair -- the loop's read: call
+    until done:true (every pair at quorum), then runs.tally. Returns the pair
+    as [item_a, item_b] (the verdicts are positional over this order) and its
+    current count. seed optional -- the default order is stable per run.
+    """
+
+AFTER (amendment 2: the seed's effect stated; amendment 4: the done outcome's message fields taught):
+    """Serve the sitting's next under-quorum pair -- the loop's read: call
+    until done:true (every pair at quorum), then runs.tally. Returns the pair
+    as [item_a, item_b] (the verdicts are positional over this order) and its
+    current count. seed optional: the same seed re-serves the same pair
+    deterministically; omitted, the default seed -- derived from run_id --
+    keeps the stable per-run order. done:true carries the closing message
+    (expected/found/next_action populated -- the three-part grammar as
+    data, never an error).
+    """
+
+Amendment 2's replaced bytes: "seed optional: the same seed re-serves the same pair deterministically; omitted, the default seed -- derived from run_id -- keeps the stable per-run order." -- the seed's EFFECT plus the default's derivation, both grounded on disk.
+Amendment 4's added bytes: "done:true carries the closing message (expected/found/next_action populated -- the three-part grammar as data, never an error)." -- the done outcome's untaught schema fields named in a word; done remains a VALUE.
+
+REGION C -- runs.tally's docstring (mcp_server.py:522-528; amendment 3)
+
+BEFORE:
+    """Tally the sitting into the ranked whole: ranked_groups (ids
+    best-first, equal scores grouped), per-item wins/losses/ties, coverage.
+    Under quorum the tally SAFE-HALTs: the refusal names the failing legs
+    and the closing pairs -- cast them via votes.cast (a legal pair needs no
+    serve); pairs beyond your one voice mean the sitting needs more voters
+    (resume the sitting). Re-tally after casting names what remains.
+    """
+
+AFTER (amendment 3: a word each on components and cycle -- the R11 one-liner's form):
+    """Tally the sitting into the ranked whole: ranked_groups (ids
+    best-first, equal scores grouped), per-item wins/losses/ties, coverage
+    -- components: the comparison graph's disconnected islands; cycle: a
+    structural loop in the compared pairs, dissolved into win fractions,
+    never a data-quality error. Under quorum the tally SAFE-HALTs: the
+    refusal names the failing legs and the closing pairs -- cast them via
+    votes.cast (a legal pair needs no serve); pairs beyond your one voice
+    mean the sitting needs more voters (resume the sitting). Re-tally
+    after casting names what remains.
+    """
+
+Amendment 3's added bytes: "coverage -- components: the comparison graph's disconnected islands; cycle: a structural loop in the compared pairs, dissolved into win fractions, never a data-quality error." -- structural, dissolved into win fractions, data quality never an error (R11's form).
+
+REGION D -- the winner Literal (amendment 5: the declared verdict set as the schema)
+
+D1 -- the constant (mcp_server.py:84, beside _FORKED_CLASSES):
+BEFORE:
+_FORKED_CLASSES: Final[str] = "the comparator-class vocabulary forked from the core's COMPARATOR_CLASSES"
+AFTER:
+_FORKED_CLASSES: Final[str] = "the comparator-class vocabulary forked from the core's COMPARATOR_CLASSES"
+_FORKED_VERDICTS: Final[str] = "the winner vocabulary forked from the core's WEAK_ORDER_TRIPLE"
+
+D2 -- the declaration (mcp_server.py:87-93, the same school as ComparatorClass):
+BEFORE:
+# The comparator-class vocabulary: the literal mirrors the core's own set
+# (votes.py:33 -- the vocabulary never forks, content-in-configuration held);
+# the guard refuses the import if the core's set ever drifts (the
+# import-verification lesson carried by construction, never by memory).
+ComparatorClass = Literal["human", "llm"]
+if frozenset(get_args(ComparatorClass)) != COMPARATOR_CLASSES:
+    raise ImportError(_FORKED_CLASSES)
+AFTER:
+# The comparator-class vocabulary: the literal mirrors the core's own set
+# (votes.py:33 -- the vocabulary never forks, content-in-configuration held);
+# the guard refuses the import if the core's set ever drifts (the
+# import-verification lesson carried by construction, never by memory).
+# The winner vocabulary: the same school (moho's walk finding 5) -- the
+# literal mirrors the core's declared set (registry.py:20, WEAK_ORDER_TRIPLE,
+# R4), the guard the same drift refusal; the schema teaches the verdict set,
+# a bad winner stopped at the schema, the round-trip saved.
+ComparatorClass = Literal["human", "llm"]
+if frozenset(get_args(ComparatorClass)) != COMPARATOR_CLASSES:
+    raise ImportError(_FORKED_CLASSES)
+Winner = Literal["prefer-a", "prefer-b", "tie"]
+if frozenset(get_args(Winner)) != WEAK_ORDER_TRIPLE:
+    raise ImportError(_FORKED_VERDICTS)
+
+D3 -- the field (mcp_server.py:140, CastInput):
+BEFORE:
+    winner: str = Field(description=TEXT_WINNER)
+AFTER:
+    winner: Winner = Field(description=TEXT_WINNER)
+(TEXT_WINNER unchanged -- the text teaches positionality, prefer-a the pair's first; the Literal carries the set. WEAK_ORDER_TRIPLE already imported at mcp_server.py:33; the guard compares the frozenset directly, registry.py:20's own form.)
+
+REGION E -- the face suite's winner arcs (tests/test_mcp_server_face.py; the test literals that change)
+
+E1 -- test_cast_out_of_set_verdict_refused (line 265) SPLITS into the both-ways school (the comparator_class arcs' exact form): the wire leg now refuses AT THE SCHEMA (a bad winner stopped at the schema, the round-trip saved), and the core leg rides model_construct past validation so the core's ThreePart stays covered.
+
+BEFORE (lines 265-274):
+def test_cast_out_of_set_verdict_refused(caller: str) -> None:
+    """A cast whose winner is outside the declared set => Invalid input, the value in found."""
+    _register(caller, _ITEMS)
+    result = _cast(caller, ["a", "b"], "bogus-winner", "x")
+    assert result.is_error is True
+    text = _join(result)
+    assert "Invalid input:" in text
+    assert "expected: a verdict from the run's declared set" in text
+    assert "'bogus-winner'" in text
+    assert "next_action: cast a verdict from the declared set" in text
+
+AFTER (two arcs):
+def test_cast_winner_refused_at_the_schema(caller: str) -> None:
+    """A cast whose winner is outside the declared set => the Literal's gate, the typed form."""
+    _register(caller, _ITEMS)
+    result = _cast(caller, ["a", "b"], "bogus-winner", "x")
+    assert result.is_error is True
+    text = _join(result)
+    assert "Invalid input:" in text
+    assert "`winner` must be one of" in text
+    assert "expected:" not in text
+
+
+def test_cast_winner_refused_at_the_core(caller: str) -> None:
+    """A corrupted-winner body past the schema => the core's gate, the ThreePart the payload.
+
+    The schema always gates first on the wire (the Literal mirrors the
+    declared set); the core leg rides a body constructed past validation
+    (model_construct) fed to the handler directly -- the only path where
+    the schema passes and the core refuses.
+    """
+    _register(caller, _ITEMS)
+    body = CastInput.model_construct(
+        run_id=_RUN_ID,
+        pair=["a", "b"],
+        winner="bogus-winner",
+        comparator_id="x",
+        comparator_class="human",
+        notes=None,
+        supersedes=None,
+    )
+    with pytest.raises(InvalidInput, match="a verdict from the run's declared set"):
+        mcp_server.cast(body)
+
+Named unknown (one): the must-be-one-of message's THREE-member join rides ouncemcp's formatter (the two-member form the class arc asserts is "human or llm") -- the prefix assert "`winner` must be one of" is the safe literal; the builder may tighten it to the rendered form once observed. The value echo is left unasserted (the class arc asserts none).
+
+E2 -- the face file's module docstring, clause (2) (lines 13-18):
+BEFORE: "... the unknown run at next/census/tally (the wire text's labeled segments, the live set named), the out-of-set verdict, and the class refused BOTH ways: at the SCHEMA (the Literal's own gate, the typed validation form) and at the CORE (a corrupted-class body past validation fed to the handler, the raised ThreePart the payload)."
+AFTER: "... the unknown run at next/census/tally (the wire text's labeled segments, the live set named), and the out-of-set winner AND the class refused BOTH ways: at the SCHEMA (the Literal's own gate, the typed validation form) and at the CORE (a corrupted body past validation fed to the handler, the raised ThreePart the payload)."
+
+E3 -- no other test literals change: every other winner use in the suite is "prefer-a" or "prefer-b" (legal members -- test_cast_ack, the end-to-end, the halt arcs, the correction arcs); the ack arcs, the done arc, the seed arcs, the idempotency arcs untouched; test_cast_class_refused_at_the_core's model_construct (winner="prefer-a") rides past validation either way.
+
+THE FOLD'S OPEN QUESTION: one, named at E1 (the three-member join's exact render) -- safe-form bytes given; every other amendment byte exact.

@@ -82,15 +82,23 @@ BUDGET_REASON_TALLY: Final[str] = (
 # names the total plus the first ten pairs).
 _ITEMS_RULE: Final[str] = "items must be at least two, all unique, none empty"
 _FORKED_CLASSES: Final[str] = "the comparator-class vocabulary forked from the core's COMPARATOR_CLASSES"
+_FORKED_VERDICTS: Final[str] = "the winner vocabulary forked from the core's WEAK_ORDER_TRIPLE"
 _HALT_CAP: Final[int] = 10
 
 # The comparator-class vocabulary: the literal mirrors the core's own set
 # (votes.py:33 -- the vocabulary never forks, content-in-configuration held);
 # the guard refuses the import if the core's set ever drifts (the
 # import-verification lesson carried by construction, never by memory).
+# The winner vocabulary: the same school (moho's walk finding 5) -- the
+# literal mirrors the core's declared set (registry.py:20, WEAK_ORDER_TRIPLE,
+# R4), the guard the same drift refusal; the schema teaches the verdict set,
+# a bad winner stopped at the schema, the round-trip saved.
 ComparatorClass = Literal["human", "llm"]
 if frozenset(get_args(ComparatorClass)) != COMPARATOR_CLASSES:
     raise ImportError(_FORKED_CLASSES)
+Winner = Literal["prefer-a", "prefer-b", "tie"]
+if frozenset(get_args(Winner)) != WEAK_ORDER_TRIPLE:
+    raise ImportError(_FORKED_VERDICTS)
 
 # The module-level objects (the spec Section 2(c); the service.py:158-165
 # precedent): the seam injected at construction over the CLI's own store home,
@@ -137,7 +145,7 @@ class CastInput(BaseModel):
 
     run_id: str = Field(min_length=1)
     pair: list[str] = Field(description=TEXT_PAIR, min_length=2, max_length=2)
-    winner: str = Field(description=TEXT_WINNER)
+    winner: Winner = Field(description=TEXT_WINNER)
     comparator_id: str = Field(description=TEXT_COMPARATOR_ID)
     comparator_class: ComparatorClass = Field(description=TEXT_COMPARATOR_CLASS)
     notes: str | None = None
@@ -447,9 +455,12 @@ def register(body: RegisterInput) -> RegisterAck:
     against another, the votes tallied into a ranked whole. The sequence:
     runs.next serves each under-quorum pair, votes.cast records the judgment,
     runs.tally emits the rank, votes.census audits. quorum is the judgments
-    each pair needs before the tally. The ack's run_id is the sitting's
+    each pair needs before the tally. operator_id is the operator's own
+    identity (the sitting's owner); question is the comparison question
+    the voters answer on each pair. The ack's run_id is the sitting's
     handle -- carry it to every later call; re-registering the same items
-    mints a NEW run.
+    mints a NEW run -- the idempotency replay covers a retried identical
+    call within a session; a deliberately changed list is a new run.
     """
     try:
         stem = _seam.register(
@@ -469,7 +480,11 @@ def serve(body: NextInput) -> NextOutcome:
     """Serve the sitting's next under-quorum pair -- the loop's read: call
     until done:true (every pair at quorum), then runs.tally. Returns the pair
     as [item_a, item_b] (the verdicts are positional over this order) and its
-    current count. seed optional -- the default order is stable per run.
+    current count. seed optional: the same seed re-serves the same pair
+    deterministically; omitted, the default seed -- derived from run_id --
+    keeps the stable per-run order. done:true carries the closing message
+    (expected/found/next_action populated -- the three-part grammar as
+    data, never an error).
     """
     try:
         item_a, item_b, count = _seam.serve(body.run_id, body.seed)
@@ -520,11 +535,14 @@ def audit(body: CensusInput) -> CensusView:
 @server.tool(name="runs.tally", effect=Effect.READ, result_tokens=4500, budget_reason=BUDGET_REASON_TALLY)
 def tally(body: TallyInput) -> TallyView:
     """Tally the sitting into the ranked whole: ranked_groups (ids
-    best-first, equal scores grouped), per-item wins/losses/ties, coverage.
-    Under quorum the tally SAFE-HALTs: the refusal names the failing legs
-    and the closing pairs -- cast them via votes.cast (a legal pair needs no
-    serve); pairs beyond your one voice mean the sitting needs more voters
-    (resume the sitting). Re-tally after casting names what remains.
+    best-first, equal scores grouped), per-item wins/losses/ties, coverage
+    -- components: the comparison graph's disconnected islands; cycle: a
+    structural loop in the compared pairs, dissolved into win fractions,
+    never a data-quality error. Under quorum the tally SAFE-HALTs: the
+    refusal names the failing legs and the closing pairs -- cast them via
+    votes.cast (a legal pair needs no serve); pairs beyond your one voice
+    mean the sitting needs more voters (resume the sitting). Re-tally
+    after casting names what remains.
     """
     try:
         result = _seam.rank(body.run_id)

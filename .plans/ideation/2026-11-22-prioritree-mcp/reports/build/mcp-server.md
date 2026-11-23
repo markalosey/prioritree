@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — build/mcp-server
 
-**Route:** prioritree-mcp (executing) | **Events:** 14 | **Reports:** 7
+**Route:** prioritree-mcp (executing) | **Events:** 20 | **Reports:** 10
 
 ## The packet's chain (ledger order)
 
@@ -21,6 +21,12 @@
 | 12 | report | jikko | 2026-11-22T23:55:54Z |
 | 13 | dispatch | shinko | 2026-11-22T23:56:05Z |
 | 14 | report | jikko | 2026-11-22T23:56:44Z |
+| 15 | dispatch | shinko | 2026-11-23T00:49:54Z |
+| 16 | report | jikko | 2026-11-23T00:55:23Z |
+| 17 | dispatch | shinko | 2026-11-23T00:56:02Z |
+| 18 | report | jikko | 2026-11-23T00:58:28Z |
+| 19 | dispatch | shinko | 2026-11-23T00:58:37Z |
+| 20 | report | jikko | 2026-11-23T00:59:14Z |
 ## Reported by jikko — 2026-11-22T21:34:02Z
 
 # JIKKO — build/mcp-server step 1 — the dep + the sync-check (2026-11-22)
@@ -92,3 +98,28 @@ Lint act (check): "uv run ruff check src/ tests/ — All checks passed!" — zer
 Typecheck act: "uv run pyright — 0 errors, 0 warnings, 0 informations" — zero findings.
 
 No findings outside expectations — nothing to edit, nothing deferred. The floor is green across all three acts; step 6 complete.
+## Reported by jikko — 2026-11-23T00:55:23Z
+
+Step 7a (the fold's landing) done: togo's six amendments applied to src/prioritree/mcp_server.py as one 6-hunk patch, byte-verbatim per the fold's AFTER fences (reports/synthesize/mcpserverspec.md, togo's fold 2026-11-23T00:49:24Z).
+- Region A (register docstring, now :454-464): the operator_id/question sentence + the idempotency reconciliation clause (retried identical call within a session vs a deliberately changed list).
+- Region B (runs.next docstring, now :480-488): the seed clause (same seed re-serves deterministically; omitted, the run_id-derived default) + the done:true three-fields clause.
+- Region C (runs.tally docstring, now :537-546): the components/cycle words (disconnected islands; structural loop dissolved into win fractions, never a data-quality error).
+- Region D (now :85, :92-101, :148): _FORKED_VERDICTS constant; Winner = Literal["prefer-a", "prefer-b", "tie"] with the WEAK_ORDER_TRIPLE fork-guard (ComparatorClass's school); CastInput.winner retyped Winner, TEXT_WINNER unchanged.
+Read-back confirms all six regions on disk exactly; nothing else touched (region E / the test split is 7b's dispatch). No lint or typecheck run — the coordinator's instruments (kensho) hold that lane.
+## Reported by jikko — 2026-11-23T00:58:28Z
+
+Step 7b done — the fold's test half landed in tests/test_mcp_server_face.py (the only file touched; two hunks).
+test_cast_out_of_set_verdict_refused SPLIT per REGION E1: (a) test_cast_winner_refused_at_the_schema — the winner-must-be-one-of typed form, "expected:" absent (the round-trip saved); (b) test_cast_winner_refused_at_the_core — CastInput.model_construct past validation fed to mcp_server.cast, pytest.raises match="a verdict from the run's declared set" (the core's ThreePart preserved; votes.py:429 the ground).
+The module docstring's (2) clause folded per E2: the out-of-set winner now named in the both-ways school ("a corrupted body past validation" — class-specific word elided).
+Grounds checked before the apply: the fold's module half (Winner Literal, mcp_server.py:99/:148) already on disk; the core's expected text verified at votes.py:429.
+The schema-leg's prefix assert kept at the spec's safe form ("`winner` must be one of") — the three-member join's exact render left to observation (the fold's named unknown).
+Read-back: both arcs + the clause verified verbatim after the apply. Nothing else touched; tests NOT run (the coordinator's instruments).
+## Reported by jikko — 2026-11-23T00:59:14Z
+
+Step 7c — the fold's floor: the three fixed-argv acts run on the prioritree host, all within expectations; no findings outside, no edits made.
+
+- test (all): 197 passed in 26.24s — the expected 197 (the 196 + the split's net +1, 30 → 31 arcs in the face file).
+- lint (check): uv run ruff check src/ tests/ — All checks passed!
+- typecheck: uv run pyright — 0 errors, 0 warnings, 0 informations.
+
+The floor is clean; the disk is the truth.
