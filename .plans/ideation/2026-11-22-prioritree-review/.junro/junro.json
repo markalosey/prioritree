@@ -6,7 +6,7 @@
     "type": "build_route",
     "methodology": "MPIR",
     "instance": 1,
-    "status": "executing",
+    "status": "done",
     "worktree": "prioritree",
     "inputs": [
       "THE COLLABORATOR'S DIRECTIVE (2026-11-22, verbatim): \"We need to conduct an exhaustive review of the entire repo for consistency, install instructions, usage instructions, README etc... We need to look for any leakage of secrets, private paths (full paths on this file system) etc... We should do this an an entire junro effort with the appropriate team members involved.\" + \"We should likely end up with some sort of uv tool install... but I'll leave that up to the team.\"",
@@ -556,6 +556,22 @@
         "what": "THE HUMAND.MD SPELLING CORRECTED — the link's target is HUMAN.md (the collaborator's landed file: \"I have already written, committed and pushed HUMAN.md\" — the file exists in the tree, the collaborator's own hand). Ruling 5's letter carried the earlier directive's spelling (HUMAND.md); the actual file is HUMAN.md — the README's :15 link cures to match (the one-line edit at the link's site). THE NOTE'S TRUTH NOW HOLDS BY CONSTRUCTION: HUMAN.md is the only human-written thing in the repository — written, committed and pushed by the collaborator's hand; the seats never authored it (the ruling's law unchanged); everything else seat-generated.",
         "ruled_at": "2026-11-23",
         "why": "The collaborator's landed file is the ground truth; the link must resolve to the real filename (a dangling link would fail the cold user's click — the re-walk's own class); the append-only record amends the ruling's letter, never its law."
+      },
+      {
+        "what": "set-question {\"question\": \"Q-repo-review\", \"resolution\": \"Ruled complete with the effort (the collaborator's call, 2026-11-23): the exhaustive review whole — the repo's honest shape restored. THE ANSWER: three cure units all green — hygiene (the MIT LICENSE + the pyproject fields + CONTINUATION:11), readme-docs (the 190-line nine-section README, every byte tree-derived, the dead ends proven gone at the re-walk; CONTINUATION refreshed; AGENTS' truth), install-deliverable (the wheel shipping web + MCP via the force-include; the ordered CWD-first/package-fallback resolution; the public resolver; the uv tool install . lane live-verified at the collaborator's hand). Zero real secrets (confirmed twice); the five hygiene cures landed or ruled (the scrub deferred per the collaborator's call, the family names kept); the four calls standing (LICENSE MIT, web+MCP in the wheel, the scrub deferred, PyPI deferred); the HUMAN.md link law real by construction (the one human-written thing, the collaborator's hand). The floor at 200 passed, zero findings. The banked triggers carried forward: the .plans scrub, PyPI's CI precondition, the hook's ruff phase 2.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T05:51:33Z",
+        "op": "set-question"
+      },
+      {
+        "what": "set-route-status {\"from\": \"executing\", \"status\": \"done\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T05:51:45Z",
+        "op": "set-route-status"
       }
     ]
   },
@@ -563,7 +579,7 @@
     {
       "id": "Q-repo-review",
       "question": "What is the prioritree repo's honest whole — the exhaustive review: the consistency of every documentation surface (README, AGENTS.md, CONTINUATION.md, every doc against the code and each other), the install/usage instructions' honesty (the fresh-clone path to green, every tier's usage story), the hygiene sweep over the entire tracked repo (secrets leakage, private filesystem paths, leaked personal data — no surface exempt), with the install deliverable's form (the uv tool install candidate among the priced forms) left to the team's recommendation?",
-      "status": "open",
+      "status": "ruled",
       "rulings": [
         {
           "text": "THE REVIEW SCOPE (collaborator ruling, 2026-11-22, verbatim ground: \"We need to conduct an exhaustive review of the entire repo for consistency, install instructions, usage instructions, README etc... We need to look for any leakage of secrets, private paths (full paths on this file system) etc...\"): THE EXHAUSTIVE REVIEW, four axes over the ENTIRE tracked repo — (1) CONSISTENCY: every documentation surface's claims vs the tree's reality and each other (README.md, AGENTS.md, CONTINUATION.md, the docstrings' public claims, the stores' records as cited surfaces); (2) INSTALL INSTRUCTIONS: the fresh-clone path to green (the clone -> the deps -> the venv -> the first green floor — every documented command's honesty); (3) USAGE INSTRUCTIONS: every tier's usage story (the CLI, the service, the web, the MCP server, the lifecycle targets + tool — the README/user's path to each); (4) THE HYGIENE SWEEP: secrets leakage (tokens, keys, credentials, .env residue, API markers), PRIVATE PATHS (full filesystem paths — /Users/... — in every tracked file, the shipped surfaces especially, the .plans records INCLUDED: no surface exempt, the team rules the remediation classes), leaked personal data. THE ENTIRETY: every tracked file, no exemption — the sweep's own honesty includes the effort records.",
@@ -590,7 +606,8 @@
           "ruled_at": "2026-11-23",
           "actor": "shinko"
         }
-      ]
+      ],
+      "resolution": "Ruled complete with the effort (the collaborator's call, 2026-11-23): the exhaustive review whole — the repo's honest shape restored. THE ANSWER: three cure units all green — hygiene (the MIT LICENSE + the pyproject fields + CONTINUATION:11), readme-docs (the 190-line nine-section README, every byte tree-derived, the dead ends proven gone at the re-walk; CONTINUATION refreshed; AGENTS' truth), install-deliverable (the wheel shipping web + MCP via the force-include; the ordered CWD-first/package-fallback resolution; the public resolver; the uv tool install . lane live-verified at the collaborator's hand). Zero real secrets (confirmed twice); the five hygiene cures landed or ruled (the scrub deferred per the collaborator's call, the family names kept); the four calls standing (LICENSE MIT, web+MCP in the wheel, the scrub deferred, PyPI deferred); the HUMAN.md link law real by construction (the one human-written thing, the collaborator's hand). The floor at 200 passed, zero findings. The banked triggers carried forward: the .plans scrub, PyPI's CI precondition, the hook's ruff phase 2."
     }
   ]
 }
