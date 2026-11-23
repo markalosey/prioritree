@@ -13,7 +13,7 @@ The original Priori-tree concept comes from Jeffrey Adik circa 2005-ish. I just 
 
 I've been working on a harness. That harness is not runnable from this project. That is for a reason and it's not cause secret sauce or anything mystical or IP based. It's because I theorize that the harness itself and the 'AI' team working on a project should evolve from something simple into the team that operates that project for it's entire lifecycle. 
 
-The process I went through was to create a pretty blank github repo. git clone and all the things to my filesystem. Tell my other system to birth a team here with a single purpose. You'll find that purpose in the AGENTS.md.  It's the only thing in the AGENTS.md. This was operationally run via opencode but opencode isn't really the sauce here. The core of what allowed this system to evolve into itself is the friction system. 
+The process I went through was to create a pretty blank github repo. git clone and all the things to my filesystem. Tell my other system to birth a team here with a single purpose. You'll find that purpose in the AGENTS.md.  It's the only thing in the AGENTS.md. This was operationally run via opencode but opencode isn't really the sauce here. The core of what allowed this system to evolve into itself is the friction system. The friction system and its outcomes are the culmination of the last 4 years of 'doing AI/LLM' things. 
 
 What's so important for this new AI paradigm is provenance. My little harness has that as a first class citizen. And so, without further ado, I'll just point to the .plans/ideation/ directory and you can review all the things that got this from a single line purpose to a working piece of software of adequate quality. 
 
