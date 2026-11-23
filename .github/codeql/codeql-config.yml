@@ -1,0 +1,7 @@
+name: prioritree
+
+# The positive form: only src/ and tests/ enter the scanner's world
+# (mirroring pyright's include, pyproject.toml:172). The ruled-widening
+# clause: future .py outside these paths enters the scanner's world only
+# by a ruled widening (a config edit at a ruled hand, never a silent drift).
+paths: [src/, tests/]
