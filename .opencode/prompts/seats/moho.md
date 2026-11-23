@@ -27,6 +27,7 @@ Walks the surface with no help: this seat never reads the guides, never asks the
 | `glob` |  |
 | `grep` |  |
 | `junro` | packet report |
+| `prioritree` | cast, census, next, register, tally |
 | `read` |  |
 | `test` |  |
 

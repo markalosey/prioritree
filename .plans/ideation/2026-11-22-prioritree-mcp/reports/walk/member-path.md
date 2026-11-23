@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — walk/member-path
 
-**Route:** prioritree-mcp (executing) | **Events:** 6 | **Reports:** 2
+**Route:** prioritree-mcp (executing) | **Events:** 8 | **Reports:** 3
 
 ## The packet's chain (ledger order)
 
@@ -13,6 +13,8 @@
 | 4 | result | shinko | 2026-11-23T16:41:43Z |
 | 5 | dispatch | shinko | 2026-11-23T16:47:18Z |
 | 6 | report | moho | 2026-11-23T16:50:51Z |
+| 7 | result | shinko | 2026-11-23T16:52:55Z |
+| 8 | report | moho | 2026-11-23T17:29:17Z |
 ## Reported by moho — 2026-11-23T16:41:22Z
 
 moho (盲歩) — packet walk/member-path — the report of what was, not a new act.
@@ -39,3 +41,15 @@ THE REFUSAL HARVEST, verbatim: reaching for the register through the only bridge
 REGISTER, SITTING, TALLY, CENSUS: all unreachable. No schema served, no tool-side refusal to read — the tools that would teach are not in the room. The walk cannot even fail informatively; it fails by absence.
 
 EASE-OF-USE VERDICT (G-MEMBERPATH evidence): the break is upstream of the tool surface — the handoff, not the tools. A walker dispatched with a five-tool manifest arrives to find none seated. Nothing errored at dispatch, nothing named the gap, and the mute refusal corrected nothing. Worst failure class: silent absence, discoverable only by exhausting the session's listing verbs. For the member path: a dispatch-time check that the granted tool manifest matches the seated session would have caught this before the walk began.
+## Reported by moho — 2026-11-23T17:29:17Z
+
+THE LIVE WALK (RUN-0005) — blind, end-to-end, zero help, zero refusals.
+
+1. Register taught by ack: quorum default held (k=1), verdicts echoed (prefer-a / prefer-b / tie, positional over the served order) BEFORE the first serve. run_id carried to every later call exactly as the ack instructed.
+2. The sitting: 4 items, 6 pairs, served one at a time; each cast acked a vote_id and running count. acknowledged:false on first sends — the one-voice re-send grammar the schema taught, confirmed by the acks.
+3. done:true arrived exactly at quorum, carrying the three-part grammar as data (expected / found / next_action) — the tool told me when to stop and what to do next. expected: "all 6 scheduled pairs at quorum k=1"; found: "the queue is exhausted".
+4. The one naming seam: done:true's next_action said "call tally_rank(run_id)" and cited "R12's DONE" and "a census-vs-weighted seam" — internal vocabulary no served surface defines. I mapped "tally" by its verb; a stranger might not. THIS is the walk's single roughness.
+5. Tally returned the ranked whole (nuts > banana > chocolate > jerky), per-item wins/losses/ties, coverage (one component, no cycle, 6/6 pairs at quorum, done), algorithm_version win-rate-v1 — self-describing; no help needed.
+6. Census returned total 6 and per-item counts 3/3/3/3 — appearances, not wins. Beside the tally it reads as coverage evidence ("what has landed, never what should have"), but alone the number could surprise a walker expecting win tallies.
+
+EASE-OF-USE VERDICT: the five tools walked blind end-to-end without one refusal; the sequence is legible from names and descriptions alone; the acks teach each next step. Single friction: the done:true payload references an untaught world (tally_rank / R12 / census-vs-weighted seam).
