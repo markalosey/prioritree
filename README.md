@@ -12,7 +12,7 @@ The comparator class is both human AND LLM — both vote through the same vote i
 
 License: MIT — the [LICENSE](LICENSE) file at the repo root (Copyright (c) 2026 Mark Losey).
 
-[HUMAND.md](HUMAND.md) — the only human-written thing in this repository; everything else is generated.
+[HUMAN.md](HUMAN.md) — the only human-written thing in this repository; everything else is generated.
 
 ## Quickstart
 

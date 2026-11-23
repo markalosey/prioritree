@@ -551,6 +551,11 @@
         "actor": "shinko",
         "timestamp": "2026-11-23T03:05:55Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "THE HUMAND.MD SPELLING CORRECTED — the link's target is HUMAN.md (the collaborator's landed file: \"I have already written, committed and pushed HUMAN.md\" — the file exists in the tree, the collaborator's own hand). Ruling 5's letter carried the earlier directive's spelling (HUMAND.md); the actual file is HUMAN.md — the README's :15 link cures to match (the one-line edit at the link's site). THE NOTE'S TRUTH NOW HOLDS BY CONSTRUCTION: HUMAN.md is the only human-written thing in the repository — written, committed and pushed by the collaborator's hand; the seats never authored it (the ruling's law unchanged); everything else seat-generated.",
+        "ruled_at": "2026-11-23",
+        "why": "The collaborator's landed file is the ground truth; the link must resolve to the real filename (a dangling link would fail the cold user's click — the re-walk's own class); the append-only record amends the ruling's letter, never its law."
       }
     ]
   },

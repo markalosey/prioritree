@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — build/install
 
-**Route:** prioritree-review (executing) | **Events:** 16 | **Reports:** 8
+**Route:** prioritree-review (executing) | **Events:** 20 | **Reports:** 9
 
 ## The packet's chain (ledger order)
 
@@ -23,6 +23,10 @@
 | 14 | report | jikko | 2026-11-23T03:05:09Z |
 | 15 | dispatch | shinko | 2026-11-23T03:06:02Z |
 | 16 | report | jikko | 2026-11-23T03:07:16Z |
+| 17 | gate | shinko | 2026-11-23T03:22:16Z |
+| 18 | result | shinko | 2026-11-23T03:22:28Z |
+| 19 | dispatch | shinko | 2026-11-23T03:24:18Z |
+| 20 | report | jikko | 2026-11-23T03:24:48Z |
 ## Reported by jikko — 2026-11-23T02:30:02Z
 
 # Step 1 — pyproject.toml's wheel region (build/install)
@@ -84,3 +88,6 @@ Files touched: README.md only (one patch, four hunks — exactly the three cures
 Step 6b done. README.md: the HUMAND.md line landed at the intro's end — line 15, its own paragraph, immediately before `## Quickstart` — verbatim per Q-repo-review ruling 5: `[HUMAND.md](HUMAND.md) — the only human-written thing in this repository; everything else is generated.`
 
 Read-back: grep HUMAND over README.md = exactly one hit (line 15). HUMAND.md itself NOT created — the collaborator's own hand, per the ruling. Nothing else touched; one hunk, one file.
+## Reported by jikko — 2026-11-23T03:24:48Z
+
+The link cure landed: README.md:15 now reads [HUMAN.md](HUMAN.md) — the only human-written thing in this repository; everything else is generated. Both link text and target cured from HUMAND.md to HUMAN.md; phrasing byte-identical otherwise; line stays at :15, own paragraph before ## Quickstart. Read-back green: "HUMAND" zero hits over README.md; "HUMAN.md" exactly one hit (line 15); HUMAN.md exists at the repo root, so the link resolves. HUMAN.md itself untouched; nothing else touched. One patch refusal en route (hunk count checksum mismatch), fixed in-turn with a context-carrying hunk.
