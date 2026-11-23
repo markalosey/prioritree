@@ -24,7 +24,7 @@ the shared streamable-HTTP form.
 
 from __future__ import annotations
 
-import sys
+import argparse
 from typing import TYPE_CHECKING, Final, Literal, get_args
 
 from ouncemcp import Effect, InvalidInput, NotFound, OunceServer
@@ -569,9 +569,17 @@ def tally(body: TallyInput) -> TallyView:
 
 
 def main() -> None:
-    """Run the server -- bare stdio, --serve the shared HTTP form."""
-    if "--serve" in sys.argv[1:]:
-        server.run("http", host="127.0.0.1", port=8000, allowed_hosts=["127.0.0.1", "localhost"], allowed_origins=[])
+    """Run the server -- bare stdio, --serve the shared HTTP form (defaults: --host 127.0.0.1, --port 8100)."""
+    parser = argparse.ArgumentParser(prog="prioritree.mcp_server")
+    parser.add_argument("--serve", action="store_true", help="the shared streamable-HTTP form (default: stdio)")
+    parser.add_argument("--host", default="127.0.0.1", help="the HTTP bind host (default: 127.0.0.1)")
+    parser.add_argument("--port", type=int, default=8100, help="the HTTP bind port (default: 8100)")
+    args = parser.parse_args()
+    if args.serve:
+        allowed_hosts = ["127.0.0.1", "localhost"]
+        if args.host not in allowed_hosts:
+            allowed_hosts = [*allowed_hosts, args.host]
+        server.run("http", host=args.host, port=args.port, allowed_hosts=allowed_hosts, allowed_origins=[])
     else:
         server.run("stdio")
 

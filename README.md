@@ -104,10 +104,10 @@ Two run forms:
 
 ```console
 $ uv run python -m prioritree.mcp_server           # stdio, per session — the MCP host boots it
-$ uv run python -m prioritree.mcp_server --serve    # streamable-HTTP at http://127.0.0.1:8000
+$ uv run python -m prioritree.mcp_server --serve    # streamable-HTTP at http://127.0.0.1:8100
 ```
 
-Port note: `--serve` hardcodes port 8000 — the same default as `make start`; run one at a time, or start the web tier with `make start PORT=<other>`.
+Port note: `--serve` defaults to port 8100 (`--host`/`--port` override); the web tier keeps 8000, so both servers co-run at their defaults — the collision is retired. The MCP's lifecycle targets: `make mcp-start`, `make mcp-stop`, `make mcp-status`, `make mcp-restart` (`MCP_PORT ?= 8100`, `MCP_HOST ?= 127.0.0.1`).
 
 ## Input/Output Examples
 
@@ -161,7 +161,7 @@ Reading the lines:
 
 - **The CWD law.** The store (`.prioritree/runs`) resolves CWD-relative — run from the repo root, or your data lands where you stood (the directory mints silently on demand); the CLI's `--home` is the per-invocation escape. The web homes resolve in order: the CWD's `web/templates` + `web/static` first (the repo's authored files — the clone's form), the installed package's copies the fallback — a wrong cwd in the clone folds honestly (the honest 500); an installed location always renders.
 - **The git hook.** `.githooks/pre-commit` is tracked, but the pointer never clones — set it by hand: `git config core.hooksPath .githooks`. The hook enforces pyright only; ruff is named, pending — run `make lint` for the full floor. `PRIORITREE_HOOK_BYPASS=1` is the tracked bypass.
-- **The port collision.** `make start` and `mcp_server --serve` both default to port 8000 — run one at a time, or override (`make start PORT=8100`).
+- **The port discipline.** The web tier (`make start`) defaults to port 8000; the MCP (`--serve`) defaults to 8100 — both servers co-run at their defaults, the collision retired (the MCP's lifecycle: `make mcp-start` / `make mcp-stop` / `make mcp-status` / `make mcp-restart`).
 - **`.prioritree/` mints at runtime** — the server pid and log, the runs store; gitignored, never present in a clone.
 
 ## Install
@@ -180,13 +180,13 @@ $ make start
 $ open http://127.0.0.1:8000/
 ```
 
-**`uv tool install .` — the tool lane.** Installs the `prioritree` console script and its six dependencies — the five CLI ops run from any directory. State is per-project by design: the store mints at `.prioritree/runs` under your CWD; `--home` redirects. The web tier rides this lane too: the wheel ships the templates and static files as package data, and the web homes resolve them from the installed package. Serve the web with the tool env's uvicorn — `$(uv tool dir)/prioritree/bin/uvicorn prioritree.service:app` (any directory; the store mints where you stood). The MCP rides the same install: `$(uv tool dir)/prioritree/bin/python -m prioritree.mcp_server` for stdio, or the same command with `--serve` (port 8000 — one at a time with the web).
+**`uv tool install .` — the tool lane.** Installs the `prioritree` console script and its six dependencies — the five CLI ops run from any directory. State is per-project by design: the store mints at `.prioritree/runs` under your CWD; `--home` redirects. The web tier rides this lane too: the wheel ships the templates and static files as package data, and the web homes resolve them from the installed package. Serve the web with the tool env's uvicorn — `$(uv tool dir)/prioritree/bin/uvicorn prioritree.service:app` (any directory; the store mints where you stood). The MCP rides the same install: `$(uv tool dir)/prioritree/bin/python -m prioritree.mcp_server` for stdio, or the same command with `--serve` (port 8100 — co-runnable with the web's 8000).
 
 **Not on PyPI.** `uv tool install prioritree` and `pip install prioritree` do not resolve — Priori-tree is not published. The publish is deferred: the license and the packaging have landed; CI remains.
 
 ## Status
 
-Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools). CI is deferred — the git hook and the local gates stand in. The quality floor: 200 tests green, pyright clean, ruff clean.
+Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools). CI is deferred — the git hook and the local gates stand in. The quality floor: 203 tests green, pyright clean, ruff clean.
 
 ## License
 

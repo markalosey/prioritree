@@ -45,7 +45,7 @@ from __future__ import annotations
 
 import asyncio
 from itertools import count
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, cast
 
 import pytest
 from mcp_types import TextContent
@@ -633,3 +633,62 @@ def test_re_tally_after_cure(caller: str) -> None:
         },
         "algorithm_version": "win-rate-v1",
     }
+
+
+@pytest.mark.parametrize(
+    ("argv", "expected"),
+    [
+        pytest.param([], (("stdio",), cast("dict[str, object]", {})), id="bare-stdio"),
+        pytest.param(
+            ["--serve"],
+            (
+                ("http",),
+                {
+                    "host": "127.0.0.1",
+                    "port": 8100,
+                    "allowed_hosts": ["127.0.0.1", "localhost"],
+                    "allowed_origins": [],
+                },
+            ),
+            id="serve-defaults",
+        ),
+        pytest.param(
+            ["--serve", "--host", "192.0.2.10", "--port", "9000"],
+            (
+                ("http",),
+                {
+                    "host": "192.0.2.10",
+                    "port": 9000,
+                    "allowed_hosts": ["127.0.0.1", "localhost", "192.0.2.10"],
+                    "allowed_origins": [],
+                },
+            ),
+            id="serve-overrides",
+        ),
+    ],
+)
+def test_parse_argv_derives_the_run_call(
+    argv: list[str], expected: tuple[tuple[str, ...], dict[str, object]], monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Parse main()'s argv form => the derived server.run call whole, the three forms parametrized.
+
+    The lifecycle-integration arc (the brief §3, the one ruled Python arc):
+    the argv widening is new branch logic with a changed default -- the bare
+    form the member path byte-held (server.run("stdio"), no HTTP-form call,
+    no kwargs); --serve alone the defaults (127.0.0.1:8100, the loopback
+    pair); the overrides flowed and the host JOINED to allowed_hosts (a
+    non-loopback bind unallowed is a silent Host-header 400). The run call
+    captured per the file's fixture forms (monkeypatch's setattr; sys.argv
+    via the string form, the tree's own precedent); the store never touched
+    -- the parse is pure.
+    """
+    calls: list[tuple[tuple[str, ...], dict[str, object]]] = []
+
+    def record(*args: str, **kwargs: object) -> None:
+        """Record the derived run call's whole argument shape -- the assertion's ground."""
+        calls.append((args, kwargs))
+
+    monkeypatch.setattr("sys.argv", ["prioritree.mcp_server", *argv])
+    monkeypatch.setattr(mcp_server.server, "run", record)
+    mcp_server.main()
+    assert calls == [expected]
