@@ -190,6 +190,14 @@
           "THE BUILD BRIEF for the unit mcp-server LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/mcp-server) + mechanism analysis (understand/mcp-server) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
+      },
+      "G-MEMBERPATHSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed — the collaborator's-hand bytes whole: the hikari-source rows (the yaml's tool grants per the map) + the mcp block's wiring (command/args/enabled per the design's F6) + the regen + restart acts named in order",
+          "the grant map carried verbatim (the design's ruling): full five at jikko/kensho/shinko; read three at rikai/shindan; deny at the other eight — the rows' exact form per the lifecycle precedent's emitted shape",
+          "the collaborator approves — the hand fires only after (the hikari edit at their hand, the regen, the restart — the delivery point)"
+        ]
       }
     },
     "checkpoints": [],
@@ -346,6 +354,22 @@
         "actor": "shinko",
         "timestamp": "2026-11-22T22:44:26Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed — the collaborator's-hand bytes whole: the hikari-source rows (the yaml's tool grants per the map) + the mcp block's wiring (command/args/enabled per the design's F6) + the regen + restart acts named in order\\\", \\\"the grant map carried verbatim (the design's ruling): full five at jikko/kensho/shinko; read three at rikai/shindan; deny at the other eight — the rows' exact form per the lifecycle precedent's emitted shape\\\", \\\"the collaborator approves — the hand fires only after (the hikari edit at their hand, the regen, the restart — the delivery point)\\\"]\", \"gate\": \"G-MEMBERPATHSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T05:54:58Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-mcp-tools\", \"ruling\": \"THE CONNECTION-CONFIG QUESTION + THE EXACT-COPY-PASTE DELIVERABLE (collaborator ruling, 2026-11-23, verbatim: \\\"provide the exact copy paste for the hikari side. / hikari won't know how to connect to our MCP, so we need to have some we generate here, that hikari can generate back into the opencode.json... or some sort of on off switch for when we have the mcp server operating.... we need the teams input on this... maybe the tool starts it and runs it?\\\"): THE DESIGN QUESTION, the team's input required — how the harness connects to prioritree's MCP server, three candidates named: (a) THE FRAGMENT CARRIED — the connection config generated HERE (the exact bytes prioritree authors), hikari's scaffold emitting them into the opencode.json's mcp block (the wiring as prioritree-authored data riding hikari's source); (b) THE ON/OFF SWITCH — the enabled flag as the switch (false when the server is not operating, true when it is — possibly paired with [a]: the fragment carried + the switch); (c) THE TOOL-STARTS-IT FORM — the lifecycle tool starts and runs a SHARED server (the HTTP form, the lifecycle-integration unit's own subject), the harness connecting to the running instance, the switch being the server's up/down state. THE COLLABORATOR'S LEANING recorded: \\\"maybe the tool starts it and runs it?\\\" — the shared-server form. THE DELIVERABLE NAMED: the spec carries THE EXACT COPY-PASTE for the hikari side (whatever form is ruled — the fragment's bytes, the yaml rows, the fragment hikari emits — the collaborator's hand gets a paste-able block, never a description of one). THE PRICING AXES: the stdio-per-session form (the design's current ruling — the harness spawns per-session servers, the MemoryStore replay resetting per session) vs the shared-HTTP form (one server, the replay persisting, the tool managing the lifecycle); the restart law (config read at launch — the switch flips at the restart); the design's own two-run-forms ruling (one server, stdio + --serve).\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T05:55:50Z",
+        "op": "add-ruling"
       }
     ]
   },
@@ -378,6 +402,11 @@
         {
           "text": "THE PER-STEP LAW SHARPENED — THE FILE IS THE STEP-UNIT (collaborator correction, 2026-11-22, verbatim ground: \"that was for sure a fat dispatch.\" — the step-3 compositions dispatch, build/mcp-server): R8's ONE STEP ONE DISPATCH sharpens to the FILE: a step-dispatch carries ONE file's landing (or the smallest coherent unit — one region set in one file), NEVER a multi-file region set. The build/mcp-server step-3 dispatch carried service_store.py's six hunks + cli.py's five hunks + both imports + the docstring amendments + two lint fixes + a full floor run in one session — the step-GROUP form (R7's superseded shape) striking despite the approved plan's own \"compositions\" step-bundling: the spec's step plan inherits the law too — multi-file steps decompose per-file at the plan's authoring, and the convenor's dispatches follow the decomposed plan. WHAT SAVED IT: R11's per-step report — the record rode the packet (jikko's own report, the floor's outcomes verbatim), the return landed whole; the fat dispatch's hazard is record-loss at the transit seam, and the per-step report is the guard — the survival is the law's proof, not the dispatch's defense. THE LANDED WORK STANDS (verified: 156 passed, pyright 0/0, ruff zero — behavior-transparent, the floor held); the correction shapes the REMAINING steps (the two test files decompose into two dispatches; the single-file steps ride as-is) and the standing form at every route: the file is the step-unit, the plan decomposes per-file, the dispatch follows.",
           "ruled_at": "2026-11-22",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE CONNECTION-CONFIG QUESTION + THE EXACT-COPY-PASTE DELIVERABLE (collaborator ruling, 2026-11-23, verbatim: \"provide the exact copy paste for the hikari side. / hikari won't know how to connect to our MCP, so we need to have some we generate here, that hikari can generate back into the opencode.json... or some sort of on off switch for when we have the mcp server operating.... we need the teams input on this... maybe the tool starts it and runs it?\"): THE DESIGN QUESTION, the team's input required — how the harness connects to prioritree's MCP server, three candidates named: (a) THE FRAGMENT CARRIED — the connection config generated HERE (the exact bytes prioritree authors), hikari's scaffold emitting them into the opencode.json's mcp block (the wiring as prioritree-authored data riding hikari's source); (b) THE ON/OFF SWITCH — the enabled flag as the switch (false when the server is not operating, true when it is — possibly paired with [a]: the fragment carried + the switch); (c) THE TOOL-STARTS-IT FORM — the lifecycle tool starts and runs a SHARED server (the HTTP form, the lifecycle-integration unit's own subject), the harness connecting to the running instance, the switch being the server's up/down state. THE COLLABORATOR'S LEANING recorded: \"maybe the tool starts it and runs it?\" — the shared-server form. THE DELIVERABLE NAMED: the spec carries THE EXACT COPY-PASTE for the hikari side (whatever form is ruled — the fragment's bytes, the yaml rows, the fragment hikari emits — the collaborator's hand gets a paste-able block, never a description of one). THE PRICING AXES: the stdio-per-session form (the design's current ruling — the harness spawns per-session servers, the MemoryStore replay resetting per session) vs the shared-HTTP form (one server, the replay persisting, the tool managing the lifecycle); the restart law (config read at launch — the switch flips at the restart); the design's own two-run-forms ruling (one server, stdio + --serve).",
+          "ruled_at": "2026-11-23",
           "actor": "shinko"
         }
       ]
