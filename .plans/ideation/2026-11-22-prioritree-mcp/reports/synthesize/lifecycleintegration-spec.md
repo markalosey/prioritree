@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/lifecycleintegration-spec
 
-**Route:** prioritree-mcp (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-mcp (executing) | **Events:** 6 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,10 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-23T18:02:37Z |
 | 2 | report | togo | 2026-11-23T18:25:22Z |
+| 3 | result | shinko | 2026-11-23T18:25:44Z |
+| 4 | gate | shinko | 2026-11-23T18:49:59Z |
+| 5 | dispatch | shinko | 2026-11-23T19:24:49Z |
+| 6 | report | togo | 2026-11-23T19:25:48Z |
 ## Reported by togo — 2026-11-23T18:25:22Z
 
 # TOGO — synthesize/lifecycleintegration-spec — THE EXACT-TASK SPEC (2026-11-23; the lifecycle-integration unit's build bytes, closing G-LIFECYCLEINTEGSPEC-BRIEF at the collaborator's approval)
@@ -261,3 +265,13 @@ The MCP rides the same install: `$(uv tool dir)/prioritree/bin/python -m priorit
 4. THE TRADE-OFF CARRIED (the brief §6): a SECOND lifecycle surface — eight recipes at one Makefile, two pid/log pairs, the mirroring duplication the named maintenance cost (the shared-recipe alternative priced and declined: the web's byte-untouched law + the tiers' failure modes never coupled). The plan carries this cost, named.
 
 THE RECOMMENDATION, WHOLE: approve this spec — the bytes whole over the approved brief (the four targets mirroring the standing form; the 8100 default at both sides [src + MCP_PORT]; the argparse widening with the bare form byte-held; the one arc's three forms; the README's four lines); build/lifecycleintegration fires per §6; G-LIFECYCLEINTEGRATION closes on the live read-backs + the grown floor + kensho's re-run. The collaborator rules.
+## Reported by togo — 2026-11-23T19:25:48Z
+
+R6 fold — the cure's exact bytes (the two regions; the 400 truth named, the 000 arms held):
+[mcp-start :82 before] echo "read-back: HTTP $$code on http://127.0.0.1:$(MCP_PORT)/mcp (200 or 405 = answering, the ready code byte-named at the first live fire; 000 = still booting: make mcp-status)"
+[mcp-start :82 after ] echo "read-back: HTTP $$code on http://127.0.0.1:$(MCP_PORT)/mcp (400 = answering (the MCP protocol's bare-GET refusal — the server enforcing its protocol); 000 = still booting: make mcp-status)"
+[mcp-status :116 before] if [ "$$code" = "200" ] || [ "$$code" = "405" ]; then echo "port: $(MCP_PORT) answering (HTTP $$code on /mcp; the ready form)";
+[mcp-status :116 after ] if [ "$$code" = "400" ]; then echo "port: $(MCP_PORT) answering at /mcp (HTTP $$code; the protocol's bare-GET refusal — the ready form)";
+[mcp-status :117 held  ] elif [ "$$code" = "000" ]; then echo "port: $(MCP_PORT) refused (down)";
+[mcp-status :118 before] else echo "port: $(MCP_PORT) answered HTTP $$code (unexpected; not the ready form)";
+[mcp-status :118 after ] else echo "port: $(MCP_PORT) answered HTTP $$code (unexpected; the ready form is 400)";

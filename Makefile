@@ -79,7 +79,7 @@ mcp-start: ## Start the MCP server in the background (run from the repo root; pi
 	fi
 	@mkdir -p .prioritree
 	@nohup env -u WEB_CONCURRENCY .venv/bin/python -m prioritree.mcp_server --serve --host $(MCP_HOST) --port $(MCP_PORT) > .prioritree/mcp-server.log 2>&1 & echo $$! > .prioritree/mcp-server.pid
-	@sleep 1; code=$$(curl -s -o /dev/null -w '%{http_code}' -m 2 http://127.0.0.1:$(MCP_PORT)/mcp || true); echo "read-back: HTTP $$code on http://127.0.0.1:$(MCP_PORT)/mcp (200 or 405 = answering, the ready code byte-named at the first live fire; 000 = still booting: make mcp-status)"
+	@sleep 1; code=$$(curl -s -o /dev/null -w '%{http_code}' -m 2 http://127.0.0.1:$(MCP_PORT)/mcp || true); echo "read-back: HTTP $$code on http://127.0.0.1:$(MCP_PORT)/mcp (400 = answering (the MCP protocol's bare-GET refusal — the server enforcing its protocol); 000 = still booting: make mcp-status)"
 
 mcp-stop:  ## Stop the MCP server: SIGTERM + the bounded drain (pid read from .prioritree/mcp-server.pid; run from the repo root)
 	@if [ ! -f .prioritree/mcp-server.pid ]; then echo "mcp-stop: no pidfile; nothing managed (already down)"; exit 0; fi
@@ -113,9 +113,9 @@ mcp-status: ## Report the MCP server's pid and port, both labeled, read-only (ru
 		echo "pid: none (no pidfile; not managed)"; \
 	fi
 	@code=$$(curl -s -o /dev/null -w '%{http_code}' -m 2 http://127.0.0.1:$(MCP_PORT)/mcp); \
-	if [ "$$code" = "200" ] || [ "$$code" = "405" ]; then echo "port: $(MCP_PORT) answering (HTTP $$code on /mcp; the ready form)"; \
+	if [ "$$code" = "400" ]; then echo "port: $(MCP_PORT) answering at /mcp (HTTP $$code; the protocol's bare-GET refusal — the ready form)"; \
 	elif [ "$$code" = "000" ]; then echo "port: $(MCP_PORT) refused (down)"; \
-	else echo "port: $(MCP_PORT) answered HTTP $$code (unexpected; not the ready form)"; \
+	else echo "port: $(MCP_PORT) answered HTTP $$code (unexpected; the ready form is 400)"; \
 	fi
 
 mcp-restart: mcp-stop mcp-start ## Stop then start: the operator's rebind (run from the repo root; the read-backs ride both prerequisites)

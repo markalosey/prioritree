@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — build/lifecycleintegration
 
-**Route:** prioritree-mcp (executing) | **Events:** 10 | **Reports:** 5
+**Route:** prioritree-mcp (executing) | **Events:** 13 | **Reports:** 6
 
 ## The packet's chain (ledger order)
 
@@ -17,6 +17,9 @@
 | 8 | report | jikko | 2026-11-23T19:05:44Z |
 | 9 | dispatch | shinko | 2026-11-23T19:05:58Z |
 | 10 | report | jikko | 2026-11-23T19:06:54Z |
+| 11 | result | shinko | 2026-11-23T19:19:25Z |
+| 12 | dispatch | shinko | 2026-11-23T19:26:00Z |
+| 13 | report | jikko | 2026-11-23T19:27:09Z |
 ## Reported by jikko — 2026-11-23T18:52:00Z
 
 Step 2 of 6 (the src region) DONE — src/prioritree/mcp_server.py, two hunks, the spec §2's fenced bytes applied verbatim.
@@ -58,3 +61,9 @@ The floor, all three acts executed, no edits:
 3. Typecheck act: "uv run pyright — 0 errors, 0 warnings, 0 informations"
 
 No findings outside the expectations; nothing edited, nothing skipped.
+## Reported by jikko — 2026-11-23T19:27:09Z
+
+Step 7 landed — the ready-code cure, both regions, nothing else touched.
+Makefile:82 (mcp-start's read-back): the "200 or 405 = answering, the ready code byte-named at the first live fire" pair -> "400 = answering (the MCP protocol's bare-GET refusal — the server enforcing its protocol)"; the "000 = still booting: make mcp-status" case held byte-for-byte.
+Makefile:116-118 (mcp-status): the "200 || 405" check -> `if [ "$$code" = "400" ]` with the message "answering at /mcp (HTTP $$code; the protocol's bare-GET refusal — the ready form)"; :117's "000 = refused (down)" arm held; :118's unexpected arm -> "(unexpected; the ready form is 400)".
+Read-back: both regions verbatim match the fold's after-fences (to-go's R6, the spec's latest event); grep "200 or 405" over the Makefile returns zero hits. Two hunks, one patch apply, zero findings.
