@@ -6,7 +6,7 @@
     "type": "build_route",
     "methodology": "MPIR",
     "instance": 1,
-    "status": "composed",
+    "status": "executing",
     "worktree": "prioritree",
     "inputs": [
       "THE COLLABORATOR'S CONVENING (2026-11-23): the CI effort convenes now — only for things that are FREE on GitHub (nothing paid on the platform); the inward-first direction ruled (the auth write-exposure cure and the order-bias probe after CI, outward/PyPI after inward); the >100-item scale fence held (no list in the current mindset — adaptive scheduling stays banked until the real earn)",
@@ -218,6 +218,14 @@
         "actor": "shinko",
         "timestamp": "2026-11-23T22:33:32Z",
         "op": "add-increment"
+      },
+      {
+        "what": "set-route-status {\"from\": \"composed\", \"status\": \"executing\"}",
+        "ruled_at": "2026-11-23",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-23T23:01:44Z",
+        "op": "set-route-status"
       }
     ]
   },
