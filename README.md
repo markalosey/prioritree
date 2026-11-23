@@ -10,15 +10,181 @@ The comparator class is both human AND LLM — both vote through the same vote i
 >
 > — the collaborator's Q-purpose ruling, 2026-11-19 (verbatim)
 
+License: MIT — the [LICENSE](LICENSE) file at the repo root (Copyright (c) 2026 Mark Losey).
+
+## Quickstart
+
+The first comparison, end-to-end, from a fresh clone. Run every command from the repo root (see [Discipline](#discipline)):
+
+```console
+$ git clone git@github.com:markalosey/prioritree.git
+$ cd prioritree
+$ make dev
+$ make test
+$ git config core.hooksPath .githooks
+$ make start
+$ open http://127.0.0.1:8000/
+```
+
+The browser is the human comparator's surface: register a list, vote the served pairs, read the ranked whole.
+
+A first comparison at the command line instead (no server; from the repo root):
+
+```console
+$ uv tool install .
+$ prioritree register aloe:Aloe basil:Basil cilantro:Cilantro --operator-id plant-size --question "Which is the bigger plant?"
+RUN-0001
+$ prioritree next RUN-0001
+pair	aloe	basil	0
+$ prioritree vote RUN-0001 aloe basil prefer-a mark human
+vote	VOTE-0001	1
+```
+
+Then serve and vote the remaining pairs the same way; at quorum on every pair the tally emits the ranked whole — the full transcript: [Input/Output Examples](#inputoutput-examples).
+
 ## Architecture
 
-All four forms, one layered architecture, library-first (the collaborator's Q-setup-arch ruling, 2026-11-19):
+Five tiers, one layered architecture, library-first:
 
-- **Library — `src/prioritree` — BUILT (2026-11-20, the prioritree-core effort):** the pure-logic core (items, comparison operator, pair scheduling, votes, tally) at the bottom of the stack. Data plane = pure logic: stateless scoring/ranking core, votes are data in/out, no DB at birth.
-- **CLI — BUILT (2026-11-21, the prioritree-cli effort):** wraps the core — the five-op surface at the command line (register → next → vote → state → tally).
-- **API service (FastAPI) — LIVE (2026-11-21, the prioritree-service effort):** serves the core — the five routes over HTTP (the lock seam beneath, the 500 crash envelope, the live-socket acceptance arc proven; the tree's first runtime deps: fastapi + uvicorn[standard]).
-- **Web app — banked (the stack's fourth layer):** fronts the service (the human comparator's vote surface).
+- **Library — `src/prioritree` — built 2026-11-20.** The pure-logic core at the bottom of the stack: items, the comparison operator, pair scheduling, votes, tally — the tally a pure function of the stored votes. State is file-backed JSONL (no database).
+- **CLI — built 2026-11-21.** Wraps the core: the five-op surface at the command line (register → next → vote → state → tally), the `prioritree` console script.
+- **Service (FastAPI) — live 2026-11-21.** Serves the core over HTTP: six routes (the five ops 1:1 + the manifest query), one process-wide lock seam, every error body the three-part form (expected / found / next-action).
+- **Web — built 2026-11-22.** Fronts the service: `src/prioritree/web.py` (654 lines, nine routes, 14 authored Jinja2 templates + 2 static files) over the in-process seam — the human comparator's vote surface at the browser.
+- **MCP — live 2026-11-22.** The agent-callable tier: `src/prioritree/mcp_server.py` (580 lines, the five OunceMCP tools — `runs.register`, `runs.next`, `votes.cast`, `votes.census`, `runs.tally`; the `store_lock.py` flock seam), two run forms.
+
+Runtime dependencies: six — `fastapi`, `httpx2`, `jinja2`, `ouncemcp`, `python-multipart`, `uvicorn[standard]` (`pyproject.toml`). The quality floor: 197 tests green, pyright clean, ruff clean.
+
+## Usage
+
+### CLI
+
+The five ops, one console script. The report language is marker-first, tab-separated.
+
+| op | invocation |
+|---|---|
+| register | `prioritree register <id:label>... --operator-id <id> --question <text> [--quorum <n>]` |
+| next | `prioritree next <run_id> [--seed <n>]` |
+| vote | `prioritree vote <run_id> <item_a> <item_b> <winner> <comparator_id> <comparator_class> [--notes <text>] [--supersedes <vote_id>]` |
+| state | `prioritree state <run_id>` |
+| tally | `prioritree tally <run_id>` |
+
+- Item tokens are `id:label`, split on the FIRST colon — ids may not contain colons; labels may.
+- The verdict set (the `winner` positional): `prefer-a`, `prefer-b`, `tie`.
+- `--home <path>` rides all five ops — the store home (default `.prioritree/runs`, CWD-relative).
+- Exit codes: `0` success AND DONE (the queue exhausted prints its three-field message on stdout); `1` refusals (the message on stderr); `2` argv errors and the unexpected (argparse's channel).
+
+### Service (FastAPI)
+
+```console
+$ uv run uvicorn prioritree.service:app        # foreground
+$ make start                                   # background, managed (make stop / status / restart)
+```
+
+Six routes over HTTP:
+
+| route | op |
+|---|---|
+| `POST /runs` | register (201) |
+| `GET /runs/{run_id}/next` | serve the next under-quorum pair |
+| `POST /runs/{run_id}/votes` | cast one judgment |
+| `GET /runs/{run_id}/state` | the census |
+| `GET /runs/{run_id}/tally` | the ranked whole |
+| `GET /runs/{run_id}/manifest` | the run's manifest |
+
+### Web
+
+The lifecycle targets — `make start`, `make stop`, `make status`, `make restart` (`PORT ?= 8000`, `HOST ?= 127.0.0.1`; override: `make start PORT=8100`). The browser at `http://127.0.0.1:8000/`: register a list, vote the served pairs, read the ranked whole.
+
+### MCP
+
+Two run forms:
+
+```console
+$ uv run python -m prioritree.mcp_server           # stdio, per session — the MCP host boots it
+$ uv run python -m prioritree.mcp_server --serve    # streamable-HTTP at http://127.0.0.1:8000
+```
+
+Port note: `--serve` hardcodes port 8000 — the same default as `make start`; run one at a time, or start the web tier with `make start PORT=<other>`.
+
+## Input/Output Examples
+
+One run whole — a list in, three votes, the tally out (a fresh store; every byte as the tree emits it):
+
+```console
+$ prioritree register aloe:Aloe basil:Basil cilantro:Cilantro --operator-id plant-size --question "Which is the bigger plant?"
+RUN-0001
+$ prioritree next RUN-0001
+pair	aloe	basil	0
+$ prioritree vote RUN-0001 aloe basil prefer-a mark human
+vote	VOTE-0001	1
+$ prioritree next RUN-0001
+pair	aloe	cilantro	0
+$ prioritree vote RUN-0001 aloe cilantro prefer-b mark human
+vote	VOTE-0002	2
+$ prioritree next RUN-0001
+pair	basil	cilantro	0
+$ prioritree vote RUN-0001 basil cilantro prefer-b mark human
+vote	VOTE-0003	3
+$ prioritree next RUN-0001
+exhausted — expected: all 3 scheduled pairs at quorum k=1 | found: the queue is exhausted — the walk fell through with no under-quorum pair (every pair at quorum on the census's AS-IS counts) | next: call tally_rank(run_id) — the tally path (R12's DONE; a standing correction can still SAFE HALT it — the census-vs-weighted seam, named and carried)
+$ prioritree state RUN-0001
+votes	3
+item	aloe	2
+item	basil	2
+item	cilantro	2
+$ prioritree tally RUN-0001
+rank	cilantro
+rank	aloe
+rank	basil
+counts	aloe	1	1	0
+counts	basil	0	2	0
+counts	cilantro	2	0	0
+coverage	1	True
+pairs	aloe	basil	1
+pairs	aloe	cilantro	1
+pairs	basil	cilantro	1
+version	win-rate-v1
+```
+
+Reading the lines:
+
+- `register` prints the bare run id — `RUN-0001`, the file stem of `.prioritree/runs/RUN-0001.jsonl`.
+- `next` prints `pair`, the two ids, the votes already on the pair; the queue is the id-sorted pairwise schedule; at exhaustion it prints the DONE message instead (exit 0).
+- `vote` prints `vote` (a new cast) or `ack` (a byte-identical re-cast — the dedup), the vote id, and the run's whole vote count.
+- `state` prints `votes` (the total) then one `item` line per item — the votes the item appeared in.
+- `tally` prints the ranked whole: one `rank` line per tie group, `counts` (wins, losses, ties) per item, `coverage` (the graph's components, done), a `cycle` line only when a Condorcet cycle exists, `pairs` (the weighted per-pair counts), and `version`.
+
+## Discipline
+
+- **The CWD law.** The store (`.prioritree/runs`) and the web mounts (`web/templates`, `web/static`) resolve CWD-relative — run from the repo root, or your data lands where you stood (the directories mint silently on demand). The CLI's `--home` is the per-invocation escape.
+- **The git hook.** `.githooks/pre-commit` is tracked, but the pointer never clones — set it by hand: `git config core.hooksPath .githooks`. The hook enforces pyright only; ruff is named, pending — run `make lint` for the full floor. `PRIORITREE_HOOK_BYPASS=1` is the tracked bypass.
+- **The port collision.** `make start` and `mcp_server --serve` both default to port 8000 — run one at a time, or override (`make start PORT=8100`).
+- **`.prioritree/` mints at runtime** — the server pid and log, the runs store; gitignored, never present in a clone.
+
+## Install
+
+**The clone — the whole product.** The only path that operates all five tiers: the web tier's templates and static files ride the repo, and the CWD-relative homes resolve at the root. Requirements: Python 3.13+ and uv. The full honest sequence:
+
+```console
+$ git clone git@github.com:markalosey/prioritree.git
+$ cd prioritree
+$ make dev
+$ make test
+$ make lint
+$ make typecheck
+$ git config core.hooksPath .githooks
+$ make start
+$ open http://127.0.0.1:8000/
+```
+
+**`uv tool install .` — the CLI anywhere.** Installs the `prioritree` console script and its six dependencies, usable from any directory. State is per-project by design: the store mints at `.prioritree/runs` under your CWD; `--home` redirects. The web tier does not ride this lane today: the wheel carries `src/prioritree` only (no web templates) — the clone is the web tier's only home.
+
+**Not on PyPI.** `uv tool install prioritree` and `pip install prioritree` do not resolve — Priori-tree is not published. The publish is deferred: the license has landed; packaging and CI remain.
 
 ## Status
 
-Born 2026-11-19 (the setup: the skeleton, the kumi harness, the tool grants). The core library built 2026-11-20 (six units, all gates green); the CLI built 2026-11-21 (three units); the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the API service live 2026-11-21 (three units, the live-socket acceptance proven, 131 tests green at close). The MCP tier is the ruled next effort (OunceMCP lands the five ops as its tools — Q-mcp-surface's banked ruling, the condition fired at the service era's arrival). CI is deferred — git hooks and local gates stand in.
+Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools). CI is deferred — the git hook and the local gates stand in. The quality floor: 197 tests green, pyright clean, ruff clean.
+
+## License
+
+MIT — the [LICENSE](LICENSE) file at the repo root (Copyright (c) 2026 Mark Losey); `pyproject.toml` carries `license = "MIT"`.
