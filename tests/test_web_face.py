@@ -160,6 +160,10 @@ def test_result_ranks_the_whole(client: TestClient) -> None:
     client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
     for pair in (("a", "b"), ("a", "c"), ("b", "c")):
         client.post(f"/runs/{_RUN_ID}/votes", json={"pair": list(pair), "winner": "prefer-a", **_VOTE})
+        client.post(
+            f"/runs/{_RUN_ID}/votes",
+            json={"pair": list(pair), "winner": "prefer-a", **_VOTE, "comparator_class": "llm"},
+        )
     response = client.get(f"/runs/{_RUN_ID}/result")
     assert response.status_code == 200
     assert "one" in response.text

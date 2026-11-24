@@ -8,7 +8,9 @@ ruled language to MEASUREMENT, pricing the option acceptance-brief §5 named: th
 a binary-threshold absolute sizer per Q-curve-sizer — each item judged alone against the
 integer thresholds j cycling 1..n-1, ONE flip draw per judgment at the noise rate, the score
 the exact Fraction of yes over budget — sized at the SAME budget the pairwise arm spends
-(B = n0 x quorum, n0 = n(n-1)/2), both arms composed as one paired cell by compare_run: one
+(B = n0 x the floored quorum, max(quorum, len(HARNESS_JUDGE_CLASSES)) — the pairwise arm's
+own registration form, the corroboration floor's minimum; n0 = n(n-1)/2), both arms composed
+as one paired cell by compare_run: one
 call, both arms, the equal-budget law by construction (B derives from the SAME (n, quorum) —
 no independent parameter, no cross-check).
 THE NOISE-STREAMS RULING (the brief's §2, ruled at G-BUDGET-CURVE 2026-11-21): the truth
@@ -43,7 +45,7 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import TYPE_CHECKING, Final
 
-from prioritree.acceptance import ACCEPTANCE_ID_TEMPLATE, accept_measure, accept_run
+from prioritree.acceptance import ACCEPTANCE_ID_TEMPLATE, HARNESS_JUDGE_CLASSES, accept_measure, accept_run
 
 # AcceptanceRecord rides TYPE_CHECKING (the annotation-only import — the curve record's field
 # type; the dataclass's field annotations stay strings under future-annotations, never resolved).
@@ -134,9 +136,12 @@ def size_run(item_count: int, noise_rate: float, seed: int, quorum: int) -> Size
     instance DERIVED — random.Random(SIZER_SEED_TEMPLATE.format(seed=seed)) — the truth paired
     (the same seed names the same latent in both arms), the noise independent (the derived stream
     never touches the latent stream's draws; the identical-streams alternative priced and
-    declined); (3) the budget split: B = n0 x quorum (n0 = n(n-1)/2, the pairwise arm's own
-    pair-judgment total), q = B // n, r = B mod n — the first r items in id order allotted q+1
-    judgments, the rest q: the equal-budget law exact, sum(B_i) = B, never a float's rounding;
+    declined); (3) the budget split: B = n0 x max(quorum, len(HARNESS_JUDGE_CLASSES)) (n0 =
+    n(n-1)/2, the pairwise arm's own registration form — the floored quorum, the corroboration
+    floor's minimum, both arms at the floored budget; the k=1 leg sized at the floored form,
+    the single-judgment baseline retired to the recorded table), q = B // n, r = B mod n —
+    the first r items in id order allotted q+1 judgments, the rest q: the equal-budget law
+    exact, sum(B_i) = B, never a float's rounding;
     (4) the per-item judgment loop, items in id order: judgment m (0-indexed, m < B_i) asks
     "is item i among the top j?" — the polarity load-bearing — against the threshold
     j = (m mod (n-1)) + 1 (the per-item counter cycling 1..n-1, each item exhausting its own
@@ -172,7 +177,7 @@ def size_run(item_count: int, noise_rate: float, seed: int, quorum: int) -> Size
         raise ValueError(guard_head + " — the truth would be implicit in the id sort; revisit the seed at the gate")
     noise_rng = random.Random(SIZER_SEED_TEMPLATE.format(seed=seed))
     total_pairs = item_count * (item_count - 1) // 2
-    total_budget = total_pairs * quorum
+    total_budget = total_pairs * max(quorum, len(HARNESS_JUDGE_CLASSES))
     base_budget, remainder = divmod(total_budget, item_count)
     budgets = tuple(base_budget + 1 if index < remainder else base_budget for index in range(item_count))
     judgment_counts: list[int] = []
@@ -216,7 +221,8 @@ def compare_run(item_count: int, noise_rate: float, seed: int, quorum: int) -> C
     default ACCEPTANCE_QUORUM held — every existing caller's behavior byte-identical), never a
     cited or replayed arm; (2) the sizer arm size_run(item_count, noise_rate, seed, quorum) at
     the SAME coordinates — the equal-budget derivation's single home: B derives from the same
-    (item_count, quorum), no independent parameter, the equal-budget law by construction;
+    (item_count, quorum) at the floored max form, no independent parameter, the equal-budget
+    law by construction (both arms at the floored budget);
     (3) the CurveRecord returned whole — both arms' records paired per cell, the latent PAIRED
     (the same seed names the same latent in both arms) and the noise INDEPENDENT (each arm its
     own stream, the derived instance's form), the pairing the comparison's own control.

@@ -29,6 +29,7 @@ _OPERATOR_ID = "operator-1"
 _QUESTION = "which comes first?"
 _COMPARATOR_ID = "comparator-1"
 _HUMAN = "human"
+_LLM = "llm"
 _HOME_FLAG = "--home"
 _PREFER_A = "prefer-a"
 _RUN_ONE = "RUN-0001"
@@ -41,13 +42,13 @@ _TALLY_ABC = (
     "rank\ta\n"
     "rank\tb\n"
     "rank\tc\n"
-    "counts\ta\t2\t0\t0\n"
-    "counts\tb\t1\t1\t0\n"
-    "counts\tc\t0\t2\t0\n"
+    "counts\ta\t4\t0\t0\n"
+    "counts\tb\t2\t2\t0\n"
+    "counts\tc\t0\t4\t0\n"
     "coverage\t1\tTrue\n"
-    "pairs\ta\tb\t1\n"
-    "pairs\ta\tc\t1\n"
-    "pairs\tb\tc\t1\n"
+    "pairs\ta\tb\t2\n"
+    "pairs\ta\tc\t2\n"
+    "pairs\tb\tc\t2\n"
     "version\twin-rate-v1\n"
 )
 
@@ -58,9 +59,9 @@ def _register(tmp_path: Path, items: tuple[str, ...]) -> None:
     assert command(argv) == 0
 
 
-def _cast(tmp_path: Path, item_a: str, item_b: str, winner: str) -> None:
+def _cast(tmp_path: Path, item_a: str, item_b: str, winner: str, comparator_class: str = _HUMAN) -> None:
     """Cast one vote at the tmp home in the served canonical order."""
-    argv = ["vote", _RUN_ONE, item_a, item_b, winner, _COMPARATOR_ID, _HUMAN, _HOME_FLAG, str(tmp_path)]
+    argv = ["vote", _RUN_ONE, item_a, item_b, winner, _COMPARATOR_ID, comparator_class, _HOME_FLAG, str(tmp_path)]
     assert command(argv) == 0
 
 
@@ -68,8 +69,11 @@ def _drive_abc_to_coverage(tmp_path: Path) -> None:
     """Drive the 3-item run to coverage — all 3 pairs voted at k=1."""
     _register(tmp_path, _ITEMS_ABC)
     _cast(tmp_path, "a", "b", _PREFER_A)
+    _cast(tmp_path, "a", "b", _PREFER_A, _LLM)
     _cast(tmp_path, "a", "c", _PREFER_A)
+    _cast(tmp_path, "a", "c", _PREFER_A, _LLM)
     _cast(tmp_path, "b", "c", _PREFER_A)
+    _cast(tmp_path, "b", "c", _PREFER_A, _LLM)
 
 
 def test_register_success_bare_stem(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

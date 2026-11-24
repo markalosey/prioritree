@@ -3,7 +3,7 @@
 
 The service-acceptance unit's test surface (service-acceptance-brief §1-§7 +
 the ux build's sixth query + ThreePart cures): six arcs over a live uvicorn
-subprocess — the eight-request arc (register => manifest => next => vote x3
+subprocess — the eleven-request arc (register => manifest => next => vote x3
 => the exhausted turn => tally, each body asserted against the
 named-constant literals); the determinism replay (two fresh homes,
 byte-identical [r.content] lists); the four refusal arcs (404 the unknown
@@ -174,7 +174,7 @@ def service(tmp_path: Path) -> Iterator[tuple[httpx.Client, str]]:
 
 
 def _drive_arc(client: httpx.Client, base_url: str) -> list[httpx.Response]:
-    """Drive the eight-request arc and return the responses in arc order.
+    """Drive the eleven-request arc and return the responses in arc order.
 
     Purpose: the arc shared by the assertion test and the replay test —
     register (POST /runs, _ITEMS + _OPERATOR), the manifest read (GET
@@ -200,15 +200,21 @@ def _drive_arc(client: httpx.Client, base_url: str) -> list[httpx.Response]:
     responses.append(client.get(f"{base_url}/runs/{_RUN_ID}/next"))
     for pair in (("a", "b"), ("a", "c"), ("b", "c")):
         responses.extend([client.post(f"{base_url}/runs/{_RUN_ID}/votes", json={**_VOTE_BODY, "pair": list(pair)})])
+        responses.append(
+            client.post(
+                f"{base_url}/runs/{_RUN_ID}/votes",
+                json={**_VOTE_BODY, "pair": list(pair), "comparator_class": "llm"},
+            ),
+        )
     responses.append(client.get(f"{base_url}/runs/{_RUN_ID}/next"))
     responses.append(client.get(f"{base_url}/runs/{_RUN_ID}/tally"))
     return responses
 
 
-def test_accept_the_eight_request_arc(service: tuple[httpx.Client, str]) -> None:
+def test_accept_the_eleven_request_arc(service: tuple[httpx.Client, str]) -> None:
     """Register => manifest => next => vote x3 => the exhausted turn => tally, each body asserted.
 
-    Purpose: the full eight-request arc over the real socket — register
+    Purpose: the full eleven-request arc over the real socket — register
     201 {"run_id": _RUN_ID}; the manifest read 200 the five-key body (the
     stem echoed, the question, the verdicts sorted, the quorum, the items
     payload-order-preserved — the operator id and the stamp elided); next
@@ -230,8 +236,10 @@ def test_accept_the_eight_request_arc(service: tuple[httpx.Client, str]) -> None
     """
     client, base_url = service
     responses = _drive_arc(client, base_url)
-    assert len(responses) == 8  # the arc's own shape: 1 register, 1 manifest, 1 next, 3 votes, 1 done, 1 tally
-    assert [response.status_code for response in responses] == [201, 200, 200, 200, 200, 200, 200, 200]
+    assert len(responses) == 11  # the arc's own shape: 1 register, 1 manifest, 1 next, 6 votes, 1 done, 1 tally
+    assert [response.status_code for response in responses] == [
+        201, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
+    ]
     bodies = [response.json() for response in responses]
     assert bodies[0] == {"run_id": _RUN_ID}
     assert bodies[1] == {
@@ -245,19 +253,27 @@ def test_accept_the_eight_request_arc(service: tuple[httpx.Client, str]) -> None
     assert bodies[3] == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
     assert bodies[4] == {"vote_id": "VOTE-0002", "count": 2, "acknowledged": False}
     assert bodies[5] == {"vote_id": "VOTE-0003", "count": 3, "acknowledged": False}
-    done = bodies[6]
+    assert bodies[6] == {"vote_id": "VOTE-0004", "count": 4, "acknowledged": False}
+    assert bodies[7] == {"vote_id": "VOTE-0005", "count": 5, "acknowledged": False}
+    assert bodies[8] == {"vote_id": "VOTE-0006", "count": 6, "acknowledged": False}
+    done = bodies[9]
     assert done["done"] is True
     assert "tally" in done["next_action"]
-    assert bodies[7] == {
+    assert bodies[10] == {
         "ranked_groups": [["a"], ["b"], ["c"]],
-        "per_item_wins": {"a": 2, "b": 1, "c": 0},
-        "per_item_losses": {"a": 0, "b": 1, "c": 2},
+        "per_item_wins": {"a": 4, "b": 2, "c": 0},
+        "per_item_losses": {"a": 0, "b": 2, "c": 4},
         "per_item_ties": {"a": 0, "b": 0, "c": 0},
         "coverage": {
             "components": [["a", "b", "c"]],
             "done": True,
             "cycle": [],
-            "pair_counts": {"a|b": 1, "a|c": 1, "b|c": 1},
+            "pair_counts": {"a|b": 2, "a|c": 2, "b|c": 2},
+            "pair_class_counts": {
+                "a|b": {"human": 1, "llm": 1},
+                "a|c": {"human": 1, "llm": 1},
+                "b|c": {"human": 1, "llm": 1},
+            },
         },
         "algorithm_version": "win-rate-v1",
     }
@@ -267,7 +283,7 @@ def test_replay_byte_identical(tmp_path: Path) -> None:
     """Two fresh homes driven through the same arc => byte-identical content lists.
 
     Purpose: the determinism replay — two homes (tmp_path/"one",
-    tmp_path/"two"), a boot at each, the same eight-request arc against
+    tmp_path/"two"), a boot at each, the same eleven-request arc against
     each via _drive_arc; assert the .content byte lists equal — THE BYTES,
     not parsed dicts; byte-identity IS the claim (no recorded_at crosses
     the wire: the register body the stem alone, the manifest the five

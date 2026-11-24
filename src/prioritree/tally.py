@@ -14,7 +14,9 @@ win-rate family the ONE algorithm behind this module seam, replaceable
 without touching any other unit — no score field crosses the vote interface.
 The fence (the must-not-know, held by construction): no scheduling strategy
 (the expected pair SET cited as data), no comparator identity (R5's stamps
-never read into scoring), no storage medium (no store type anywhere); NO
+never read into scoring; the CLASS stamp read at the coverage GATE alone --
+F8's corroboration floor, the identity never read at all; the fence line's
+own amendment), no storage medium (no store type anywhere); NO
 datetime — purity's negative space (no time, no environment, no randomness).
 """
 
@@ -24,7 +26,9 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import TYPE_CHECKING
 
+from prioritree.policy import missing_classes
 from prioritree.scheduler import schedule_pairs
+from prioritree.votes import COMPARATOR_CLASSES
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
@@ -64,6 +68,9 @@ class CoverageDatum:
     (deterministically the first found in id-sorted DFS order; EMPTY when
     none), the WEIGHTED per-pair counts over the full expected universe
     (0 included — the gate's own datum, never the census's unweighted view),
+    the WEIGHTED per-pair per-CLASS counted votes over the same full universe
+    (every vocabulary class present, 0 included -- the corroboration named in
+    the coverage data, never hidden; R11's discipline extended to F8's floor),
     and the verdict boolean.
     Refuses when: never at construction — a frozen value type; the gate
     raises before any partial emission exists.
@@ -78,6 +85,7 @@ class CoverageDatum:
     components: tuple[tuple[str, ...], ...]
     cycle: tuple[tuple[str, str], ...]
     pair_counts: Mapping[Pair, int]
+    pair_class_counts: Mapping[str, Mapping[str, int]]
     done: bool
 
 
@@ -147,6 +155,7 @@ class _Counted:
     """_Counted — the counting pass's private accumulation state."""
 
     pair_counts: dict[Pair, int]
+    pair_class_counts: dict[Pair, dict[str, int]]
     wins: dict[str, int]
     losses: dict[str, int]
     ties: dict[str, int]
@@ -185,7 +194,10 @@ def _count_votes(
     expected universe), the per-item integer wins/losses/ties (winner ==
     PREFER_A ⇒ item_a win/item_b loss; == PREFER_B ⇒ item_b win/item_a loss;
     == TIE ⇒ both +1 tie — a tie still compares), and the per-pair
-    prefer-a/prefer-b tallies (the dominance graph's input).
+    prefer-a/prefer-b tallies (the dominance graph's input), and the per-pair
+    per-CLASS counts (the corroboration floor's rollup -- every vocabulary
+    class 0 included, the CLASS STAMP accumulated in this same one pass, the
+    identity never read).
     Refuses when: never — pair legality and verdict membership are CITED
     PRECONDITIONS (U3's write gate the authority, never re-policed — U2's
     precedent; the mapping total over the only legal declared set).
@@ -196,12 +208,16 @@ def _count_votes(
     only), the FR-MEM-0001 lesson (the expected set cited, never re-derived).
     """
     pair_counts: dict[Pair, int] = dict.fromkeys(expected_pairs, 0)
+    pair_class_counts: dict[Pair, dict[str, int]] = {
+        pair: dict.fromkeys(sorted(COMPARATOR_CLASSES), 0) for pair in expected_pairs
+    }
     preference: dict[Pair, tuple[int, int]] = dict.fromkeys(expected_pairs, (0, 0))
     wins: dict[str, int] = dict.fromkeys(ids, 0)
     losses: dict[str, int] = dict.fromkeys(ids, 0)
     ties: dict[str, int] = dict.fromkeys(ids, 0)
     for record in counted:
         pair_counts[record.pair] += 1
+        pair_class_counts[record.pair][record.comparator_class] += 1
         item_a, item_b = record.pair.item_a, record.pair.item_b
         if record.winner == PREFER_A:
             wins[item_a] += 1
@@ -216,6 +232,7 @@ def _count_votes(
             ties[item_b] += 1
     return _Counted(
         pair_counts=pair_counts,
+        pair_class_counts=pair_class_counts,
         wins=wins,
         losses=losses,
         ties=ties,
@@ -332,13 +349,15 @@ def _found_sections(
     zero_coverage: Sequence[str],
     components: tuple[tuple[str, ...], ...],
     shortfalls: Sequence[tuple[Pair, int]],
+    missing_class_pairs: Sequence[tuple[Pair, tuple[str, ...]]],
     quorum: int,
 ) -> str:
     """Render the SAFE HALT's found — each failing leg's section, '; '-joined.
 
     Purpose: the audit-honest report of ALL failing legs — leg 1's
     zero-coverage ids (sorted), leg 2's components, leg 3's under-quorum
-    pairs (canonical id-sorted order, each with its weighted count); each
+    pairs (canonical id-sorted order, each with its weighted count), leg 4's
+    uncorroborated pairs (each with its missing class names, sorted); each
     section present only when its leg fails.
     Refuses when: never — a pure rendering.
     Re-run: deterministic.
@@ -357,12 +376,19 @@ def _found_sections(
             f"({pair.item_a}, {pair.item_b}) {count} of {quorum}" for pair, count in shortfalls
         )
         sections.append(f"under-quorum pairs: {rendered}")
+    if missing_class_pairs:
+        rendered = ", ".join(
+            f"({pair.item_a}, {pair.item_b}) missing {', '.join(classes)}"
+            for pair, classes in missing_class_pairs
+        )
+        sections.append(f"uncorroborated pairs: {rendered}")
     return "; ".join(sections)
 
 
 def _next_action_sections(
     components: tuple[tuple[str, ...], ...],
     shortfalls: Sequence[tuple[Pair, int]],
+    missing_class_pairs: Sequence[tuple[Pair, tuple[str, ...]]],
     quorum: int,
 ) -> str:
     """Render the SAFE HALT's next_action — the two gap kinds named distinctly, '; '-joined.
@@ -392,6 +418,13 @@ def _next_action_sections(
             f"({pair.item_a}, {pair.item_b}) needs {quorum - count} more" for pair, count in shortfalls
         )
         sections.append(f"cast the missing votes: {rendered} — quorum needs MORE VOTES on existing pairs")
+    if missing_class_pairs:
+        rendered = ", ".join(
+            f"({pair.item_a}, {pair.item_b}) needs {', '.join(classes)}"
+            for pair, classes in missing_class_pairs
+        )
+        floor_head = f"cast the corroborating votes: {rendered}"
+        sections.append(f"{floor_head} — corroboration needs votes from BOTH CLASSES on existing pairs")
     return "; ".join(sections)
 
 
@@ -445,7 +478,9 @@ def tally_votes(manifest: RunManifest, vote_log: Sequence[VoteRecord]) -> TallyR
     expected universe, 0 included; the positional per-item integer
     wins/losses/ties); (3) the coverage gate BEFORE the score (leg 1
     zero-coverage, leg 2 connectivity via union-find over the ≥1-counted
-    pairs, leg 3 per-pair quorum against the cited expected set — the legs
+    pairs, leg 3 per-pair quorum against the cited expected set, leg 4
+    per-pair corroboration (F8's floor: >=1 human AND >=1 llm among the
+    pair's counted votes, the policy predicate the law's one home) — the legs
     AND-composed, the refusal reporting ALL failing legs); (4) the
     exact-rational score and the maximal equal-score groups; (5) the ONE
     deterministic Condorcet cycle named in the coverage data; (6) the frozen
@@ -454,7 +489,10 @@ def tally_votes(manifest: RunManifest, vote_log: Sequence[VoteRecord]) -> TallyR
     Refuses when: any coverage leg fails — raising TallyRefusedError (the
     SAFE HALT) with the expected/found/next_action bytes of §4, naming the
     zero-coverage items, the components with their spanning-tree bridges,
-    and the under-quorum pairs with their shortfalls; a cycle NEVER blocks
+    and the under-quorum pairs with their shortfalls, the uncorroborated
+    pairs with their missing classes (the two gap kinds taught distinctly:
+    quorum needs MORE VOTES; corroboration needs votes from BOTH CLASSES);
+    a cycle NEVER blocks
     (a Condorcet triple at full coverage is DONE with the cycle named);
     never a partial ranking dressed as whole; pair legality and verdict
     membership are CITED preconditions, never re-policed.
@@ -488,15 +526,25 @@ def tally_votes(manifest: RunManifest, vote_log: Sequence[VoteRecord]) -> TallyR
     shortfalls = [
         (pair, state.pair_counts[pair]) for pair in expected_pairs if state.pair_counts[pair] < manifest.quorum
     ]
-    if zero_coverage or len(components) > 1 or shortfalls:
+    missing_class_pairs = [
+        (pair, tuple(sorted(missing_classes(state.pair_class_counts[pair]))))
+        for pair in expected_pairs
+        if missing_classes(state.pair_class_counts[pair])
+    ]
+    if zero_coverage or len(components) > 1 or shortfalls or missing_class_pairs:
         expected = (
             f"the coverage gate met: no zero-coverage item, the comparison graph connected, "
-            f"every pair at quorum k={manifest.quorum}"
+            f"every pair at quorum k={manifest.quorum} AND corroborated "
+            f"(>=1 human AND >=1 llm per pair)"
         )
         raise TallyRefusedError(
             expected=expected,
-            found=_found_sections(zero_coverage, components, shortfalls, manifest.quorum),
-            next_action=_next_action_sections(components, shortfalls, manifest.quorum),
+            found=_found_sections(
+                zero_coverage, components, shortfalls, missing_class_pairs, manifest.quorum,
+            ),
+            next_action=_next_action_sections(
+                components, shortfalls, missing_class_pairs, manifest.quorum,
+            ),
         )
 
     # (4) THE SCORE + THE RANKING — exact rationals, maximal equal-score runs.
@@ -515,6 +563,10 @@ def tally_votes(manifest: RunManifest, vote_log: Sequence[VoteRecord]) -> TallyR
             components=components,
             cycle=cycle,
             pair_counts=state.pair_counts,
+            pair_class_counts={
+                f"{pair.item_a}|{pair.item_b}": class_map
+                for pair, class_map in state.pair_class_counts.items()
+            },
             done=True,
         ),
         algorithm_version=TALLY_ALGORITHM,

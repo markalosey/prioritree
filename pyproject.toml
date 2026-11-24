@@ -96,7 +96,12 @@ select = ["ALL"]
 # the untrusted-input intent never rides a deterministic e2e harness — the arcs drive the tree's own
 # console script). S607 — the partial-path executable finding, dodged by the full-path form but named
 # for the ruling's stability. Scoped to the one file that subprocesses; the ignores ARE the rulings, named.
-"tests/test_harness.py" = ["S603", "S607"]
+# RULING (the policylayerspec fold Ruling C, G-POLICYLAYERSPEC-BRIEF approved 2026-11-24): PLR0913 —
+# _vote_argv's parameters ARE the CLI's fixed-argv vote act mirrored at the fixture tier (home, item_a,
+# item_b, comparator_class); the entry prophylactic per the fold — the four-parameter mirror sits under
+# the six-argument bar today, dead until the signature grows past five; the floor instruments decide.
+# The S603/S607 ruling re-carried at the same entry (TOML bars duplicate keys); the ignore IS the ruling, named.
+"tests/test_harness.py" = ["PLR0913", "S603", "S607"]
 
 # RULING (budget-curve-brief §7 + Q-curve-floor, G-BUDGET-CURVE-BRIEF approved 2026-11-21): S311 —
 # the harness's random.Random instances are the ruled reproducibility seam (the seeded simulation,
@@ -154,6 +159,20 @@ select = ["ALL"]
 # the tests/test_harness.py + tests/test_service_acceptance.py rulings
 # re-carried at the lock-seam tier; the entry IS the ruling, named).
 "tests/test_store_lock_face.py" = ["S603", "S607"]
+
+# RULING (policylayerspec §3b, G-POLICYLAYERSPEC-BRIEF approved 2026-11-24): _vote's six parameters ARE the fence's ruled
+# builder signature — the helper mirrors VoteRecord's own fields (vote_id, pair, winner, comparator_class, notes, supersedes —
+# the votes' own signature carried at the fixture tier; the votes.py/session.py/run_store.py/service_store.py PLR0913 rulings
+# re-cited). The arg count is the domain's, not the test's choice; the ignore IS the ruling, named. It retires only if the
+# record's own signature is re-ruled.
+"tests/test_tally.py" = ["PLR0913"]
+
+# RULING (the policylayerspec fold Ruling B, G-POLICYLAYERSPEC-BRIEF approved 2026-11-24): _cast's six parameters ARE
+# the cast tool's own parameters mirrored at the fixture tier (caller, pair, winner, comparator_id, comparator_class,
+# supersedes — the tool's ruled signature carried at the fixture tier; the votes.py/session.py/run_store.py/
+# service_store.py PLR0913/PLR0917 rulings re-cited). The arg count is the domain's, not the test's choice; the
+# ignore IS the ruling, named. It retires only if the tool's own signature is re-ruled.
+"tests/test_mcp_server_face.py" = ["PLR0913", "PLR0917"]
 
 [tool.ruff.format]
 quote-style = "double"

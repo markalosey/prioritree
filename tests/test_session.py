@@ -51,21 +51,24 @@ def test_end_to_end_fixture_register_vote_done_tally() -> None:
     assert [row.id for row in manifest.items] == ["a", "b", "c"]
     assert session.next_pair(run_id) == ("a", "b", 0)
     session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
+    session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="llm")
     assert session.next_pair(run_id) == ("a", "c", 0)
     session.cast_vote(run_id, ("a", "c"), "prefer-a", comparator_id="x", comparator_class="human")
+    session.cast_vote(run_id, ("a", "c"), "prefer-a", comparator_id="x", comparator_class="llm")
     assert session.next_pair(run_id) == ("b", "c", 0)
     session.cast_vote(run_id, ("b", "c"), "tie", comparator_id="x", comparator_class="human")
+    session.cast_vote(run_id, ("b", "c"), "tie", comparator_id="x", comparator_class="llm")
     with pytest.raises(ExhaustedQueue):
         session.next_pair(run_id)
     result = session.tally_rank(run_id)
     assert result.ranked_groups == (("a",), ("b", "c"))
-    assert result.per_item_wins == {"a": 2, "b": 0, "c": 0}
-    assert result.per_item_losses == {"a": 0, "b": 1, "c": 1}
-    assert result.per_item_ties == {"a": 0, "b": 1, "c": 1}
+    assert result.per_item_wins == {"a": 4, "b": 0, "c": 0}
+    assert result.per_item_losses == {"a": 0, "b": 2, "c": 2}
+    assert result.per_item_ties == {"a": 0, "b": 2, "c": 2}
     assert result.coverage.done is True
     assert result.coverage.components == (("a", "b", "c"),)
     assert result.coverage.cycle == ()
-    assert result.coverage.pair_counts == {_AB_PAIR: 1, _AC_PAIR: 1, _BC_PAIR: 1}
+    assert result.coverage.pair_counts == {_AB_PAIR: 2, _AC_PAIR: 2, _BC_PAIR: 2}
     assert result.algorithm_version == TALLY_ALGORITHM
     assert result.algorithm_version == "win-rate-v1"
 
@@ -107,6 +110,7 @@ def test_prefix_tally_well_defined_every_coverage_point() -> None:
         session.tally_rank(run_id)
     for pair, winner in _SCRIPT:
         session.cast_vote(run_id, pair, winner, comparator_id="x", comparator_class="human")
+        session.cast_vote(run_id, pair, winner, comparator_id="x", comparator_class="llm")
         with contextlib.suppress(TallyRefusedError):
             session.tally_rank(run_id)
     assert session.tally_rank(run_id).ranked_groups == (("a",), ("b", "c"))
@@ -126,6 +130,7 @@ def test_five_ops_present_and_wired() -> None:
     landed = session.read_vote_state(run_id)
     assert len(landed.vote_log) == 1
     assert landed.per_pair_counts[_AB_PAIR] == 1
+    session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="llm")
     result = session.tally_rank(run_id)
     assert isinstance(result, TallyResult)
     assert result.ranked_groups == (("a",), ("b",))

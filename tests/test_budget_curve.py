@@ -18,6 +18,7 @@ from prioritree.acceptance import (
     ACCEPTANCE_ITEM_COUNTS,
     ACCEPTANCE_NOISE_RATES,
     ACCEPTANCE_SEEDS,
+    HARNESS_JUDGE_CLASSES,
     accept_measure,
 )
 from prioritree.budget_curve import compare_run, size_run
@@ -42,9 +43,10 @@ def test_budget_law_exact() -> None:
     """Assert the equal-budget law at both quorum points — sums exact, split even.
 
     At (n=10, k=3): B = 45 * 3 = 135, q = 13, r = 5 — the first 5 ids in id
-    order carry 14, the rest 13. At (n=20, k=1): B = 190, q = 9, r = 10.
-    Both runs assert sum(budgets) == n0 * quorum and the even split
-    (max - min <= 1); no ordering asserted anywhere.
+    order carry 14, the rest 13. At (n=20, k=1): the floored quorum
+    max(1, len(HARNESS_JUDGE_CLASSES)) = 2 — B = 190 * 2 = 380, q = 19, r = 0,
+    every id carrying 19. Both runs assert sum(budgets) == n0 * the floored
+    quorum and the even split (max - min <= 1); no ordering asserted anywhere.
     """
     ten = size_run(10, 0.15, FIXTURE_SEED, 3)
     assert ten.quorum == 3
@@ -53,9 +55,9 @@ def test_budget_law_exact() -> None:
     assert ten.budgets == (14, 14, 14, 14, 14, 13, 13, 13, 13, 13)
     twenty = size_run(20, 0.15, FIXTURE_SEED, 1)
     assert twenty.quorum == 1
-    assert sum(twenty.budgets) == 190 * 1
+    assert sum(twenty.budgets) == 190 * max(1, len(HARNESS_JUDGE_CLASSES))
     assert max(twenty.budgets) - min(twenty.budgets) <= 1
-    assert twenty.budgets == (10,) * 10 + (9,) * 10
+    assert twenty.budgets == (19,) * 20
 
 
 def test_pairing_law_latent_identical() -> None:
@@ -90,27 +92,29 @@ def test_model_mechanics() -> None:
 
     The honest fixture form (the dispatch's ruling): the expected groups and
     scores derive from the record's OWN latent_order, hand-computable at the
-    small counts. At (n=4, k=1, p=0): B = 6, q = 1, r = 2 — budgets
-    (2, 2, 1, 1) in id order; the per-item thresholds cycle ((m-1) mod 3)+1
-    = (1, 2); the true answer yes iff latent position <= threshold — the
-    counts by latent position, the exact Fractions, the groups by score.
+    small counts. At (n=4, k=1, p=0): the floored quorum max(1,
+    len(HARNESS_JUDGE_CLASSES)) = 2 — B = 6 * 2 = 12, q = 3, r = 0 — budgets
+    (3, 3, 3, 3) in id order; the per-item thresholds (m mod 3) + 1 = (1, 2,
+    3); the true answer yes iff latent position <= threshold — the counts by
+    latent position, the exact Fractions, the groups by score (four
+    singleton groups in latent order at p=0).
     The flip grammar at the extreme rate: at p=1.0 every answer flipped —
     the counts invert exactly. The k=2 coverage: budgets (3, 3, 3, 3),
     thresholds (1, 2, 1) — the round-robin cycle reached.
     """
     quiet = size_run(4, 0.0, FIXTURE_SEED, 1)
-    assert quiet.budgets == (2, 2, 1, 1)
+    assert quiet.budgets == (3, 3, 3, 3)
     latent = quiet.latent_order
     position = {item_id: index for index, item_id in enumerate(latent, start=1)}
     expected_counts = tuple(
         sum(position[item_id] <= ((m % 3) + 1) for m in range(budget))
-        for item_id, budget in zip(_expected_ids(4), (2, 2, 1, 1), strict=True)
+        for item_id, budget in zip(_expected_ids(4), (3, 3, 3, 3), strict=True)
     )
     assert quiet.judgment_counts == expected_counts
     assert quiet.scores == tuple(
         Fraction(count, budget) for count, budget in zip(quiet.judgment_counts, quiet.budgets, strict=True)
     )
-    assert quiet.ranked_groups == ((latent[0],), (latent[1],), tuple(sorted(latent[2:])))
+    assert quiet.ranked_groups == ((latent[0],), (latent[1],), (latent[2],), (latent[3],))
     flipped = size_run(4, 1.0, FIXTURE_SEED, 1)
     assert flipped.budgets == quiet.budgets
     assert flipped.judgment_counts == tuple(
@@ -157,8 +161,9 @@ def test_record_completeness_matrix() -> None:
     """Assert the whole 54-cell matrix complete — both arms, both k points, green.
 
     Every (n, p, seed, k) cell driven through compare_run: the budgets sum
-    to n0 * quorum with the even split, the latents paired across arms, the
-    groups covering every id exactly once, P + Q + T == n0 on BOTH arms.
+    to n0 * the floored quorum (max(quorum, len(HARNESS_JUDGE_CLASSES)), both
+    arms at the floored budget) with the even split, the latents paired
+    across arms, the groups covering every id exactly once, P + Q + T == n0 on BOTH arms.
     The per-cell tau-squared values collected as exact Fractions — the data
     for the record's table; NOTHING about any ordering asserted (the
     Q-curve-assertion ruling), the collection's completeness its own
@@ -173,7 +178,7 @@ def test_record_completeness_matrix() -> None:
                 for quorum in (1, 3):
                     record = compare_run(item_count, noise_rate, seed, quorum)
                     acceptance, sizer = record.acceptance, record.sizer
-                    assert sum(sizer.budgets) == total_pairs * quorum
+                    assert sum(sizer.budgets) == total_pairs * max(quorum, len(HARNESS_JUDGE_CLASSES))
                     assert max(sizer.budgets) - min(sizer.budgets) <= 1
                     assert acceptance.latent_order == sizer.latent_order
                     assert tuple(sorted(item_id for group in sizer.ranked_groups for item_id in group)) == ids

@@ -16,12 +16,15 @@ text's labeled segments, the live set named), and the out-of-set winner
 AND the class refused BOTH ways: at the SCHEMA (the Literal's own gate,
 the typed validation form) and at the CORE (a corrupted body past
 validation fed to the handler, the raised ThreePart the payload). (3) The
-SAFE HALT: the under-cap refusal's own three fields whole on the wire
-(unclipped), and the K=10 capped render probed twice -- the raised payload
-(legs 1-2 whole, the elision named in found AND next_action, the first ten
-shown, the eleventh capped) and the wire (the same render clipped at
-Limits.max_error_chars=300, the step-4 finding made visible, the ellipsis
-asserted). (4) The idempotency replay arcs: the guard replays per
+SAFE HALT: the under-cap refusal's fields pass through verbatim with the
+wire's 300-char clip governing the visible bytes (the grown render
+clipped, the heads asserted), and the K=10 capped render probed twice --
+the raised payload (legs 1-2 whole, the elision named in found AND
+next_action, the first ten shown, the eleventh capped) and the wire (the
+same render clipped at Limits.max_error_chars=300, the step-4 finding
+made visible, the total's head and the ellipsis asserted -- the two-cap
+reality: the found's 10-cap, the wire's 300-clip). (4) The idempotency
+replay arcs: the guard replays per
 principal, so the re-sends ride FRESH caller sessions -- the byte-identical
 re-send reaches the core (acknowledged=true, the count unchanged, the
 original's vote_id), the changed verdict a new record, and the
@@ -96,20 +99,22 @@ def _cast(
     pair: list[str],
     winner: str,
     comparator_id: str,
+    comparator_class: str = "human",
     supersedes: str | None = None,
 ) -> ToolResult:
     """Cast a judgment over the module's seam -- the shared setup's one line.
 
-    The five-argument form (the run id the module constant -- every test's
-    fresh home mints RUN-0001; the class human -- the llm arc and the
-    class-gate arcs inline their own bodies at the wire).
+    The six-argument form (the run id the module constant -- every test's
+    fresh home mints RUN-0001; the class the parameter's own default human
+    -- the corroborating llm casts ride the parameter; the class-gate arcs
+    inline their own bodies at the wire).
     """
     arguments: dict[str, Any] = {
         "run_id": _RUN_ID,
         "pair": pair,
         "winner": winner,
         "comparator_id": comparator_id,
-        "comparator_class": "human",
+        "comparator_class": comparator_class,
     }
     if supersedes is not None:
         arguments["supersedes"] = supersedes
@@ -192,12 +197,13 @@ def test_tally_view_at_full_coverage(caller: str) -> None:
     _register(caller, _ITEMS)
     for pair in (["a", "b"], ["a", "c"], ["b", "c"]):
         _cast(caller, pair, "prefer-a", "x")
+        _cast(caller, pair, "prefer-a", "x", "llm")
     result = _call(caller, "runs.tally", {"run_id": _RUN_ID})
     assert result.is_error is False
     assert result.structured_content == {
         "ranked_groups": [["a"], ["b"], ["c"]],
-        "per_item_wins": {"a": 2, "b": 1, "c": 0},
-        "per_item_losses": {"a": 0, "b": 1, "c": 2},
+        "per_item_wins": {"a": 4, "b": 2, "c": 0},
+        "per_item_losses": {"a": 0, "b": 2, "c": 4},
         "per_item_ties": {"a": 0, "b": 0, "c": 0},
         "coverage": {
             "components": [["a", "b", "c"]],
@@ -339,11 +345,14 @@ def test_cast_class_refused_at_the_core(caller: str) -> None:
 
 
 def test_halt_refusal_under_the_cap(caller: str) -> None:
-    """A tally one vote short of quorum 2 => the refusal's own three fields whole on the wire.
+    """A tally one vote short of quorum 2 => the refusal's visible heads on the wire.
 
     The under-cap leg: the shaper never re-derives (the refusal's fields
-    pass through VERBATIM); the message fits the 300-char window -- all
-    three labels assertable, no clip.
+    pass through VERBATIM -- the found's two sections both visible); the
+    grown render pushes the next_action's tail past the wire's 300-char
+    clip -- the section's head assertable, the tail clipped with the
+    ellipsis (the two-cap reality: the found's 10-cap never fires under
+    ten pairs, the wire's 300-clip does).
     """
     _register(caller, ["a", "b"], quorum=2)
     _cast(caller, ["a", "b"], "prefer-a", "x")
@@ -354,9 +363,9 @@ def test_halt_refusal_under_the_cap(caller: str) -> None:
     assert "expected: the coverage gate met" in text
     assert "every pair at quorum k=2" in text
     assert "found: under-quorum pairs: (a, b) 1 of 2" in text
-    assert "next_action: cast the missing votes: (a, b) needs 1 more" in text
-    assert "quorum needs MORE VOTES on existing pairs" in text
-    assert "…" not in text
+    assert "uncorroborated pairs: (a, b) missing llm" in text
+    assert "next_action: cast the missing votes: (a, b) needs" in text
+    assert text.endswith("…")
 
 
 def test_halt_capped_render_payload(caller: str) -> None:
@@ -382,12 +391,14 @@ def test_halt_capped_render_payload(caller: str) -> None:
 
 
 def test_halt_capped_render_wire(caller: str) -> None:
-    """The same over-cap halt through the harness => the wire's clipped form, the elision visible.
+    """The same over-cap halt through the harness => the wire's clipped form, the total's head visible.
 
     The Failure render clips at Limits.max_error_chars=300 (the step-4
-    finding): the expected whole + legs 1-2 + the elision ride the first
-    300 chars; the tail clips with the ellipsis -- the caller's honest
-    view.
+    finding): the expected whole + legs 1-2 + the under-quorum total's
+    head ride the first 300 chars; the found's internal 10-cap elision
+    rides past the wire clip, the tail clips with the ellipsis -- the
+    caller's honest view (the two-cap reality: the found's 10-cap, the
+    wire's 300-clip).
     """
     _register(caller, ["a", "b", "c", "d", "e", "f"])
     result = _call(caller, "runs.tally", {"run_id": _RUN_ID})
@@ -397,7 +408,7 @@ def test_halt_capped_render_wire(caller: str) -> None:
     assert "the coverage gate met" in text
     assert "zero-coverage items: a, b, c, d, e, f" in text
     assert "components: (a), (b), (c), (d), (e), (f)" in text
-    assert "15 under-quorum pairs total; first 10 shown" in text
+    assert "under-quorum pairs: 15" in text
     assert text.endswith("…")
 
 
@@ -587,11 +598,12 @@ def test_the_sitting_end_to_end(caller: str) -> None:
     assert served.structured_content["item_b"] == "b"
     cast = _cast(caller, ["a", "b"], "prefer-a", "x")
     assert cast.structured_content == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
+    _cast(caller, ["a", "b"], "prefer-a", "x", "llm")
     done = _call(caller, "runs.next", {"run_id": _RUN_ID})
     assert done.structured_content is not None
     assert done.structured_content["done"] is True
     census = _call(caller, "votes.census", {"run_id": _RUN_ID})
-    assert census.structured_content == {"total": 1, "items": {"a": 1, "b": 1}}
+    assert census.structured_content == {"total": 2, "items": {"a": 2, "b": 2}}
     tally = _call(caller, "runs.tally", {"run_id": _RUN_ID})
     assert tally.structured_content is not None
     assert tally.structured_content["ranked_groups"] == [["a"], ["b"]]
@@ -601,7 +613,10 @@ def test_the_sitting_end_to_end(caller: str) -> None:
 def test_re_tally_after_cure(caller: str) -> None:
     """A quorum-2 halt names the missing vote; the cure cast lands; the re-tally DONEs.
 
-    The halt's refusal names the closing pair; a second voter's cast closes
+    The halt's refusal names the closing pair at the wire's visible head
+    (the grown render pushes the needle's tail past the wire's 300-char
+    clip -- the two-cap reality: the found's 10-cap never fires at one
+    shortfall, the wire's 300-clip does); a second voter's cast closes
     it (the fresh comparator y -- a distinct judgment); the re-tally emits
     the ranked whole (the halt's progressive form: nothing remains).
     """
@@ -615,8 +630,8 @@ def test_re_tally_after_cure(caller: str) -> None:
     _cast(caller, ["a", "b"], "prefer-a", "x")
     halted = _call(caller, "runs.tally", {"run_id": _RUN_ID})
     assert halted.is_error is True
-    assert "(a, b) needs 1 more" in _join(halted)
-    _cast(caller, ["a", "b"], "prefer-a", "y")
+    assert "cast the missing votes: (a, b) needs" in _join(halted)
+    _cast(caller, ["a", "b"], "prefer-a", "y", "llm")
     cured = _call(caller, "runs.tally", {"run_id": _RUN_ID})
     assert cured.is_error is False
     assert cured.structured_content == {

@@ -33,6 +33,7 @@ _OPERATOR_ID = "operator-1"
 _QUESTION = "which comes first?"
 _COMPARATOR_ID = "comparator-1"
 _HUMAN = "human"
+_LLM = "llm"
 _PREFER_A = "prefer-a"
 _HOME_FLAG = "--home"
 _RUN_ONE = "RUN-0001"
@@ -41,6 +42,9 @@ _NEXT_PAIR_OUT = b"pair\ta\tb\t0\n"
 _VOTE_ONE_OUT = b"vote\tVOTE-0001\t1\n"
 _VOTE_TWO_OUT = b"vote\tVOTE-0002\t2\n"
 _VOTE_THREE_OUT = b"vote\tVOTE-0003\t3\n"
+_VOTE_FOUR_OUT = b"vote\tVOTE-0004\t4\n"
+_VOTE_FIVE_OUT = b"vote\tVOTE-0005\t5\n"
+_VOTE_SIX_OUT = b"vote\tVOTE-0006\t6\n"
 _EXHAUSTED_PREFIX = "exhausted —".encode()
 _TALLY_NEEDLE = b"tally"
 _REFUSED_PREFIX = "refused —".encode()
@@ -48,13 +52,13 @@ _TALLY_ABC = (
     b"rank\ta\n"
     b"rank\tb\n"
     b"rank\tc\n"
-    b"counts\ta\t2\t0\t0\n"
-    b"counts\tb\t1\t1\t0\n"
-    b"counts\tc\t0\t2\t0\n"
+    b"counts\ta\t4\t0\t0\n"
+    b"counts\tb\t2\t2\t0\n"
+    b"counts\tc\t0\t4\t0\n"
     b"coverage\t1\tTrue\n"
-    b"pairs\ta\tb\t1\n"
-    b"pairs\ta\tc\t1\n"
-    b"pairs\tb\tc\t1\n"
+    b"pairs\ta\tb\t2\n"
+    b"pairs\ta\tc\t2\n"
+    b"pairs\tb\tc\t2\n"
     b"version\twin-rate-v1\n"
 )
 
@@ -69,9 +73,9 @@ def _register_argv(home: Path) -> list[str]:
     return ["register", *_ITEMS, "--operator-id", _OPERATOR_ID, "--question", _QUESTION, _HOME_FLAG, str(home)]
 
 
-def _vote_argv(home: Path, item_a: str, item_b: str) -> list[str]:
+def _vote_argv(home: Path, item_a: str, item_b: str, comparator_class: str = _HUMAN) -> list[str]:
     """Compose one vote step's argv — the served canonical order, prefer-a each."""
-    return ["vote", _RUN_ONE, item_a, item_b, _PREFER_A, _COMPARATOR_ID, _HUMAN, _HOME_FLAG, str(home)]
+    return ["vote", _RUN_ONE, item_a, item_b, _PREFER_A, _COMPARATOR_ID, comparator_class, _HOME_FLAG, str(home)]
 
 
 def _arc_argv_sequence(home: Path) -> list[list[str]]:
@@ -80,8 +84,11 @@ def _arc_argv_sequence(home: Path) -> list[list[str]]:
         _register_argv(home),
         ["next", _RUN_ONE, _HOME_FLAG, str(home)],
         _vote_argv(home, "a", "b"),
+        _vote_argv(home, "a", "b", _LLM),
         _vote_argv(home, "a", "c"),
+        _vote_argv(home, "a", "c", _LLM),
         _vote_argv(home, "b", "c"),
+        _vote_argv(home, "b", "c", _LLM),
         ["next", _RUN_ONE, _HOME_FLAG, str(home)],
         ["tally", _RUN_ONE, _HOME_FLAG, str(home)],
     ]
@@ -92,16 +99,19 @@ def _drive_arc(home: Path) -> list[subprocess.CompletedProcess[bytes]]:
     return [_run(argv) for argv in _arc_argv_sequence(home)]
 
 
-def test_arc_seven_invocations_green(tmp_path: Path) -> None:
+def test_arc_ten_invocations_green(tmp_path: Path) -> None:
     """The success arc: 7 invocations on one tmp home — every rc 0 and the exact stdout bytes per step."""
     steps = _drive_arc(tmp_path)
-    assert [step.returncode for step in steps] == [0, 0, 0, 0, 0, 0, 0]
-    register, next_one, vote_ab, vote_ac, vote_bc, next_two, tally = steps
+    assert [step.returncode for step in steps] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    register, next_one, vote_ab, vote_ab_llm, vote_ac, vote_ac_llm, vote_bc, vote_bc_llm, next_two, tally = steps
     assert register.stdout == _REGISTER_OUT
     assert next_one.stdout == _NEXT_PAIR_OUT
     assert vote_ab.stdout == _VOTE_ONE_OUT
-    assert vote_ac.stdout == _VOTE_TWO_OUT
-    assert vote_bc.stdout == _VOTE_THREE_OUT
+    assert vote_ab_llm.stdout == _VOTE_TWO_OUT
+    assert vote_ac.stdout == _VOTE_THREE_OUT
+    assert vote_ac_llm.stdout == _VOTE_FOUR_OUT
+    assert vote_bc.stdout == _VOTE_FIVE_OUT
+    assert vote_bc_llm.stdout == _VOTE_SIX_OUT
     assert next_two.stdout.startswith(_EXHAUSTED_PREFIX)
     assert _TALLY_NEEDLE in next_two.stdout
     assert tally.stdout == _TALLY_ABC
@@ -111,8 +121,8 @@ def test_determinism_replay_byte_identical(tmp_path: Path) -> None:
     """The determinism replay: the full arc on two fresh homes yields byte-identical stdout sequences."""
     one = _drive_arc(tmp_path / "one")
     two = _drive_arc(tmp_path / "two")
-    assert [step.returncode for step in one] == [0, 0, 0, 0, 0, 0, 0]
-    assert [step.returncode for step in two] == [0, 0, 0, 0, 0, 0, 0]
+    assert [step.returncode for step in one] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert [step.returncode for step in two] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     assert [step.stdout for step in one] == [step.stdout for step in two]
 
 

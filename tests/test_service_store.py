@@ -144,8 +144,11 @@ def test_serial_equivalence_seam_transparent(tmp_path: Path) -> None:
     """The same acts through the seam and through raw Persist — census maps and the TallyResult identical."""
     acts: tuple[tuple[tuple[str, str], str, str, str], ...] = (
         (("a", "b"), "prefer-a", "x", "human"),
+        (("a", "b"), "prefer-a", "x", "llm"),
         (("a", "c"), "prefer-a", "y", "llm"),
+        (("a", "c"), "prefer-a", "y", "human"),
         (("b", "c"), "prefer-a", "z", "human"),
+        (("b", "c"), "prefer-a", "z", "llm"),
     )
     # Home A — the same acts THROUGH the seam; home B — the same acts through raw Persist, the CLI's own
     # composition. The same acts -> the same census and tally, trivially deterministic; the seam proven

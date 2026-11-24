@@ -32,10 +32,11 @@ from __future__ import annotations
 import random
 from dataclasses import dataclass
 from fractions import Fraction
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Final
 
 from prioritree.registry import OperatorDeclaration, Registry
 from prioritree.session import ExhaustedQueue, Session
+from prioritree.votes import COMPARATOR_CLASSES
 
 # TallyResult rides TYPE_CHECKING (the annotation-only import — the record's field type).
 
@@ -81,11 +82,12 @@ ACCEPTANCE_QUORUM: int = 3
 # decoupling of truth from id sort made checkable by construction.
 ACCEPTANCE_ID_TEMPLATE: str = "item-{index:02d}"
 
-# The comparator stamp (R5: the stamp is data, zero tally effect) — the id
-# arbitrary-but-fixed bytes; the class rides R5's ruled set (the schema's
-# legal vocabulary): the machine judge for the generated judgments.
+# The comparator stamp (R5: the identity recorded, never anonymous) — the
+# id arbitrary-but-fixed bytes; the judge's class the parity over the ruled
+# set (the corroboration floor's mix at the harness — the floor's honest
+# cost grown here, the seeds' determinism unchanged).
 HARNESS_COMPARATOR_ID: str = "acceptance-noisy-comparator"
-HARNESS_COMPARATOR_CLASS: str = "llm"
+HARNESS_JUDGE_CLASSES: Final[tuple[str, ...]] = tuple(sorted(COMPARATOR_CLASSES))
 
 # The floor check's derived integers (tau >= 4/5 with the truth strict:
 # (P-Q)/sqrt((P+Q)·n0) >= 4/5 ⟺ P >= Q AND 25·(P-Q)^2 >= 16·(P+Q)·n0 —
@@ -209,8 +211,12 @@ def accept_run(item_count: int, noise_rate: float, seed: int, quorum: int = ACCE
     id tie-break would correlate with truth and inflate tau on every
     noise-induced score tie — the decoupling is load-bearing); (3) the
     items as opaque (id, label) rows — the truth harness-local data,
-    NEVER registered as such; (4) register_run at the ruled quorum —
-    the quorum parameter's value (default ACCEPTANCE_QUORUM — 3),
+    NEVER registered as such; (4) register_run at the floored quorum —
+    max(quorum, len(HARNESS_JUDGE_CLASSES)), the corroboration floor's
+    own minimum (the judge-class parity lands human+llm per pair only
+    when the census count reaches the floor; the k=1 cells register at
+    2, the k=3 cells and every default-k call byte-unchanged), the
+    quorum parameter's ruled value (default ACCEPTANCE_QUORUM — 3),
     THREE named comparators per pair (the k=1
     single-judgment baseline measured 8 of 27 in-band cells sub-floor,
     min tau 0.4714; the quorum the tally's own aggregation implies; the
@@ -247,7 +253,7 @@ def accept_run(item_count: int, noise_rate: float, seed: int, quorum: int = ACCE
     run_id, _manifest, _count = session.register_run(
         items,
         operator=OperatorDeclaration(id="acceptance-op", question="Which is more important?"),
-        quorum=quorum,
+        quorum=max(quorum, len(HARNESS_JUDGE_CLASSES)),
     )
     verdicts: list[tuple[tuple[str, str], str]] = []
     while True:
@@ -263,7 +269,7 @@ def accept_run(item_count: int, noise_rate: float, seed: int, quorum: int = ACCE
             (item_a, item_b),
             verdict,
             comparator_id=f"{HARNESS_COMPARATOR_ID}-{pair_count + 1}",
-            comparator_class=HARNESS_COMPARATOR_CLASS,
+            comparator_class=HARNESS_JUDGE_CLASSES[pair_count % len(HARNESS_JUDGE_CLASSES)],
         )
         verdicts.append(((item_a, item_b), verdict))
     result = session.tally_rank(run_id)

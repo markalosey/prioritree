@@ -117,27 +117,33 @@ def test_tally_success(client: TestClient) -> None:
     """GET tally at full coverage => 200, TallyResult's frozen whole, field-for-field."""
     client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
     for pair, winner in ((["a", "b"], "prefer-a"), (["a", "c"], "prefer-a"), (["b", "c"], "prefer-a")):
-        client.post(
-            f"/runs/{_RUN_ID}/votes",
-            json={
-                "pair": pair,
-                "winner": winner,
-                "comparator_id": "x",
-                "comparator_class": "human",
-            },
-        )
+        for comparator_class in ("human", "llm"):
+            client.post(
+                f"/runs/{_RUN_ID}/votes",
+                json={
+                    "pair": pair,
+                    "winner": winner,
+                    "comparator_id": "x",
+                    "comparator_class": comparator_class,
+                },
+            )
     response = client.get(f"/runs/{_RUN_ID}/tally")
     assert response.status_code == 200
     assert response.json() == {
         "ranked_groups": [["a"], ["b"], ["c"]],
-        "per_item_wins": {"a": 2, "b": 1, "c": 0},
-        "per_item_losses": {"a": 0, "b": 1, "c": 2},
+        "per_item_wins": {"a": 4, "b": 2, "c": 0},
+        "per_item_losses": {"a": 0, "b": 2, "c": 4},
         "per_item_ties": {"a": 0, "b": 0, "c": 0},
         "coverage": {
             "components": [["a", "b", "c"]],
             "done": True,
             "cycle": [],
-            "pair_counts": {"a|b": 1, "a|c": 1, "b|c": 1},
+            "pair_counts": {"a|b": 2, "a|c": 2, "b|c": 2},
+            "pair_class_counts": {
+                "a|b": {"human": 1, "llm": 1},
+                "a|c": {"human": 1, "llm": 1},
+                "b|c": {"human": 1, "llm": 1},
+            },
         },
         "algorithm_version": "win-rate-v1",
     }

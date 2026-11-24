@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/policylayerspec
 
-**Route:** prioritree-auth (executing) | **Events:** 6 | **Reports:** 5
+**Route:** prioritree-auth (executing) | **Events:** 14 | **Reports:** 8
 
 ## The packet's chain (ledger order)
 
@@ -13,6 +13,14 @@
 | 4 | report | togo | 2026-11-24T18:21:34Z |
 | 5 | report | togo | 2026-11-24T18:22:02Z |
 | 6 | report | togo | 2026-11-24T18:22:22Z |
+| 7 | result | shinko | 2026-11-24T18:24:21Z |
+| 8 | gate | shinko | 2026-11-24T18:35:22Z |
+| 9 | dispatch | shinko | 2026-11-24T19:19:15Z |
+| 10 | report | togo | 2026-11-24T19:22:47Z |
+| 11 | dispatch | shinko | 2026-11-24T19:58:57Z |
+| 12 | report | togo | 2026-11-24T20:01:54Z |
+| 13 | dispatch | shinko | 2026-11-24T20:10:34Z |
+| 14 | report | togo | 2026-11-24T20:15:57Z |
 ## Reported by togo — 2026-11-24T18:20:40Z
 
 # THE POLICY-LAYER EXACT-TASK SPEC — togo (synthesize/policylayerspec, 2026-11-24)
@@ -741,3 +749,39 @@ THE STANDING HALT ARCS ACROSS THE FACES (test_cli's parametrize, test_service_fa
 15. **THE FLOOR-GREEN (make)** — the landed count named in the build's report (the plan's 268); ruff ALL clean + pyright strict clean at the SAME make (the zero-findings bar; zero new ignores); kensho's validate/policy-layer the independent verification per the route's build stage.
 
 THE SPEC LANDED WHOLE — five report pieces composing one document (the 65,536-byte bound honored, append-only); the projection at reports/synthesize/policylayerspec.md; the collaborator rules on this record at G-POLICYLAYERSPEC-BRIEF.
+## Reported by togo — 2026-11-24T19:22:47Z
+
+R6 — THE TWO RULINGS (jikko step-5's findings folded; the read-back: _vote's fence-verbatim 6-param signature tests/test_tally.py:42-50 [spec §3b :456-476]; the bridging render condition tally.py:408 `len(components) > 1` [components :525, union-find :243-276]; the arc's fence policylayerspec :637-648; the §2(e) worked whole :358).
+RULING 1 (PLR0913 — the pyproject entry per the named-ruling family form, placed alphabetically LAST among the tests entries: after pyproject.toml:156's tests/test_store_lock_face.py block, before [tool.ruff.format] :158):
+# RULING (policylayerspec §3b, G-POLICYLAYERSPEC-BRIEF approved 2026-11-24): _vote's six parameters ARE the fence's ruled
+# builder signature — the helper mirrors VoteRecord's own fields (vote_id, pair, winner, comparator_class, notes, supersedes —
+# the votes' own signature carried at the fixture tier; the votes.py/session.py/run_store.py/service_store.py PLR0913 rulings
+# re-cited). The arg count is the domain's, not the test's choice; the ignore IS the ruling, named. It retires only if the
+# record's own signature is re-ruled.
+"tests/test_tally.py" = ["PLR0913"]
+RULING 2 (the bridging assert's cure — the spec's own worked whole): the three asserted needles were authored from §2(e)'s rendered next_action (policylayerspec :358, each verbatim in it); the fence's ab+ac fixture was the mis-copy (the sibling arc's shape — unions to ONE component, tally.py :524-525, so the bridging section never renders and the assert can never pass). THE FIX, exact bytes: `manifest = _manifest(["a", "b", "c"])` UNCHANGED; `votes = (_vote("VOTE-0001", _AB_PAIR, PREFER_A),)` — the `_vote("VOTE-0002", _AC_PAIR, PREFER_A),` line deleted (tests/test_tally.py:453); the three asserts stand byte-verbatim; the arc then renders the §2(e) bytes exact — components ({a,b}, {c}), bridge (a, c): "cast the bridging pairs: (a, c) — connectivity needs NEW comparisons; cast the missing votes: (a, c) needs 1 more, (b, c) needs 1 more — quorum needs MORE VOTES on existing pairs; cast the corroborating votes: (a, b) needs llm, (a, c) needs human, llm, (b, c) needs human, llm — corroboration needs votes from BOTH CLASSES on existing pairs".
+TRADE-OFF NAMED: the four-item alternative (manifest ["a","b","c","d"], votes ab+ac — components {a,b,c}+{d}, rendered bridge (a, d)) also satisfies the three asserts but carries no spec byte-provenance; the §2(e)-backed form rules — the arc becomes the spec's own worked whole's acceptance.
+## Reported by togo — 2026-11-24T20:01:54Z
+
+R6 — the pre-floor fold: the three rulings (build/policy-layer's findings, jikko's steps 12-15 report).
+
+RULING A — the crash's fix, THE DATUM RE-KEYS AT CONSTRUCTION (candidate (i); the service's strip extension REFUSED — the integration's fence breached by this unit): tally.py:88's field becomes `pair_class_counts: Mapping[str, Mapping[str, int]]` — the "a|b" string keys, the same re-key form service.py:516 already renders for pair_counts; the construction line (:566) re-keys at the datum's birth — `{f"{pair.item_a}|{pair.item_b}": class_map for pair, class_map in state.pair_class_counts.items()}` — while the internal accumulation stays Pair-keyed: the gate (:529-533), the renderers (:542-547), and tally_votes' signature (:471) untouched, byte-standing. service.py UNTOUCHED: the :513 strip suffices, asdict serializes, the tally body + the result page 500s die. THE NAMED COST: the datum's form asymmetry — pair_counts stays Pair-keyed (:87), pair_class_counts string-keyed from birth.
+
+RULING B — the PLR0913+PLR0917 entry: `"tests/test_mcp_server_face.py" = ["PLR0913", "PLR0917"]`, landing after the test_tally.py entry (:163), the RULING comment per the existing form: _cast's six parameters (:94-101 — caller, pair, winner, comparator_id, comparator_class, supersedes) mirror the tool's own cast parameters — the domain's, not the test's choice; it retires only if the tool's own signature is re-ruled.
+
+RULING C — the PLR0913 entry: `"tests/test_harness.py" = ["PLR0913", "S603", "S607"]` — PLR0913 joins the existing :99 entry (TOML bars duplicate keys; the S603/S607 ruling re-carried), the RULING comment citing _vote_argv's CLI-argv mirror. THE READ-BACK'S OPEN QUESTION, named: _vote_argv carries FOUR parameters (test_harness.py:76 — home, item_a, item_b, comparator_class); PLR0913's bar under select=["ALL"] with no max-args override is six arguments, and jikko's own re-apply read ZERO findings on the file — the finding does not reproduce on disk; the entry is prophylactic (dead until the signature grows past five); the floor instruments decide.
+## Reported by togo — 2026-11-24T20:15:57Z
+
+# The fold — the three floor classes ruled (togo; the bytes read at the instruments — pytest run, every error read)
+
+RULING 1 — the ten test_tally standing arcs. DIAGNOSIS (the bytes): F8's leg-4 conjunction halts every single-class fixture — the six DONE-reaching arcs (purity, hand-computed, cycle, tie-break, no-score, version-stamp) raise "uncorroborated pairs: … missing llm" (tally.py:540) where DONE/rankings are asserted; the prefix/isolation arcs' exact found needles lack the appended "; uncorroborated pairs: …" section; supersession's arms halt at weighted 1-2 human-only; the seam's quorum-1 arm halts at weighted 1. Step 5's R10 "unchanged" was the wrong ruling — the DONE intent requires the mix under the floor.
+CURE 1 (the §3c growth, the other faces' form): each DONE-reaching fixture joins per pair its llm twin, same winner — the counted maps double mechanically (pair_counts 1→2, wins/losses ×2; ranked_groups/cycle byte-unchanged); supersession's DONE arms append the counted judgment's llm twin (the fork arm's minimal byte: VOTE-0005 recast comparator_class="llm", its asserts standing byte-identical) while the quorum-2 halt arm keeps the un-tupled 2-vote fixture; the prefix arc's script becomes the interleaved human-then-llm 6-vote sequence (each prefix's found needle grown to the rendered bytes, [:6] DONE), the isolation arc's empty needle appends "; uncorroborated pairs: (a, b) missing human, llm, (a, c) missing human, llm, (b, c) missing human, llm"; the seam arc's quorum-1 DONE arm is STRUCTURALLY unreachable (one counted vote = one class) — re-pin it to the corroboration halt (found "uncorroborated pairs: (a, b) missing llm", next "cast the corroborating votes: (a, b) needs llm"), the quorum-2 arm byte-unchanged — the weighted-vs-raw seam still pinned by "1 of 2".
+
+RULING 2 — the three mcp halt arcs. DIAGNOSIS (the bytes): the halt's grown render — the expected's " AND corroborated (>=1 human AND >=1 llm per pair)" plus found's uncorroborated section — pushes the needles past the wire's 300-char clip (ouncemcp's max_error_chars): the under-cap text ends "(a, b) needs…" (the "needs 1 more" needle clipped), the capped text ends "…15 under-quorum pairs tota…" (the "total; first 10 shown" elision clipped), the re-tally halt needle clips the same way. R10's "needles hold" is false under the grown render; the wire's budget is external (not growable), the grown bytes are the floor's honesty (not shrinkable).
+CURE 2 (needle re-placement to the visible head): under-cap asserts "next_action: cast the missing votes: (a, b) needs" and may add the visible "uncorroborated pairs: (a, b) missing llm" (the found's two sections both on the wire); capped asserts "under-quorum pairs: 15" (the total's head; the found's internal 10-cap elision rides past the wire clip); re-tally asserts "cast the missing votes: (a, b) needs" at the halt (the llm cure-cast and the re-tally DONE asserts byte-unchanged); the three docstrings' "no clip"/"elision visible" claims grow honest — the two-cap reality named (the found's 10-cap, the wire's 300-clip).
+
+RULING 3 — the matrix k=1 leg. DIAGNOSIS (the bytes): at the (n=10, k=1) cell all 45 pairs report "missing llm" — next_pair drains each pair at census 1 and the single cast lands at pair_count=0 → HARNESS_JUDGE_CLASSES[0]="human" for every pair; one vote cannot carry both classes, so NO derivation fix exists (the hypothesis's pair_count-form is closed by the bytes); the k=3 cells pass (human, llm, human); the sizer arm rides no gate (budget_curve's own mirror) — the single halt site is accept_run's tally_rank.
+CURE 3 (the floor's honest cost at the harness — the parity comment's own words, acceptance.py:85-88): accept_run registers at max(quorum, len(HARNESS_JUDGE_CLASSES)) — the k=1 cells register at 2 and the parity then serves human+llm per pair (both legs green; the k=3 cells and every default-k accept_run call byte-unchanged).
+TRADE-OFF 3 (named, the plan's carry): the equal-budget law (B = n0×quorum, both arms — the curve's banked thesis) — growing the acceptance arm alone breaks it at k=1 (n0×2 vs n0×1); the recommended whole grows size_run's total_budget and the matrix's budget assert to the same max form — both arms at the floored budget, the law preserved, the k=1 leg measuring the floored form (the single-judgment baseline retired to the recorded table, the docstring's own "recorded, never erased").
+
+LANDING: the three cures ride one dispatch (tests/test_tally.py, tests/test_mcp_server_face.py, src/prioritree/acceptance.py + budget_curve.py + the matrix's budget assert); the floor-green make re-runs after; the grown arcs' under-counting docstrings stay byte-verbatim per the steps 6-7 precedent unless the coordinator rules their growth.
