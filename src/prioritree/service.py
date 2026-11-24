@@ -10,12 +10,19 @@ edits to any core module, no Persist at this tier). The handlers sync def —
 FastAPI's threadpool runs them off the event loop, the seam's process-wide
 lock serializing the acts across threads (Q-service-concurrency held at the
 handler tier); each body reads the seam as cast(Serialize, request.app.state.seam)
-— no Depends, no default-argument calls, B008 never fires by construction.
+— the one Depends family the auth doors carry rides the TYPE annotation
+(Annotated), never a default argument: B008 never fires by construction and
+pyright's reportCallInDefaultInitializer is dodged by the same act.
 THE STATUS MAPPING (Q-service-routes + the ux build's ThreePart cures): 200
 success AND DONE (the exhausted queue a STATE, never an error — the signal's
 three fields + the done marker, the tally pointer already in next_action);
-201 register's alone; 404 StoreRefusedError's both families (the unknown run
-AND the corrupt file — the honest label, the found field carrying the
+201 register's alone; 401 the unverified key (KeyVerifyError — the auth
+door's authentication half: absent-or-unknown the SAME three fields, the
+identity oracle never fed; the dedicated handler, never the fold); 403 the
+scope-denied key (KeyScopeError — the authorization half's own refusal) and
+the supersedes author mismatch (SupersedeRefusedError at the cast route —
+found elides the author); 404 StoreRefusedError's both families (the unknown
+run AND the corrupt file — the honest label, the found field carrying the
 family's own words verbatim) AND the framework's unmatched path (the refuse
 handler — the bare Not Found never on the wire); 405 the disallowed method
 (the same handler — the route table taught); 422 EXCLUSIVELY the door's
@@ -58,21 +65,25 @@ from __future__ import annotations
 import logging
 import os
 from dataclasses import asdict, replace
-from typing import Final, cast
+from typing import TYPE_CHECKING, Annotated, Final, cast
 
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from prioritree.key_store import KeyStore, render_boot_marker, resolve_auth_mode, resolve_keys_home
+from prioritree.key_store import KeyRecord, KeyStore, render_boot_marker, resolve_auth_mode, resolve_keys_home
+from prioritree.key_verify import AUTH_HEADER_DEFAULT, KeyScopeError, KeyVerifyError, verify
 from prioritree.registry import OperatorDeclaration
 from prioritree.run_store import STORE_HOME, StoreRefusedError
 from prioritree.service_store import Serialize
 from prioritree.session import ExhaustedQueue
 from prioritree.tally import TallyRefusedError
-from prioritree.votes import VotesRefusedError
+from prioritree.votes import SupersedeRefusedError, VotesRefusedError
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 __all__ = ["app"]
 
@@ -94,6 +105,11 @@ QUORUM: Final[str] = "quorum"
 EXPECTED: Final[str] = "expected"
 FOUND: Final[str] = "found"
 NEXT_ACTION: Final[str] = "next_action"
+
+_UNAUTHORIZED: Final[int] = 401
+_FORBIDDEN: Final[int] = 403
+_SERVICE_AUDIENCE: Final[str] = "service"
+_AUTH_OFF: Final[str] = "off"
 
 # The 500 envelope's escalation path (the crash a first-class citizen: the
 # traceback rides uvicorn's logging channel, never the body — the next_action
@@ -176,7 +192,7 @@ class CastVoteRequest(BaseModel):
 # the seam minted once per process over the CLI's own store home (STORE_HOME carried
 # 1:1 — the plain default ruled, the env knob BANKED for the deployment era; the
 # tests' isolation rides the injection itself: app.state.seam overwritten per test).
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 app.state.seam = Serialize(STORE_HOME)
 
 # The AUTH knob's construction (F1, the exact-task spec §5): ONE thin line
@@ -191,21 +207,76 @@ app.state.seam = Serialize(STORE_HOME)
 # operator's server.log captures; a daemon's unread marker still silent —
 # the residual named).
 app.state.auth = resolve_auth_mode(os.environ.get("AUTH"))
-_boot_keys = KeyStore(resolve_keys_home().absolute())
+app.state.keys = KeyStore(resolve_keys_home().absolute())
 logging.getLogger(_BOOT_LOG_CHANNEL).info(
-    render_boot_marker(_boot_keys.home, app.state.auth, len(_boot_keys.records)),
+    render_boot_marker(app.state.keys.home, app.state.auth, len(app.state.keys.records)),
 )
 
 
+# The auth-off degrade's carrier: a module constant record, digest="" the
+# anonymous marker (the cast route's fallback reads it; the boot marker names
+# the degrade — never per-request noise).
+_ANONYMOUS: Final[KeyRecord] = KeyRecord(
+    digest="", comparator_id="", comparator_class="human",
+    scopes=frozenset(), audience=_SERVICE_AUDIENCE, created_at="",
+)
+
+
+def require_key(token: str) -> Callable[[Request], KeyRecord]:
+    """Require the service-tier key carrying this route's scope token — the door.
+
+    Purpose: THE FACTORY CLOSURE (the brief §3a): bind the route's own scope
+    token; read request.app.state.auth — 'off' => the anonymous record (the
+    failopen's ROUTE-TIER form, the operator's explicit degrade named at the
+    boot marker, the cast door's stamp falls back to the body's claim — the
+    degrade's price); 'on' => the store from app.state.keys (the boot's own
+    container, the fixture's per-test overwrite the seam), the header read
+    via AUTH_HEADER_DEFAULT (the name a knob from birth), verify(store,
+    presented, "service", token) — the stat ride, the F9 dummy, the ONE
+    compare, the F5 audience, the scope check ALL the verify seam's own; the
+    KeyVerifyError/KeyScopeError typed data rides to the DEDICATED app-level
+    handlers (never the fold, never the refuse lane's routing vocabulary).
+    Refuses when: never here — the refusals ride verify's own typed data.
+    Re-run: deterministic given the store state (the stat ride's re-load
+    aside — a mid-flight mint lands live by design).
+    Touches: the store's loaded state at most (the verify seam's own ride).
+    Provenance: the unit brief §1a/§3a, the design's F5/F8/F9, rikai map 1,
+    G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+    def _door(request: Request) -> KeyRecord:
+        if request.app.state.auth == _AUTH_OFF:
+            return _ANONYMOUS
+        store = cast("KeyStore", request.app.state.keys)
+        presented = request.headers.get(AUTH_HEADER_DEFAULT, "")
+        return verify(store, presented, _SERVICE_AUDIENCE, token)
+    return _door
+
+
+_RegisterDoor = Annotated[KeyRecord, Depends(require_key("register"))]
+_NextDoor = Annotated[KeyRecord, Depends(require_key("next"))]
+_CastDoor = Annotated[KeyRecord, Depends(require_key("cast"))]
+_StateDoor = Annotated[KeyRecord, Depends(require_key("state"))]
+_TallyDoor = Annotated[KeyRecord, Depends(require_key("tally"))]
+_ManifestDoor = Annotated[KeyRecord, Depends(require_key("manifest"))]
+
+
 def render_refusal(
-    refusal: StoreRefusedError | VotesRefusedError | TallyRefusedError,
+    refusal: StoreRefusedError
+    | VotesRefusedError
+    | TallyRefusedError
+    | KeyVerifyError
+    | KeyScopeError
+    | SupersedeRefusedError,
 ) -> dict[str, str]:
     """Render the refusal's three fields as the wire body — the one render point.
 
     Purpose: one render point for every typed refusal — the three fields read as DATA
     (expected/found/next_action as attributes, never str(e) reparsed) returned as
     the three-key body the wire's consumers dispatch on; every refusal route cites
-    this one function (a second rendering would fork the grammar).
+    this one function (a second rendering would fork the grammar); the union grown
+    the key family (KeyVerifyError/KeyScopeError — the doors' typed data,
+    shape-identical) and the supersedes author-refusal (SupersedeRefusedError —
+    the cast route's 403) — every typed family rides this one point.
     Refuses when: never — a pure rendering over the refusal's own fields.
     Re-run: deterministic — the same refusal renders the same body.
     Touches: nothing — a read of the injected refusal.
@@ -334,6 +405,26 @@ def refuse(request: Request, exc: StarletteHTTPException) -> JSONResponse:
         status_code=exc.status_code,
         content={EXPECTED: _address, FOUND: _found, NEXT_ACTION: _ROUTE_TABLE},
     )
+
+
+@app.exception_handler(KeyVerifyError)
+def refuse_key(request: Request, exc: KeyVerifyError) -> JSONResponse:
+    """Refuse the unverified key in the family grammar at 401 — the door's own typed data rendered.
+
+    Provenance: the unit brief §3b, rikai map 1 (the dispatch mechanics),
+    G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+    return JSONResponse(status_code=_UNAUTHORIZED, content=render_refusal(exc))
+
+
+@app.exception_handler(KeyScopeError)
+def refuse_scope(request: Request, exc: KeyScopeError) -> JSONResponse:
+    """Refuse the scope-denied key in the family grammar at 403 — the authorization half's own refusal.
+
+    Provenance: the unit brief §3b, Q-auth-design's scope ruling,
+    G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+    return JSONResponse(status_code=_FORBIDDEN, content=render_refusal(exc))
 _TALLY_PATH: Final[str] = "/runs/{run_id}/tally"
 # The route table as the wire's own cure vocabulary (the legal lanes named
 # ONCE from the path constants — content-in-configuration; the framework-
@@ -351,7 +442,7 @@ _ROUTE_TABLE: Final[str] = "address a legal route — " + ", ".join(
 
 
 @app.post(_RUNS_PATH, status_code=201)
-def register(request: Request, body: RegisterRunRequest) -> JSONResponse:
+def register(request: Request, body: RegisterRunRequest, record: _RegisterDoor) -> JSONResponse:
     """Register the run over the seam — 201 the stem, the door's refusals mapped.
 
     Purpose: the register route 1:1 — build OperatorDeclaration(id=body.operator_id,
@@ -380,7 +471,7 @@ def register(request: Request, body: RegisterRunRequest) -> JSONResponse:
 
 
 @app.get(_NEXT_PATH)
-def serve(request: Request, run_id: str, seed: int | None = None) -> JSONResponse:
+def serve(request: Request, run_id: str, record: _NextDoor, seed: int | None = None) -> JSONResponse:
     """Serve the next under-quorum pair over the seam — 200 the triple, DONE a state.
 
     Purpose: the serve route 1:1 — the seed the optional query param (serve's own
@@ -410,31 +501,38 @@ def serve(request: Request, run_id: str, seed: int | None = None) -> JSONRespons
 
 
 @app.post(_VOTES_PATH)
-def cast_vote(request: Request, run_id: str, body: CastVoteRequest) -> JSONResponse:
+def cast_vote(request: Request, run_id: str, body: CastVoteRequest, record: _CastDoor) -> JSONResponse:
     """Cast the vote over the seam — 200 the ack, the VoteRecord elided.
 
     Purpose: the vote route 1:1 — the seam's verb named cast_vote here (its own
     `cast` would shadow typing's typed assertion at module scope — the door's verb
-    carried); delegate with the body's seven fields (the pair as a list — the
-    door's own Sequence form), return 200 with the ack object {"vote_id",
+    carried); delegate with the pair, winner, notes, and supersedes from the body
+    plus the DOOR RECORD'S verified stamps — comparator_id and comparator_class
+    from the dependency's KeyRecord in place of the body's self-claims (F8: the
+    self-claim dies at the cast door; under the degrade the body's claim stands —
+    the boot marker names it), return 200 with the ack object {"vote_id",
     "count", "acknowledged"} — the VoteRecord elided (durable in the run file; the
     wire carries the ack).
     Refuses when: never by this hand — the seam's refusals ride through BY TYPE:
-    StoreRefusedError => 404, VotesRefusedError => 422.
+    StoreRefusedError => 404, VotesRefusedError => 422, SupersedeRefusedError =>
+    403 (the supersedes author mismatch — found elides the author).
     Re-run: deterministic given the store state — a byte-identical re-send is the
     door's loud ack (the count unchanged, never double-counted).
     Touches: the run file through the seam (the append rides inside the lock).
     Provenance: service-face-brief §2 (the cast/ack body), §3 (the catch table),
-    Q-service-routes, G-SERVICE-FACE.
+    Q-service-routes, G-SERVICE-FACE; the stamps and the 403 clause at
+    servingtierintegrationspec §1h/§1i, G-SERVING-TIER-INTEGRATION-BRIEF.
     """
     seam = cast("Serialize", request.app.state.seam)
+    comparator_id = record.comparator_id if record.digest else body.comparator_id
+    comparator_class = record.comparator_class if record.digest else body.comparator_class
     try:
         vote_id, _record, count, acknowledged = seam.cast(
             run_id,
             list(body.pair),
             body.winner,
-            body.comparator_id,
-            body.comparator_class,
+            comparator_id,
+            comparator_class,
             body.notes,
             body.supersedes,
         )
@@ -442,12 +540,14 @@ def cast_vote(request: Request, run_id: str, body: CastVoteRequest) -> JSONRespo
         return JSONResponse(status_code=404, content=render_refusal(refusal))
     except VotesRefusedError as refusal:
         return JSONResponse(status_code=422, content=render_refusal(refusal))
+    except SupersedeRefusedError as refusal:
+        return JSONResponse(status_code=_FORBIDDEN, content=render_refusal(refusal))
     _ack = {VOTE_ID: vote_id, COUNT: count, ACKNOWLEDGED: acknowledged}
     return JSONResponse(status_code=200, content=_ack)
 
 
 @app.get(_STATE_PATH)
-def census(request: Request, run_id: str) -> JSONResponse:
+def census(request: Request, run_id: str, record: _StateDoor) -> JSONResponse:
     """Census the run over the seam — 200 the summary, the vote_log elided.
 
     Purpose: the census route 1:1 — delegate to the seam's census, return 200 with
@@ -481,7 +581,7 @@ PAIR_COUNTS: Final[str] = "pair_counts"
 
 
 @app.get(_TALLY_PATH)
-def rank(request: Request, run_id: str) -> JSONResponse:
+def rank(request: Request, run_id: str, record: _TallyDoor) -> JSONResponse:
     """Rank the run over the seam — 200 the frozen whole, 409 the SAFE HALT.
 
     Purpose: the tally route 1:1 — delegate to the seam's rank, return 200 with
@@ -520,7 +620,7 @@ def rank(request: Request, run_id: str) -> JSONResponse:
 
 
 @app.get(_MANIFEST_PATH)
-def describe(request: Request, run_id: str) -> JSONResponse:
+def describe(request: Request, run_id: str, record: _ManifestDoor) -> JSONResponse:
     """Describe the run's frozen ground over the seam — 200 the manifest body, the stamps elided.
 
     Purpose: the manifest route 1:1 — THE SIXTH QUERY (the ux design's

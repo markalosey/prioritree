@@ -3,7 +3,7 @@
 
 The service-acceptance unit's test surface (service-acceptance-brief §1-§7 +
 the ux build's sixth query + ThreePart cures): six arcs over a live uvicorn
-subprocess — the eleven-request arc (register => manifest => next => vote x3
+subprocess — the eleven-request arc (register => manifest => next => vote x6
 => the exhausted turn => tally, each body asserted against the
 named-constant literals); the determinism replay (two fresh homes,
 byte-identical [r.content] lists); the four refusal arcs (404 the unknown
@@ -21,6 +21,7 @@ fixture), region 2 the five arcs (the next single-goal dispatch).
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -67,9 +68,12 @@ _VOTE_BODY = {
 def _boot(home: Path) -> tuple[Popen[bytes], int]:
     """Start the uvicorn subprocess at home and parse the banner for the port.
 
-    Purpose: Popen(_ARGV, cwd=home, stderr=PIPE) — the fixed-argv boot; read
-    stderr lines bounded by _DEADLINE, match _BANNER, close the pipe after
-    the port is taken, and return (process, port).
+    Purpose: Popen(_ARGV, cwd=home, stderr=PIPE, env={**os.environ,
+    "AUTH": "off"}) — the fixed-argv boot at the auth-off degrade (the
+    real-socket suite's dev mode preserved, the doors pass bare —
+    servingtierintegrationspec §7c); read stderr lines bounded by
+    _DEADLINE, match _BANNER, close the pipe after the port is taken,
+    and return (process, port).
     Refuses when: the deadline passes without a banner — terminate, wait,
     and FAIL the assertion with the diagnostic (the lines read so far +
     the returncode). A timeout FAILS, never skips.
@@ -78,7 +82,7 @@ def _boot(home: Path) -> tuple[Popen[bytes], int]:
     Provenance: service-acceptance-brief §1-§2 (the boot instrument),
     the dispatch synthesize/service-acceptance-bytes (region 1).
     """
-    process = Popen(_ARGV, cwd=home, stderr=PIPE)
+    process = Popen(_ARGV, cwd=home, stderr=PIPE, env={**os.environ, "AUTH": "off"})
     assert process.stderr is not None  # the PIPE contract; the loop's read member
     lines: list[bytes] = []
     deadline = monotonic() + _DEADLINE
@@ -179,7 +183,7 @@ def _drive_arc(client: httpx.Client, base_url: str) -> list[httpx.Response]:
     Purpose: the arc shared by the assertion test and the replay test —
     register (POST /runs, _ITEMS + _OPERATOR), the manifest read (GET
     .../manifest — the sixth query over the live seam, the lock + the full
-    load under the real process), next (GET .../next), vote x3 over the
+    load under the real process), next (GET .../next), vote x6 over the
     three pairs (a,b)/(a,c)/(b,c), each body the _VOTE_BODY form with the
     pair swapped, the exhausted next turn, and tally; return the responses
     whole — the parsed-body assertions are the CALLER's own (test 1 asserts
@@ -212,15 +216,15 @@ def _drive_arc(client: httpx.Client, base_url: str) -> list[httpx.Response]:
 
 
 def test_accept_the_eleven_request_arc(service: tuple[httpx.Client, str]) -> None:
-    """Register => manifest => next => vote x3 => the exhausted turn => tally, each body asserted.
+    """Register => manifest => next => vote x6 => the exhausted turn => tally, each body asserted.
 
     Purpose: the full eleven-request arc over the real socket — register
     201 {"run_id": _RUN_ID}; the manifest read 200 the five-key body (the
     stem echoed, the question, the verdicts sorted, the quorum, the items
     payload-order-preserved — the operator id and the stamp elided); next
-    200 the first pair with count 0; the three votes 200 with the acks
+    200 the first pair with count 0; the six votes 200 with the acks
     {"vote_id": "VOTE-000N", "count": N, "acknowledged": False} (the wire's
-    count the run's census count 1..3, the running total); the exhausted
+    count the run's census count 1..6, the running total); the exhausted
     next 200 the DONE body (done is True, "tally" in next_action — DONE a
     state, never an error); tally 200 the frozen whole, the exact literal
     the face tests assert.

@@ -1,0 +1,14 @@
+<!-- auth — the 401/403 lane: the service's own three fields verbatim, the path's heading (servingtierintegrationspec §3d) -->
+{% extends "base.html" %}
+{% block title %}Priori-tree — the key{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>{% if forbidden %}The key lacks this act's scope{% else %}The service asked for a key{% endif %}</h1>
+  <p class="quiet">{% if forbidden %}The key is good but not granted this act — re-mint it with the scope:{% else %}Mint a key and attach it — the operator's cure:{% endif %}</p>
+  <dl class="three-part">
+    <dt>Expected</dt><dd>{{ fields.expected }}</dd>
+    <dt>Found</dt><dd>{{ fields.found }}</dd>
+    <dt>Next action</dt><dd>{{ fields.next_action }}</dd>
+  </dl>
+</section>
+{% endblock %}

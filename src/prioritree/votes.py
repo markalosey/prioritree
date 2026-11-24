@@ -134,6 +134,39 @@ class VotesRefusedError(Exception):
         super().__init__(f"refused — expected: {expected} | found: {found} | next: {next_action}")
 
 
+class SupersedeRefusedError(Exception):
+    """SupersedeRefusedError — the author-refusal: expected, found, next_action.
+
+    Purpose: carry the supersedes door check's refusal (a correction corrects
+    the CALLER'S OWN vote — the author mismatch) as typed data; found ELIDES
+    the target's author (the identity oracle never fed — the 401's
+    "absent-or-unknown" discipline at the 403); the service route maps it to
+    403 (the wire's authorization half).
+    Refuses when: never — it IS the refusal; the message renders all three
+    fields so an uncaught traceback still names the legal form.
+    Re-run: deterministic — the same violation raises the same three fields.
+    Touches: nothing — a plain Exception subclass (zero runtime deps).
+    Provenance: the design's F4, the unit brief §1d/§3e, rikai map 4,
+    G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+
+    def __init__(self, expected: str, found: str, next_action: str) -> None:
+        """Initialize the refusal with its three named fields.
+
+        Purpose: carry expected/found/next_action plus the rendered message
+        (the em dash per this module's own :134 bytes).
+        Refuses when: never.
+        Re-run: idempotent.
+        Touches: nothing.
+        Provenance: the VotesRefusedError __init__ school (:122-134),
+        servingtierintegrationspec §2a.
+        """
+        self.expected = expected
+        self.found = found
+        self.next_action = next_action
+        super().__init__(f"refused — expected: {expected} | found: {found} | next: {next_action}")
+
+
 def _require_text(value: object, field_name: str) -> str:
     """Return the stripped non-empty string or refuse (the _req_text precedent).
 
@@ -339,19 +372,21 @@ class VoteLedger:
         positional over the canonical form); (4) the winner in the RUN'S OWN
         declared verdict set (manifest.operator.verdicts, never the module
         constant); (5) the supersede ground truth (a correction corrects the
-        same judgment — the target live in the same run, on the same pair)
-        then the dedup key (run_id, canonical pair, winner, comparator_id,
-        comparator_class, notes, supersedes) — a hit is the LOUD idempotent
-        ack: (the original handle, the original record, the UNCHANGED count,
-        acknowledged=True); (6) the VOTE-{####} per-store max+1 mint + the
-        UTC microsecond ISO stamp; (7) the append + verify in one synchronous
-        act — return (vote_id, record, len(store), acknowledged=False); the
-        count reads the store post-append, never a local counter.
+        same judgment — the target live in the same run, on the same pair, by
+        the caller's own hand — the author check) then the dedup key (run_id,
+        canonical pair, winner, comparator_id, comparator_class, notes,
+        supersedes) — a hit is the LOUD idempotent ack: (the original handle,
+        the original record, the UNCHANGED count, acknowledged=True); (6) the
+        VOTE-{####} per-store max+1 mint + the UTC microsecond ISO stamp; (7)
+        the append + verify in one synchronous act — return (vote_id, record,
+        len(store), acknowledged=False); the count reads the store
+        post-append, never a local counter.
         Refuses when: malformed payload; unknown run (the wrap); pair outside
         the legal set, the swapped citation included; winner outside the
         declared set; supersede target not a live handle in the same run on
-        the same pair — every refusal raises VotesRefusedError before any
-        byte lands. NEVER refuses on content plausibility (the system has no
+        the same pair, or another author's vote — every refusal raises
+        VotesRefusedError, the door's author mismatch SupersedeRefusedError,
+        before any byte lands. NEVER refuses on content plausibility (the system has no
         opinion about votes — noise is data); no quorum or count check here
         (an over-quorum vote lands as a legal new sample); abstention needs
         no record (a comparator who cannot judge does not cast).
@@ -451,6 +486,22 @@ class VoteLedger:
                     ),
                     found=f"{clean_supersedes!r} — a record on pair {target.pair!r}",
                     next_action="cite the record being corrected",
+                )
+            # The door check rides the CALLER's identity — the PASSED
+            # comparator_id (servingtierintegrationspec §2c): under auth-off
+            # the service route passes the body's claim (the §1h fallback)
+            # — the claim form stands at the door; the CLI/stdio tiers pass
+            # their self-claims at every mode (the local trust — the §3
+            # floor the offline JSONL edit, the price every placement
+            # shares).
+            if target.comparator_id != clean_comparator_id:
+                raise SupersedeRefusedError(
+                    expected=(
+                        "a correction of the caller's own vote — the superseder's "
+                        "comparator_id matches the target's author"
+                    ),
+                    found=f"{clean_supersedes!r} — another author's vote (the author never named)",
+                    next_action="cite your own vote on this pair, or cast a new vote without supersedes",
                 )
         dedup_key = (
             clean_run_id,

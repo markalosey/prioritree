@@ -16,7 +16,9 @@ tally pointer in next_action); (6) the 500 arc (the monkeypatched seam verb
 raising, the three-part body, the traceback's absence from the body); (7) the
 201 register re-assertion (the stem in the body). Isolation by injection
 (Q-service-lifecycle): each test overwrites app.state.seam = Serialize(tmp_path)
-— store-as-parameter, no env, no CWD games; the fixture creates the tmp home's
+and app.state.auth = "off" (the serving-tier degrade member — the wire arcs
+ride the auth-off default, servingtierintegrationspec §7c) —
+store-as-parameter, no env, no CWD games; the fixture creates the tmp home's
 parent (Serialize's register does the mkdir itself, the parent the test's own
 duty). The S101/PLR2004 tests ruling stands.
 """
@@ -50,7 +52,10 @@ def client(tmp_path: Path) -> TestClient:
     """Isolate the seam by injection — a fresh store per test, no env, no CWD games.
 
     Purpose: overwrite app.state.seam with Serialize(tmp_path / "runs") —
-    store-as-parameter; yield (app, TestClient(app)); restore nothing (the
+    store-as-parameter; and app.state.auth with "off" — the auth-off
+    degrade member (the standing wire arcs ride it bare, byte-standing
+    whole, the suite green with NO key store; servingtierintegrationspec
+    §7c); yield (app, TestClient(app)); restore nothing (the
     module-level seam is re-minted per test by the next overwrite; the
     module-level STORE_HOME seam is never touched on disk here — the
     fixture's home is the tmp parent the test creates, the register's own
@@ -62,6 +67,7 @@ def client(tmp_path: Path) -> TestClient:
     dispatch synthesize/service-face-bytes (region 1).
     """
     app.state.seam = Serialize(tmp_path)
+    app.state.auth = "off"
     return TestClient(app)
 
 
@@ -320,6 +326,7 @@ def test_crash_envelope_500() -> None:
             raise RuntimeError(msg)
 
     app.state.seam = _BoomSeam()
+    app.state.auth = "off"  # the fixture-less fold arc's own degrade member — no order-coupling
     client = TestClient(app, raise_server_exceptions=False)
     response = client.get(f"/runs/{_RUN_ID}/next")
     assert response.status_code == 500

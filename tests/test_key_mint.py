@@ -102,7 +102,7 @@ def test_mint_vocabulary_refusals_exit_one(
     argv = ["key", "mint", _COMPARATOR_ID, *tail, _HOME_FLAG, str(home)]
     assert command(argv) == 1
     err = capsys.readouterr().err
-    assert err.startswith("refused -- expected:")
+    assert err.startswith("refused — expected:")
     assert needle in err
     assert not home.exists()
 

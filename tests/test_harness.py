@@ -5,7 +5,7 @@ The TIER FENCE named: this harness drives the REAL binary — the console
 script's full path via FIXED-ARGV subprocess lists (the no-shell law), NO
 prioritree import at all (kensho's act-4 gap closed by construction; a
 missing shim FAILS the arc, never skips). The arcs: (1) the success arc —
-7 invocations on one --home tmp home, each step's returncode + exact stdout
+10 invocations on one --home tmp home, each step's returncode + exact stdout
 bytes, the persistence seam proven in the arc itself (each vote a separate
 process, the file the sole carrier); (2) the determinism replay — the full
 arc's stdout sequence on two fresh homes, byte-identical element-for-element;
@@ -79,7 +79,7 @@ def _vote_argv(home: Path, item_a: str, item_b: str, comparator_class: str = _HU
 
 
 def _arc_argv_sequence(home: Path) -> list[list[str]]:
-    """Compose the full 7-invocation arc's argv sequence (§2) — one --home, seven processes."""
+    """Compose the full 10-invocation arc's argv sequence (§2) — one --home, ten processes."""
     return [
         _register_argv(home),
         ["next", _RUN_ONE, _HOME_FLAG, str(home)],
@@ -100,7 +100,7 @@ def _drive_arc(home: Path) -> list[subprocess.CompletedProcess[bytes]]:
 
 
 def test_arc_ten_invocations_green(tmp_path: Path) -> None:
-    """The success arc: 7 invocations on one tmp home — every rc 0 and the exact stdout bytes per step."""
+    """The success arc: 10 invocations on one tmp home — every rc 0 and the exact stdout bytes per step."""
     steps = _drive_arc(tmp_path)
     assert [step.returncode for step in steps] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     register, next_one, vote_ab, vote_ab_llm, vote_ac, vote_ac_llm, vote_bc, vote_bc_llm, next_two, tally = steps

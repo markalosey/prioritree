@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/servingtierintegrationspec
 
-**Route:** prioritree-auth (executing) | **Events:** 3 | **Reports:** 2
+**Route:** prioritree-auth (executing) | **Events:** 9 | **Reports:** 4
 
 ## The packet's chain (ledger order)
 
@@ -10,6 +10,12 @@
 | 1 | dispatch | shinko | 2026-11-24T21:31:29Z |
 | 2 | report | togo | 2026-11-24T21:41:56Z |
 | 3 | report | togo | 2026-11-24T21:42:31Z |
+| 4 | result | shinko | 2026-11-24T21:42:52Z |
+| 5 | gate | shinko | 2026-11-24T21:47:57Z |
+| 6 | dispatch | shinko | 2026-11-24T21:56:11Z |
+| 7 | report | togo | 2026-11-24T21:59:37Z |
+| 8 | dispatch | shinko | 2026-11-24T22:43:29Z |
+| 9 | report | togo | 2026-11-24T22:44:54Z |
 ## Reported by togo — 2026-11-24T21:41:56Z
 
 # THE SERVING-TIER-INTEGRATION EXACT-TASK SPEC — togo (synthesize/servingtierintegrationspec, 2026-11-24)
@@ -526,3 +532,29 @@ THE STANDING ARCS byte-standing (the register 201/422/bad-quorum arcs gain the s
 THE TRADE-OFF THE PLAN MUST CARRY: the skeleton key at the web tier (its leak = every human's writes — single-point; the mitigation process-local custody + the 0600 store, the residual in the honest statement); the id-binding never fires at the browser (the form's self-claim behind the tier key); the CSRF secret's restart invalidation (the standing POST's failure the re-render's cure); the supersedes door check's local-tier caller-faith (every placement prices to the §3 floor — the offline JSONL edit); the /docs strip's operator price (the browsable schema lost — the README's remedy, unit 5); the auth-off degrade's unverified class stamp (the floor's input the claim again — the operator's explicit act, the marker naming it). Every price named, never silent — the door wired to the rooms, the honest statement carried whole.
 
 THE SPEC LANDED WHOLE — two report pieces composing one document; the projection at reports/synthesize/servingtierintegrationspec.md; the collaborator rules on this record at G-SERVINGTIERINTEGRATIONSPEC-BRIEF.
+## Reported by togo — 2026-11-24T21:59:37Z
+
+R1 — the cure rides the ORIGINAL author ("y"→"x": the door's law preserved, the correction intent standing); asserted bytes re-derived, NONE shift:
+:489 {VOTE-0002, count 2, ack False} stands (the winner differs — no dedup hit); :562 {total 2, a: 2, b: 2} stands (the census never reads authors). Trade-off carried: the landing arcs lose cross-author color — a distinct-author correction lives only at the door's refusal tests.
+-    result = _cast(caller, ["a", "b"], "prefer-b", "y", supersedes="VOTE-0001")   [tests/test_mcp_server_face.py:487]
++    result = _cast(caller, ["a", "b"], "prefer-b", "x", supersedes="VOTE-0001")   [tests/test_mcp_server_face.py:487]
+-    _cast(caller, ["a", "b"], "prefer-b", "y", supersedes="VOTE-0001")   [tests/test_mcp_server_face.py:559]
++    _cast(caller, ["a", "b"], "prefer-b", "x", supersedes="VOTE-0001")   [tests/test_mcp_server_face.py:559]
+R2 — cast_vote's docstring made honest (src/prioritree/votes.py:386-387 — SupersedeRefusedError joins the family, named at the door):
+-        the same pair — every refusal raises VotesRefusedError before any
+-        byte lands.
++        the same pair, or another author's vote — every refusal raises
++        VotesRefusedError, the door's author mismatch SupersedeRefusedError,
++        before any byte lands.
+## Reported by togo — 2026-11-24T22:44:54Z
+
+Ruling-1, the re-placed needle (tests/test_mcp_server_face.py:388) — the floor's uncorroborated leg renders (c, e) missing human, llm (all 15 pairs, uncapped by design), voiding the bare pair-string; the clip's own effect is the shortfall form — :387 the tenth in, :388 the eleventh out; the arc's teaching stands, the docstring byte-untouched:
+```diff
+-    assert "(c, e)" not in payload
++    assert "(c, e) 0 of 1" not in payload
+```
+Ruling-2, the honest count (tests/test_service_acceptance.py:223) — the class-mix growth's six votes; the acks assert counts 1..6 (:253-258 byte-exact), the census's running total spans six:
+```diff
+-    count the run's census count 1..3, the running total); the exhausted
++    count the run's census count 1..6, the running total); the exhausted
+```

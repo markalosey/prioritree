@@ -385,7 +385,7 @@ def test_halt_capped_render_payload(caller: str) -> None:
     assert "components: (a), (b), (c), (d), (e), (f)" in payload
     assert payload.count("15 under-quorum pairs total; first 10 shown") == 2
     assert "(c, d) 0 of 1" in payload
-    assert "(c, e)" not in payload
+    assert "(c, e) 0 of 1" not in payload
     assert "cast the bridging pairs" in payload
     assert "quorum needs MORE VOTES on existing pairs" in payload
 
@@ -484,7 +484,7 @@ def test_supersedes_same_pair_lands(caller: str) -> None:
     """A correction citing the original on the same pair => a new record, the count grown."""
     _register(caller, _ITEMS)
     _cast(caller, ["a", "b"], "prefer-a", "x")
-    result = _cast(caller, ["a", "b"], "prefer-b", "y", supersedes="VOTE-0001")
+    result = _cast(caller, ["a", "b"], "prefer-b", "x", supersedes="VOTE-0001")
     assert result.is_error is False
     assert result.structured_content == {"vote_id": "VOTE-0002", "count": 2, "acknowledged": False}
 
@@ -556,7 +556,7 @@ def test_census_as_is_after_correction(caller: str) -> None:
     """
     _register(caller, ["a", "b"])
     _cast(caller, ["a", "b"], "prefer-a", "x")
-    _cast(caller, ["a", "b"], "prefer-b", "y", supersedes="VOTE-0001")
+    _cast(caller, ["a", "b"], "prefer-b", "x", supersedes="VOTE-0001")
     result = _call(caller, "votes.census", {"run_id": _RUN_ID})
     assert result.is_error is False
     assert result.structured_content == {"total": 2, "items": {"a": 2, "b": 2}}

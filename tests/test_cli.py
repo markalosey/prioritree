@@ -66,7 +66,7 @@ def _cast(tmp_path: Path, item_a: str, item_b: str, winner: str, comparator_clas
 
 
 def _drive_abc_to_coverage(tmp_path: Path) -> None:
-    """Drive the 3-item run to coverage — all 3 pairs voted at k=1."""
+    """Drive the 3-item run to coverage — all 3 pairs voted human+llm at k=1 (six casts)."""
     _register(tmp_path, _ITEMS_ABC)
     _cast(tmp_path, "a", "b", _PREFER_A)
     _cast(tmp_path, "a", "b", _PREFER_A, _LLM)

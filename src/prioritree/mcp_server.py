@@ -30,6 +30,7 @@ from typing import TYPE_CHECKING, Final, Literal, get_args
 from ouncemcp import Effect, InvalidInput, NotFound, OunceServer
 from pydantic import BaseModel, Field, field_validator
 
+from prioritree.policy import missing_classes
 from prioritree.registry import WEAK_ORDER_TRIPLE, OperatorDeclaration
 from prioritree.run_store import STORE_HOME, Persist, StoreRefusedError
 from prioritree.scheduler import schedule_pairs
@@ -336,6 +337,7 @@ def _found_sections(
     zero_coverage: Sequence[str],
     components: tuple[tuple[str, ...], ...],
     shortfalls: Sequence[tuple[Pair, int]],
+    missing_class_pairs: Sequence[tuple[Pair, tuple[str, ...]]],
     quorum: int,
 ) -> str:
     """Render the halt's found -- the core's section grammar mirrored, leg 3 at the cap.
@@ -360,12 +362,19 @@ def _found_sections(
     if shortfalls:
         shown = _shown([f"({pair.item_a}, {pair.item_b}) {count} of {quorum}" for pair, count in shortfalls])
         sections.append(f"under-quorum pairs: {shown}")
+    if missing_class_pairs:
+        rendered = ", ".join(
+            f"({pair.item_a}, {pair.item_b}) missing {', '.join(classes)}"
+            for pair, classes in missing_class_pairs
+        )
+        sections.append(f"uncorroborated pairs: {rendered}")
     return "; ".join(sections)
 
 
 def _next_action_sections(
     components: tuple[tuple[str, ...], ...],
     shortfalls: Sequence[tuple[Pair, int]],
+    missing_class_pairs: Sequence[tuple[Pair, tuple[str, ...]]],
     quorum: int,
 ) -> str:
     """Render the halt's next_action -- the core's cure grammar mirrored, the shortfall list capped.
@@ -396,6 +405,13 @@ def _next_action_sections(
             [f"({pair.item_a}, {pair.item_b}) needs {quorum - count} more" for pair, count in shortfalls],
         )
         sections.append(f"cast the missing votes: {shown} -- quorum needs MORE VOTES on existing pairs")
+    if missing_class_pairs:
+        rendered = ", ".join(
+            f"({pair.item_a}, {pair.item_b}) needs {', '.join(classes)}"
+            for pair, classes in missing_class_pairs
+        )
+        floor_head = f"cast the corroborating votes: {rendered}"
+        sections.append(f"{floor_head} -- corroboration needs votes from BOTH CLASSES on existing pairs")
     return "; ".join(sections)
 
 
@@ -433,19 +449,26 @@ def _capped_halt(refusal: TallyRefusedError, run_id: str) -> InvalidInput:
     pairs = schedule_pairs(ids)
     excluded = {record.supersedes for record in census.vote_log if record.supersedes is not None}
     pair_counts = dict.fromkeys(pairs, 0)
+    pair_class_counts: dict[Pair, dict[str, int]] = {pair: dict.fromkeys(COMPARATOR_CLASSES, 0) for pair in pairs}
     touched: set[str] = set()
     for record in census.vote_log:
         if record.vote_id in excluded:
             continue
         pair_counts[record.pair] += 1
+        pair_class_counts[record.pair][record.comparator_class] += 1
         touched.update((record.pair.item_a, record.pair.item_b))
     shortfalls = [(pair, pair_counts[pair]) for pair in pairs if pair_counts[pair] < manifest.quorum]
+    missing_class_pairs = [
+        (pair, tuple(sorted(missing_classes(pair_class_counts[pair]))))
+        for pair in pairs
+        if missing_classes(pair_class_counts[pair])
+    ]
     if len(shortfalls) <= _HALT_CAP:
         return InvalidInput(_render_three_part(refusal.expected, refusal.found, refusal.next_action))
     zero_coverage = sorted(item_id for item_id in ids if item_id not in touched)
     components = _components(ids, [pair for pair in pairs if pair_counts[pair] >= 1])
-    found = _found_sections(zero_coverage, components, shortfalls, manifest.quorum)
-    next_action = _next_action_sections(components, shortfalls, manifest.quorum)
+    found = _found_sections(zero_coverage, components, shortfalls, missing_class_pairs, manifest.quorum)
+    next_action = _next_action_sections(components, shortfalls, missing_class_pairs, manifest.quorum)
     return InvalidInput(_render_three_part(refusal.expected, found, next_action))
 
 

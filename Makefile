@@ -5,6 +5,7 @@ HOST ?= 127.0.0.1
 MCP_PORT ?= 8100
 MCP_HOST ?= 127.0.0.1
 AUTH ?= on
+PRIORITYTREE_WEB_KEY ?=
 
 .PHONY: dev test lint typecheck help start stop status restart mcp-start mcp-stop mcp-status mcp-restart
 
@@ -30,7 +31,7 @@ start:     ## Start the server in the background (run from the repo root; pid ->
 		exit 1; \
 	fi
 	@mkdir -p .prioritree
-	@nohup env -u WEB_CONCURRENCY AUTH=$(AUTH) .venv/bin/uvicorn prioritree.service:app --host $(HOST) --port $(PORT) > .prioritree/server.log 2>&1 & echo $$! > .prioritree/server.pid
+	@nohup env -u WEB_CONCURRENCY AUTH=$(AUTH) PRIORITYTREE_WEB_KEY=$(PRIORITYTREE_WEB_KEY) .venv/bin/uvicorn prioritree.service:app --host $(HOST) --port $(PORT) > .prioritree/server.log 2>&1 & echo $$! > .prioritree/server.pid
 	@sleep 1; curl -s -o /dev/null -w 'read-back: HTTP %{http_code} on http://127.0.0.1:$(PORT)/ (404 = answering; 000 = still booting: make status)\n' http://127.0.0.1:$(PORT)/runs/RUN-9999/next || true
 
 stop:      ## Stop the server: SIGTERM + the bounded drain (pid read from .prioritree/server.pid; run from the repo root)

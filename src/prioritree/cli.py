@@ -5,14 +5,16 @@ The command-face unit (G-COMMAND-FACE, the approved brief the exact-task spec):
 the five subcommands 1:1 on the five ops through the run-store ONLY — register
 on Persist.register; next on Persist.load + .serve(seed); vote on Persist.load
 + .cast; state on Persist.load + .census; tally on Persist.load + .rank — no op
-added, no op re-derived (Q-cli-shape; the frozen door cited). The I/O contract
-(Q-cli-io): argv in, stdout out, exit 0/1/2 — 0 success AND DONE (ExhaustedQueue
-caught BY TYPE, its full three-field message on stdout), 1 the refusal lineage
-(the three typed refusals, str(e) verbatim on stderr), 2 the argv+unexpected
-channel (argparse's SystemExit propagates untouched; the traceback rides
-verbatim). The tier fence held by construction: value-type imports only —
-Persist, StoreRefusedError, STORE_HOME, OperatorDeclaration, the three
-refusals, ExhaustedQueue — no Registry()/Session() at this tier, no door
+added, no op re-derived; the key tools group (prioritree key mint — the auth
+foundation's issuance verb over the KEY store) is no run op (Q-cli-shape; the
+frozen door cited). The I/O contract (Q-cli-io): argv in, stdout out, exit
+0/1/2 — 0 success AND DONE (ExhaustedQueue caught BY TYPE, its full three-field
+message on stdout), 1 the refusal lineage (the four typed refusals, str(e)
+verbatim on stderr), 2 the argv+unexpected channel (argparse's SystemExit
+propagates untouched; the traceback rides verbatim). The tier fence held by
+construction: value-type imports only — Persist, StoreRefusedError, STORE_HOME,
+OperatorDeclaration, the three refusals, ExhaustedQueue, KEYS_HOME, KeyStore,
+KeyStoreRefusedError — no Registry()/Session() at this tier, no door
 composition, no value re-derived (the CLI polices only its OWN argv syntax;
 the door polices values). The report language: marker-first, tab-separated —
 collision-free over opaque ids, first-token parseable. argparse stdlib ONLY

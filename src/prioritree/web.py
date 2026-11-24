@@ -49,17 +49,22 @@ asserts, no prints.
 
 from __future__ import annotations
 
+import hmac
+import logging
+import os
+import secrets
 from importlib.resources import files
 from pathlib import Path
 from typing import Any, Final
 
 import httpx2
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from prioritree.key_verify import AUTH_HEADER_DEFAULT
 from prioritree.service import ESCALATION
 from prioritree.service import app as service_app
 
@@ -96,6 +101,69 @@ _METHOD_NOT_ALLOWED: Final[int] = 405
 _CONFLICT: Final[int] = 409
 _CRASH: Final[int] = 500
 _FRAGMENT_LANE: Final[str] = "/ui/"
+
+_UNAUTHORIZED: Final[int] = 401
+_FORBIDDEN: Final[int] = 403
+
+# The CSRF token's stateless signed form (the unit brief §3c): the secret at
+# the child's process (the env knob the configurability law — a multi-worker
+# deployment sets ONE secret; unset => a boot-minted random secret, the
+# restart-invalidation price carried: a boot's outstanding tokens die, the
+# re-render mints fresh, the failure's ThreePart teaches the reload).
+_CSRF_SECRET_ENV: Final[str] = "PRIORITYTREE_WEB_CSRF_SECRET"
+_csrf_secret: Final[bytes] = (
+    os.environ.get(_CSRF_SECRET_ENV, "").encode() or secrets.token_urlsafe(32).encode()
+)
+_CSRF_FIELD: Final[str] = "csrf_token"
+
+
+class CsrfRefusedError(Exception):
+    """CsrfRefusedError — the drive-by's death: expected, found, next_action.
+
+    Purpose: carry the CSRF refusal's three fields as typed data for the
+    child's DEDICATED handler (never the child's fold — the crash page's
+    clothes never worn); found "absent-or-mismatched" the elision discipline
+    (the remote page could not have READ the served form — which leg fired
+    teaches nothing).
+    Provenance: the design's F2, the unit brief §1b/§3c, rikai map 2,
+    G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+
+    def __init__(self, expected: str, found: str, next_action: str) -> None:
+        """Initialize the refusal with its three named fields."""
+        self.expected = expected
+        self.found = found
+        self.next_action = next_action
+        super().__init__(f"refused — expected: {expected} | found: {found} | next: {next_action}")
+
+
+def _mint_csrf(payload: str) -> str:
+    """Mint the HMAC-SHA256 token over the bound payload — the stateless signed form."""
+    return hmac.new(_csrf_secret, payload.encode(), "sha256").hexdigest()
+
+
+async def _csrf_guard(request: Request) -> None:
+    """Validate the form's CSRF token BEFORE _service — the per-route dependency (F2's cure).
+
+    Purpose: recompute the expected token over the request's own path (the
+    form's bound payload — the register form and the run's vote form each
+    their own) + hmac.compare_digest (the timing discipline, key_verify's
+    ONE-compare school); the drive-by's POST carries an absent-or-mismatched
+    token => the refusal fires BEFORE _service (the write never lands).
+    Starlette caches request.form() — the route's own parse reads the same
+    cached body, no double-read.
+    Refuses when: the token absent or mismatched (CsrfRefusedError).
+    Provenance: the unit brief §3c, the design's F2, G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+    form = await request.form()
+    presented = str(form.get(_CSRF_FIELD, ""))
+    expected = _mint_csrf(request.url.path)
+    if not hmac.compare_digest(presented, expected):
+        raise CsrfRefusedError(
+            expected=f"the form's {_CSRF_FIELD} field (minted into the served page)",
+            found="absent-or-mismatched",
+            next_action="reload the page and re-send — the re-render mints a fresh token",
+        )
 
 # The mounted whole's legal set (web-brief §3e): the nine web routes (the
 # child's own path constants above) + the six service routes (the frozen
@@ -161,9 +229,15 @@ templates = Jinja2Templates(directory=resolve(_TEMPLATES_HOME, _TEMPLATES_TAIL))
 # instance, built at import against the imported service app, shared by all
 # controllers, process-lifetime — no per-request construction, no teardown
 # (ASGITransport holds no socket). raise_app_exceptions=False REQUIRED.
+_WEB_KEY_ENV: Final[str] = "PRIORITYTREE_WEB_KEY"
+_web_key: Final[str] = os.environ.get(_WEB_KEY_ENV, "")
 _client = httpx2.AsyncClient(
     base_url=_BASE_URL,
     transport=httpx2.ASGITransport(app=service_app, raise_app_exceptions=False),
+    headers={AUTH_HEADER_DEFAULT: _web_key} if _web_key else None,
+)
+logging.getLogger("uvicorn.error").info(
+    "web tier key: %s (a six-token grant)", "present" if _web_key else "absent",
 )
 
 
@@ -226,6 +300,19 @@ def _unknown(request: Request, body: dict[str, Any]) -> Response:
     """
     return templates.TemplateResponse(
         request, "unknown.html", {"fields": _fields(body)}, status_code=_NOT_FOUND,
+    )
+
+
+def _auth_page(request: Request, body: dict[str, Any], *, forbidden: bool) -> Response:
+    """Render the auth lane's page — the service's OWN three fields verbatim, the path's heading.
+
+    (The fold's clothes never worn.)
+
+    Provenance: the unit brief §1c, rikai map 3, G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+    return templates.TemplateResponse(
+        request, "auth.html", {"fields": _fields(body), "forbidden": forbidden},
+        status_code=_FORBIDDEN if forbidden else _UNAUTHORIZED,
     )
 
 
@@ -313,6 +400,21 @@ def fold(request: Request, exc: Exception) -> Response:
     )
 
 
+@web_app.exception_handler(CsrfRefusedError)
+def refuse_csrf(request: Request, exc: CsrfRefusedError) -> Response:
+    """Render the CSRF refusal as the refusal fragment at 200 — the drive-by SEEN, never a silent OK.
+
+    Never the fold's clothes.
+
+    Provenance: the unit brief §3c, rikai map 2 (the landing mechanics' seam),
+    G-SERVING-TIER-INTEGRATION-BRIEF.
+    """
+    return _refuse_fragment(
+        request,
+        {"expected": exc.expected, "found": exc.found, "next_action": exc.next_action},
+    )
+
+
 @web_app.get(_LANDING)
 async def landing(request: Request) -> Response:
     """Land the operator — the register form + the plain-words bridges, no service calls.
@@ -330,7 +432,7 @@ async def landing(request: Request) -> Response:
     Touches: nothing — no service call (the only call-free route).
     Provenance: web-brief §4 route 1, the design §7/§8, G-WEBSPEC-BRIEF.
     """
-    return templates.TemplateResponse(request, "landing.html", {})
+    return templates.TemplateResponse(request, "landing.html", {"csrf_token": _mint_csrf(_REGISTER)})
 
 
 @web_app.get(_SITTING)
@@ -355,6 +457,10 @@ async def sitting(request: Request, stem: str) -> Response:
     if manifest.status_code != _OK:
         if manifest.status_code == _NOT_FOUND:
             return _unknown(request, manifest.json())
+        if manifest.status_code == _UNAUTHORIZED:
+            return _auth_page(request, manifest.json(), forbidden=False)
+        if manifest.status_code == _FORBIDDEN:
+            return _auth_page(request, manifest.json(), forbidden=True)
         return templates.TemplateResponse(
             request, "fold.html", {"fields": _fields(manifest.json())}, status_code=manifest.status_code,
         )
@@ -362,6 +468,10 @@ async def sitting(request: Request, stem: str) -> Response:
     if nxt.status_code != _OK:
         if nxt.status_code == _NOT_FOUND:
             return _unknown(request, nxt.json())
+        if nxt.status_code == _UNAUTHORIZED:
+            return _auth_page(request, nxt.json(), forbidden=False)
+        if nxt.status_code == _FORBIDDEN:
+            return _auth_page(request, nxt.json(), forbidden=True)
         return templates.TemplateResponse(
             request, "fold.html", {"fields": _fields(nxt.json())}, status_code=nxt.status_code,
         )
@@ -375,6 +485,7 @@ async def sitting(request: Request, stem: str) -> Response:
         "sitting.html",
         {
             "stem": stem,
+            "csrf_token": _mint_csrf(f"/ui/runs/{stem}/vote"),
             "question": str(manifest_body["question"]),
             "verdicts": list(manifest_body["verdicts"]),
             "quorum": int(manifest_body["quorum"]),
@@ -406,6 +517,10 @@ async def done(request: Request, stem: str) -> Response:
     if nxt.status_code != _OK:
         if nxt.status_code == _NOT_FOUND:
             return _unknown(request, nxt.json())
+        if nxt.status_code == _UNAUTHORIZED:
+            return _auth_page(request, nxt.json(), forbidden=False)
+        if nxt.status_code == _FORBIDDEN:
+            return _auth_page(request, nxt.json(), forbidden=True)
         return templates.TemplateResponse(
             request, "fold.html", {"fields": _fields(nxt.json())}, status_code=nxt.status_code,
         )
@@ -436,6 +551,10 @@ async def progress(request: Request, stem: str) -> Response:
     if result.status_code != _OK:
         if result.status_code == _NOT_FOUND:
             return _unknown(request, result.json())
+        if result.status_code == _UNAUTHORIZED:
+            return _auth_page(request, result.json(), forbidden=False)
+        if result.status_code == _FORBIDDEN:
+            return _auth_page(request, result.json(), forbidden=True)
         return templates.TemplateResponse(
             request, "fold.html", {"fields": _fields(result.json())}, status_code=result.status_code,
         )
@@ -480,6 +599,10 @@ async def result(request: Request, stem: str) -> Response:
     if tally.status_code != _OK:
         if tally.status_code == _NOT_FOUND:
             return _unknown(request, tally.json())
+        if tally.status_code == _UNAUTHORIZED:
+            return _auth_page(request, tally.json(), forbidden=False)
+        if tally.status_code == _FORBIDDEN:
+            return _auth_page(request, tally.json(), forbidden=True)
         return templates.TemplateResponse(
             request, "fold.html", {"fields": _fields(tally.json())}, status_code=tally.status_code,
         )
@@ -490,6 +613,10 @@ async def result(request: Request, stem: str) -> Response:
         )
     manifest = await _service("GET", f"/runs/{stem}/manifest")
     if manifest.status_code != _OK:
+        if manifest.status_code == _UNAUTHORIZED:
+            return _auth_page(request, manifest.json(), forbidden=False)
+        if manifest.status_code == _FORBIDDEN:
+            return _auth_page(request, manifest.json(), forbidden=True)
         return templates.TemplateResponse(
             request, "fold.html", {"fields": _fields(manifest.json())}, status_code=manifest.status_code,
         )
@@ -522,7 +649,7 @@ async def result(request: Request, stem: str) -> Response:
     )
 
 
-@web_app.post(_REGISTER)
+@web_app.post(_REGISTER, dependencies=[Depends(_csrf_guard)])
 async def register(request: Request) -> Response:
     """Register the run through the form — the ack panel, or the inline refusal at 200.
 
@@ -613,6 +740,7 @@ async def pair(request: Request, stem: str) -> Response:
         "pair.html",
         {
             "stem": stem,
+            "csrf_token": _mint_csrf(f"/ui/runs/{stem}/vote"),
             "item_a": str(body["item_a"]),
             "item_b": str(body["item_b"]),
             "label_a": labels.get(str(body["item_a"]), str(body["item_a"])),
@@ -622,7 +750,7 @@ async def pair(request: Request, stem: str) -> Response:
     )
 
 
-@web_app.post(_VOTE)
+@web_app.post(_VOTE, dependencies=[Depends(_csrf_guard)])
 async def vote(request: Request, stem: str) -> Response:
     """Cast the vote through the form — the ack chains to the next pair.
 

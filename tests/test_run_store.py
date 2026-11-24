@@ -44,7 +44,10 @@ def _clock_free(record: VoteRecord) -> tuple[object, ...]:
 
 
 def test_round_trip_clock_free_surface_equal(tmp_path: Path) -> None:
-    """Register + four casts (mixed classes, one correction) → fresh load → the §3 surface equal, stamps excluded."""
+    """Register + seven casts (mixed classes, one correction, the corroborating twins).
+
+    → fresh load → the §3 surface equal, stamps excluded.
+    """
     store_home = tmp_path / "runs"
     store = _register(store_home)
     store.cast(("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")

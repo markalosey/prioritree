@@ -42,7 +42,10 @@ def _registered(
 
 
 def test_end_to_end_fixture_register_vote_done_tally() -> None:
-    """The gate's fixture: register, schedule, cast three, DONE, and the exact hand-computed emission."""
+    """The gate's fixture: register, schedule, cast six (each pair human then llm), DONE.
+
+    And the exact hand-computed emission.
+    """
     session = _session()
     run_id, manifest, count = session.register_run(
         [("a", "one"), ("b", "two"), ("c", "three")], operator=_declaration(), quorum=1,

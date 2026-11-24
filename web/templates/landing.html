@@ -21,6 +21,7 @@
       <div class="item-row"><input name="item-id" placeholder="id"> <input name="item-label" placeholder="label"></div>
       <div class="item-row"><input name="item-id" placeholder="id"> <input name="item-label" placeholder="label"></div>
     </fieldset>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     <button type="submit">Register the run</button>
   </form>
   <div id="register-result"></div>

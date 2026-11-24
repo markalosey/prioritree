@@ -72,7 +72,7 @@ class KeyVerifyError(Exception):
         self.found = found
         self.next_action = next_action
         _prefix = "refused"
-        super().__init__(f"{_prefix} -- expected: {expected} | found: {found} | next: {next_action}")
+        super().__init__(f"{_prefix} — expected: {expected} | found: {found} | next: {next_action}")
 
 
 class KeyScopeError(Exception):
@@ -110,7 +110,7 @@ class KeyScopeError(Exception):
         self.found = found
         self.next_action = next_action
         _prefix = "refused"
-        super().__init__(f"{_prefix} -- expected: {expected} | found: {found} | next: {next_action}")
+        super().__init__(f"{_prefix} — expected: {expected} | found: {found} | next: {next_action}")
 
 
 def _refuse_unknown_key() -> KeyVerifyError:
