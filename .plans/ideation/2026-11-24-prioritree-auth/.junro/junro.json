@@ -6,7 +6,7 @@
     "type": "build_route",
     "methodology": "MPIR",
     "instance": 1,
-    "status": "composed",
+    "status": "executing",
     "worktree": "prioritree",
     "inputs": [
       "THE FOUR RULINGS AT THE BIRTH STORE'S Q-AUTH-WIDENING (2026-11-23/24): (1) the write-exposure reframe — a reachable server is a writable filesystem (register mints run files, cast_vote appends, the store home CWD-relative; the exposure real at any reachable port), auth the CURE, re-ranked to the inward priority class; (2) the API-key infrastructure question opened as the design's leading candidate (the key as the bearer token; the stamps' comparator_id the identity the key verifies; OunceMCP's verified-token identity + policies the MCP tier's named form), the llm-class constraint standing: nothing that kills the llm comparator — the llm authenticates with its own key, no human-approval gate; (3) THE R/E/R MANDATE: the full research and evaluation and recommendation cycle before any build — the public stakes: 'We want this to be so right as we will be talking about this project publicly and this teams work on it'; (4) THE FULL-TEAM INPUT: R/E/R was the collaborator's abbreviation, never a solo form — every stage carries every seat, the divergences reconciled at the synthesis, the full-team record IS the public face",
@@ -268,6 +268,14 @@
         "actor": "shinko",
         "timestamp": "2026-11-24T05:57:55Z",
         "op": "add-increment"
+      },
+      {
+        "what": "set-route-status {\"from\": \"composed\", \"status\": \"executing\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T06:21:03Z",
+        "op": "set-route-status"
       }
     ]
   },
