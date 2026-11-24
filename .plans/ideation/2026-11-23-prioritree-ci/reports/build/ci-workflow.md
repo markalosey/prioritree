@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — build/ci-workflow
 
-**Route:** prioritree-ci (executing) | **Events:** 8 | **Reports:** 4
+**Route:** prioritree-ci (executing) | **Events:** 11 | **Reports:** 5
 
 ## The packet's chain (ledger order)
 
@@ -15,6 +15,9 @@
 | 6 | report | jikko | 2026-11-23T23:35:40Z |
 | 7 | dispatch | shinko | 2026-11-23T23:35:55Z |
 | 8 | report | jikko | 2026-11-23T23:36:42Z |
+| 9 | result | shinko | 2026-11-24T01:00:09Z |
+| 10 | dispatch | shinko | 2026-11-24T01:02:30Z |
+| 11 | report | jikko | 2026-11-24T01:02:57Z |
 ## Reported by jikko — 2026-11-23T23:34:16Z
 
 Step 1 of 6 done: landed .github/codeql/codeql-config.yml via patch create (parent dirs made — .github/codeql/ born by the apply). The fence's seven lines whole: name: prioritree, the four-line ruled-widening comment (the positive form mirroring pyright's include at pyproject:172), paths: [src/, tests/]. Read-back byte-against-fence: identical, 7 lines, trailing newline. Nothing else touched — no other file read-written, .github/ was empty before (glob-confirmed), the workflow and README legs untouched. Gap: none at this step; steps 2-6 remain.
@@ -42,3 +45,6 @@ The floor (step 5 of 6) — the pack's three fixed-argv acts, all within expecta
 3. Typecheck act: pyright over the tree — "0 errors, 0 warnings, 0 informations".
 
 Every outcome matched the stated expectations; no report items beyond the outcomes themselves.
+## Reported by jikko — 2026-11-24T01:02:57Z
+
+Step 7 landed — the R6 fold's workflow-level permissions block inserted into .github/workflows/ci.yml: `permissions:` + `contents: read` at :13-14, after :11 (cancel-in-progress: true), before `jobs:` (now :16), with the file's own blank-line spacing (concurrency → blank → block → blank → jobs). One hunk, three added lines; nothing else touched. The codeql job's job-scoped block (:33-35, was :30-32) read back byte-unchanged: contents: read + security-events: write. File grew 40 → 43 lines, all at the insertion point. Not done: no other edits, no commit (the fold's one-commit lands at step 8), no verification of my own work.

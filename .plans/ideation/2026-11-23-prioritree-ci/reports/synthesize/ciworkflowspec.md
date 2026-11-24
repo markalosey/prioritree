@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/ciworkflowspec
 
-**Route:** prioritree-ci (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-ci (executing) | **Events:** 6 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,10 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-23T23:25:08Z |
 | 2 | report | togo | 2026-11-23T23:30:16Z |
+| 3 | result | shinko | 2026-11-23T23:31:39Z |
+| 4 | gate | shinko | 2026-11-23T23:32:52Z |
+| 5 | dispatch | shinko | 2026-11-24T01:01:14Z |
+| 6 | report | togo | 2026-11-24T01:02:03Z |
 ## Reported by togo — 2026-11-23T23:30:16Z
 
 TOGO — synthesize/ciworkflowspec — THE CI WORKFLOW EXACT-TASK SPEC (2026-11-23; the spec lane closing G-CIWORKFLOWSPEC-BRIEF at the collaborator's approval — every byte the builder writes, fenced; the brief's design whole carried, cited at every byte)
@@ -157,3 +161,11 @@ after:  CI is live (2026-11-23): the CI workflow (.github/workflows/ci.yml) runs
 1. THE PERMISSIONS GRANT (§1a): the spec's one completion beyond the brief's enumerated steps — kept (the first-run green depends on it) or struck (a strike is a ruling; the first run then carries the named risk).
 2. THE EMISSION'S WRAP POINTS (§3b): the generator's exact wrap confirms only at the landed emission (the hikari-side read at the dispatch confirms the source block's lines); the content-identity the verification's bar — a wrap variance named at the verification, never a silent pass.
 3. THE BRIEF'S OWN TWO (carried, ruled at the brief's gate — not this spec's scope): the quickstart's lint/typecheck widening (the brief's open question 1); the public-form pricing confirmation (the brief's open question 2).
+## Reported by togo — 2026-11-24T01:02:03Z
+
+R6 fold — ci.yml least-privilege regions (findings verified 2026-11-24):
+(a) workflow-level, INSERT after ci.yml:11 (concurrency end), before :13 (jobs:):
+    + permissions:
+    +   contents: read
+    (after: concurrency → blank → permissions: contents: read → blank → jobs: — every job inherits unless overridden)
+(b) codeql job ci.yml:30-32 — VERIFIED PRESENT, before = after (no change): the job-scoped block already carries BOTH contents: read + security-events: write (job-level replaces workflow-level whole).
