@@ -160,7 +160,7 @@ Reading the lines:
 ## Discipline
 
 - **The CWD law.** The store (`.prioritree/runs`) resolves CWD-relative — run from the repo root, or your data lands where you stood (the directory mints silently on demand); the CLI's `--home` is the per-invocation escape. The web homes resolve in order: the CWD's `web/templates` + `web/static` first (the repo's authored files — the clone's form), the installed package's copies the fallback — a wrong cwd in the clone folds honestly (the honest 500); an installed location always renders.
-- **The git hook.** `.githooks/pre-commit` is tracked, but the pointer never clones — set it by hand: `git config core.hooksPath .githooks`. The hook enforces pyright only; ruff is named, pending — run `make lint` for the full floor. `PRIORITREE_HOOK_BYPASS=1` is the tracked bypass.
+- **The git hook.** `.githooks/pre-commit` is tracked, but the pointer never clones — set it by hand: `git config core.hooksPath .githooks`. The hook enforces the whole floor locally — ruff + pyright on staged .py at the site the code is written; CI checks the same floor at the push. `PRIORITREE_HOOK_BYPASS=1` is the tracked bypass.
 - **The port discipline.** The web tier (`make start`) defaults to port 8000; the MCP (`--serve`) defaults to 8100 — both servers co-run at their defaults, the collision retired (the MCP's lifecycle: `make mcp-start` / `make mcp-stop` / `make mcp-status` / `make mcp-restart`).
 - **`.prioritree/` mints at runtime** — the server pid and log, the runs store; gitignored, never present in a clone.
 

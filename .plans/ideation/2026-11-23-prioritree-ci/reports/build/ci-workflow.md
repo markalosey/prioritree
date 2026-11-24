@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — build/ci-workflow
 
-**Route:** prioritree-ci (executing) | **Events:** 11 | **Reports:** 5
+**Route:** prioritree-ci (executing) | **Events:** 13 | **Reports:** 6
 
 ## The packet's chain (ledger order)
 
@@ -18,6 +18,8 @@
 | 9 | result | shinko | 2026-11-24T01:00:09Z |
 | 10 | dispatch | shinko | 2026-11-24T01:02:30Z |
 | 11 | report | jikko | 2026-11-24T01:02:57Z |
+| 12 | dispatch | shinko | 2026-11-24T01:13:33Z |
+| 13 | report | jikko | 2026-11-24T01:14:03Z |
 ## Reported by jikko — 2026-11-23T23:34:16Z
 
 Step 1 of 6 done: landed .github/codeql/codeql-config.yml via patch create (parent dirs made — .github/codeql/ born by the apply). The fence's seven lines whole: name: prioritree, the four-line ruled-widening comment (the positive form mirroring pyright's include at pyproject:172), paths: [src/, tests/]. Read-back byte-against-fence: identical, 7 lines, trailing newline. Nothing else touched — no other file read-written, .github/ was empty before (glob-confirmed), the workflow and README legs untouched. Gap: none at this step; steps 2-6 remain.
@@ -48,3 +50,14 @@ Every outcome matched the stated expectations; no report items beyond the outcom
 ## Reported by jikko — 2026-11-24T01:02:57Z
 
 Step 7 landed — the R6 fold's workflow-level permissions block inserted into .github/workflows/ci.yml: `permissions:` + `contents: read` at :13-14, after :11 (cancel-in-progress: true), before `jobs:` (now :16), with the file's own blank-line spacing (concurrency → blank → block → blank → jobs). One hunk, three added lines; nothing else touched. The codeql job's job-scoped block (:33-35, was :30-32) read back byte-unchanged: contents: read + security-events: write. File grew 40 → 43 lines, all at the insertion point. Not done: no other edits, no commit (the fold's one-commit lands at step 8), no verification of my own work.
+## Reported by jikko — 2026-11-24T01:14:03Z
+
+Step 8 (the residual fold) done: README.md:163's stale clause cured.
+
+Verified the exact current bytes first — kensho's finding held: "The hook enforces pyright only; ruff is named, pending — run `make lint` for the full floor."
+
+Verified the landed truth against the disk (.githooks/pre-commit): the hook now runs both checks on staged .py — pyright at 0/0/0 and ruff at zero findings.
+
+Replaced the stale clause with the multiple-locations law's words: "The hook enforces the whole floor locally — ruff + pyright on staged .py at the site the code is written; CI checks the same floor at the push."
+
+Read-back confirms the line verbatim; the surrounding bullets (CWD law, port discipline, .prioritree/ runtime) untouched — one hunk, one file, nothing else.
