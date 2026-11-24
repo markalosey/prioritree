@@ -371,6 +371,14 @@
         "actor": "shinko",
         "timestamp": "2026-11-24T01:02:19Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-ci-surface\", \"ruling\": \"THE INCREMENTAL-ANALYSIS WARNING'S FINAL VERDICT (collaborator evidence, 2026-11-24, verbatim: \\\"codeql ran just fine on https://github.com/markalosey/prioritree/commit/b44c74a9325752b3adb9d5c7903af08ea852b37c so their suggestion seems like bullshit.\\\"): THE CONTRADICTION AT THE RECORD — CodeQL ran just fine on b44c74a (the same workflow, the same runner, days before the warning fired): the analysis completes; the scan is whole; the warning was about the OPTIONAL incremental OPTIMIZATION's one-time hiccup, self-recovering in the cache, zero impact on correctness or coverage. THE SUGGESTION RULED FOR WHAT IT IS: a solution looking for a problem this tree does not have (the disk-space suggestion addresses the incremental optimization's price at large repos — this tree's scan is minutes-scale at the free runner's disk); the warning's own hedged claim (\\\"one possible reason\\\") confirmed as speculative by the sibling run's success. THE DATUM'S STANDING: accepted-and-closed — no tree change, no paid path, no further attention owed unless the warning becomes an actual failure (the scan failing would be a different datum, handled on the same claims lane); the claims-lane form's own proof: the raw warning's blob reduced to claims, the claims verified against the tree's own evidence, the verdict ruled on the evidence — the loop's answer to outside noise at every scale.\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T01:03:47Z",
+        "op": "add-ruling"
       }
     ]
   },
@@ -417,6 +425,11 @@
         },
         {
           "text": "THE CLAIMS-EXTRACTION BEAT (collaborator ruling, 2026-11-24, verbatim: \"we extract claims, then research etc....\"): the research-and-verify lane's OPENING BEAT NAMED — WE EXTRACT CLAIMS, THEN RESEARCH THEM: an outside thing's raw text (a scanner's alert, a platform's warning, a doc's statement) is first REDUCED TO ITS CLAIMS — the discrete, checkable statements extracted verbatim from the source's own words; the claims then ride the seat discipline (research: the docs read at the source; verify: the tree's facts and live runs; rule: the loop's laws on the evidence) — each claim its own verdict (confirmed | refuted | priced-and-accepted | cured), never the blob swallowed or dismissed whole. THE INCREMENTAL-ANALYSIS WARNING'S CLAIMS, EXTRACTED (the exemplar): claim 1 \"improved incremental analysis requires significant disk space for some repositories\" — researched: the docs' own form; claim 2 \"the failure is recorded in the Actions cache; the next analysis will run without it\" — verified: self-recovering, no tree act; claim 3 \"to enable it, try increasing the disk space available to the runner\" — priced: bigger runners are PAID, the free-tier law refuses — RULED: no tree change, the datum accepted. THE PERMISSIONS WARNING'S CLAIMS, SAME LANE: claim 1 \"the workflow does not limit the GITHUB_TOKEN's permissions\" — confirmed against the tree (no block at HEAD); claim 2 \"the minimal starting point is {contents: read}\" — researched at the docs, adopted as the tree's own least-privilege declaration; claim 3 \"the pre-2023 read-write default\" — verified as the outside default the block cures. THE STANDING FORM: extract -> research -> verify -> rule; each claim cited to its source's own words; the loop's record carries the claims' verdicts, never a summary of the outside blob.",
+          "ruled_at": "2026-11-24",
+          "actor": "shinko"
+        },
+        {
+          "text": "THE INCREMENTAL-ANALYSIS WARNING'S FINAL VERDICT (collaborator evidence, 2026-11-24, verbatim: \"codeql ran just fine on https://github.com/markalosey/prioritree/commit/b44c74a9325752b3adb9d5c7903af08ea852b37c so their suggestion seems like bullshit.\"): THE CONTRADICTION AT THE RECORD — CodeQL ran just fine on b44c74a (the same workflow, the same runner, days before the warning fired): the analysis completes; the scan is whole; the warning was about the OPTIONAL incremental OPTIMIZATION's one-time hiccup, self-recovering in the cache, zero impact on correctness or coverage. THE SUGGESTION RULED FOR WHAT IT IS: a solution looking for a problem this tree does not have (the disk-space suggestion addresses the incremental optimization's price at large repos — this tree's scan is minutes-scale at the free runner's disk); the warning's own hedged claim (\"one possible reason\") confirmed as speculative by the sibling run's success. THE DATUM'S STANDING: accepted-and-closed — no tree change, no paid path, no further attention owed unless the warning becomes an actual failure (the scan failing would be a different datum, handled on the same claims lane); the claims-lane form's own proof: the raw warning's blob reduced to claims, the claims verified against the tree's own evidence, the verdict ruled on the evidence — the loop's answer to outside noise at every scale.",
           "ruled_at": "2026-11-24",
           "actor": "shinko"
         }
