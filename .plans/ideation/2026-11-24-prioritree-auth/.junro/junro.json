@@ -1,0 +1,65 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-auth",
+    "title": "Prioritree Auth — the write-exposure cure: the API-key infrastructure designed through the full-team research/evaluation/recommendation cycle, built to be publicly right — the loop's public face, every seat's input visible, every choice citable to its evidence; the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "THE FOUR RULINGS AT THE BIRTH STORE'S Q-AUTH-WIDENING (2026-11-23/24): (1) the write-exposure reframe — a reachable server is a writable filesystem (register mints run files, cast_vote appends, the store home CWD-relative; the exposure real at any reachable port), auth the CURE, re-ranked to the inward priority class; (2) the API-key infrastructure question opened as the design's leading candidate (the key as the bearer token; the stamps' comparator_id the identity the key verifies; OunceMCP's verified-token identity + policies the MCP tier's named form), the llm-class constraint standing: nothing that kills the llm comparator — the llm authenticates with its own key, no human-approval gate; (3) THE R/E/R MANDATE: the full research and evaluation and recommendation cycle before any build — the public stakes: 'We want this to be so right as we will be talking about this project publicly and this teams work on it'; (4) THE FULL-TEAM INPUT: R/E/R was the collaborator's abbreviation, never a solo form — every stage carries every seat, the divergences reconciled at the synthesis, the full-team record IS the public face",
+      "THE CONFIGURABILITY LAW (Q-auth-widening ruling 2, the standing law): configurable things configurable — ports, hosts, store homes, thresholds, every knob: the ?= form the precedent, hardcoded constants a defect class caught at review; the auth design's knobs configurable from birth (the key store's home, the header names, the policy toggles)",
+      "THE CLAIMS LANE (Q-ci-surface rulings 6-9, the standing law): extract claims -> research -> verify -> rule — every outside thing researched and verified, never trusted on its word, never dismissed on suspicion: OunceMCP's verified-token model read at its own docs; the auth ecosystem claims verified at their sources; the threat-model literature extracted to claims",
+      "THE TREE'S OWN GROUND: the five forms whole (the library, the CLI, the service [six routes, ThreePart 21/21], the web [14 templates], the MCP [five OunceMCP tools]); the serving tiers' exposure map (the FastAPI at :8000, the MCP --serve at :8100, the web's session surfaces); the stamps' journey (comparator_id + class at the core; the key would verify them); the floor at 203, the CI live",
+      "the standing laws carried: the seat-authored report (R6/R11), the per-step dispatch (R8, the file-unit), the two-lane form, the ThreePart, the census-first, the implementation-walk law (R4), the free-tier spirit (the auth design prices its own infrastructure)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [],
+    "gates": {},
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-auth-design\", \"text\": \"What is prioritree's auth design — the write-exposure cure as BOTH authentication (who are you: the key verifying the caller's identity, binding to the stamps' comparator_id) AND authorization (what may you do: the policy granting scope per identity — who may register, vote, read state, tally), designed through the full-team research/evaluation/recommendation cycle, built to be publicly right?\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:43:48Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-auth-design\", \"ruling\": \"THE AUTHN+AUTHZ SCOPE (collaborator ruling, 2026-11-24, verbatim: \\\"auth = authentication and authorization. FYI\\\"): THE EFFORT'S SCOPE IS BOTH HALVES, never authentication alone: AUTHENTICATION (who are you — the key verifies the caller's identity: the API key as the bearer token, the stamps' comparator_id the identity the key binds to, OunceMCP's verified-token model the MCP tier's named form) AND AUTHORIZATION (what may you do — the policy granting scope per identity: who may register, who may vote, who may read state, who may tally, the tool-level grants [the grant map's own precedent at the harness tier], OunceMCP's policies hide-and-refuse the MCP tier's named form). THE TWO HALVES IN ONE DESIGN: the key without the policy is a door with no rooms; the policy without the key is rooms with no door — the auth design lands both, the verification and the grant, each configurable from birth (the configurability law at every knob: the key store, the header names, the policy toggles). The llm-class constraint carries across both: the llm authenticates with its own key, the policy grants it the vote scope — no human-approval gate anywhere in either half.\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:44:00Z",
+        "op": "add-ruling"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-auth-design",
+      "question": "What is prioritree's auth design — the write-exposure cure as BOTH authentication (who are you: the key verifying the caller's identity, binding to the stamps' comparator_id) AND authorization (what may you do: the policy granting scope per identity — who may register, vote, read state, tally), designed through the full-team research/evaluation/recommendation cycle, built to be publicly right?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE AUTHN+AUTHZ SCOPE (collaborator ruling, 2026-11-24, verbatim: \"auth = authentication and authorization. FYI\"): THE EFFORT'S SCOPE IS BOTH HALVES, never authentication alone: AUTHENTICATION (who are you — the key verifies the caller's identity: the API key as the bearer token, the stamps' comparator_id the identity the key binds to, OunceMCP's verified-token model the MCP tier's named form) AND AUTHORIZATION (what may you do — the policy granting scope per identity: who may register, who may vote, who may read state, who may tally, the tool-level grants [the grant map's own precedent at the harness tier], OunceMCP's policies hide-and-refuse the MCP tier's named form). THE TWO HALVES IN ONE DESIGN: the key without the policy is a door with no rooms; the policy without the key is rooms with no door — the auth design lands both, the verification and the grant, each configurable from birth (the configurability law at every knob: the key store, the header names, the policy toggles). The llm-class constraint carries across both: the llm authenticates with its own key, the policy grants it the vote scope — no human-approval gate anywhere in either half.",
+          "ruled_at": "2026-11-24",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}
