@@ -1,0 +1,107 @@
+<!-- regen: uv run python scripts/generation/kumi_views.py -->
+# Packet Report — compose/route
+
+**Route:** prioritree-auth (composed) | **Events:** 2 | **Reports:** 1
+
+## The packet's chain (ledger order)
+
+| # | Op | Actor | Timestamp |
+|---|---|---|---|
+| 1 | dispatch | shinko | 2026-11-24T05:44:50Z |
+| 2 | report | keikaku | 2026-11-24T05:53:20Z |
+## Reported by keikaku — 2026-11-24T05:53:20Z
+
+# THE PRIORITREE-AUTH ROUTE — THE COMPOSITION (keikaku, 2026-11-24)
+
+The route whose stages ARE the full-team R/E/R cycle: research → evaluation → recommendation precede any build unit; every stage carries every seat; the public stakes carried at the gates — "so right as we will be talking about this project publicly and this teams work on it" (Q-auth-widening ruling 3).
+
+## THE STAGES (5) — the cycle itself
+
+**research** — THE FULL DISCOVER BENCH OVER THE SOURCES (the full-team input mandate: "not one seat summarizing the landscape for the others").
+- entry_condition: G-COMPOSITION is green; the research fires first, its findings assumed by none of this composition.
+- purpose: the discover-class seats' parallel ungated packets over the four source classes — OunceMCP's verified-token docs (the claims lane: extract → research → verify → rule, each claim its own verdict), the FastAPI/FastMCP auth ecosystems, the API-key infrastructure landscape (the key's form, storage, rotation, verification, revocation), the threat-model literature — tansa's census, shindan's threat-model diagnosis, rikai's mechanism maps, keisan's landscape arithmetic, each seat its own discipline, every source researched; MOHO'S EXPOSURE WALK (the implementation-walk law R4 at the research gate): the current live surfaces walked blind, the write exposure lived — a reachable server a writable filesystem, felt at the serving tiers' ports; togo's gated synthesis closing G-AUTH-RESEARCH: the claims' verdicts, the candidate map minted with nothing assumed.
+
+**evaluation** — THE FULL BENCH OVER THE CANDIDATES (the full-team input mandate: every seat pricing the candidates against its own discipline).
+- entry_condition: G-AUTH-RESEARCH is green — the sources read, the claims extracted, the candidates mapped, every seat's input visible.
+- purpose: the parallel ungated packets over the mapped candidate set — hyoka's adversarial attack on every candidate (the break paths: key theft/replay, policy bypass, the llm-class kill, the configurability defect), moho's blind walks of the candidate surfaces (each candidate's lived form: carrying the key, meeting the refusal, holding the grant), keisan's pricing of every candidate against the constraints (the write-exposure cure, the llm-class constraint, the configurability law, the free-tier spirit), shindan's exposure diagnosis of every candidate (which exposures cured, which left) — THE DIVERGENCES CARRIED WHOLE TO THE SYNTHESIS, never averaged away; the stage carries no gate of its own: its weight rides the design gate's synthesis.
+
+**recommendation** — THE REASONING WHOLE (the R/E/R mandate: suisen's form at full depth, the collaborator ruling on evidence).
+- entry_condition: the evaluation's packets landed whole — every candidate attacked, walked, priced, diagnosed; the divergences carried whole.
+- purpose: suisen's full-depth recommendation (ungated) carrying the whole bench's findings — the reasoning whole, the alternatives named with their prices; togo's gated synthesis integrating — the divergences reconciled at the synthesis; THE COLLABORATOR'S RULING on the full record at G-AUTH-DESIGN — the design gate, the public face: the reasoning visible in the record, every choice citable to its seat's own evidence; the build set ruled by the cycle's outcome.
+
+**build** — THE UNITS THE CYCLE EARNS (named not pinned: "THEN the build — only after the cycle earns the design").
+- entry_condition: G-AUTH-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch (the precedence law); the route grows unit-by-unit (the build-add auto-stamps the pair — the mcp precedent's growth form).
+- purpose: the likely set named not pinned — the key infrastructure (mint/verify/rotate/revoke), the policy layer (the grants per identity: who may register, vote, read state, tally), the serving-tier integration (the FastAPI service :8000, the web's session surfaces), the MCP tier's verified-token form (OunceMCP's identity + policies) — THE CYCLE'S OUTCOME RULES THE SET; the two-lane brief→spec→build per unit (G-<UNIT>-BRIEF → G-<UNITSPEC>-BRIEF → G-<UNIT>, minted at their turns); the per-step dispatch (R8, the file-unit); jikko builds one file per dispatch; kensho verifies independently per build gate; MOHO'S IMPLEMENTATION WALKS at the agent/user-facing units' build gates (R4); the seat-authored reports (R6/R11); one-commit-per-increment; the authn+authz scope held (both halves, one design); the llm-class constraint held (the llm's own key, no human-approval gate anywhere); the configurability law at every knob from birth (the key store's home, the header names, the policy toggles); the floor held (203+, pyright 0/0, ruff zero findings, zero ignores); the free-tier spirit (the design prices its own infrastructure).
+
+**close** — THE EFFORT'S BOOKEND (the standing form).
+- entry_condition: the route's build gates closed green and the collaborator has called the close.
+- purpose: hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry; the next era named — the order-bias probe the inward lane's next, outward after inward, per the CI effort's direction ruling), the done call at the collaborator's ruling.
+
+## THE GATES (the earned trio: collaborator-ruling at the ruling points, deterministic-check at the build gates, assessment at the close's steps)
+
+**G-COMPOSITION** (collaborator-ruling) — the head:
+1. the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: stages, gates, increments, the ungated placements, the load-bearing decisions) — the opening whole, the R/E/R stages placed BEFORE any build unit, the research placed FIRST with none of its findings assumed, every seat placed (the full-team input mandate: no seat bypassed);
+2. every choice cites its ruling: Q-auth-design's scope ruling (authn+authz, both halves, one design) + Q-auth-widening's four (the write-exposure reframe; the API-key leading candidate + the llm-class constraint; THE R/E/R MANDATE + the public stakes; THE FULL-TEAM INPUT) + the standing laws (the configurability law, the claims lane, R6/R11, R8, R4, the free-tier spirit);
+3. the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green.
+
+**G-AUTH-RESEARCH** (collaborator-ruling) — the research gate, the cycle's first weight:
+1. THE SOURCES READ: all four source classes researched whole — OunceMCP's verified-token docs through the claims lane (extract → research → verify → rule, each claim its own verdict: confirmed | refuted | priced-and-accepted | cured), the FastAPI/FastMCP auth ecosystems, the API-key infrastructure landscape (form, storage, rotation, verification, revocation), the threat-model literature;
+2. THE CLAIMS EXTRACTED: the outside things' claims extracted verbatim and ruled — never trusted on their word, never dismissed on suspicion (the claims lane);
+3. THE CANDIDATES MAPPED: the candidate set minted from the research with nothing assumed — the map the evaluation evaluates;
+4. EVERY SEAT'S INPUT VISIBLE: tansa's census, shindan's threat-model diagnosis, rikai's mechanism maps, keisan's landscape arithmetic, moho's exposure walk — the full-team record IS the public face; a divergence that survives reconciliation blocks the gate, never rides silently;
+5. the collaborator rules the research whole (the public stakes) — no evaluation packet fires before it is green.
+
+**G-AUTH-DESIGN** (collaborator-ruling) — the design gate, the cycle's ruling (THE COLLABORATOR'S RULING on the full record):
+1. THE RECOMMENDATION RULED ON THE FULL RECORD: suisen's full-depth recommendation carrying the whole bench's findings (the reasoning whole, the alternatives named with their prices) + togo's synthesis integrating — the divergences reconciled at the synthesis, never averaged away;
+2. THE ALTERNATIVES PRICED: every candidate priced against the four constraints (the write-exposure cure, the llm-class constraint, the configurability law, the free-tier spirit) — the prices in the record;
+3. THE REASONING VISIBLE: the record carries the cycle's whole reasoning — the public face, every choice citable to its seat's own evidence;
+4. THE BUILD SET RULED + THE SCOPE HELD: the collaborator's ruling names the build units (the cycle's outcome rules the set); the authn+authz scope held (both halves, one design — the key without the policy is a door with no rooms); the llm-class constraint carried across both halves (the llm's own key, no human-approval gate anywhere); the configurability law at every knob from birth;
+5. no build dispatch fires before it is green.
+
+**G-<UNIT>-BRIEF / G-<UNITSPEC>-BRIEF** (collaborator-ruling, minted per unit at its turn) — the two-lane standing shape: the brief (togo's synthesis over the unit's ungated discovery legs discover/<unit> + understand/<unit> + the approved design — the banked shapes, the scope fence, the return forms) and the spec (the bytes whole, every edit fenced-bytes-exact, the per-file dispatch plan R8); the dispatches cite the approved brief/spec; the collaborator approves each — the fires come only after.
+
+**G-<UNIT>** (deterministic-check, minted per unit at its turn) — the build gate: the unit lands per its approved spec (the exact-task law); the floor green (pyright 0/0, ruff zero findings, zero ignores) + kensho's independent re-run green (validate/<unit>); MOHO'S IMPLEMENTATION WALK (R4) at every agent/user-facing unit — the built surface walked cold, the ease-of-use findings riding the gate as evidence; the llm-class constraint verified live (the llm's own key path, no human-approval gate); the configurability law verified at every knob; the ThreePart mandatory at the auth refusals (expected/found/next-action naming the legal set).
+
+**G-CLOSE** (collaborator-ruling) — the standing bookend: hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry, the landing state named honestly; the next era named — the order-bias probe next on the inward lane, outward after inward); the collaborator rules the close — the done call recorded same-turn, the route's status set done at the ruling.
+
+## THE INCREMENTS
+
+- **synthesize/auth-research** (owner: togo; gate: G-AUTH-RESEARCH; stage: research) — the gated synthesis over the research packets: the claims' verdicts, the candidate map, every seat's input visible. [steps: synthesize (semantic, togo, gate)]
+- **synthesize/auth-design** (owner: togo; gate: G-AUTH-DESIGN; stage: recommendation) — the gated synthesis integrating suisen's recommendation + the evaluation bench's findings: the divergences reconciled, the design whole, the build set named for the collaborator's ruling. [steps: synthesize (semantic, togo, gate)]
+- **build/<unit>** (owner: jikko; gate: G-<UNIT>; stage: build) — MINTED PER THE CYCLE'S OUTCOME (named not pinned: key-infrastructure, policy-layer, serving-tier-integration, mcp-verified-token; the build-add auto-stamps the pair). [steps: build (semantic, jikko, gate) + floor-green (deterministic, make, gate)]
+- **close/retro** (owner: shinko; gate: G-CLOSE; stage: close) — [steps: retro (semantic, hansei, assessment), records-synthesis (semantic, togo, assessment), records-landing (semantic, jikko, assessment), done-call (semantic, shinko, assessment)]
+
+## THE UNGATED PLACEMENTS (the parallel packets — each seat its own discipline; the evidence landing as packet results with evidence files under the store's evidence home .junro/evidence/Q-auth-design/)
+
+RESEARCH (parallel, over the sources):
+- research/census — tansa: the discovery census over the four source classes (OunceMCP's verified-token docs via the claims lane; the FastAPI/FastMCP auth ecosystems; the API-key landscape: form/storage/rotation/verification/revocation; the threat-model literature)
+- research/threat-model — shindan: the threat-model diagnosis (the literature's claims extracted; the tree's exposure diagnosed against them: the five forms, the serving tiers' ports :8000/:8100, the web's session surfaces, the stamps' journey)
+- research/mechanisms — rikai: the mechanism maps (the key-verification and policy-enforcement machinery mapped across the ecosystems: where the key lands, where the policy reads, where the refusal fires)
+- research/arithmetic — keisan: the landscape arithmetic (the options priced: the infrastructure's own costs, the rotation/revocation price — the free-tier spirit)
+- research/exposure-walk — moho: the blind walk of the current live surfaces (R4 at the research gate: the write exposure lived at each serving tier)
+
+EVALUATION (parallel, over the mapped candidates):
+- evaluation/adversarial — hyoka: the adversarial attack on every candidate
+- evaluation/walks — moho: the blind walks of the candidate surfaces
+- evaluation/pricing — keisan: the pricing of every candidate against the four constraints
+- evaluation/exposure — shindan: the exposure diagnosis of every candidate
+
+RECOMMENDATION:
+- recommendation/auth — suisen: the full-depth recommendation carrying the whole bench's findings (the reasoning whole, the alternatives named with their prices)
+
+BUILD (minted per unit at its turn): discover/<unit> + understand/<unit> — each unit's ungated discovery legs preceding its gated brief.
+
+## THE LOAD-BEARING DECISIONS (each citing its ruling)
+
+1. THE STAGES ARE THE CYCLE — five stages (research → evaluation → recommendation → build → close), no build unit before G-AUTH-DESIGN green [Q-auth-widening ruling 3, the R/E/R mandate: "THEN the build — only after the cycle earns the design"].
+2. THE PARALLEL PACKETS, NOT ONE CENSUS — the research stage is the discover-class seats' parallel packets; the evaluation the adversarial/pricing/diagnostic seats' parallel packets; the recommendation the synthesis of all of them [Q-auth-widening ruling 4, the full-team input mandate: "not one seat summarizing the landscape for the others"].
+3. THE TWO CYCLE GATES CARRY THE PUBLIC STAKES — G-AUTH-RESEARCH and G-AUTH-DESIGN are collaborator-ruling gates: the collaborator's eye at the cycle's turns, the full-team record the public face [the R/E/R mandate: "the gates carry the cycle's weight"; the public stakes named].
+4. THE CLAIMS LANE AT EVERY SOURCE — every outside thing (OunceMCP's docs, the ecosystems' claims, the threat-model literature) rides extract → research → verify → rule, each claim its own verdict [the claims lane, Q-ci-surface rulings 6-9 carried at the auth heart's input 3].
+5. THE DIVERGENCES RECONCILED AT THE SYNTHESIS, NEVER AVERAGED AWAY — the evaluation's parallel findings carry whole to togo's synthesis at G-AUTH-DESIGN; a divergence that survives reconciliation blocks [the full-team input mandate].
+6. THE EVALUATION STAGE CARRIES NO GATE OF ITS OWN — the mandate's cycle names two gates (the research gate, the design gate); the evaluation's weight rides the design gate's synthesis [the R/E/R mandate].
+7. THE BUILD SET RULED BY THE CYCLE'S OUTCOME — the units named not pinned (key-infrastructure, policy-layer, serving-tier-integration, mcp-verified-token), minting per the standing growth form at their turns [the R/E/R mandate; the mcp precedent's unit-by-unit growth].
+8. THE STANDING FORMS RIDE WHOLE — the two-lane brief→spec→build per unit; the per-step dispatch (R8, the file-unit); the seat-authored reports (R6/R11); the implementation-walk law (R4: moho at the research gate and the build gates); the close bookend [the standing laws carried at the auth heart's input 4; the mcp/ux/ci precedents].
+9. THE SCOPE + THE CONSTRAINTS HELD FROM BIRTH — the authn+authz scope (both halves, one design), the llm-class constraint across both halves, the configurability law at every knob, the free-tier spirit [Q-auth-design's scope ruling; Q-auth-widening ruling 2; the configurability law].
+10. MOHO'S THREE WALKS — the exposure walk at research (the current surfaces lived), the candidate-surface walks at evaluation, the implementation walks at the build gates [the full-team input mandate (evaluation) + the implementation-walk law R4 (research and build gates)].
+
+— keikaku, the composition whole; the route's structure ops stamp at shinko's hand; G-COMPOSITION waits on the collaborator's validation.

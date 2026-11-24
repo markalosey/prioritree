@@ -25,8 +25,135 @@
       "assess": "hyoka",
       "dispatch": "shinko"
     },
-    "structure": [],
-    "gates": {},
+    "structure": [
+      {
+        "id": "research",
+        "purpose": "THE RESEARCH STAGE (the full-team mandate realized): FIVE parallel packets over the four source classes, every discover seat its own discipline, the claims lane at every source — tansa's census (the source landscape: OunceMCP's verified-token docs, the FastAPI/FastMCP auth ecosystems, the API-key infrastructure landscape); shindan's threat-model diagnosis (the exposure mapped: the attacker classes, the write paths, the read paths, the trust boundaries); rikai's mechanism maps (the candidates' internals: how each verifies, stores, rotates, grants); keisan's arithmetic (the landscape's numbers: the key forms' costs, the storage forms, the rotation economics); MOHO'S EXPOSURE WALK (the serving tiers walked as the attacker: what can be reached, what can be written, what can be read); togo's gated synthesis closing G-AUTH-RESEARCH — the claims' verdicts + the candidate map, every seat's input visible.",
+        "entry_condition": "G-COMPOSITION is green (the composition validated at the route's head); the research fires first, its findings assumed by none of this composition.",
+        "increments": [
+          {
+            "id": "synthesize/auth-research",
+            "owner": "togo",
+            "gate": "G-AUTH-RESEARCH",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "evaluation",
+        "purpose": "THE EVALUATION STAGE (the full bench over the candidates): FOUR parallel packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (every candidate attacked: the bypass forms, the downgrade paths, the key-leak surfaces, the policy-escape routes); moho's candidate-surface walks (the candidate forms walked as the user: the key's acquisition, the key's use, the failure modes); keisan's pricing (every candidate against the four constraints: the write-exposure cure's completeness, the llm-class constraint honored, the configurability at every knob, the free-tier spirit — the infrastructure priced); shindan's exposure diagnosis (every candidate's residual exposure: what remains reachable, what remains writable); the divergences reconciled at togo's synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate.",
+        "entry_condition": "G-AUTH-RESEARCH is green (the candidates mapped, the claims ruled); the evaluation's packets fire over the mapped candidates, the divergences reconciling at the design synthesis.",
+        "increments": []
+      },
+      {
+        "id": "recommendation",
+        "purpose": "THE RECOMMENDATION STAGE (the public-facing synthesis): suisen's full-depth recommendation (the reasoning whole: the authn+authz both halves designed — the key verifying identity, the policy granting scope; the alternatives named with their prices; the llm-class constraint honored — the llm's own key, the vote scope granted; the configurability at every knob from birth) + togo's synthesis integrating the whole bench's findings (the research's candidate map + the evaluation's pricing — the divergences reconciled, never averaged away) — closing G-AUTH-DESIGN at the collaborator's ruling on the full record: the design judged publicly right, the build set earned by the cycle's outcome.",
+        "entry_condition": "The evaluation's packets have landed (the candidates priced, attacked, walked, diagnosed); the recommendation fires over the full record.",
+        "increments": [
+          {
+            "id": "synthesize/auth-design",
+            "owner": "togo",
+            "gate": "G-AUTH-DESIGN",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE AUTH BUILD — the units the cycle's outcome earns (named not pinned: the key infrastructure, the policy layer, the serving-tier integration, the MCP tier's verified-token form — the cycle's recommendation rules the set), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALK at the build gates (R4's law), one-commit-per-increment; the ThreePart mandatory at the auth refusals (the 401/403 forms carrying expected/found/next-action); the llm-class constraint held at every surface.",
+        "entry_condition": "G-AUTH-DESIGN is green — the design is the spec, the build set earned; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry; the next era named — the order-bias probe the inward lane's next, outward after; the banked triggers carried), the done call at the collaborator's ruling.",
+        "entry_condition": "the route's build gates closed green and the collaborator has called the close.",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "retro",
+                "executor": "semantic",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-synthesis",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "id": "records-landing",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "id": "done-call",
+                "executor": "semantic",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages, the gates, the increments, the fourteen ungated placements) — the R/E/R cycle realized: the stages ARE the cycle, no build before G-AUTH-DESIGN, every seat at every stage, the findings assumed by none",
+          "every choice cites its ruling: the four Q-auth-widening rulings + the authn+authz scope + the R/E/R mandate + the full-team input + the configurability law + the claims lane + the standing laws",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-AUTH-RESEARCH": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE RESEARCH LANDED: togo's synthesis over the five research packets (the census, the threat model, the mechanisms, the arithmetic, the exposure walk) — the claims' verdicts whole (every source's claims extracted, researched, verified, ruled per the claims lane), the candidate map whole (every candidate named with its source and its class), every seat's input visible in the record",
+          "the research carries the four source classes whole: OunceMCP's verified-token model (the claims lane at its own docs), the FastAPI/FastMCP auth ecosystems, the API-key infrastructure landscape (the key's form, storage, rotation, verification, revocation), the threat-model literature — nothing assumed, nothing summarized away",
+          "THE COLLABORATOR'S RULING: the research judged sufficient ground for the evaluation — the candidates mapped, the claims ruled, the seats' findings reconciled at the synthesis"
+        ]
+      },
+      "G-AUTH-DESIGN": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE EVALUATION LANDED: the full bench's parallel packets over the mapped candidates (hyoka's adversarial attack, moho's candidate-surface walks, keisan's pricing against the four constraints [the write-exposure cure, the llm-class constraint, the configurability law, the free-tier spirit], shindan's exposure diagnosis) — the divergences reconciled at the synthesis, never averaged away",
+          "THE RECOMMENDATION LANDED: suisen's full-depth recommendation carrying the whole bench's findings — the reasoning whole, the alternatives named with their prices, the authn+authz both halves designed, the llm-class constraint honored, the configurability at every knob from birth",
+          "THE COLLABORATOR'S RULING ON THE FULL RECORD: the design judged publicly right — the recommendation ruled, the build set earned (the units named by the cycle's outcome), the reasoning visible for the public telling; the build dispatches fire only after"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named",
+          "the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the order-bias probe the inward lane's next, outward after; the banked triggers carried)",
+          "the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling"
+        ]
+      }
+    },
     "checkpoints": [],
     "protocol": "v2.1",
     "amendments": [
@@ -45,6 +172,102 @@
         "actor": "shinko",
         "timestamp": "2026-11-24T05:44:00Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages, the gates, the increments, the fourteen ungated placements) — the R/E/R cycle realized: the stages ARE the cycle, no build before G-AUTH-DESIGN, every seat at every stage, the findings assumed by none\\\", \\\"every choice cites its ruling: the four Q-auth-widening rulings + the authn+authz scope + the R/E/R mandate + the full-team input + the configurability law + the claims lane + the standing laws\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:55:13Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"THE RESEARCH LANDED: togo's synthesis over the five research packets (the census, the threat model, the mechanisms, the arithmetic, the exposure walk) — the claims' verdicts whole (every source's claims extracted, researched, verified, ruled per the claims lane), the candidate map whole (every candidate named with its source and its class), every seat's input visible in the record\\\", \\\"the research carries the four source classes whole: OunceMCP's verified-token model (the claims lane at its own docs), the FastAPI/FastMCP auth ecosystems, the API-key infrastructure landscape (the key's form, storage, rotation, verification, revocation), the threat-model literature — nothing assumed, nothing summarized away\\\", \\\"THE COLLABORATOR'S RULING: the research judged sufficient ground for the evaluation — the candidates mapped, the claims ruled, the seats' findings reconciled at the synthesis\\\"]\", \"gate\": \"G-AUTH-RESEARCH\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:55:25Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"THE EVALUATION LANDED: the full bench's parallel packets over the mapped candidates (hyoka's adversarial attack, moho's candidate-surface walks, keisan's pricing against the four constraints [the write-exposure cure, the llm-class constraint, the configurability law, the free-tier spirit], shindan's exposure diagnosis) — the divergences reconciled at the synthesis, never averaged away\\\", \\\"THE RECOMMENDATION LANDED: suisen's full-depth recommendation carrying the whole bench's findings — the reasoning whole, the alternatives named with their prices, the authn+authz both halves designed, the llm-class constraint honored, the configurability at every knob from birth\\\", \\\"THE COLLABORATOR'S RULING ON THE FULL RECORD: the design judged publicly right — the recommendation ruled, the build set earned (the units named by the cycle's outcome), the reasoning visible for the public telling; the build dispatches fire only after\\\"]\", \"gate\": \"G-AUTH-DESIGN\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:55:36Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed: the debrief over the effort whole, the friction ledger the intake, the lessons named\\\", \\\"the effort's records landed: the CONTINUATION entry (the landing state named honestly); the next era named (the order-bias probe the inward lane's next, outward after; the banked triggers carried)\\\", \\\"the collaborator rules the close — the done call recorded same-turn; the route's status set done at the ruling\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:55:48Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green (the composition validated at the route's head); the research fires first, its findings assumed by none of this composition.\", \"purpose\": \"THE RESEARCH STAGE (the full-team mandate realized): FIVE parallel packets over the four source classes, every discover seat its own discipline, the claims lane at every source — tansa's census (the source landscape: OunceMCP's verified-token docs, the FastAPI/FastMCP auth ecosystems, the API-key infrastructure landscape); shindan's threat-model diagnosis (the exposure mapped: the attacker classes, the write paths, the read paths, the trust boundaries); rikai's mechanism maps (the candidates' internals: how each verifies, stores, rotates, grants); keisan's arithmetic (the landscape's numbers: the key forms' costs, the storage forms, the rotation economics); MOHO'S EXPOSURE WALK (the serving tiers walked as the attacker: what can be reached, what can be written, what can be read); togo's gated synthesis closing G-AUTH-RESEARCH — the claims' verdicts + the candidate map, every seat's input visible.\", \"stage\": \"research\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:55:59Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-AUTH-RESEARCH is green (the candidates mapped, the claims ruled); the evaluation's packets fire over the mapped candidates, the divergences reconciling at the design synthesis.\", \"purpose\": \"THE EVALUATION STAGE (the full bench over the candidates): FOUR parallel packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (every candidate attacked: the bypass forms, the downgrade paths, the key-leak surfaces, the policy-escape routes); moho's candidate-surface walks (the candidate forms walked as the user: the key's acquisition, the key's use, the failure modes); keisan's pricing (every candidate against the four constraints: the write-exposure cure's completeness, the llm-class constraint honored, the configurability at every knob, the free-tier spirit — the infrastructure priced); shindan's exposure diagnosis (every candidate's residual exposure: what remains reachable, what remains writable); the divergences reconciled at togo's synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate.\", \"stage\": \"evaluation\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:56:11Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"The evaluation's packets have landed (the candidates priced, attacked, walked, diagnosed); the recommendation fires over the full record.\", \"purpose\": \"THE RECOMMENDATION STAGE (the public-facing synthesis): suisen's full-depth recommendation (the reasoning whole: the authn+authz both halves designed — the key verifying identity, the policy granting scope; the alternatives named with their prices; the llm-class constraint honored — the llm's own key, the vote scope granted; the configurability at every knob from birth) + togo's synthesis integrating the whole bench's findings (the research's candidate map + the evaluation's pricing — the divergences reconciled, never averaged away) — closing G-AUTH-DESIGN at the collaborator's ruling on the full record: the design judged publicly right, the build set earned by the cycle's outcome.\", \"stage\": \"recommendation\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:56:24Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-AUTH-DESIGN is green — the design is the spec, the build set earned; each unit's own G-<UNIT>-BRIEF green before its dispatch (the precedence law).\", \"purpose\": \"THE AUTH BUILD — the units the cycle's outcome earns (named not pinned: the key infrastructure, the policy layer, the serving-tier integration, the MCP tier's verified-token form — the cycle's recommendation rules the set), one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALK at the build gates (R4's law), one-commit-per-increment; the ThreePart mandatory at the auth refusals (the 401/403 forms carrying expected/found/next-action); the llm-class constraint held at every surface.\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:56:38Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's build gates closed green and the collaborator has called the close.\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry; the next era named — the order-bias probe the inward lane's next, outward after; the banked triggers carried), the done call at the collaborator's ruling.\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:56:51Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-AUTH-RESEARCH\", \"increment\": \"synthesize/auth-research\", \"owner\": \"togo\", \"stage\": \"research\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:57:03Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-AUTH-DESIGN\", \"increment\": \"synthesize/auth-design\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:57:30Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"id\\\": \\\"retro\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-synthesis\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"records-landing\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"id\\\": \\\"done-call\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:57:55Z",
+        "op": "add-increment"
       }
     ]
   },
