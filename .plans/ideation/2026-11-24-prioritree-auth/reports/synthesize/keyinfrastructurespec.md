@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/keyinfrastructurespec
 
-**Route:** prioritree-auth (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-auth (executing) | **Events:** 6 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,10 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-24T09:28:08Z |
 | 2 | report | togo | 2026-11-24T09:39:50Z |
+| 3 | result | shinko | 2026-11-24T09:41:40Z |
+| 4 | gate | shinko | 2026-11-24T14:03:49Z |
+| 5 | dispatch | shinko | 2026-11-24T16:05:48Z |
+| 6 | report | togo | 2026-11-24T16:07:38Z |
 ## Reported by togo — 2026-11-24T09:39:50Z
 
 # THE KEY-INFRASTRUCTURE EXACT-TASK SPEC — togo's bytes (synthesize/keyinfrastructurespec, 2026-11-24)
@@ -238,3 +242,23 @@ The six routes untouched (service.py's route bodies byte-identical; the construc
 (1) key_store.py -- read-back: the module imports, the mint round-trip at the REPL, ruff+pyright on the file; (2) key_verify.py -- read-back: the fence's source scan pre-fired, ruff+pyright; (3) cli.py's key region -- read-back: `prioritree key mint --help` bytes, the five standing subcommands re-run green; (4) service.py's construction line -- read-back: the boot marker's bytes in the log at make start, the six routes' 404s unchanged; (5) Makefile's knob lines -- read-back: make start AUTH=off renders the off marker, AUTH=bogus dies loudly; (6) tests/test_key_store.py -- read-back: pytest -k key_store green, ruff green; (7) tests/test_key_verify.py -- read-back: the same; (8) tests/test_key_mint.py -- read-back: the same; then FLOOR-GREEN: make (pytest+ruff+pyright, the exact count named in the step's report). Each dispatch cites this spec + the unit brief; the web/MCP/policy surfaces untouched inside the fence.
 
 ## THE TRADE-OFF CARRIED: the 0600+stat floor is a FLOOR, never a cure (the local owner's offline edit remains the revocation path); a daemon's unread marker is still silent (the ops watch the log channel -- the residual named); the six-token vocabulary freezes with the route table (a new route mints a new token -- an amendment, never silent).
+## Reported by togo — 2026-11-24T16:07:38Z
+
+THE FOLD (R6) — the crash-tail FileExistsError (jikko's step-8 floor, 244/245): the fix's bytes + the arc's ruling.
+
+THE STORE'S READ-BACK — the dispatcher's store-module location is REFUTED by the bytes: the mint ceremony's home-creation at src/prioritree/key_store.py:481 already rides the never-erroring form —
+```
+self.home.parent.mkdir(parents=True, exist_ok=True)
+```
+(the ceremony's docstring :431-432 names it verbatim — the same law web.py's resolve rode: the mkdir-parents form never erroring on the existing home). The store module needs NO correction. The failing mkdir is the arc's OWN setup line — home.parent IS pytest's pre-created tmp_path, and the crash-tail branch bypassed the file's own `_write_keys_file` helper (whose mkdir at tests/test_key_store.py:85 already carries exist_ok=True) to write the line without its newline.
+
+THE FIX — tests/test_key_store.py:198, before:
+```
+        home.parent.mkdir(parents=True)
+```
+after (the corrected line — the pre-existing home the healthy case):
+```
+        home.parent.mkdir(parents=True, exist_ok=True)
+```
+
+THE TEST RULING: the arc's expectation is CORRECT — the assertion stands; only the setup line heals. The bytes, tests/test_key_store.py:202-205: `pytest.raises(KeyStoreRefusedError)` around `KeyStore(home)`; `_assert_three_fields(info.value, _CORRUPT_NEEDLES[case])` — crash_tail's needle "complete with its newline" (:62); `assert "line 1" in info.value.found`. The arc asserts the corrupt-tail REFUSAL, never the mkdir's error — once :198 gains exist_ok=True the arc passes as written. The setup mkdir is also superfluous (tmp_path pre-exists; write_text needs no mkdir): exist_ok=True is the minimal fold, deletion the coordinator's option.

@@ -27,6 +27,7 @@ import traceback
 from pathlib import Path
 from typing import TYPE_CHECKING, Final, cast
 
+from prioritree.key_store import KEYS_HOME, KeyStore, KeyStoreRefusedError
 from prioritree.registry import OperatorDeclaration
 from prioritree.run_store import STORE_HOME, Persist, StoreRefusedError
 from prioritree.session import ExhaustedQueue
@@ -82,6 +83,22 @@ EXIT_OK: Final[int] = 0
 EXIT_REFUSED: Final[int] = 1
 EXIT_UNEXPECTED: Final[int] = 2
 
+# The key region (the key-infrastructure unit, the exact-task spec
+# synthesize/keyinfrastructurespec §3): the group/action tokens, the
+# mint's flags, the report markers, the scopes split, and the landed
+# mode render — additive; the five standing subcommands' own tokens
+# untouched.
+KEY: Final[str] = "key"
+MINT: Final[str] = "mint"
+FLAG_CLASS: Final[str] = "--class"
+FLAG_SCOPES: Final[str] = "--scopes"
+FLAG_AUDIENCE: Final[str] = "--audience"
+MARKER_KEY: Final[str] = "key"
+MARKER_DIGEST: Final[str] = "digest"
+MARKER_MODE: Final[str] = "mode"
+SCOPES_SEPARATOR: Final[str] = ","
+MODE_LANDED: Final[str] = "0600"
+
 
 def _report(line: str) -> None:
     """Render one report line to stdout.
@@ -114,7 +131,7 @@ def _report_error(line: str) -> None:
 
 
 def _build_parser() -> argparse.ArgumentParser:
-    """Build the argv parser — the five subcommands, the shared --home parent.
+    """Build the argv parser — the five subcommands, the key tools group, the shared --home parent.
 
     Purpose: the §2 grammar whole — a shared PARENT parser carrying --home
     (type=Path, default=STORE_HOME) attached to ALL FIVE subparsers (the
@@ -124,6 +141,12 @@ def _build_parser() -> argparse.ArgumentParser:
     --quorum type=int default 1; next: run_id + --seed type=int default None;
     vote: run_id, item_a, item_b, winner, comparator_id, comparator_class
     positionals + --notes/--supersedes default None; state and tally: run_id.
+    key: the key tools group — its OWN nested add_subparsers(dest="action",
+    required=True) carrying mint: comparator_id positional + --class (dest
+    comparator_class, default human) + --scopes (required, a comma list the
+    store validates) + --audience (default service), riding its OWN --home
+    parent (default KEYS_HOME — the KEYS home, never conflated with the
+    runs' STORE_HOME).
     No argparse choices= anywhere — door-validated values ride exit 1, never
     argparse's 2 (the fence held).
     Refuses when: never — the builder returns the parser; parse_args' own
@@ -170,6 +193,25 @@ def _build_parser() -> argparse.ArgumentParser:
     state_parser.add_argument("run_id", help="the run's RUN-{####} file stem")
     tally_parser = subparsers.add_parser(TALLY, parents=[parent], help="rank the run's whole")
     tally_parser.add_argument("run_id", help="the run's RUN-{####} file stem")
+    key_parser = subparsers.add_parser(KEY, help="the key tools")
+    key_sub = key_parser.add_subparsers(dest="action", required=True)
+    keys_parent = argparse.ArgumentParser(add_help=False)
+    keys_parent.add_argument(
+        FLAG_HOME,
+        type=Path,
+        default=KEYS_HOME,
+        help="the keys home (default: .prioritree/keys.jsonl, CWD-relative)",
+    )
+    mint_parser = key_sub.add_parser(MINT, parents=[keys_parent], help="mint one api key; print the plaintext ONCE")
+    mint_parser.add_argument("comparator_id", help="the operator id the key names")
+    mint_parser.add_argument(
+        FLAG_CLASS,
+        dest="comparator_class",
+        default="human",
+        help="the comparator's class (default: human)",
+    )
+    mint_parser.add_argument(FLAG_SCOPES, required=True, help="the granted scopes, a comma list the store validates")
+    mint_parser.add_argument(FLAG_AUDIENCE, default="service", help="the key's audience tier (default: service)")
     return parser
 
 
@@ -354,6 +396,49 @@ def _command_tally(args: argparse.Namespace) -> int:
     return EXIT_OK
 
 
+def _command_key_mint(args: argparse.Namespace) -> int:
+    r"""Mint one api key at the key store; print the plaintext ONCE.
+
+    Purpose: the key region's one action — compose KeyStore(home) (the
+    construction IS the boot's compose: a corrupt or world-writable store
+    refuses here, BY TYPE) and ride the store's OWN mint ceremony (the CLI
+    never re-implements: the argument gates, the 256-bit key, the
+    sort_keys line, the chmod 0600 all the store's); the --scopes value
+    split on the comma here (the SPLIT the CLI's own; the TOKENS the
+    store validates — no argparse choices=, the fence held); the whole
+    mint under one machine-wide file lock over the keys home's PARENT
+    directory (store_lock.Lock, the flock seam — the lock derives a
+    directory; the keys home is a file inside it), released before the
+    report renders. The report: key\t{key} on the first line, then
+    digest\t{digest} then mode\t0600 — the plaintext shown ONCE
+    (marker-first, tab-separated via _report; the key NEVER written,
+    only the sha256 digest rides the file).
+    Refuses when: never here — KeyStoreRefusedError rides through BY
+    TYPE (the caller's exit-1 tuple clause).
+    Re-run: the mint is random by design (a re-mint a NEW key, never a
+    replay); the report's form deterministic.
+    Touches: the keys home, its parent directory, and the lockfile —
+    through KeyStore.mint and the Lock seam only.
+    Provenance: the exact-task spec synthesize/keyinfrastructurespec §3
+    (the key region, the report's bytes); the command-face precedent
+    (the five handlers' school); the naming law.
+    """
+    home = cast("Path", args.home)
+    scopes = cast("str", args.scopes).split(SCOPES_SEPARATOR)
+    with Lock(home.parent):
+        store = KeyStore(home)
+        key, digest = store.mint(
+            cast("str", args.comparator_id),
+            cast("str", args.comparator_class),
+            scopes,
+            cast("str", args.audience),
+        )
+    _report(FIELD_SEPARATOR.join((MARKER_KEY, key)))
+    _report(FIELD_SEPARATOR.join((MARKER_DIGEST, digest)))
+    _report(FIELD_SEPARATOR.join((MARKER_MODE, MODE_LANDED)))
+    return EXIT_OK
+
+
 def command(argv: Sequence[str] | None = None) -> int:
     """Command the run at the command line — argv in, stdout out, the exit code out.
 
@@ -361,21 +446,24 @@ def command(argv: Sequence[str] | None = None) -> int:
     §2 grammar, dispatch to the 1:1 handler, and apply THE EXIT-CODE MAPPING
     in order: (1) ExhaustedQueue BY TYPE → print(str(done)) to STDOUT → 0
     (the full three-field message — DONE is success, scripts read stdout);
-    (2) the three typed refusals (StoreRefusedError, VotesRefusedError,
-    TallyRefusedError) in ONE tuple clause BY TYPE → str(e) verbatim on
-    stderr → 1 (the pass-through); (3) except Exception → the traceback
-    verbatim on stderr → 2 (the unexpected is unanticipated by definition —
-    the traceback is the only honest rendering); SystemExit propagates
-    UNTOUCHED (BaseException — argparse's own channel, exit 2 by
-    construction, the CLI's own parser.error riding the same channel).
+    (2) the typed refusals (StoreRefusedError, VotesRefusedError,
+    TallyRefusedError, KeyStoreRefusedError) in ONE tuple clause BY TYPE →
+    str(e) verbatim on stderr → 1 (the pass-through); (3) except Exception
+    → the traceback verbatim on stderr → 2 (the unexpected is unanticipated
+    by definition — the traceback is the only honest rendering); SystemExit
+    propagates UNTOUCHED (BaseException — argparse's own channel, exit 2
+    by construction, the CLI's own parser.error riding the same channel).
     Refuses when: never — every failure is mapped to its ruled exit code.
-    Re-run: deterministic given the store state — the door's semantics ride
-    through verbatim.
+    Re-run: deterministic given the store state for the five ops — the
+    door's semantics ride through verbatim; the key region's mint random
+    by design (the store's own re-mint law).
     Touches: the store home and run files — through the run-store's verbs
-    only; stdout and stderr per the mapping.
+    only; the keys home at the key region — through KeyStore.mint only;
+    stdout and stderr per the mapping.
     Provenance: the act's first word (the naming law), command-face-brief
     §1 (the entry), §3 (the exit-code mapping), Q-cli-shape, Q-cli-io,
-    G-COMMAND-FACE.
+    G-COMMAND-FACE; the exact-task spec synthesize/keyinfrastructurespec
+    §3 (the key region's dispatch + the tuple clause's widening).
     """
     parser = _build_parser()
     args = parser.parse_args(argv if argv is not None else sys.argv[1:])
@@ -388,12 +476,14 @@ def command(argv: Sequence[str] | None = None) -> int:
             code = _command_vote(args)
         elif args.command == STATE:
             code = _command_state(args)
+        elif args.command == KEY:
+            code = _command_key_mint(args)
         else:
             code = _command_tally(args)
     except ExhaustedQueue as done:
         _report(str(done))
         return EXIT_OK
-    except (StoreRefusedError, VotesRefusedError, TallyRefusedError) as refusal:
+    except (StoreRefusedError, VotesRefusedError, TallyRefusedError, KeyStoreRefusedError) as refusal:
         _report_error(str(refusal))
         return EXIT_REFUSED
     except Exception:

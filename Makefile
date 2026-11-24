@@ -4,6 +4,7 @@ PORT ?= 8000
 HOST ?= 127.0.0.1
 MCP_PORT ?= 8100
 MCP_HOST ?= 127.0.0.1
+AUTH ?= on
 
 .PHONY: dev test lint typecheck help start stop status restart mcp-start mcp-stop mcp-status mcp-restart
 
@@ -29,7 +30,7 @@ start:     ## Start the server in the background (run from the repo root; pid ->
 		exit 1; \
 	fi
 	@mkdir -p .prioritree
-	@nohup env -u WEB_CONCURRENCY .venv/bin/uvicorn prioritree.service:app --host $(HOST) --port $(PORT) > .prioritree/server.log 2>&1 & echo $$! > .prioritree/server.pid
+	@nohup env -u WEB_CONCURRENCY AUTH=$(AUTH) .venv/bin/uvicorn prioritree.service:app --host $(HOST) --port $(PORT) > .prioritree/server.log 2>&1 & echo $$! > .prioritree/server.pid
 	@sleep 1; curl -s -o /dev/null -w 'read-back: HTTP %{http_code} on http://127.0.0.1:$(PORT)/ (404 = answering; 000 = still booting: make status)\n' http://127.0.0.1:$(PORT)/runs/RUN-9999/next || true
 
 stop:      ## Stop the server: SIGTERM + the bounded drain (pid read from .prioritree/server.pid; run from the repo root)
@@ -78,7 +79,7 @@ mcp-start: ## Start the MCP server in the background (run from the repo root; pi
 		exit 1; \
 	fi
 	@mkdir -p .prioritree
-	@nohup env -u WEB_CONCURRENCY .venv/bin/python -m prioritree.mcp_server --serve --host $(MCP_HOST) --port $(MCP_PORT) > .prioritree/mcp-server.log 2>&1 & echo $$! > .prioritree/mcp-server.pid
+	@nohup env -u WEB_CONCURRENCY AUTH=$(AUTH) .venv/bin/python -m prioritree.mcp_server --serve --host $(MCP_HOST) --port $(MCP_PORT) > .prioritree/mcp-server.log 2>&1 & echo $$! > .prioritree/mcp-server.pid
 	@sleep 1; code=$$(curl -s -o /dev/null -w '%{http_code}' -m 2 http://127.0.0.1:$(MCP_PORT)/mcp || true); echo "read-back: HTTP $$code on http://127.0.0.1:$(MCP_PORT)/mcp (400 = answering (the MCP protocol's bare-GET refusal — the server enforcing its protocol); 000 = still booting: make mcp-status)"
 
 mcp-stop:  ## Stop the MCP server: SIGTERM + the bounded drain (pid read from .prioritree/mcp-server.pid; run from the repo root)

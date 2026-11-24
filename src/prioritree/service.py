@@ -34,7 +34,13 @@ app the whole ASGI surface — the launch form uvicorn prioritree.service:app; N
 uvicorn.run in src (S104 never fires, the boot the operator's command); the seam
 injected at construction (app.state.seam = Serialize(STORE_HOME) — STORE_HOME the CLI's
 own constant carried 1:1, the lock minted per process; the tests' isolation rides the
-injection itself). THREE PRICED RECONCILIATIONS, named where they live: the vote route
+injection itself); the AUTH knob read ONCE at the same construction (F1:
+app.state.auth over resolve_auth_mode — the thin carrier, the on/off pair's
+resolution the key_store module's own; a typo'd value refuses loudly AT BOOT, the
+process dies honestly, never a silent on-or-off) with the boot marker rendered to
+the log channel (the store module's own three-state form: on+present the
+mode+count, on+absent THE HONEST LINE — the failopen named, the mint cited; off
+the operator's explicit degrade). THREE PRICED RECONCILIATIONS, named where they live: the vote route
 cast_vote (the seam's verb `cast` would shadow typing's typed assertion at module
 scope — the door's own verb carried); every response a JSONResponse (ruff's ANN201
 demands annotated returns, and a `dict | JSONResponse` annotation cannot build FastAPI's
@@ -49,6 +55,8 @@ constants); no asserts, no prints — the wire replaces stdout.
 
 from __future__ import annotations
 
+import logging
+import os
 from dataclasses import asdict, replace
 from typing import Final, cast
 
@@ -58,6 +66,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from prioritree.key_store import KeyStore, render_boot_marker, resolve_auth_mode, resolve_keys_home
 from prioritree.registry import OperatorDeclaration
 from prioritree.run_store import STORE_HOME, StoreRefusedError
 from prioritree.service_store import Serialize
@@ -90,6 +99,12 @@ NEXT_ACTION: Final[str] = "next_action"
 # traceback rides uvicorn's logging channel, never the body — the next_action
 # names the only true path).
 ESCALATION: Final[str] = "check the server logs — the traceback is recorded there; escalate to the operator"
+
+# The boot marker's log channel (content-in-configuration): uvicorn's own boot
+# logger — the channel the operator's server.log captures at make start (the
+# marker rides the LOG channel, never stdout — the wire replaces stdout; under
+# pytest the channel is unconfigured, the INFO render silent by design).
+_BOOT_LOG_CHANNEL: Final[str] = "uvicorn.error"
 
 # The route paths (content-in-configuration): the REST resource hierarchy named
 # once, cited by the decorators (Q-service-routes' REST 1:1).
@@ -163,6 +178,23 @@ class CastVoteRequest(BaseModel):
 # tests' isolation rides the injection itself: app.state.seam overwritten per test).
 app = FastAPI()
 app.state.seam = Serialize(STORE_HOME)
+
+# The AUTH knob's construction (F1, the exact-task spec §5): ONE thin line
+# reading the env — the on/off pair's resolution rides the key_store
+# module's own resolve_auth_mode (a typo'd value refuses loudly HERE: the
+# boot dies honestly, never a silent on-or-off); the routes read
+# app.state.auth — the next unit's seam, NOT touched here. The boot marker
+# (the log-channel render): the key store loaded once at boot for the count
+# (the absent store the empty dict, never a refusal; the corrupt or
+# world-writable store refuses HERE), the three states the store module's
+# own render_boot_marker, emitted on uvicorn's boot channel (the log the
+# operator's server.log captures; a daemon's unread marker still silent —
+# the residual named).
+app.state.auth = resolve_auth_mode(os.environ.get("AUTH"))
+_boot_keys = KeyStore(resolve_keys_home().absolute())
+logging.getLogger(_BOOT_LOG_CHANNEL).info(
+    render_boot_marker(_boot_keys.home, app.state.auth, len(_boot_keys.records)),
+)
 
 
 def render_refusal(
