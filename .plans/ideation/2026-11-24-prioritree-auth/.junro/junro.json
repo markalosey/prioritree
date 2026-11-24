@@ -237,7 +237,7 @@
           },
           {
             "id": "synthesize/serving-tier-integration",
-            "owner": "togo",
+            "owner": "jikko",
             "gate": "G-SERVING-TIER-INTEGRATION-BRIEF",
             "revert": "one-increment",
             "steps": [
@@ -592,6 +592,14 @@
         "what": "correction to amendment 29's text: the poisoning-class INSTANCE cited there as FR-MEM-0021 is FR-MEM-0034 on the tree's friction ledger (the class's original entry: FR-MEM-0020, the ux store, 2026-11-22; this auth instance: FR-MEM-0034, recorded 2026-11-24) — the amendment's meaning stands whole, the handle corrected",
         "ruled_at": "2026-11-24",
         "why": "the instance's handle was cited before the friction write minted its number; the ledger minted FR-MEM-0034; the route's records stay citable — corrections are new records, never edits (the dated-records law)"
+      },
+      {
+        "what": "amend-increment {\"field\": \"owner\", \"increment\": \"synthesize/serving-tier-integration\", \"value\": \"jikko\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T21:31:29Z",
+        "op": "amend-increment"
       }
     ]
   },
