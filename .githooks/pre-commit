@@ -6,11 +6,13 @@
 #          (a warning is an error waiting to happen). The strictness flags
 #          ride the tree's own pyproject (the tane precedent's shape).
 #
-# PHASE 2 (named, pending): ruff zero-findings joins this hook when the
-# tree's ruff backlog is sequenced to zero (the tane precedent's named-
-# phase shape; the zero-ignore LAW stands — a new ignore is a ruling,
-# never a convenience; until then the battery and review discipline
-# govern ruff).
+# Check 2: staged .py files must pass ruff — the zero-findings bar
+#          (PHASE 2 landed, the collaborator's ruling 2026-11-23: the CI
+#          era the trigger — CI the gate, this hook the commit backstop,
+#          both carrying the whole floor locally; the rules ride the
+#          tree's own pyproject [tool.ruff], select=["ALL"]).
+#          The zero-ignore LAW stands: a new ignore is a ruling,
+#          never a convenience.
 #
 # Exemption: PRIORITREE_HOOK_BYPASS=1 skips all checks (bootstrap and
 # coordinator-run bulk commits; prefer it over --no-verify).
@@ -32,6 +34,18 @@ if ! echo "$PYRIGHT_OUT" | grep -q "0 errors, 0 warnings, 0 informations"; then
     echo "$PYRIGHT_OUT" >&2
     echo "The bar is zero errors AND zero warnings — a warning is an" >&2
     echo "error waiting to happen." >&2
+    echo "Bypass for coordinator bulk commits: PRIORITREE_HOOK_BYPASS=1" >&2
+    exit 1
+fi
+
+RUFF_EXIT=0
+RUFF_OUT=$(uv run ruff check $STAGED_PY 2>&1) || RUFF_EXIT=$?
+if [ "$RUFF_EXIT" -ne 0 ]; then
+    echo "" >&2
+    echo "=== pre-commit: ruff not at zero findings on staged files ===" >&2
+    echo "$RUFF_OUT" >&2
+    echo "The bar is zero findings — a new ignore is a ruling, never a" >&2
+    echo "convenience (the zero-ignore LAW)." >&2
     echo "Bypass for coordinator bulk commits: PRIORITREE_HOOK_BYPASS=1" >&2
     exit 1
 fi
