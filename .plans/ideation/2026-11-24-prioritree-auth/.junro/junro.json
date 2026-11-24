@@ -99,6 +99,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/servingtierintegrationspec",
+            "owner": "togo",
+            "gate": "G-SERVINGTIERINTEGRATIONSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -220,6 +234,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/serving-tier-integration",
+            "owner": "togo",
+            "gate": "G-SERVING-TIER-INTEGRATION-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       }
@@ -301,6 +329,30 @@
         "conditions": [
           "THE BUILD BRIEF for the unit policy-layer LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/policy-layer) + mechanism analysis (understand/policy-layer) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-SERVING-TIER-INTEGRATION-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the unit brief landed at the store's reports home (togo's gated synthesis over the unit's discovery legs + the approved design): the scope fence whole — what the unit lands (the per-route dependencies at the six routes in the Annotated form; the /ui/ cure [the CSRF dependency + the web tier's server-side key + the web 401/403 lane built]; the audience at both doors; the supersedes door check [F4 — the superseder's key vs the target's author, the 403's found eliding the target's author]; the coverage invariant [F6 — no route ungated: the lint/test + the 404/405 route-table render + the /docs|/redoc|/openapi.json recon ruled]; the door's verified-class stamping [the body's self-claim dies at the cast door]) and what it does NOT touch (the MCP tier's policies — unit 4; the README — unit 5; the landed foundation's own bytes beyond their consumption)",
+          "the mechanisms ruled, each citable: the dependency's form at the six signatures (the Annotated type, never a default-argument Depends — the B008 discipline), the 401/403 wiring into the service's one render point (the typed data from key_verify), the CSRF's mint-and-validate (the token in the served form, the per-route dependency at the /ui/ POSTs, the failure's ThreePart), the web lane's refusal fragments (the 401/403 fold pages — the lane absent today), the tier key's placement (the web child's construction — the one in-process client holding the credential), the auth-off degrade's interaction (the AUTH knob's off state at the doors — the failopen never silent), the units 1-2 flags ruled a home (cli.py's module docstring undercount; the key family's refusal-prefix double-hyphen vs the run_store em dash; the fence-silent test docstrings' undercounts), the test plan's shape (the arcs counted, the floor grown from 268)",
+          "the collaborator's approval is the gate's own act — the unit's spec and build dispatches fire only after the gate is green (the precedence law)"
+        ]
+      },
+      "G-SERVINGTIERINTEGRATIONSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed (the bytes whole, every edit fenced): the per-route dependency regions, the /ui/ CSRF + tier-key + 401/403-lane regions, the supersedes door check's exact bytes, the coverage invariant's lint/test form, the test files, the per-step plan (R8 — one file per dispatch, the read-backs named)",
+          "the llm-class constraint held at every surface (the llm's key the same form at every door, the vote scope granted, no human-approval gate anywhere — the web tier's anonymous edge included); the configurability law at every new knob",
+          "the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)"
+        ]
+      },
+      "G-SERVING-TIER-INTEGRATION": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the serving-tier integration lands per the approved spec (the exact-task law): the six routes gated (the Annotated dependencies), the /ui/ cure landed (the CSRF + the tier key + the web 401/403 lane), the audience at both doors, the supersedes door check (F4), the coverage invariant (F6 — no route ungated), the door's verified-class stamping",
+          "the floor green (the suite grown per the spec's arcs — the exact count named; ruff zero findings; pyright 0/0); kensho's independent verification green (validate/serving-tier-integration); MOHO'S IMPLEMENTATION WALK at the build gate (R4 — the unit is user-facing: the built surface walked cold, the findings riding the gate as evidence)",
+          "the llm-class constraint verified live (the llm's own key path, no human-approval gate anywhere); the ThreePart mandatory at every auth refusal (the 401/403 forms); the configurability law at every knob"
         ]
       }
     },
@@ -490,6 +542,56 @@
         "actor": "shinko",
         "timestamp": "2026-11-24T17:44:59Z",
         "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the unit brief landed at the store's reports home (togo's gated synthesis over the unit's discovery legs + the approved design): the scope fence whole — what the unit lands (the per-route dependencies at the six routes in the Annotated form; the /ui/ cure [the CSRF dependency + the web tier's server-side key + the web 401/403 lane built]; the audience at both doors; the supersedes door check [F4 — the superseder's key vs the target's author, the 403's found eliding the target's author]; the coverage invariant [F6 — no route ungated: the lint/test + the 404/405 route-table render + the /docs|/redoc|/openapi.json recon ruled]; the door's verified-class stamping [the body's self-claim dies at the cast door]) and what it does NOT touch (the MCP tier's policies — unit 4; the README — unit 5; the landed foundation's own bytes beyond their consumption)\\\", \\\"the mechanisms ruled, each citable: the dependency's form at the six signatures (the Annotated type, never a default-argument Depends — the B008 discipline), the 401/403 wiring into the service's one render point (the typed data from key_verify), the CSRF's mint-and-validate (the token in the served form, the per-route dependency at the /ui/ POSTs, the failure's ThreePart), the web lane's refusal fragments (the 401/403 fold pages — the lane absent today), the tier key's placement (the web child's construction — the one in-process client holding the credential), the auth-off degrade's interaction (the AUTH knob's off state at the doors — the failopen never silent), the units 1-2 flags ruled a home (cli.py's module docstring undercount; the key family's refusal-prefix double-hyphen vs the run_store em dash; the fence-silent test docstrings' undercounts), the test plan's shape (the arcs counted, the floor grown from 268)\\\", \\\"the collaborator's approval is the gate's own act — the unit's spec and build dispatches fire only after the gate is green (the precedence law)\\\"]\", \"gate\": \"G-SERVING-TIER-INTEGRATION-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T21:06:34Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed (the bytes whole, every edit fenced): the per-route dependency regions, the /ui/ CSRF + tier-key + 401/403-lane regions, the supersedes door check's exact bytes, the coverage invariant's lint/test form, the test files, the per-step plan (R8 — one file per dispatch, the read-backs named)\\\", \\\"the llm-class constraint held at every surface (the llm's key the same form at every door, the vote scope granted, no human-approval gate anywhere — the web tier's anonymous edge included); the configurability law at every new knob\\\", \\\"the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)\\\"]\", \"gate\": \"G-SERVINGTIERINTEGRATIONSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T21:06:34Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the serving-tier integration lands per the approved spec (the exact-task law): the six routes gated (the Annotated dependencies), the /ui/ cure landed (the CSRF + the tier key + the web 401/403 lane), the audience at both doors, the supersedes door check (F4), the coverage invariant (F6 — no route ungated), the door's verified-class stamping\\\", \\\"the floor green (the suite grown per the spec's arcs — the exact count named; ruff zero findings; pyright 0/0); kensho's independent verification green (validate/serving-tier-integration); MOHO'S IMPLEMENTATION WALK at the build gate (R4 — the unit is user-facing: the built surface walked cold, the findings riding the gate as evidence)\\\", \\\"the llm-class constraint verified live (the llm's own key path, no human-approval gate anywhere); the ThreePart mandatory at every auth refusal (the 401/403 forms); the configurability law at every knob\\\"]\", \"gate\": \"G-SERVING-TIER-INTEGRATION\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T21:06:34Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SERVING-TIER-INTEGRATION-BRIEF\", \"increment\": \"synthesize/serving-tier-integration\", \"owner\": \"togo\", \"stage\": \"pipeline\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T21:06:55Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-SERVINGTIERINTEGRATIONSPEC-BRIEF\", \"increment\": \"synthesize/servingtierintegrationspec\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T21:06:55Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "unit 3's route growth completed under the pair-poisoning repair (Path B, the core store's synthesize/registry precedent): the gates G-SERVING-TIER-INTEGRATION-BRIEF (rich conditions: the scope fence, the mechanisms, the flags' ruling, the collaborator's approval) + G-SERVINGTIERINTEGRATIONSPEC-BRIEF + G-SERVING-TIER-INTEGRATION minted; the spec lane synthesize/servingtierintegrationspec added to the recommendation stage (the units 1-2 house form); the brief lane synthesize/serving-tier-integration added to the pipeline stage MANUALLY (the poisoning class FR-MEM-0021 — the manual add succeeds silently, pre-claiming the build-add's auto-stamp id: build/serving-tier-integration now refuses on the id-based guard); the unit's build leg rides the amend flow — when G-SERVING-TIER-INTEGRATION-BRIEF greens, synthesize/serving-tier-integration advances by amendment (owner -> jikko, gate -> G-SERVING-TIER-INTEGRATION) and the build work rides packets against the build gate; NO build-stage increment for the unit (the id build/serving-tier-integration unreachable while the manual pair stands — no op removes an increment)",
+        "ruled_at": "2026-11-24",
+        "why": "the engine's build-add auto-stamps the pair from the increment id's last segment (the id-based guard; FR-MEM-0020's cure: never manually pre-compose synthesize/<unit> — the build-add is the pair's sole creator). The manual brief-lane add (this seat's hand, before the guard was known) pre-claimed the derived id. The engine's two legal paths weighed: the different-id path (build/serving-tier) mints a spurious pair (synthesize/serving-tier + G-SERVING-TIER-BRIEF) plus pairing metadata naming packets never dispatched, and lands the build leg under an id matching nothing (the unit's packets and gates all carry the serving-tier-integration stem); the amend flow mints nothing spurious, advances the existing correct increment at the sanctioned moment (the brief gate's green), and carries the build work on packets — the core registry precedent's exact shape. The repair recorded, never silent."
+      },
+      {
+        "what": "correction to amendment 29's text: the poisoning-class INSTANCE cited there as FR-MEM-0021 is FR-MEM-0034 on the tree's friction ledger (the class's original entry: FR-MEM-0020, the ux store, 2026-11-22; this auth instance: FR-MEM-0034, recorded 2026-11-24) — the amendment's meaning stands whole, the handle corrected",
+        "ruled_at": "2026-11-24",
+        "why": "the instance's handle was cited before the friction write minted its number; the ledger minted FR-MEM-0034; the route's records stay citable — corrections are new records, never edits (the dated-records law)"
       }
     ]
   },
