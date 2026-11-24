@@ -6,7 +6,7 @@
     "type": "build_route",
     "methodology": "MPIR",
     "instance": 1,
-    "status": "executing",
+    "status": "done",
     "worktree": "prioritree",
     "inputs": [
       "THE COLLABORATOR'S CONVENING (2026-11-23): the CI effort convenes now — only for things that are FREE on GitHub (nothing paid on the platform); the inward-first direction ruled (the auth write-exposure cure and the order-bias probe after CI, outward/PyPI after inward); the >100-item scale fence held (no list in the current mindset — adaptive scheduling stays banked until the real earn)",
@@ -379,6 +379,22 @@
         "actor": "shinko",
         "timestamp": "2026-11-24T01:03:47Z",
         "op": "add-ruling"
+      },
+      {
+        "what": "set-question {\"question\": \"Q-ci-surface\", \"resolution\": \"Ruled done with the effort (the collaborator's call, 2026-11-24): the CI surface built whole — the platform surface owned. THE ANSWER: one unit whole — the CI workflow live in Actions (make lint/test/typecheck at every push to main + the weekly cron; the no-PR form — zero pull_request triggers, the loop's lands riding direct pushes; the least-privilege permissions declared [contents: read; the CodeQL job's own grant]; the concurrency with the guard dropped — every run the whole floor); the CodeQL config owned by the tree (paths: src/, tests/; the default setup flipped to the advanced at the collaborator's hand); the hook's phase-2 complete (ruff + pyright at the commit site — the multiple-locations law: mutate/commit/push, one floor, three moments, no home, each costing nothing); the README's CI-live story (the drift folded, the remainder closed, the stale hook line cured). THE NINE RULINGS STAND (the free-tier law; the configurability carry; the no-PR law; THE CLAIMS LANE [extract -> research -> verify -> rule — the era's own law]; the multiple-locations law). The floor at 203, the PyPI precondition's remainder closed (the publish the outward lane's ruled act), the human's acts proven as gate legs.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:39:26Z",
+        "op": "set-question"
+      },
+      {
+        "what": "set-route-status {\"from\": \"executing\", \"status\": \"done\"}",
+        "ruled_at": "2026-11-24",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-24T05:39:38Z",
+        "op": "set-route-status"
       }
     ]
   },
@@ -386,7 +402,7 @@
     {
       "id": "Q-ci-surface",
       "question": "What is prioritree's CI surface — the floor in GitHub Actions (test/lint/typecheck on the runner), the CodeQL scanning config owned by the tree rather than inherited, the ruff phase-2 enforcement landed where the hook deferred it — under the FREE-TIER law (nothing paid on the platform: the free runner minutes, the free scanning, no paid Actions or services), the configurable-things-configurable law honored (the workflow rides the tree's own variable forms, never re-declares them), closing the PyPI precondition's named remainder?",
-      "status": "open",
+      "status": "ruled",
       "rulings": [
         {
           "text": "THE FREE-TIER LAW (collaborator ruling, 2026-11-23, verbatim: \"CI effort can convene now but only for things that are free on GitHub. We don't want to pay for anything on that platform.\"): THE CI SURFACE RIDES ONLY THE FREE TIER — nothing paid on the platform: the free runner minutes (the public-repo unlimited form / the free allocation), GitHub's free CodeQL scanning (already live at the default setup per FR-MEM-0033 — the tree owning its config, not buying a service), no paid Actions, no paid services, no runner upgrades. THE LAW'S CONSEQUENCES: the workflow's runner is the free class (ubuntu-latest's free form), the suite's runtime priced within the free minutes (the floor's ~26s — the whole CI surface minutes-scale, never an issue), the CodeQL config the free scanning's own configuration form, NOTHING in the surface that bills. Any future CI widening that wants a paid form (larger runners, more storage, paid services) is a ruled trigger at the collaborator's hand, never a silent adoption.",
@@ -433,7 +449,8 @@
           "ruled_at": "2026-11-24",
           "actor": "shinko"
         }
-      ]
+      ],
+      "resolution": "Ruled done with the effort (the collaborator's call, 2026-11-24): the CI surface built whole — the platform surface owned. THE ANSWER: one unit whole — the CI workflow live in Actions (make lint/test/typecheck at every push to main + the weekly cron; the no-PR form — zero pull_request triggers, the loop's lands riding direct pushes; the least-privilege permissions declared [contents: read; the CodeQL job's own grant]; the concurrency with the guard dropped — every run the whole floor); the CodeQL config owned by the tree (paths: src/, tests/; the default setup flipped to the advanced at the collaborator's hand); the hook's phase-2 complete (ruff + pyright at the commit site — the multiple-locations law: mutate/commit/push, one floor, three moments, no home, each costing nothing); the README's CI-live story (the drift folded, the remainder closed, the stale hook line cured). THE NINE RULINGS STAND (the free-tier law; the configurability carry; the no-PR law; THE CLAIMS LANE [extract -> research -> verify -> rule — the era's own law]; the multiple-locations law). The floor at 203, the PyPI precondition's remainder closed (the publish the outward lane's ruled act), the human's acts proven as gate legs."
     }
   ]
 }
