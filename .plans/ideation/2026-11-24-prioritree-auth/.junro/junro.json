@@ -113,6 +113,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/mcpverifiedtokenspec",
+            "owner": "togo",
+            "gate": "G-MCPVERIFIEDTOKENSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -156,6 +170,27 @@
               {
                 "id": "floor-green",
                 "executor": "deterministic",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/mcp-verified-token",
+            "owner": "jikko",
+            "gate": "G-MCP-VERIFIED-TOKEN",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "member": "jikko",
                 "tool": "make",
                 "verification": "gate"
               }
@@ -239,6 +274,20 @@
             "id": "synthesize/serving-tier-integration",
             "owner": "jikko",
             "gate": "G-SERVING-TIER-INTEGRATION-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/mcp-verified-token",
+            "owner": "togo",
+            "gate": "G-MCP-VERIFIED-TOKEN-BRIEF",
             "revert": "one-increment",
             "steps": [
               {
@@ -353,6 +402,29 @@
           "the serving-tier integration lands per the approved spec (the exact-task law): the six routes gated (the Annotated dependencies), the /ui/ cure landed (the CSRF + the tier key + the web 401/403 lane), the audience at both doors, the supersedes door check (F4), the coverage invariant (F6 — no route ungated), the door's verified-class stamping",
           "the floor green (the suite grown per the spec's arcs — the exact count named; ruff zero findings; pyright 0/0); kensho's independent verification green (validate/serving-tier-integration); MOHO'S IMPLEMENTATION WALK at the build gate (R4 — the unit is user-facing: the built surface walked cold, the findings riding the gate as evidence)",
           "the llm-class constraint verified live (the llm's own key path, no human-approval gate anywhere); the ThreePart mandatory at every auth refusal (the 401/403 forms); the configurability law at every knob"
+        ]
+      },
+      "G-MCP-VERIFIED-TOKEN": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the MCP tier's verified-token form lands per the approved spec (the exact-task law): the --serve surface gated (the OunceMCP verified-token + the policies at the OunceServer construction — the identity-aware hide-and-refuse, the five tools' grant map lifted per the design's cited precedent, the audience=mcp door closing the cross-tier replay [moho's doorless-mcp finding cured]), the stdio trust carried whole (the spawn IS the credential — the llm-class constraint's own law, the llm's ride preserved at the harness's stdio spawn)",
+          "the floor green (the suite grown per the spec's arcs — the exact count named from 299; ruff zero findings; pyright 0/0); kensho's independent verification green (validate/mcp-verified-token); MOHO'S IMPLEMENTATION WALK at the build gate (R4 — the agent-facing tier walked cold, the findings riding the gate as evidence)",
+          "the llm-class constraint verified live (the llm's own key the same form at the mcp door — the mint's --audience mcp; the vote scope granted; no human-approval gate anywhere); the ThreePart mandatory at the auth refusals; the configurability law at every knob (the mcp door's knobs born ?=-shaped); the hide-and-refuse's teaching loss named as the accepted price, never silent"
+        ]
+      },
+      "G-MCP-VERIFIED-TOKEN-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit mcp-verified-token LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/mcp-verified-token) + mechanism analysis (understand/mcp-verified-token) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-MCPVERIFIEDTOKENSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed (the bytes whole, every edit fenced): the OunceServer construction's regions (the verified-token wiring, the policies' per-tool rows), the audience door's exact form, the stdio form's carry (the trust's named ruling), the test files (the --serve client's fixtures, the audience-mcp key forms), the per-step plan (R8 — one file per dispatch, the read-backs named)",
+          "the llm-class constraint held at the spec's every surface (the llm's own key at the mcp door, the stdio trust preserved — the enforce form priced and refused); the configurability law at every new knob",
+          "the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)"
         ]
       }
     },
@@ -600,6 +672,38 @@
         "actor": "shinko",
         "timestamp": "2026-11-24T21:31:29Z",
         "op": "amend-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the MCP tier's verified-token form lands per the approved spec (the exact-task law): the --serve surface gated (the OunceMCP verified-token + the policies at the OunceServer construction — the identity-aware hide-and-refuse, the five tools' grant map lifted per the design's cited precedent, the audience=mcp door closing the cross-tier replay [moho's doorless-mcp finding cured]), the stdio trust carried whole (the spawn IS the credential — the llm-class constraint's own law, the llm's ride preserved at the harness's stdio spawn)\\\", \\\"the floor green (the suite grown per the spec's arcs — the exact count named from 299; ruff zero findings; pyright 0/0); kensho's independent verification green (validate/mcp-verified-token); MOHO'S IMPLEMENTATION WALK at the build gate (R4 — the agent-facing tier walked cold, the findings riding the gate as evidence)\\\", \\\"the llm-class constraint verified live (the llm's own key the same form at the mcp door — the mint's --audience mcp; the vote scope granted; no human-approval gate anywhere); the ThreePart mandatory at the auth refusals; the configurability law at every knob (the mcp door's knobs born ?=-shaped); the hide-and-refuse's teaching loss named as the accepted price, never silent\\\"]\", \"gate\": \"G-MCP-VERIFIED-TOKEN\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T00:12:29Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-MCP-VERIFIED-TOKEN\", \"increment\": \"build/mcp-verified-token\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-MCP-VERIFIED-TOKEN-BRIEF\", \"packets\": [\"discover/mcp-verified-token\", \"understand/mcp-verified-token\"], \"synthesize_increment\": \"synthesize/mcp-verified-token\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T00:12:35Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed (the bytes whole, every edit fenced): the OunceServer construction's regions (the verified-token wiring, the policies' per-tool rows), the audience door's exact form, the stdio form's carry (the trust's named ruling), the test files (the --serve client's fixtures, the audience-mcp key forms), the per-step plan (R8 — one file per dispatch, the read-backs named)\\\", \\\"the llm-class constraint held at the spec's every surface (the llm's own key at the mcp door, the stdio trust preserved — the enforce form priced and refused); the configurability law at every new knob\\\", \\\"the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)\\\"]\", \"gate\": \"G-MCPVERIFIEDTOKENSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T00:21:28Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-MCPVERIFIEDTOKENSPEC-BRIEF\", \"increment\": \"synthesize/mcpverifiedtokenspec\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T00:21:34Z",
+        "op": "add-increment"
       }
     ]
   },
