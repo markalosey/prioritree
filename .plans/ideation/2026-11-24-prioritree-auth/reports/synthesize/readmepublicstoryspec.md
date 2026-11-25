@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/readmepublicstoryspec
 
-**Route:** prioritree-auth (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-auth (executing) | **Events:** 6 | **Reports:** 2
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,10 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-25T02:23:56Z |
 | 2 | report | togo | 2026-11-25T02:33:18Z |
+| 3 | result | shinko | 2026-11-25T02:33:40Z |
+| 4 | gate | shinko | 2026-11-25T02:34:22Z |
+| 5 | dispatch | shinko | 2026-11-25T02:58:33Z |
+| 6 | report | togo | 2026-11-25T02:59:15Z |
 ## Reported by togo — 2026-11-25T02:33:18Z
 
 # THE README-PUBLIC-STORY EXACT-TASK SPEC — togo's fenced bytes (synthesize/readmepublicstoryspec, 2026-11-25)
@@ -263,3 +267,10 @@ Fenced at §1.1's WHY-HOLDS close: the three triggers (the operator count past <
 3. **"the collaborator's approval — the build dispatch cites the approved spec"** → §7's close: the precedence named; the build dispatch fires only after this gate's green, citing this spec whole.
 
 **THE TRADE-OFF THE PLAN MUST CARRY**: the prose's unfenced drift (NO machine fence — the four guards at §6; the numbers WILL drift again — the Status ledger's per-land line the standing cure, the exposure named); the one-voice truth told publicly (the sitting URL's promised multiplicity honestly narrowed); the hide's opacity owned in prose (the unauthorized agent's confusion the substrate's own law); the Examples transcript's growth (the halt taught in the genre — the length priced and accepted); the seams' eight-site maintenance (each a pointer, never a second telling — the story's ONE home the section); the armed boot's first-experience wall (the Quickstart seam carries it at the first command — the cost of a secure default, told, never apologized for). Every price named, never silent.
+## Reported by togo — 2026-11-25T02:59:15Z
+
+W3 ruled TRUE — the read at my hand (2026-11-24): README.md:56 tells 14 authored templates, the lived web/templates/ carries FIFTEEN .html files (auth.html the auth build's own addition; the pre-auth set was 14). The one-word cure, exact bytes fenced:
+```text
+before: 14 authored Jinja2 templates + 2 static files
+after:  15 authored Jinja2 templates + 2 static files
+```
