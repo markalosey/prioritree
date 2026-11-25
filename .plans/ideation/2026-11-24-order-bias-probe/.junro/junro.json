@@ -6,7 +6,7 @@
     "type": "build_route",
     "methodology": "MPIR",
     "instance": 1,
-    "status": "composed",
+    "status": "executing",
     "worktree": "prioritree",
     "inputs": [
       "THE INWARD DIRECTION (Q-ci-surface ruling R3, 2026-11-23): after CI — auth first (the write-exposure cure, DONE at the collaborator's ruling 2026-11-25), the order-bias probe second, outward/PyPI after inward; the >100-item scale fence held (adaptive scheduling banked until the real earn)",
@@ -280,6 +280,40 @@
         "actor": "shinko",
         "timestamp": "2026-11-25T03:41:08Z",
         "op": "add-increment"
+      },
+      {
+        "what": "set-route-status {\"from\": \"composed\", \"status\": \"executing\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:42:10Z",
+        "op": "set-route-status"
+      },
+      {
+        "what": "THE CENSUS'S ARITHMETIC UNDER VERIFICATION — the collaborator's trust challenge (2026-11-25) answered with evidence, and the design stage HELD until the verified numbers land. THE GRANT MAP PINNED (tansa's seat-grant census): keisan carries the calculate tool at every in-tree layer (opencode.json:188 the runtime permission map the live session launched under; the generated seat prompt keisan.md:26; 12 of 13 seats carry it, shinko the deliberate exception per the birth ruling), tansa carries it too (the rows byte-identical on the calculate axis); the authored source yaml at hikari the ONE unread layer (the external-directory boundary) — the collaborator's hikari contact the source-layer settlement (the drift question: if hikari's prioritree-seats.yaml lacks keisan's calculate row, the in-tree allow is source-vs-emission drift the scaffold's --check exists to catch). THE REAL FAULT THE CHALLENGE SURFACED: the census legs' raw counts disagree by ONE human vote (tansa: human prefer-a 6/14, total 11/11; shindan + keisan: 7/14, total 12/10; the llm 5/8 agrees everywhere) — at least one leg misread a vote, and the reports carry no instrument traces (the provenance unauditable from the record) — FR-MEM-0036 filed. THE VERIFICATION dispatched (census/statistical-arithmetic's chain: keisan re-running the recount at the calculate tool, the discrepancy settled vote-by-vote, every headline number tool-carried or stepwise-derived with the tool checking each supported step — the six-op engine's boundary named honestly); NO DESIGN-LEG DISPATCH FIRES until the verified numbers land — the design gate's own condition (the statistical form ruled at its own weight) demands instrument-trusted ground.",
+        "ruled_at": "2026-11-25",
+        "why": "the no-claim-without-evidence law held at our own numbers as at any outside claim — the claims lane turned inward: the collaborator's catch earned its keep (a one-vote misread was consuming into the design stage's ground); the design stage holds on unverified arithmetic, never fires on it — and the grant question settled at the evidence (the runtime map), not the assumption (either side's)"
+      },
+      {
+        "what": "add-question {\"question\": \"Q-calc-expansion\", \"text\": \"What statistical operations should the calculate tool carry — the harness's expansion assessed for the measurement class: the order-bias probe's demonstrated forms (the exact binomial at the real N, the Wilson interval, the position-share, the power/sample ladder, the threshold table), the engine's standing discipline (Q-CALC-1's pure-query determinism, the ThreePart refusals, the fixed-argv no-shell law), FR-MEM-0036's provenance lesson (grant is never function — the tool's results must be quotable instrument traces, the reports cite runs, not bare prose numbers), and the honest boundary (what the tool should never become)?\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T04:27:55Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-calc-expansion\", \"ruling\": \"THE COLLABORATOR'S CORRECTION + THE EXPANSION ASSESSMENT (2026-11-25, verbatim: \\\"keisan has not ability to do any math at all.... so don't re-assign. Hikari is working through expanding the calculation ops. Provide an assessment of statistical tools that hikari can expand the calculation tool with.\\\"): THE RUNTIME TRUTH SUPERSEDES THE GRANT MAP — the permission row's allow is never the tool's function; keisan carries NO working calculation ability (the verification dispatch cancelled before any report landed; the census's numbers remain unverified; the probe's design stage HELD, amendment 16 standing, now extended pending the harness expansion). NO ARITHMETIC ASSIGNED TO KEISAN IN ANY FORM until the expanded tool is verified live at the seat (the grant-never-function lesson: function proven by a live smoke run per op, never by the map). THE ASSESSMENT dispatched to suisen (the recommendation seat — no arithmetic demanded): the op manifest for hikari's expansion, grounded at the probe's demonstrated forms (the census reports on disk) and the engine's own substrate (.opencode/scripts/calculate.py + the wrapper's registry form), the free-tier law held (the stdlib-backed form priced — zero new dependencies if the stdlib carries the numerics), the provenance law carried (FR-MEM-0036: the op results as quotable instrument traces), the honest boundary named (what the tool should never become). The assessment rides to hikari as the expansion's input at the collaborator's hand.\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T04:28:04Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "THE VERIFICATION CANCELLED, THE DESIGN STAGE'S HOLD EXTENDED TO THE HARNESS EXPANSION — the collaborator's correction superseding the grant-map census: keisan carries NO working calculation ability (the permission map's allow at opencode.json:188 is declared intent, never function — the census's \"grant pinned present\" conclusion corrected); the arithmetic verification dispatch cancelled before any report landed (the census legs' numbers stand unverified — including the one-vote discrepancy, unsettled); Q-calc-expansion OPENED with the convening ruling (the collaborator's directive verbatim: the hikari team expanding the calculation ops; the assessment of statistical tools demanded); the assessment dispatched to suisen (recommend/calc-ops — the op manifest, tiered, the provenance schema, the numerics policy, the prioritized recommendation; no arithmetic demanded of any seat); the design stage's every leg (suisen's measurement design, hyoka's adversarial pass, moho's datum story, togo's gated synthesis) REMAINS HELD until the expanded tool is live, the arithmetic verification re-fired, and the census's numbers instrument-verified",
+        "ruled_at": "2026-11-25",
+        "why": "the no-claim-without-evidence law extended to our own instruments: the grant map is not evidence of function, the design gate's condition (the statistical form ruled at its own weight) demands instrument-trusted ground, and the collaborator's correction is the runtime truth — the loop holds rather than fires on unverified numbers; the hikari expansion the unblocking path, the assessment its input"
       }
     ]
   },
@@ -291,6 +325,18 @@
       "rulings": [
         {
           "text": "THE CONVENING (the collaborator's ruling at the auth done call's next-era naming, 2026-11-25: \"proceed\"): the order-bias probe convenes at the inward lane's head — R3's direction standing (auth first DONE at the collaborator's ruling 2026-11-25, the probe second, outward/PyPI after inward); R7's priced deferral now revisited behind the verified stamps (the auth effort's close: every vote's provenance citable — the class on the key record, the id from the key, the self-claim dead at every authenticated door — the probe's data trustworthy by construction). THE MEASUREMENT FIRST, THE CURE EARNED BY THE DATUM: the probe measures before it builds — a measured bias datum earns its named cure (both-orders averaging at the tally, the presentation-shuffle mode the scheduler's seed already carries, the early-stop rules), an unmeasured datum earns nothing; THE NULL RESULT A FINDING, NEVER A FAILURE — the honest result either way named, the product's no-anchoring discipline held at the measurement too (the datum reported at its own weight, never smoothed); the free-tier spirit held (the probe prices its own instruments — the tree's own data and the bench's own hands, nothing paid).",
+          "ruled_at": "2026-11-25",
+          "actor": "shinko"
+        }
+      ]
+    },
+    {
+      "id": "Q-calc-expansion",
+      "question": "What statistical operations should the calculate tool carry — the harness's expansion assessed for the measurement class: the order-bias probe's demonstrated forms (the exact binomial at the real N, the Wilson interval, the position-share, the power/sample ladder, the threshold table), the engine's standing discipline (Q-CALC-1's pure-query determinism, the ThreePart refusals, the fixed-argv no-shell law), FR-MEM-0036's provenance lesson (grant is never function — the tool's results must be quotable instrument traces, the reports cite runs, not bare prose numbers), and the honest boundary (what the tool should never become)?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE COLLABORATOR'S CORRECTION + THE EXPANSION ASSESSMENT (2026-11-25, verbatim: \"keisan has not ability to do any math at all.... so don't re-assign. Hikari is working through expanding the calculation ops. Provide an assessment of statistical tools that hikari can expand the calculation tool with.\"): THE RUNTIME TRUTH SUPERSEDES THE GRANT MAP — the permission row's allow is never the tool's function; keisan carries NO working calculation ability (the verification dispatch cancelled before any report landed; the census's numbers remain unverified; the probe's design stage HELD, amendment 16 standing, now extended pending the harness expansion). NO ARITHMETIC ASSIGNED TO KEISAN IN ANY FORM until the expanded tool is verified live at the seat (the grant-never-function lesson: function proven by a live smoke run per op, never by the map). THE ASSESSMENT dispatched to suisen (the recommendation seat — no arithmetic demanded): the op manifest for hikari's expansion, grounded at the probe's demonstrated forms (the census reports on disk) and the engine's own substrate (.opencode/scripts/calculate.py + the wrapper's registry form), the free-tier law held (the stdlib-backed form priced — zero new dependencies if the stdlib carries the numerics), the provenance law carried (FR-MEM-0036: the op results as quotable instrument traces), the honest boundary named (what the tool should never become). The assessment rides to hikari as the expansion's input at the collaborator's hand.",
           "ruled_at": "2026-11-25",
           "actor": "shinko"
         }
