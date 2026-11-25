@@ -127,6 +127,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/readmepublicstoryspec",
+            "owner": "togo",
+            "gate": "G-READMEPUBLICSTORYSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -179,6 +193,27 @@
             "id": "build/mcp-verified-token",
             "owner": "jikko",
             "gate": "G-MCP-VERIFIED-TOKEN",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "build",
+                "executor": "semantic",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "id": "floor-green",
+                "executor": "deterministic",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/readme-public-story",
+            "owner": "jikko",
+            "gate": "G-README-PUBLIC-STORY",
             "revert": "one-increment",
             "steps": [
               {
@@ -288,6 +323,20 @@
             "id": "synthesize/mcp-verified-token",
             "owner": "togo",
             "gate": "G-MCP-VERIFIED-TOKEN-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/readme-public-story",
+            "owner": "togo",
+            "gate": "G-README-PUBLIC-STORY-BRIEF",
             "revert": "one-increment",
             "steps": [
               {
@@ -425,6 +474,29 @@
           "the exact-task spec landed (the bytes whole, every edit fenced): the OunceServer construction's regions (the verified-token wiring, the policies' per-tool rows), the audience door's exact form, the stdio form's carry (the trust's named ruling), the test files (the --serve client's fixtures, the audience-mcp key forms), the per-step plan (R8 — one file per dispatch, the read-backs named)",
           "the llm-class constraint held at the spec's every surface (the llm's own key at the mcp door, the stdio trust preserved — the enforce form priced and refused); the configurability law at every new knob",
           "the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)"
+        ]
+      },
+      "G-README-PUBLIC-STORY": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the README's public story lands per the approved spec (the exact-task law): the auth story told publicly — CURED / REMAINS-TRUST / WHY THE CHOICES HOLD; the honest statement carried whole (the wire cured, the disk and the local machine remain trust, the llm-insider's mitigation priced, the scale fence banked with its triggers); the stdio trust's honest statement (the spawn IS the credential); the mint's ceremony told (the plaintext once, the digest at rest, the modes); the knobs told (AUTH, the homes, the web key, the CSRF secret); the walks' teaching-grade stumbles answered or named (both units' walks the input)",
+          "the floor green (the suite unbroken at 336 — the README is prose but the instruments still run: the suite confirms no accidental breakage, ruff zero, pyright 0/0); kensho's independent verification green (validate/readme-public-story); MOHO'S WALK at the build gate (R4 — the story walked cold against the lived surface, every public claim verified honest, the drift between the told and the lived named)",
+          "the llm-class constraint held in the story (the llm's key the same form, the vote scope granted, no human-approval gate anywhere — told); every public claim citable to its evidence (the design's brief, the walks, the specs — the public record's law)"
+        ]
+      },
+      "G-READMEPUBLICSTORYSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed (the bytes whole, every line fenced): the README's regions — the story's structure (the sections' order and their content), the honest statement verbatim from the design's brief, the commands exact (the mint's ceremony, the boot's markers, the AUTH states, the knobs' ?= forms), the claims' citations (each public claim named to its evidence), the per-step plan (R8 — the README one dispatch, the read-backs named)",
+          "the llm-class constraint held at every line (the llm's key, the vote scope, no human gate — told honestly); the configurability law told at every knob the story names",
+          "the collaborator's approval — the build dispatch cites the approved spec (the exact-task law)"
+        ]
+      },
+      "G-README-PUBLIC-STORY-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit readme-public-story LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/readme-public-story) + mechanism analysis (understand/readme-public-story) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
     },
@@ -703,6 +775,38 @@
         "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
         "actor": "shinko",
         "timestamp": "2026-11-25T00:21:34Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the README's public story lands per the approved spec (the exact-task law): the auth story told publicly — CURED / REMAINS-TRUST / WHY THE CHOICES HOLD; the honest statement carried whole (the wire cured, the disk and the local machine remain trust, the llm-insider's mitigation priced, the scale fence banked with its triggers); the stdio trust's honest statement (the spawn IS the credential); the mint's ceremony told (the plaintext once, the digest at rest, the modes); the knobs told (AUTH, the homes, the web key, the CSRF secret); the walks' teaching-grade stumbles answered or named (both units' walks the input)\\\", \\\"the floor green (the suite unbroken at 336 — the README is prose but the instruments still run: the suite confirms no accidental breakage, ruff zero, pyright 0/0); kensho's independent verification green (validate/readme-public-story); MOHO'S WALK at the build gate (R4 — the story walked cold against the lived surface, every public claim verified honest, the drift between the told and the lived named)\\\", \\\"the llm-class constraint held in the story (the llm's key the same form, the vote scope granted, no human-approval gate anywhere — told); every public claim citable to its evidence (the design's brief, the walks, the specs — the public record's law)\\\"]\", \"gate\": \"G-README-PUBLIC-STORY\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T02:12:29Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed (the bytes whole, every line fenced): the README's regions — the story's structure (the sections' order and their content), the honest statement verbatim from the design's brief, the commands exact (the mint's ceremony, the boot's markers, the AUTH states, the knobs' ?= forms), the claims' citations (each public claim named to its evidence), the per-step plan (R8 — the README one dispatch, the read-backs named)\\\", \\\"the llm-class constraint held at every line (the llm's key, the vote scope, no human gate — told honestly); the configurability law told at every knob the story names\\\", \\\"the collaborator's approval — the build dispatch cites the approved spec (the exact-task law)\\\"]\", \"gate\": \"G-READMEPUBLICSTORYSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T02:12:37Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-README-PUBLIC-STORY\", \"increment\": \"build/readme-public-story\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-README-PUBLIC-STORY-BRIEF\", \"packets\": [\"discover/readme-public-story\", \"understand/readme-public-story\"], \"synthesize_increment\": \"synthesize/readme-public-story\"}, \"stage\": \"build\", \"steps\": \"[{\\\"id\\\": \\\"build\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"id\\\": \\\"floor-green\\\", \\\"executor\\\": \\\"deterministic\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T02:12:43Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-READMEPUBLICSTORYSPEC-BRIEF\", \"increment\": \"synthesize/readmepublicstoryspec\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"id\\\": \\\"synthesize\\\", \\\"executor\\\": \\\"semantic\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T02:12:48Z",
         "op": "add-increment"
       }
     ]
