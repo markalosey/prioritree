@@ -1,0 +1,300 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "order-bias-probe",
+    "title": "Order-Bias Probe — the presented order's bias measured over the tree's own stamped votes (Wang et al.'s flips-on-swap, the birth store's R7 priced deferral revisited behind the verified stamps): the datum measured, the cure earned by the datum if the datum is measured, the null result a finding never a failure — the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "THE INWARD DIRECTION (Q-ci-surface ruling R3, 2026-11-23): after CI — auth first (the write-exposure cure, DONE at the collaborator's ruling 2026-11-25), the order-bias probe second, outward/PyPI after inward; the >100-item scale fence held (adaptive scheduling banked until the real earn)",
+      "THE PRICED DEFERRAL REVISITED (the birth store's Q-problem-space ruling R7): the both-directions order-bias probe (Wang et al.'s flips-on-swap, validated) is a PRICED DEFERRAL behind the schema's stamps — revisit at a measured bias datum or an LLM-dominant birth session; the presentation_order datum non-optional per the prior-art's field schema (the anti-order-bias datum); the scheduler's seed carried NOW so the widening is additive, never rework (the core store's fence doctrine)",
+      "THE AUTH EFFORT'S GROUND (the close's naming, 2026-11-25): the verified stamps (the class on the key record, the id from the key, the self-claim dead at every authenticated door) make every vote's provenance citable — the probe's data now trustworthy by construction; the member tier that will run it authenticated at --serve and trusted at stdio by named ruling",
+      "THE TREE'S OWN GROUND: the vote data whole (the runs on disk — the stamped votes: comparator_id, comparator_class, the pair, the winner, the recorded_at; the presentation order the schedule's canonical id-sorted form at birth); the tally's purity (the permuted-multiset byte-identity — the order-independence already held at the count); the corroboration floor (>=1 human AND >=1 llm per pair — the classes citable per vote); the floor at 336, the CI live, the auth built whole",
+      "the standing laws carried: the seat-authored report (R6/R11), the per-step dispatch (R8, the file-unit), the two-lane form, the ThreePart, the census-first composition, the claims lane (extract -> research -> verify -> rule), the implementation-walk law (R4), the free-tier spirit"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "census",
+        "purpose": "THE CENSUS (the measurement's ground, the census-first law): FOUR parallel ungated packets over the probe's own ground — tansa's vote-corpus census (the runs on disk whole: the votes, their stamps [the verified ids and classes], the pairs, the winners, the presentation order the schedule's canonical form carries; the corpus's size and shape); shindan's honest-conditions diagnosis (what the corpus can and cannot support — the sample sizes, the confounds, the classes' balance); rikai's mechanism maps (the judgment's chain — the scheduler's canonical order, the tally's counting, the seed's shuffle mode [the widening's additive form], the vote path's every seam); keisan's statistical arithmetic (the forms' power at the corpus's real size — the flips-on-swap rate, the significance thresholds, the both-orders experiment's demanded sample, the retrospective vs prospective prices); the claims lane at any fresh literature (Wang et al. VERIFIED at the birth store — any fresh claim its own verdict)",
+        "entry_condition": "G-COMPOSITION is green — the route validated; the census fires first, its findings assumed by none of this composition",
+        "increments": []
+      },
+      {
+        "id": "design",
+        "purpose": "THE DESIGN (the measurement's shape): suisen's measurement design (the datum's form, the threshold, the experiment's shape — the retrospective and/or the prospective each priced; the classes' slicing; the free-tier cost) + hyoka's adversarial pass (the design attacked: the confounds, the p-hacking forms, the datum's honesty) + MOHO'S DATUM STORY (the measurement walked as the story it will tell — the datum's reading, the null's face) + togo's gated synthesis closing G-PROBE-DESIGN at the collaborator's ruling — the design judged publicly right: the shape honest at the corpus's real size, the no-anchoring discipline held",
+        "entry_condition": "G-COMPOSITION is green and the census's packets landed whole (the corpus, the conditions, the mechanisms, the arithmetic)",
+        "increments": [
+          {
+            "id": "synthesize/probe-design",
+            "owner": "togo",
+            "gate": "G-PROBE-DESIGN",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "measure",
+        "purpose": "THE MEASURE (the datum itself): the measurement run per the approved design — jikko's instrument (the probe's tooling per the design's ruling: the retrospective computation over the corpus's stamps and/or the prospective experiment's minted run), the run's record whole (the raw votes, the computed statistic, the threshold's comparison), kensho's independent verification (the datum recomputed — the numbers' second eyes), the floor held (the tree unbroken); closing G-DATUM at the collaborator's ruling on the measured record: the cure FIRES or the NULL STANDS",
+        "entry_condition": "G-PROBE-DESIGN is green — the measurement dispatches only per the approved design",
+        "increments": [
+          {
+            "id": "measure/probe",
+            "owner": "jikko",
+            "gate": "G-DATUM",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "instrument",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "semantic",
+                "id": "run",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cure",
+        "purpose": "THE CURE (the build set the datum earns, named not pinned): the units the measured record rules — both-orders averaging at the tally, the presentation-shuffle mode (the scheduler's seed already carried), the early-stop rules, or NOTHING (the null standing — the finding carried, no build forced); each earned unit its two-lane brief -> spec -> build per the standing form, one file per dispatch (R8), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALK at any user-facing unit (R4), the floor held; the units mint per the datum's ruling at their build-adds (the auto-stamp the pair's sole creator)",
+        "entry_condition": "G-DATUM is green and its ruling names the earned set — no cure dispatch fires on a null",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry — the measured truth carried whole, the next era named per the inward direction [outward after inward], the banked shapes carried), the done call at the collaborator's ruling",
+        "entry_condition": "the route's gates closed green (the datum's verdict carried whole; the cure's units if earned, green) and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "retro",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-synthesis",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-landing",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "done-call",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [census -> design -> measure -> cure -> close], the four gates, the three increments, the eight ungated placements) — the measurement-first mandate realized: the stages measure before any cure, the datum's gate the cure's only key, the null result a finding never a failure",
+          "every choice cites its ruling: the convening ruling (the measurement first, the cure earned by the datum, the null a finding) + R3's inward direction (auth DONE, the probe second, outward after) + R7's priced deferral (Wang et al.'s flips-on-swap revisited behind the verified stamps) + the auth close's ground (the provenance citable by construction) + the standing laws (the census-first, the claims lane, the two-lane form, R8, R6/R11, R4, the free-tier spirit) + the budget-curve and ci precedents (the measurement class, the scaled-down-without-flattening form)",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-PROBE-DESIGN": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the design landed: togo's gated synthesis over the census (the vote corpus, the honest conditions, the mechanisms, the statistical arithmetic) + suisen's measurement design + hyoka's adversarial pass + MOHO'S DATUM STORY — the measurement's shape whole: the datum's form (the flips-on-swap rate or the ruled statistic), the threshold, the retrospective vs the prospective experiment each priced (the run the probe may mint, its cost), the classes' slicing (human/llm per the verified stamps), the claims lane at any fresh literature",
+          "the statistical form ruled at its own weight: keisan's arithmetic the ground the design must fit (the corpus's real size, the power, the significance threshold — the datum's form honest at the data's size, never smoothed); the no-anchoring discipline held (the datum reported at its own weight); the scope fence held (the probe measures the judgment's order-sensitivity, never re-proves the count's order-independence — R12's byte-identity not re-earned)",
+          "the collaborator rules the design publicly right on the full record — no measurement dispatch fires before it is green"
+        ]
+      },
+      "G-DATUM": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the measurement landed per the approved design: the datum measured over the ruled form (the retrospective corpus and/or the prospective experiment per the design's ruling), the run's record whole (the raw votes, the stamps, the computed statistic, the threshold's comparison — every number citable to its vote), kensho's independent verification green (the datum recomputed — the numbers' second eyes)",
+          "the datum reported at its own weight: the statistic, its threshold, its verdict — the null a finding never a failure; the classes' slicing carried (human/llm per the verified stamps); the honest statement named either way",
+          "the collaborator rules on the measured record: the cure FIRES (the build set earned — both-orders averaging, the presentation-shuffle mode, the early-stop rules, named per the datum's shape) or the NULL STANDS (the finding carried, the deferral's revisit honest) — the build set named not pinned, minting per the ruling"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the landing state named honestly: the measured truth carried whole [the datum's verdict and its price], the next era named per the inward direction [outward after inward], the banked shapes carried)",
+          "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-order-bias resolved at the record (the truth measured, the cure earned or the null standing)"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-order-bias\", \"text\": \"What is prioritree's order-bias truth — does the presented order (item_a, item_b) bias the judgment (Wang et al.'s flips-on-swap class), measured over the tree's own stamped vote data with the provenance now verified by construction, and what cure does a measured datum earn (both-orders averaging, the presentation shuffle the scheduler's seed already carries, the early-stop rules — the birth store's R7 priced deferral revisited)?\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:36:52Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-order-bias\", \"ruling\": \"THE CONVENING (the collaborator's ruling at the auth done call's next-era naming, 2026-11-25: \\\"proceed\\\"): the order-bias probe convenes at the inward lane's head — R3's direction standing (auth first DONE at the collaborator's ruling 2026-11-25, the probe second, outward/PyPI after inward); R7's priced deferral now revisited behind the verified stamps (the auth effort's close: every vote's provenance citable — the class on the key record, the id from the key, the self-claim dead at every authenticated door — the probe's data trustworthy by construction). THE MEASUREMENT FIRST, THE CURE EARNED BY THE DATUM: the probe measures before it builds — a measured bias datum earns its named cure (both-orders averaging at the tally, the presentation-shuffle mode the scheduler's seed already carries, the early-stop rules), an unmeasured datum earns nothing; THE NULL RESULT A FINDING, NEVER A FAILURE — the honest result either way named, the product's no-anchoring discipline held at the measurement too (the datum reported at its own weight, never smoothed); the free-tier spirit held (the probe prices its own instruments — the tree's own data and the bench's own hands, nothing paid).\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:36:58Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [census -> design -> measure -> cure -> close], the four gates, the three increments, the eight ungated placements) — the measurement-first mandate realized: the stages measure before any cure, the datum's gate the cure's only key, the null result a finding never a failure\\\", \\\"every choice cites its ruling: the convening ruling (the measurement first, the cure earned by the datum, the null a finding) + R3's inward direction (auth DONE, the probe second, outward after) + R7's priced deferral (Wang et al.'s flips-on-swap revisited behind the verified stamps) + the auth close's ground (the provenance citable by construction) + the standing laws (the census-first, the claims lane, the two-lane form, R8, R6/R11, R4, the free-tier spirit) + the budget-curve and ci precedents (the measurement class, the scaled-down-without-flattening form)\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:39:50Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the design landed: togo's gated synthesis over the census (the vote corpus, the honest conditions, the mechanisms, the statistical arithmetic) + suisen's measurement design + hyoka's adversarial pass + MOHO'S DATUM STORY — the measurement's shape whole: the datum's form (the flips-on-swap rate or the ruled statistic), the threshold, the retrospective vs the prospective experiment each priced (the run the probe may mint, its cost), the classes' slicing (human/llm per the verified stamps), the claims lane at any fresh literature\\\", \\\"the statistical form ruled at its own weight: keisan's arithmetic the ground the design must fit (the corpus's real size, the power, the significance threshold — the datum's form honest at the data's size, never smoothed); the no-anchoring discipline held (the datum reported at its own weight); the scope fence held (the probe measures the judgment's order-sensitivity, never re-proves the count's order-independence — R12's byte-identity not re-earned)\\\", \\\"the collaborator rules the design publicly right on the full record — no measurement dispatch fires before it is green\\\"]\", \"gate\": \"G-PROBE-DESIGN\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:39:57Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the measurement landed per the approved design: the datum measured over the ruled form (the retrospective corpus and/or the prospective experiment per the design's ruling), the run's record whole (the raw votes, the stamps, the computed statistic, the threshold's comparison — every number citable to its vote), kensho's independent verification green (the datum recomputed — the numbers' second eyes)\\\", \\\"the datum reported at its own weight: the statistic, its threshold, its verdict — the null a finding never a failure; the classes' slicing carried (human/llm per the verified stamps); the honest statement named either way\\\", \\\"the collaborator rules on the measured record: the cure FIRES (the build set earned — both-orders averaging, the presentation-shuffle mode, the early-stop rules, named per the datum's shape) or the NULL STANDS (the finding carried, the deferral's revisit honest) — the build set named not pinned, minting per the ruling\\\"]\", \"gate\": \"G-DATUM\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:05Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the landing state named honestly: the measured truth carried whole [the datum's verdict and its price], the next era named per the inward direction [outward after inward], the banked shapes carried)\\\", \\\"the done call at the collaborator's ruling — the route's status set done at the ruling, Q-order-bias resolved at the record (the truth measured, the cure earned or the null standing)\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:11Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green — the route validated; the census fires first, its findings assumed by none of this composition\", \"purpose\": \"THE CENSUS (the measurement's ground, the census-first law): FOUR parallel ungated packets over the probe's own ground — tansa's vote-corpus census (the runs on disk whole: the votes, their stamps [the verified ids and classes], the pairs, the winners, the presentation order the schedule's canonical form carries; the corpus's size and shape); shindan's honest-conditions diagnosis (what the corpus can and cannot support — the sample sizes, the confounds, the classes' balance); rikai's mechanism maps (the judgment's chain — the scheduler's canonical order, the tally's counting, the seed's shuffle mode [the widening's additive form], the vote path's every seam); keisan's statistical arithmetic (the forms' power at the corpus's real size — the flips-on-swap rate, the significance thresholds, the both-orders experiment's demanded sample, the retrospective vs prospective prices); the claims lane at any fresh literature (Wang et al. VERIFIED at the birth store — any fresh claim its own verdict)\", \"stage\": \"census\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:18Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green and the census's packets landed whole (the corpus, the conditions, the mechanisms, the arithmetic)\", \"purpose\": \"THE DESIGN (the measurement's shape): suisen's measurement design (the datum's form, the threshold, the experiment's shape — the retrospective and/or the prospective each priced; the classes' slicing; the free-tier cost) + hyoka's adversarial pass (the design attacked: the confounds, the p-hacking forms, the datum's honesty) + MOHO'S DATUM STORY (the measurement walked as the story it will tell — the datum's reading, the null's face) + togo's gated synthesis closing G-PROBE-DESIGN at the collaborator's ruling — the design judged publicly right: the shape honest at the corpus's real size, the no-anchoring discipline held\", \"stage\": \"design\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:25Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-PROBE-DESIGN is green — the measurement dispatches only per the approved design\", \"purpose\": \"THE MEASURE (the datum itself): the measurement run per the approved design — jikko's instrument (the probe's tooling per the design's ruling: the retrospective computation over the corpus's stamps and/or the prospective experiment's minted run), the run's record whole (the raw votes, the computed statistic, the threshold's comparison), kensho's independent verification (the datum recomputed — the numbers' second eyes), the floor held (the tree unbroken); closing G-DATUM at the collaborator's ruling on the measured record: the cure FIRES or the NULL STANDS\", \"stage\": \"measure\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:33Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-DATUM is green and its ruling names the earned set — no cure dispatch fires on a null\", \"purpose\": \"THE CURE (the build set the datum earns, named not pinned): the units the measured record rules — both-orders averaging at the tally, the presentation-shuffle mode (the scheduler's seed already carried), the early-stop rules, or NOTHING (the null standing — the finding carried, no build forced); each earned unit its two-lane brief -> spec -> build per the standing form, one file per dispatch (R8), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALK at any user-facing unit (R4), the floor held; the units mint per the datum's ruling at their build-adds (the auto-stamp the pair's sole creator)\", \"stage\": \"cure\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:40Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's gates closed green (the datum's verdict carried whole; the cure's units if earned, green) and the collaborator has called the close\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake), the effort's records (the CONTINUATION entry — the measured truth carried whole, the next era named per the inward direction [outward after inward], the banked shapes carried), the done call at the collaborator's ruling\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:47Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-PROBE-DESIGN\", \"increment\": \"synthesize/probe-design\", \"owner\": \"togo\", \"stage\": \"design\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:40:55Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-DATUM\", \"increment\": \"measure/probe\", \"owner\": \"jikko\", \"stage\": \"measure\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"instrument\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"run\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:41:02Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"retro\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-synthesis\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-landing\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"done-call\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-25",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-25T03:41:08Z",
+        "op": "add-increment"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-order-bias",
+      "question": "What is prioritree's order-bias truth — does the presented order (item_a, item_b) bias the judgment (Wang et al.'s flips-on-swap class), measured over the tree's own stamped vote data with the provenance now verified by construction, and what cure does a measured datum earn (both-orders averaging, the presentation shuffle the scheduler's seed already carries, the early-stop rules — the birth store's R7 priced deferral revisited)?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE CONVENING (the collaborator's ruling at the auth done call's next-era naming, 2026-11-25: \"proceed\"): the order-bias probe convenes at the inward lane's head — R3's direction standing (auth first DONE at the collaborator's ruling 2026-11-25, the probe second, outward/PyPI after inward); R7's priced deferral now revisited behind the verified stamps (the auth effort's close: every vote's provenance citable — the class on the key record, the id from the key, the self-claim dead at every authenticated door — the probe's data trustworthy by construction). THE MEASUREMENT FIRST, THE CURE EARNED BY THE DATUM: the probe measures before it builds — a measured bias datum earns its named cure (both-orders averaging at the tally, the presentation-shuffle mode the scheduler's seed already carries, the early-stop rules), an unmeasured datum earns nothing; THE NULL RESULT A FINDING, NEVER A FAILURE — the honest result either way named, the product's no-anchoring discipline held at the measurement too (the datum reported at its own weight, never smoothed); the free-tier spirit held (the probe prices its own instruments — the tree's own data and the bench's own hands, nothing paid).",
+          "ruled_at": "2026-11-25",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}
