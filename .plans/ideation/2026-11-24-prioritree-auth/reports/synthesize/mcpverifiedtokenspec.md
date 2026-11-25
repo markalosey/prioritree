@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/mcpverifiedtokenspec
 
-**Route:** prioritree-auth (executing) | **Events:** 3 | **Reports:** 2
+**Route:** prioritree-auth (executing) | **Events:** 7 | **Reports:** 3
 
 ## The packet's chain (ledger order)
 
@@ -10,6 +10,10 @@
 | 1 | dispatch | shinko | 2026-11-25T00:53:55Z |
 | 2 | report | togo | 2026-11-25T01:12:24Z |
 | 3 | report | togo | 2026-11-25T01:13:13Z |
+| 4 | result | shinko | 2026-11-25T01:13:44Z |
+| 5 | gate | shinko | 2026-11-25T01:14:25Z |
+| 6 | dispatch | shinko | 2026-11-25T01:52:41Z |
+| 7 | report | togo | 2026-11-25T01:57:21Z |
 ## Reported by togo — 2026-11-25T01:12:24Z
 
 # THE MCP-VERIFIED-TOKEN EXACT-TASK SPEC — togo (synthesize/mcpverifiedtokenspec, 2026-11-25)
@@ -542,3 +546,15 @@ THE DOCSTRING RE-TRUTHINGS (the flag-3 school, the same edit): the harness parag
 THE TRADE-OFF THE PLAN MUST CARRY: the hide's teaching loss (the opaque denial — broken-server indistinguishable from unauthorized-self; the substrate's own law, pinned as tested behavior); the bearer grammar's fork (the ThreePart never crossing the mcp wire — the transport's 401 the only 401, the mint's teaching the WWW-Authenticate challenge alone; the scope denial a hide, never a taught 403); the marker's channel prices (the host's pre-configured logger — under pytest the silence is pytest's capture, not the logging layer's drop; the host's log_enabled/log_level knobs govern; the handler's chrome and wrap the host's own form); the adapter as the store's second reader (one file, two doors — the mid-flight mint live at both, the F10 fold holding); the import-time AUTH read (the boot the host's command — a mid-flight env change never seen, the reboot the cure); the ctx param's exact-annotation law (the union form refused at registration — the direct-call tier constructs its own context, the headless form named); the stdio trust's price (every local caller rides ungated by design, the stamps self-claims over stdio — the spawn IS the credential, the §3 floor); the manifest gap (an mcp-audience key minted --scopes manifest alone opens no mcp tool — the standing shape, named never silent); the degrade's unverified stamps (the floor's input the claim again at off — the operator's explicit act, the marker naming it); the verified-door dedup semantics (two keys are two comparators are two voices — the shared-body-id dodge dead; the re-send's loud ack reachable only through the verified id's own re-mint, the §2f comparator-stable keying). Every price named, never silent — the door armed at --serve, the ride preserved at stdio, the honest statement carried whole.
 
 THE SPEC LANDED WHOLE — two report pieces composing one document; the projection at reports/synthesize/mcpverifiedtokenspec.md; the collaborator rules on this record at G-MCPVERIFIEDTOKENSPEC-BRIEF.
+## Reported by togo — 2026-11-25T01:57:21Z
+
+FOLD (R6) — the three cross-file reds diagnosed at the bytes; the cure ruled at the honest home.
+THE MECHANISM: the substrate's idempotency guard replays WRITES per (principal, tool, args-digest) — ouncemcp/execution/idempotency.py:3-5, :121-132 (make_claim, the key sha256 over principal+tenant+tool+args), :150-161 (a done record returns the STORED result, the handler NEVER re-runs; ttl 24h at :70) — over the process-wide MemoryStore (execution/store.py:71-77) of the module-level server (mcp_server.py:126); the reads (next/census/tally) never idempotent-registered — they always execute against the re-bound home.
+THE POISON: test_mcp_auth.py:83 and test_mcp_server_face.py:88 each hold a PRIVATE count(1) minting "caller-{N}" — the pools COLLIDE across files; auth runs first (alphabetical) and seeds caller-4/5/6 — test_auth_off_degrade (:398), test_verified_class_overrides (:443), test_verified_id_overrides (:473) wrote register {items [a,b], quorum 1|2, op-1} + cast {RUN-0001, [a,b], prefer-a, x, human}.
+THE VICTIM: the face's test_census_view (:237), test_tally_view_at_full_coverage (:246), test_next_done_terminal (:270) mint THE SAME caller-4/5/6 (the suite run prints them verbatim) — the identical-args register/cast REPLAY auth's acks, never touching the fresh tmp home; the reads execute → {'total': 0}, the coverage halt, "Not found: ... a run file". MY RUNS: the face alone 34 green; the suite 3 failed, 333 passed (33.16s) — jikko's floor EXACT; reads-fresh + writes-replayed = the arcs isolated.
+THE CURE AT THE HONEST HOME — the subject mint, the isolation-by-injection school's fourth leg (the fixtures already re-bind STORE_HOME/_seam/_lock; the face docstring :46-52 itself rules the law — "a shared subject would replay an earlier test's writes through the server's process-wide MemoryStore" — the pool was merely file-scoped):
+```diff
+tests/test_mcp_server_face.py:198 - return f"caller-{next(_CALLERS)}" + return f"face-{next(_CALLERS)}"; :505 the same inline mint → f"face-{next(_CALLERS)}"
+tests/test_mcp_auth.py — the nine mints at :349/:354/:371/:398/:443/:473/:543/:564/:591: f"caller-{next(_CALLERS)}" → f"door-{next(_CALLERS)}"
+```
+EITHER file's change alone cures the trio (the principals diverge); BOTH close the seam against any third file; the two fixtures' "unique caller subject" docstring clauses re-trued suite-scope. NOT the door module (AUTH_MODE/_keys re-bound per test and restored — not the poison, the run proves it); NOT the substrate (pinned ouncemcp — the replay its designed law, priced and kept).

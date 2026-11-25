@@ -16,7 +16,13 @@ render_refusal precedent, service.py:168-183 -- never str(e) reparsed) and
 raised as the OunceMCP error VALUE carrying the structured ThreePart; DONE a
 VALUE never an error (done=true a RESULT, the CLI's exit-0 precedent); the
 SAFE HALT rendered with the K=10 cap at this tier alone (F8: legs 1-2 whole,
-the shortfall total named, the first ten shown). NO runner at import (the
+the shortfall total named, the first ten shown). The mcp-verified-token
+unit's door (the exact-task spec reports/synthesize/mcpverifiedtokenspec.md):
+the five ops gated at --serve by the door module's adapter + policy
+(prioritree.mcp_auth -- the construction's compose at :114; the stdio trust
+whole: the spawn IS the credential, the checks skipped at the transport), the
+cast tool's stamps the VERIFIED identity's claims at the authenticated door
+(the body's self-claims the degrade's fallback). NO runner at import (the
 service's app precedent): the boot the host's command -- bare
 python -m prioritree.mcp_server is stdio per session; the --serve flag is
 the shared streamable-HTTP form.
@@ -27,9 +33,10 @@ from __future__ import annotations
 import argparse
 from typing import TYPE_CHECKING, Final, Literal, get_args
 
-from ouncemcp import Effect, InvalidInput, NotFound, OunceServer
+from ouncemcp import Effect, InvalidInput, NotFound, OunceServer, PermissionDenied, ToolContext
 from pydantic import BaseModel, Field, field_validator
 
+from prioritree.mcp_auth import compose_door_kwargs
 from prioritree.policy import missing_classes
 from prioritree.registry import WEAK_ORDER_TRIPLE, OperatorDeclaration
 from prioritree.run_store import STORE_HOME, Persist, StoreRefusedError
@@ -38,7 +45,7 @@ from prioritree.service_store import Serialize
 from prioritree.session import ExhaustedQueue
 from prioritree.store_lock import Lock
 from prioritree.tally import TallyRefusedError
-from prioritree.votes import COMPARATOR_CLASSES, VotesRefusedError
+from prioritree.votes import COMPARATOR_CLASSES, SupersedeRefusedError, VotesRefusedError
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -103,15 +110,20 @@ if frozenset(get_args(Winner)) != WEAK_ORDER_TRIPLE:
 
 # The module-level objects (the spec Section 2(c); the service.py:158-165
 # precedent): the seam injected at construction over the CLI's own store home,
-# the server minted plain (OunceServer(name=...) per the census's form; NO
-# Budget override -- the startup whole is 25% of the 4,000 default, the
-# design brief Section 4), NO runner at import. The naming law: the
+# the server composed over the door's kwargs (OunceServer(name=...,
+# **compose_door_kwargs()) -- the auth adapter + the tool-scope policy at
+# AUTH=on riding **fastmcp_kwargs to FastMCP's own auth parameter, the PLAIN
+# construction byte-identical at AUTH=off: neither auth= nor policy=, the
+# bearer middleware never mounted, the degrade never a lockout; NO Budget
+# override -- the startup whole is 25% of the 4,000 default, the design brief
+# Section 4; NO stdio_policy -- the substrate default "trust", the
+# spawn-is-the-credential law), NO runner at import. The naming law: the
 # act-statement "Serve the five ops as OunceMCP tools" -- the first word the
 # symbol: server.
 LOCK_HOME: Final[Path] = STORE_HOME
 _seam = Serialize(STORE_HOME)
 _lock = Lock(STORE_HOME)
-server = OunceServer(name="prioritree")
+server = OunceServer(name="prioritree", **compose_door_kwargs())
 
 
 class RegisterInput(BaseModel):
@@ -519,7 +531,7 @@ def serve(body: NextInput) -> NextOutcome:
 
 
 @server.tool(name="votes.cast", effect=Effect.WRITE, idempotency=True)
-def cast(body: CastInput) -> CastAck:
+def cast(body: CastInput, ctx: ToolContext) -> CastAck:
     """Cast one judgment on a pair -- the sitting's only write. The judgment
     is stamped (comparator_id, comparator_class), durable at once,
     append-only. A byte-identical re-send acks the original
@@ -528,18 +540,40 @@ def cast(body: CastInput) -> CastAck:
     vote_id to correct one. A vote is legal on any registered pair -- no
     serve needed.
     """
+    # The verified stamps (the brief §1f): the token's claims over the body's
+    # self-claims when the caller is authenticated (F8's law tier-agnostic --
+    # the id-binding and the class-binding firing at this door exactly as at
+    # the service door, service.py:527-528's school); the degrade's fallback
+    # the body's claims (the anonymous identity -- auth off without a token,
+    # the trust's stdio ride; the floor's input unverified again, the price
+    # named at the boot marker). The claims read DIRECT -- the adapter always
+    # mints them; a token carrying the identity without the claims is a
+    # verifier-contract violation, the KeyError the honest crash (the body's
+    # claim NEVER consulted at the verified door -- the fabrication hole
+    # stays closed).
+    identity = ctx.identity
+    if identity.authenticated:
+        comparator_id = str(identity.claims["comparator_id"])
+        comparator_class = str(identity.claims["comparator_class"])
+    else:
+        comparator_id = body.comparator_id
+        comparator_class = body.comparator_class
     try:
         vote_id, _record, count, acknowledged = _seam.cast(
             body.run_id,
             body.pair,
             body.winner,
-            body.comparator_id,
-            body.comparator_class,
+            comparator_id,
+            comparator_class,
             body.notes,
             body.supersedes,
         )
     except (StoreRefusedError, VotesRefusedError) as refusal:
         raise _refuse(refusal) from refusal
+    except SupersedeRefusedError as refusal:
+        raise PermissionDenied(
+            _render_three_part(refusal.expected, refusal.found, refusal.next_action),
+        ) from refusal
     return CastAck(vote_id=vote_id, count=count, acknowledged=acknowledged)
 
 

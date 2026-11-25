@@ -4,7 +4,13 @@
 The mcp-server unit's test surface (SS5(b) of the exact-task spec,
 reports/synthesize/mcpserverspec.md): the five tools' arcs over the
 caller-side harness -- ouncemcp.testing.as_caller around
-OunceServer.call_tool in-process (the census's proof form). (1) Each tool's
+OunceServer.call_tool in-process (the census's proof form), the caller's
+identity a GRANTED ouncemcp.testing.make_token mint (the door's five scope
+tokens, the door-shaped claims -- under the mcp-verified-token unit's
+armed door the scope-less subject-only tokens deny, the granted form the
+standing arcs' ride), the direct-call tier's ctx the headless ToolContext
+(the anonymous identity outside any caller context, the body's claims
+standing). (1) Each tool's
 success form asserted field-for-field: the register ack (the verdicts echo
 sorted), the served pair's one-model shape, the cast ack (the record
 elided), the census's exact two-key body, TallyView whole at full coverage
@@ -25,10 +31,13 @@ same render clipped at Limits.max_error_chars=300, the step-4 finding
 made visible, the total's head and the ellipsis asserted -- the two-cap
 reality: the found's 10-cap, the wire's 300-clip). (4) The idempotency
 replay arcs: the guard replays per
-principal, so the re-sends ride FRESH caller sessions -- the byte-identical
-re-send reaches the core (acknowledged=true, the count unchanged, the
-original's vote_id), the changed verdict a new record, and the
-cross-session re-register mints RUN-0002. (5) The stamps' schema gates
+principal -- under the armed door a fresh principal is a fresh comparator,
+so the re-send rides the SAME principal with the body's id fabricated (the
+transport guard bypassed by the args diff, the core's dedup hit on the
+VERIFIED id: acknowledged=true, the count unchanged, the original's
+vote_id -- the self-claim never forks a voice), the changed verdict a new
+record, and the cross-session re-register mints RUN-0002 (the fresh
+caller's granted token a fresh principal). (5) The stamps' schema gates
 (comparator_class required and pattern-gated; the llm class landing at
 equal weight), supersedes' correction both ways, the seed's stability, the
 scheduler-suggests seam (a vote lands un-served), the census's AS-IS law
@@ -40,8 +49,10 @@ halt shaper's fresh read rides it; monkeypatch's string form -- the Final
 symbol never re-assigned, the real default never touched on disk), and
 mints a unique caller subject per test (the idempotency claims key per
 principal -- a shared subject would replay an earlier test's writes through
-the server's process-wide MemoryStore). The S101/PLR2004 tests ruling
-stands.
+the server's process-wide MemoryStore; the "face-{N}" stem keeps that
+uniqueness suite-scope -- another file's mints ride the same process-wide
+store, so the file-prefixed stems fence the cross-file seam). The S101/PLR2004
+tests ruling stands.
 """
 
 from __future__ import annotations
@@ -52,8 +63,8 @@ from typing import TYPE_CHECKING, Any, cast
 
 import pytest
 from mcp_types import TextContent
-from ouncemcp import InvalidInput
-from ouncemcp.testing import as_caller
+from ouncemcp import InvalidInput, ToolContext
+from ouncemcp.testing import as_caller, make_token
 
 from prioritree import mcp_server
 from prioritree.mcp_server import CastInput, TallyInput
@@ -64,6 +75,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
     from pathlib import Path
 
+    from fastmcp.server.auth import AccessToken
     from fastmcp.tools import ToolResult
 
 # The face's own vocabulary (the literals ARE the specification under test,
@@ -78,15 +90,56 @@ _VERDICTS = ["prefer-a", "prefer-b", "tie"]
 _CALLERS: Iterator[int] = count(1)
 
 
-def _call(caller: str, tool: str, arguments: dict[str, Any]) -> ToolResult:
-    """Call the tool in-process as the named caller -- the census's harness form."""
-    with as_caller(subject=caller):
+# The door's granted vocabulary (the five tools' scope tokens -- the map's
+# own rows; manifest absent: no mcp tool carries it): the standing arcs'
+# default grant under the armed door.
+_GRANTED: tuple[str, ...] = ("register", "next", "cast", "state", "tally")
+
+
+def _call(caller: str, tool: str, arguments: dict[str, Any], *, token: AccessToken | None = None) -> ToolResult:
+    """Call the tool in-process as the granted caller -- the census's harness form, door-armed.
+
+    The granted default: the caller's token minted by _granted (the five
+    scope tokens, the door-shaped claims -- under the armed door the
+    scope-less subject-only tokens deny at the policy, so the granted
+    identity is the standing arcs' ride); the token knob the
+    claims-shaping arcs' own.
+    """
+    with as_caller(access_token=token or _granted(caller)):
         return asyncio.run(mcp_server.server.call_tool(tool, arguments))
+
+
+def _headless() -> ToolContext:
+    """Construct the headless tool context -- the direct-call tier's own form.
+
+    The model_construct school (the corrupted body past validation fed to
+    the handler): the ctx the wire always injects, constructed bare at the
+    direct tier -- the three required fields alone; the identity resolves
+    ANONYMOUS outside any caller context (the body's claims stand, the
+    core's gates fire on the body's stamps -- the asserted bytes stand).
+    """
+    return ToolContext(tool="votes.cast", response_format="concise", result_budget=0)
 
 
 def _join(result: ToolResult) -> str:
     """Join the result's text channel -- the error labels' assertable ground."""
     return "".join(part.text for part in result.content if isinstance(part, TextContent))
+
+
+def _granted(caller: str, *, comparator_class: str = "human") -> AccessToken:
+    """Mint the granted caller token -- the five scope tokens, the door-shaped claims.
+
+    The door-armed harness form: the standing arcs ride the granted token
+    (once the policy lands, in-process calls face the checks -- the
+    scope-less subject-only tokens deny), the claims shaped as the door's
+    adapter mints them (the cast door's stamp source; the class knob the
+    corroborating llm casts ride).
+    """
+    return make_token(
+        subject=caller,
+        scopes=list(_GRANTED),
+        claims={"aud": "mcp", "comparator_id": caller, "comparator_class": comparator_class},
+    )
 
 
 def _register(caller: str, items: list[str], quorum: int = 1) -> ToolResult:
@@ -118,7 +171,7 @@ def _cast(
     }
     if supersedes is not None:
         arguments["supersedes"] = supersedes
-    return _call(caller, "votes.cast", arguments)
+    return _call(caller, "votes.cast", arguments, token=_granted(caller, comparator_class=comparator_class))
 
 
 @pytest.fixture
@@ -133,7 +186,8 @@ def caller(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
     touched on disk, the binding restored at teardown), and mint the test's
     unique caller subject (the idempotency claims key per principal -- a
     shared subject would replay an earlier test's writes through the
-    server's process-wide MemoryStore).
+    server's process-wide MemoryStore; the "face-{N}" stem keeps the pool
+    suite-unique -- another file's mints ride the same process-wide store).
     Refuses when: never -- a fixture (the isolate-then-yield form).
     Re-run: deterministic -- a fresh tmp home and a fresh caller per test.
     Touches: the tmp home only (pytest's own tmp_path); the module's
@@ -144,7 +198,7 @@ def caller(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
     monkeypatch.setattr(mcp_server, "STORE_HOME", tmp_path)
     monkeypatch.setattr(mcp_server, "_seam", Serialize(tmp_path))
     monkeypatch.setattr(mcp_server, "_lock", Lock(tmp_path))
-    return f"caller-{next(_CALLERS)}"
+    return f"face-{next(_CALLERS)}"
 
 
 def test_register_ack(caller: str) -> None:
@@ -298,7 +352,7 @@ def test_cast_winner_refused_at_the_core(caller: str) -> None:
         supersedes=None,
     )
     with pytest.raises(InvalidInput, match="a verdict from the run's declared set"):
-        mcp_server.cast(body)
+        mcp_server.cast(body, _headless())
 
 
 def test_cast_class_refused_at_the_schema(caller: str) -> None:
@@ -341,7 +395,7 @@ def test_cast_class_refused_at_the_core(caller: str) -> None:
         supersedes=None,
     )
     with pytest.raises(InvalidInput, match="comparator_class got 'robot'"):
-        mcp_server.cast(body)
+        mcp_server.cast(body, _headless())
 
 
 def test_halt_refusal_under_the_cap(caller: str) -> None:
@@ -413,11 +467,16 @@ def test_halt_capped_render_wire(caller: str) -> None:
 
 
 def test_cast_resend_acknowledged(caller: str) -> None:
-    """A byte-identical re-send from a fresh session => acknowledged=true, the count unchanged.
+    """A re-send with the body's id fabricated, the same verified id => acknowledged=true.
 
-    The guard replays per principal -- a fresh caller's session reaches the
-    core, where the dedup key hits: the ORIGINAL's vote_id, the UNCHANGED
-    count, acknowledged=true (one voice, never double-counted).
+    The guard replays per principal -- under the armed door a fresh
+    principal is a fresh comparator (the dedup would miss), so the ruled
+    form bypasses the transport guard by the ARGS diff (the same
+    principal, the body's id changed) and hits the core's dedup on the
+    VERIFIED id: the ORIGINAL's vote_id, the UNCHANGED count,
+    acknowledged=true (one voice, never double-counted -- the
+    fabricated-id dodge dead at the door, the self-claim never forks a
+    voice).
     """
     _register(caller, _ITEMS)
     arguments: dict[str, Any] = {
@@ -428,7 +487,7 @@ def test_cast_resend_acknowledged(caller: str) -> None:
         "comparator_class": "human",
     }
     first = _call(caller, "votes.cast", arguments)
-    again = _call(f"caller-{next(_CALLERS)}", "votes.cast", arguments)
+    again = _call(caller, "votes.cast", {**arguments, "comparator_id": "imposter"})
     assert first.structured_content == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
     assert again.structured_content == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": True}
 
@@ -446,7 +505,7 @@ def test_register_cross_session_new_run(caller: str) -> None:
     """A re-register from a fresh session => a NEW run minted (RUN-0002), never a replay."""
     arguments: dict[str, Any] = {"items": _ITEMS, "quorum": 1, **_OPERATOR}
     first = _call(caller, "runs.register", arguments)
-    second = _call(f"caller-{next(_CALLERS)}", "runs.register", arguments)
+    second = _call(f"face-{next(_CALLERS)}", "runs.register", arguments)
     assert first.structured_content == {
         "run_id": _RUN_ID,
         "count": 3,
@@ -532,6 +591,7 @@ def test_cast_llm_class_lands(caller: str) -> None:
             "comparator_id": "x",
             "comparator_class": "llm",
         },
+        token=_granted(caller, comparator_class="llm"),
     )
     assert result.is_error is False
     assert result.structured_content == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
