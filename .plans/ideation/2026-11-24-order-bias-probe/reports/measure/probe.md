@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — measure/probe
 
-**Route:** order-bias-probe (executing) | **Events:** 46 | **Reports:** 27
+**Route:** order-bias-probe (executing) | **Events:** 50 | **Reports:** 29
 
 ## The packet's chain (ledger order)
 
@@ -53,6 +53,10 @@
 | 44 | report | togo | 2026-11-26T21:37:03Z |
 | 45 | dispatch | shinko | 2026-11-26T21:37:23Z |
 | 46 | report | jikko | 2026-11-26T21:52:01Z |
+| 47 | dispatch | shinko | 2026-11-26T22:17:02Z |
+| 48 | report | keisan | 2026-11-26T22:26:57Z |
+| 49 | dispatch | shinko | 2026-11-26T22:27:18Z |
+| 50 | report | kensho | 2026-11-26T22:43:38Z |
 ## Reported by jikko — 2026-11-26T03:08:57Z
 
 # THE INSTRUMENT STEP — jikko (実行), packet measure/probe, route order-bias-probe, 2026-11-26
@@ -684,3 +688,229 @@ R11 — the flow-fix build (jikko, measure/probe, order-bias-probe, 2026-11-26):
 6. THE MANGLE EDGE (honest, un-ruled by the fold): a malformed chain token (not P<number>, or past the schedule's span) crashes the ack render to the standing 500 fold — the fold rules the count's well-formed list; both handlers' docstrings grown to name the chain branch (the five-field law), their Provenance citing the flow-fix folds.
 7. NOT DONE: no tests landed (the fold fences no test file; kensho's arcs the verifier); the template comment lines left untouched (the fold names the :5 region + the carry alone; the standing comments stay truthful — the fetch rides the else arm); the serving — the seed URL's driving — the collaborator's act, not mine.
 Provenance: jikko (実行), packet measure/probe (the flow-fix build), route order-bias-probe, 2026-11-26. The tree is the truth: every byte quoted verbatim from the disk post-apply; the lint/pyright outcomes the instruments' own output.
+## Reported by keisan — 2026-11-26T22:26:57Z
+
+# THE COMPLETED DATUM — the count gate green at one call, the pooled primary computed, the null at its realized bound (keisan 計算, measure/probe's analysis act, route order-bias-probe, 2026-11-26)
+
+THE SEAT: keisan — the analysis act, the firing the completion's claim rode in on; every number below carries its trace (the calculate fires my own this session; the count gate's table the vote_query one call's own bytes — no hand-passes anywhere). READ-ONLY held; this report the packet's only write. The identity note carried from the prior firings: the records inside the run file stamp the format's constant run_id "RUN-0001" — the file stem (RUN-0008) the run's identity; no phantom run counted.
+
+## 0. THE COUNT GATE — ONE CALL, THE TRACE THE RECORD (FR-MEM-0040's protocol; the collaborator's "completed" the claim, the count the fact)
+
+THE ONE CALL: vote_query's cell-table op at RUN-0008 (.prioritree/runs/RUN-0008.jsonl; the seat-facing argv --run-file + --items both the run file), fired via the smoke at the harness's test lane (the instrument's proven-live form at this seat): "1 passed in 0.01s" — the engine's whole code path fired in-process at the LIVE file, the trace line landed VERBATIM at .opencode/scripts/vote-query-smoke-RUN-0008.trace, the smoke holding it byte-equal to an independent in-process derivation over the same file bytes, the re-fire byte-identical (the determinism law).
+
+THE TRACE, quoted at its head verbatim (the trace is ONE ~40KB line; the read tool truncates a single line at 2000 chars — the head here, the artifact the whole bytes; every cell in §1's table IS the trace's own cell):
+{"op": "cell-table", "args": {"run_file": ".prioritree/runs/RUN-0008.jsonl", "items": ".prioritree/runs/RUN-0008.jsonl"}, "result": {"total_votes": 319, "cells": [{"pair": ["w01:river", "w02:meadow"], "class": "human", "presentation": "canonical", "count": 1, "winners": ["prefer-a"]}, {"pair": ["w01:river", "w02:meadow"], "class": "human", "presentation": "swapped", "count": 2, "winners": ["prefer-b", "prefer-a"]}, {"pair": ["w01:river", "w02:meadow"], "class": "llm", "presentation": "canonical", "count": 1, "winners": ["prefer-b"]}, {"pair": ["w01:river", "w02:meadow"], "class": "llm", "presentation": "swapped", "count": 1, "winners": ["prefer-a"]}, {"pair": ["w01:river", "w03:lantern"], "class": "human", "presentation": "canonical", "count": 1, "winners": ["prefer-a"]}, {"pair": ["w01:river", "w03:lantern"], "class": "human", "presentation": "swapped", "count": 2, "winners": ["prefer-b", "prefer-b"]}… (the head to the read tool's line limit)
+
+THE TOTAL: 319 — the expected over-quorum form. THE CLASS × PRESENTATION TABLE (each cell counted at the calculate tool, the array the cell's vote numbers, every trace verbatim at §4): llm × canonical = 78 (moho 26 + kensho 26 + jikko 26); llm × swapped = 78; human × canonical = 78 (VOTE-0157..0234); human × swapped = 85 (VOTE-0235..0319). THE SUM: {"op": "sum", "args": {"values": "[78, 78, 78, 85]"}, "result": 319} — the four cells agree with the trace's total_votes.
+
+THE DOUBLES VISIBLE AT THEIR CELLS: P01..P07's human swapped cells carry count 2 — the trace's head shows the first four ((w01,w02) ["prefer-b","prefer-a"]; (w01,w03) ["prefer-b","prefer-b"]; (w01,w04) ["prefer-b","prefer-b"]; (w01,w05) ["prefer-b","prefer-b"]); the (w01,w02) cell the SPLIT, exactly as the dispatch expected.
+
+THE GATE'S VERDICT: COMPLETE — every pair carries at least one swapped human vote (71 single cells + the 7 doubles covering P01..P07 = 78 pairs); the human canonical half 78; the llm lane whole (78 + 78). PROCEED.
+
+## 0b. THE OVER-QUORUM FORM NAMED (the realized state told whole, never smoothed)
+
+319 = 312's design cell + 7 — {"op": "subtract", "args": {"a": "319", "b": "312"}, "result": 7}: the first session's 7 swapped votes (VOTE-0235..0241, comparator_id "mark") re-landed P01..P07, and the second session re-served those very cells (VOTE-0242..0248, comparator_id "Mark Losey") — ONE human, TWO session identities, the cell rule identity-blind (the record counts records, togo's fence). The human swapped half carries 85 votes on 78 cells: {"op": "subtract", "args": {"a": "85", "b": "78"}, "result": 7} — 7 past the cell. The 16 new cells (VOTE-0304..0319) landed exactly at the ruled chain's list: P11,P19,P32,P34,P41,P44,P45,P48,P49,P61,P62,P65,P66,P68,P69,P70 (togo's ruling 1, the count's remaining list).
+
+## 1. THE FLIPS TABLE — togo's cell rule applied (fenced before this look)
+
+THE RULE (togo's RULING 2, its load-bearing lines verbatim): "THE ANCHOR = the canonical side's winner…; each swapped-side vote classifies against the anchor — CONC (the same item won) or DISC (the other item won — a flip whose direction is FIXED BY THE ANCHOR'S POSITION: the first-presented won at canonical → toward FIRST, else toward SECOND…)… TWO swapped votes… → UNANIMOUS (both CONC or both DISC) = THE CELL COUNTS ONCE…; SPLIT (one CONC, one DISC) = THE CELL EXCLUDED AND REPORTED — the pair id + the two votes' winners named… never silent."
+
+THE MAPPING (the instrument's own, pinned at the source): the trace's winners are positional over the SERVED pair (run_store.py:873-893 — the persisted line the wire's bytes: the presented pair + the positional winner; so the swapped cell's prefer-a = the canonical item_b's win). Both sides read in PRESENTED POSITION: the cell is DISCORDANT (a flip) iff the two orders produced different ITEM winners — equivalently the SAME positional winner at both orders; toward FIRST iff both are prefer-a (the anchor first-presented at canonical); toward SECOND iff both are prefer-b.
+
+THE SPLIT — EXCLUDED AND REPORTED: P01 (w01:river, w02:meadow), HUMAN — the anchor w01:river (the canonical cell's ["prefer-a"], VOTE-0157); the double's two swapped votes ["prefer-b", "prefer-a"] (VOTE-0235, "mark": prefer-b = CONC — w01 won again; VOTE-0242, "Mark Losey": prefer-a = DISC toward FIRST — w02 won). One CONC + one DISC → SPLIT → THE CELL EXCLUDED (the tie rule's natural extension: a cell carrying no direction leaves the sign test as a tie vote does), reported here, never silent.
+
+THE TABLE (78 pairs × 2 classes; every cell's winners ARE the trace's cell — the artifact the provenance; c = the canonical cell's winner, s = the swapped cell's winner(s), as recorded; the doubles marked ×2):
+
+| pair | human c→s (verdict) | llm c→s (verdict) |
+|---|---|---|
+| P01 (w01,w02) | a→[b,a] **SPLIT — EXCLUDED** | b→a CONC |
+| P02 (w01,w03) | a→[b,b] CONC ×2 (unanimous) | b→b **DISC→2nd** |
+| P03 (w01,w04) | a→[b,b] CONC ×2 | a→b CONC |
+| P04 (w01,w05) | b→[b,b] **DISC→2nd** ×2 (unanimous, once) | a→b CONC |
+| P05 (w01,w06) | a→[b,b] CONC ×2 | a→b CONC |
+| P06 (w01,w07) | a→[b,b] CONC ×2 | a→b CONC |
+| P07 (w01,w08) | a→[b,b] CONC ×2 | b→a CONC |
+| P08 (w01,w09) | a→b CONC | b→a CONC |
+| P09 (w01,w10) | a→b CONC | a→b CONC |
+| P10 (w01,w11) | a→b CONC | a→b CONC |
+| P11 (w01,w12) | a→b CONC | a→b CONC |
+| P12 (w01,w13) | a→b CONC | b→b **DISC→2nd** |
+| P13 (w02,w03) | a→b CONC | a→b CONC |
+| P14 (w02,w04) | b→a CONC | a→b CONC |
+| P15 (w02,w05) | b→b **DISC→2nd** | a→b CONC |
+| P16 (w02,w06) | a→b CONC | a→b CONC |
+| P17 (w02,w07) | a→b CONC | a→b CONC |
+| P18 (w02,w08) | a→b CONC | b→a CONC |
+| P19 (w02,w09) | a→b CONC | a→b CONC |
+| P20 (w02,w10) | a→b CONC | a→b CONC |
+| P21 (w02,w11) | a→b CONC | a→b CONC |
+| P22 (w02,w12) | a→b CONC | a→b CONC |
+| P23 (w02,w13) | a→b CONC | b→b **DISC→2nd** |
+| P24 (w03,w04) | b→a CONC | a→b CONC |
+| P25 (w03,w05) | b→a CONC | a→b CONC |
+| P26 (w03,w06) | b→b **DISC→2nd** | b→a CONC |
+| P27 (w03,w07) | b→b **DISC→2nd** | b→b **DISC→2nd** |
+| P28 (w03,w08) | b→a CONC | b→a CONC |
+| P29 (w03,w09) | b→a CONC | b→a CONC |
+| P30 (w03,w10) | a→b CONC | a→b CONC |
+| P31 (w03,w11) | a→b CONC | a→b CONC |
+| P32 (w03,w12) | a→b CONC | a→b CONC |
+| P33 (w03,w13) | a→a **DISC→1st** | a→a **DISC→1st** |
+| P34 (w04,w05) | a→a **DISC→1st** | b→a CONC |
+| P35 (w04,w06) | a→b CONC | b→a CONC |
+| P36 (w04,w07) | a→b CONC | a→a **DISC→1st** |
+| P37 (w04,w08) | a→a **DISC→1st** | b→a CONC |
+| P38 (w04,w09) | a→b CONC | b→a CONC |
+| P39 (w04,w10) | a→b CONC | a→b CONC |
+| P40 (w04,w11) | a→b CONC | a→a **DISC→1st** |
+| P41 (w04,w12) | a→b CONC | a→b CONC |
+| P42 (w04,w13) | a→b CONC | b→a CONC |
+| P43 (w05,w06) | a→b CONC | b→b **DISC→2nd** |
+| P44 (w05,w07) | a→b CONC | b→b **DISC→2nd** |
+| P45 (w05,w08) | a→a **DISC→1st** | b→a CONC |
+| P46 (w05,w09) | a→a **DISC→1st** | b→a CONC |
+| P47 (w05,w10) | a→b CONC | a→b CONC |
+| P48 (w05,w11) | a→b CONC | a→b CONC |
+| P49 (w05,w12) | a→b CONC | a→b CONC |
+| P50 (w05,w13) | a→b CONC | b→a CONC |
+| P51 (w06,w07) | b→a CONC | a→b CONC |
+| P52 (w06,w08) | b→a CONC | b→a CONC |
+| P53 (w06,w09) | b→a CONC | b→a CONC |
+| P54 (w06,w10) | a→b CONC | a→b CONC |
+| P55 (w06,w11) | a→a **DISC→1st** | a→b CONC |
+| P56 (w06,w12) | a→b CONC | a→b CONC |
+| P57 (w06,w13) | a→a **DISC→1st** | b→a CONC |
+| P58 (w07,w08) | b→a CONC | b→a CONC |
+| P59 (w07,w09) | b→a CONC | a→a **DISC→1st** |
+| P60 (w07,w10) | a→b CONC | a→b CONC |
+| P61 (w07,w11) | a→b CONC | a→b CONC |
+| P62 (w07,w12) | a→b CONC | a→b CONC |
+| P63 (w07,w13) | a→a **DISC→1st** | b→a CONC |
+| P64 (w08,w09) | a→b CONC | a→a **DISC→1st** |
+| P65 (w08,w10) | a→b CONC | a→b CONC |
+| P66 (w08,w11) | a→b CONC | a→b CONC |
+| P67 (w08,w12) | a→b CONC | a→b CONC |
+| P68 (w08,w13) | a→b CONC | a→b CONC |
+| P69 (w09,w10) | a→b CONC | a→b CONC |
+| P70 (w09,w11) | a→b CONC | a→b CONC |
+| P71 (w09,w12) | a→b CONC | a→b CONC |
+| P72 (w09,w13) | a→b CONC | a→b CONC |
+| P73 (w10,w11) | a→a **DISC→1st** | b→a CONC |
+| P74 (w10,w12) | a→a **DISC→1st** | a→a **DISC→1st** |
+| P75 (w10,w13) | b→a CONC | b→a CONC |
+| P76 (w11,w12) | a→b CONC | a→b CONC |
+| P77 (w11,w13) | b→a CONC | b→a CONC |
+| P78 (w12,w13) | b→a CONC | b→a CONC |
+
+THE TALLY: HUMAN — DISC→FIRST 10 (P33, P34, P37, P45, P46, P55, P57, P63, P73, P74); DISC→SECOND 4 (P04 — the unanimous double counted once, P15, P26, P27); SPLIT excluded 1 (P01); CONC 63 → m_h = 14, k_h = 10. LLM — DISC→FIRST 6 (P33, P36, P40, P59, P64, P74); DISC→SECOND 6 (P02, P12, P23, P27, P43, P44); CONC 66 → m_l = 12, k_l = 6. Classifiable cells 155 (156 − the split): the flip rates φ̂ pooled = {"op": "proportion", "args": {"part": "26", "whole": "155"}, "result": 0.16774193548387098}; human = {"op": "proportion", "args": {"part": "14", "whole": "77"}, "result": 0.18181818181818182}; llm = {"op": "proportion", "args": {"part": "12", "whole": "78"}, "result": 0.15384615384615385}.
+
+## 2. THE PRIMARY — the pre-registered pooled flip asymmetry θ, the realized-m branch, the cell rule extended
+
+- m = 26 (the pooled discordant count: 14 human + 12 llm; the doubles per the rule — P04's unanimous double one unit, P01's split excluded).
+- k = 16 (the discordant cells where the FIRST-PRESENTED position won: 10 human + 6 llm).
+- THE TRACE LINE: {"op": "binom-test", "args": {"k": "16", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.32693958282470703} — the exact two-sided p = 0.3269.
+- THE REALIZED CRITICAL VALUE (shown its work at the tool): at the realized m = 26, the smallest k rejecting at α = 0.05 two-sided is 19 — k = 18 does not reject: {"op": "binom-test", "args": {"k": "18", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.07551869750022888}; k = 19 rejects: {"op": "binom-test", "args": {"k": "19", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.028959274291992188}. (The design point's k≥24 at m=35 superseded by the realized-m branch, as registered.)
+- THE VERDICT PER THE REGISTERED RULE: k = 16 < 19 → THE NULL STANDS at its realized bound — the null a finding, never a failure, and never "no bias".
+- THE REALIZED BOUND (computed at the realized m): |θ−0.5| ≲ 1.96·0.5/√26 — {"op": "sqrt", "args": {"a": "26"}, "result": 5.0990195135927845}; {"op": "divide", "args": {"a": "0.98", "b": "5.0990195135927845"}, "result": 0.19219381243542036} → |θ−0.5| ≲ ±0.192. θ̂ = {"op": "proportion", "args": {"part": "16", "whole": "26"}, "result": 0.6153846153846154}; |θ̂−0.5| = 0.115 — within the bound.
+- THE INTERVAL-FIRST TELLING (moho's law — the interval first, the p second, never alone): θ̂ = 0.615, Wilson 95% [0.4253, 0.7757] — {"op": "wilson", "args": {"k": "16", "n": "26", "z": "1.96"}, "result": [0.42534520039420076, 0.7757164048816557]} — then the exact two-sided p = 0.3269. The interval carries 0.5. The honest statement: AT THE REALIZED m = 26, NO FIRST-PRESENTED FLIP ASYMMETRY LARGER THAN ±0.19 IN θ — never "no bias": the flips themselves are measured and real (φ̂ = 0.168, 26 of 155 classifiable cells flipped on the swap — Wang et al.'s flips-on-swap class live at this corpus); only the direction's asymmetry is unestablished at this m.
+
+## 3. THE SLICES (exploratory, registered — Bonferroni-ruled, never a cure key)
+
+- HUMAN: k_h = 10 of m_h = 14 → {"op": "binom-test", "args": {"k": "10", "n": "14", "p": "0.5", "sided": "two"}, "result": 0.1795654296875}; θ̂_h = {"op": "proportion", "args": {"part": "10", "whole": "14"}, "result": 0.7142857142857143}. THE BONFERRONI-RULED READING (two registered slices → each read at α/2 = 0.025): 0.1796 > 0.025 — no slice-level signal; the human lean toward FIRST is the datum's honest face, exploratory only.
+- LLM: k_l = 6 of m_l = 12 → {"op": "binom-test", "args": {"k": "6", "n": "12", "p": "0.5", "sided": "two"}, "result": 1}; θ̂_l = {"op": "proportion", "args": {"part": "6", "whole": "12"}, "result": 0.5} — the null's strongest face: the llm flips perfectly symmetric (6 toward FIRST, 6 toward SECOND).
+- THE POOLED θ̂ WITH THE WILSON BOUNDS AT THE REALIZED m: 16/26 = 0.6154, [0.4253, 0.7757] (the wilson trace at §2).
+- C5'S PRICE AT THE HUMAN SLICE (the registration carried, the residual never smoothed): the collaborator judged every pair canonical-first (sweep 1's sitting), the swapped halves in later sessions — the memory anchoring SUPPRESSES flips, so the human flip rate (14/77 = 0.182) and the human θ̂ are LOWER BOUNDS on the true human order-sensitivity. The llm lane's C5 cure held: no seat saw both orders of any pair (the cyclic assignment, verified cell-by-cell in §1's table).
+- THE SLICES' FACES: human 10/14 (71.4%) leaning toward FIRST at p = 0.1796 — not carried past the Bonferroni-ruled reading; llm 6/12 (50.0%) exactly symmetric; pooled 16/26 (61.5%) at p = 0.3269 — the null at its realized bound ±0.192.
+
+## 4. THE TRACE LINES (every calculate fire this session, verbatim; the arrays the cells' vote numbers)
+
+1. {"op": "count", "args": {"values": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130]"}, "result": 78} — llm × canonical
+2. {"op": "count", "args": {"values": "[27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156]"}, "result": 78} — llm × swapped
+3. {"op": "count", "args": {"values": "[157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234]"}, "result": 78} — human × canonical
+4. {"op": "count", "args": {"values": "[235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319]"}, "result": 85} — human × swapped
+5. {"op": "sum", "args": {"values": "[78, 78, 78, 85]"}, "result": 319}
+6. {"op": "subtract", "args": {"a": "319", "b": "312"}, "result": 7}
+7. {"op": "subtract", "args": {"a": "85", "b": "78"}, "result": 7}
+8. {"op": "binom-test", "args": {"k": "16", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.32693958282470703} — THE PRIMARY
+9. {"op": "binom-test", "args": {"k": "18", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.07551869750022888}
+10. {"op": "binom-test", "args": {"k": "19", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.028959274291992188}
+11. {"op": "binom-test", "args": {"k": "10", "n": "14", "p": "0.5", "sided": "two"}, "result": 0.1795654296875} — human slice
+12. {"op": "binom-test", "args": {"k": "6", "n": "12", "p": "0.5", "sided": "two"}, "result": 1} — llm slice
+13. {"op": "proportion", "args": {"part": "16", "whole": "26"}, "result": 0.6153846153846154}
+14. {"op": "proportion", "args": {"part": "10", "whole": "14"}, "result": 0.7142857142857143}
+15. {"op": "proportion", "args": {"part": "6", "whole": "12"}, "result": 0.5}
+16. {"op": "proportion", "args": {"part": "26", "whole": "155"}, "result": 0.16774193548387098}
+17. {"op": "proportion", "args": {"part": "14", "whole": "77"}, "result": 0.18181818181818182}
+18. {"op": "proportion", "args": {"part": "12", "whole": "78"}, "result": 0.15384615384615385}
+19. {"op": "wilson", "args": {"k": "16", "n": "26", "z": "1.96"}, "result": [0.42534520039420076, 0.7757164048816557]}
+20. {"op": "sqrt", "args": {"a": "26"}, "result": 5.0990195135927845}
+21. {"op": "divide", "args": {"a": "0.98", "b": "5.0990195135927845"}, "result": 0.19219381243542036}
+
+THE DATUM'S LANDING: the measured record whole — the count gate green at one call (319, the over-quorum form named), the flips table with the cell rule applied (the P01 split excluded and reported), the primary at its realized m (k = 16 < critical 19 → the null at ±0.192, θ̂ 0.615 Wilson [0.425, 0.776], p = 0.327), the slices exploratory at their Bonferroni-ruled reading, C5's lower-bound price named at the human slice. The gate's ruling — the cure FIRES or the NULL STANDS — is the collaborator's act at G-DATUM; this datum the measured record the ruling lands on.
+
+*Provenance: keisan (計算), packet measure/probe (the analysis act), route order-bias-probe, 2026-11-26. READ-ONLY held — this report the packet's only write. The tree is the truth: the one call's trace the artifact's own bytes (.opencode/scripts/vote-query-smoke-RUN-0008.trace, the smoke's pass the byte-level verification); every statistic's trace line the calculate instrument's own output this session, quoted verbatim; the flips table's classification the analysis seat's act per the engine's own fence ("the flips analysis stays the analysis seats', built on the quoted table").*
+## Reported by kensho — 2026-11-26T22:43:38Z
+
+# THE DATUM'S RECOMPUTE — the independent verification at the instruments (kensho 検証, measure/probe's verification act, route order-bias-probe, 2026-11-26)
+
+THE SEAT: kensho — the G-DATUM condition's second eyes; every number re-derived at MY OWN instruments (the calculate fires this session, every trace quoted verbatim below; the count gate re-fired at the vote_query instrument's own lane; the raw votes read whole at the source). READ-ONLY held — this report the packet's only write. keisan's completed datum the comparison target, never the source.
+
+## 0. THE COUNT GATE RE-RUN — CONFIRMED (319; the doubles at P01..P07; every pair's swapped human cell present)
+
+- THE RAW LEDGER read whole (.prioritree/runs/RUN-0008.jsonl): 320 lines = 1 manifest + 319 votes, VOTE-0001..0319 contiguous, every supersedes null, zero "tie" winners; the records stamp the format's constant run_id "RUN-0001" — the file stem (RUN-0008) the run's identity, no phantom run counted.
+- THE INSTRUMENT RE-FIRED at my test lane (.opencode/scripts/smoke_vote_query.py — the cell-table op's proven-live form): "1 passed in 0.01s" — the engine's whole code path over the LIVE file, the trace asserted byte-equal to an independent in-process derivation, the re-fire byte-identical (the determinism law).
+- THE FOUR CELLS at my calculate tool (each array the cell's vote numbers): llm × canonical = 78 (moho VOTE-0001..0026 + kensho VOTE-0053..0078 + jikko VOTE-0105..0130); llm × swapped = 78 (VOTE-0027..0052 + VOTE-0079..0104 + VOTE-0131..0156); human × canonical = 78 (mark, VOTE-0157..0234); human × swapped = 85 (VOTE-0235..0319). THE SUM: {"op": "sum", "args": {"values": "[78, 78, 78, 85]"}, "result": 319} — THE CLAIM'S 319 CONFIRMED. {"op": "subtract", "args": {"a": "319", "b": "312"}, "result": 7}; {"op": "subtract", "args": {"a": "85", "b": "78"}, "result": 7} — the over-quorum form, 7 past the cell.
+- THE DOUBLES CONFIRMED AT P01..P07, verified at the disputed cells' bytes: the first session's 7 swapped votes (VOTE-0235..0241, comparator_id "mark", 16:21:17–16:23:03) cover P01..P07; the second session re-served those very cells (VOTE-0242..0248, "Mark Losey") — the (w01:river, w08:orchard) human swapped cell carries VOTE-0241 (mark, prefer-b) + VOTE-0247 (Mark Losey, prefer-b): the 7th double, UNANIMOUS; the (w01:river, w12:thistle) human swapped cell carries ONE vote (VOTE-0304 — the ruled chain's fill; P11 was a remaining cell at the 303-state count), never a double. The trace's own cells agree (the (w01,w08) cell's count 2 present in the trace bytes; the (w01,w12) cell's count 2 absent — count 1). {"op": "count", "args": {"values": "[\"P01\", \"P02\", \"P03\", \"P04\", \"P05\", \"P06\", \"P07\"]"}, "result": 7}.
+- THE P01 SPLIT CONFIRMED at the trace's own bytes: the (w01:river, w02:meadow) human swapped cell = count 2, winners ["prefer-b", "prefer-a"] — exactly the claimed split.
+- EVERY PAIR'S SWAPPED HUMAN CELL PRESENT: 71 single cells + the 7 doubles = 78 pairs; the 16 remaining cells at the 303-state count (P11,P19,P32,P34,P41,P44,P45,P48,P49,P61,P62,P65,P66,P68,P69,P70) landed exactly at VOTE-0304..0319 — the fill's 16 pairs read at the raw file, the ruled chain's list whole.
+
+## 1. THE FLIPS TABLE RE-DERIVED — CONFIRMED (m = 26, k = 16; the P01 split excluded and reported)
+
+THE MAPPING held (the instrument's own law, votes.py:605-614): the swapped cell's prefer-a = the canonical item_b's win; both sides read in PRESENTED POSITION; a cell DISCORDANT iff the two orders produced different ITEM winners — equivalently the same positional winner at both orders; toward FIRST iff both prefer-a (the anchor first-presented at canonical), toward SECOND iff both prefer-b. THE CELL RULE (togo's RULING 2, fenced 21:37:03 — BEFORE the one look at 22:26:57) applied over my own derivation: unanimous doubles count once; the split excluded and reported.
+
+- THE P01 HUMAN SPLIT CONFIRMED: the anchor w01:river (the canonical cell's ["prefer-a"], VOTE-0157); the double's two swapped votes — VOTE-0235 ("mark", prefer-b = CONC — river again) + VOTE-0242 ("Mark Losey", prefer-a = DISC toward FIRST — meadow). One CONC + one DISC → SPLIT → EXCLUDED, reported never silent.
+- HUMAN, my derivation: DISC→FIRST 10 (P33, P34, P37, P45, P46, P55, P57, P63, P73, P74); DISC→SECOND 4 (P04 — the unanimous double counted once, P15, P26, P27); SPLIT 1 (P01); CONC 63. Counted at my tool: {"op": "count", "args": {"values": "[\"P33\", \"P34\", \"P37\", \"P45\", \"P46\", \"P55\", \"P57\", \"P63\", \"P73\", \"P74\"]"}, "result": 10}; {"op": "count", "args": {"values": "[\"P04\", \"P15\", \"P26\", \"P27\"]"}, "result": 4}; {"op": "sum", "args": {"values": "[10, 4]"}, "result": 14} — m_h = 14, k_h = 10 CONFIRMED.
+- LLM, my derivation: DISC→FIRST 6 (P33, P36, P40, P59, P64, P74); DISC→SECOND 6 (P02, P12, P23, P27, P43, P44); CONC 66. Counted at my tool: {"op": "count", "args": {"values": "[\"P33\", \"P36\", \"P40\", \"P59\", \"P64\", \"P74\"]"}, "result": 6}; {"op": "count", "args": {"values": "[\"P02\", \"P12\", \"P23\", \"P27\", \"P43\", \"P44\"]"}, "result": 6}; {"op": "sum", "args": {"values": "[6, 6]"}, "result": 12} — m_l = 12, k_l = 6 CONFIRMED.
+- POOLED: {"op": "sum", "args": {"values": "[14, 12]"}, "result": 26} — m = 26 CONFIRMED; {"op": "sum", "args": {"values": "[10, 6]"}, "result": 16} — k = 16 CONFIRMED. Classifiable cells 155 ({"op": "subtract", "args": {"a": "156", "b": "1"}, "result": 155}; human 78−1 = 77). Every discordant cell's pair id and direction byte-agrees with the claimed table.
+
+## 2. THE PRIMARY RE-COMPUTED — CONFIRMED, every trace byte-identical to the claim
+
+- THE p: {"op": "binom-test", "args": {"k": "16", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.32693958282470703} — the claim's 0.3269 CONFIRMED.
+- THE REALIZED CRITICAL VALUE, shown its work at my tool: k = 18 does not reject — {"op": "binom-test", "args": {"k": "18", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.07551869750022888}; k = 19 rejects — {"op": "binom-test", "args": {"k": "19", "n": "26", "p": "0.5", "sided": "two"}, "result": 0.028959274291992188} → THE CRITICAL k ≥ 19 CONFIRMED (the design point's k≥24 at m=35 superseded by the realized-m branch, as registered).
+- THE VERDICT RULE: k = 16 < 19 → the null at its realized bound — CONFIRMED.
+- THE REALIZED BOUND: {"op": "sqrt", "args": {"a": "26"}, "result": 5.0990195135927845}; {"op": "divide", "args": {"a": "0.98", "b": "5.0990195135927845"}, "result": 0.19219381243542036} → |θ−0.5| ≲ ±0.192 CONFIRMED.
+- θ̂: {"op": "proportion", "args": {"part": "16", "whole": "26"}, "result": 0.6153846153846154} — the claim's 0.615 CONFIRMED (|θ̂−0.5| = 0.115, within the bound).
+- THE WILSON BOUNDS: {"op": "wilson", "args": {"k": "16", "n": "26", "z": "1.96"}, "result": [0.42534520039420076, 0.7757164048816557]} — the claim's [0.4253, 0.7757] CONFIRMED, byte-identical; the interval carries 0.5.
+- THE SLICES: human {"op": "binom-test", "args": {"k": "10", "n": "14", "p": "0.5", "sided": "two"}, "result": 0.1795654296875} — the claim's 0.1796 CONFIRMED; llm {"op": "binom-test", "args": {"k": "6", "n": "12", "p": "0.5", "sided": "two"}, "result": 1} — the claim's 1.0 CONFIRMED (the llm flips perfectly symmetric).
+- THE FLIP RATES: {"op": "proportion", "args": {"part": "26", "whole": "155"}, "result": 0.16774193548387098}; {"op": "proportion", "args": {"part": "14", "whole": "77"}, "result": 0.18181818181818182}; {"op": "proportion", "args": {"part": "12", "whole": "78"}, "result": 0.15384615384615385}; θ̂_h {"op": "proportion", "args": {"part": "10", "whole": "14"}, "result": 0.7142857142857143}; θ̂_l {"op": "proportion", "args": {"part": "6", "whole": "12"}, "result": 0.5} — all CONFIRMED.
+
+## 3. THE HONESTY CHECK — HELD, every item
+
+1. THE INTERVAL-FIRST TELLING HELD: θ̂ 0.615, Wilson [0.4253, 0.7757] first, the p second — the bound's honest form "NO FIRST-PRESENTED FLIP ASYMMETRY LARGER THAN ±0.19 IN θ — never 'no bias'"; the flips themselves named real (φ̂ 0.168, 26 of 155 classifiable cells — Wang et al.'s flips-on-swap class live at this corpus).
+2. THE OVER-QUOTUM FORM NAMED: 319 = 312's design cell + 7 told whole — one human, two session identities, the cell rule identity-blind; 85 votes on 78 cells.
+3. THE C5 PRICE NAMED at the human slice: the memory anchoring SUPPRESSES flips — the human flip rate (14/77 = 0.182) and the human θ̂ LOWER BOUNDS on the true human order-sensitivity; the llm lane's C5 cure verified at my own derivation (no seat saw both orders of any pair).
+4. THE EXCLUSION REPORTED never silent: P01's split — the pair id + the two votes' winners named (VOTE-0235 prefer-b CONC; VOTE-0242 prefer-a DISC toward FIRST).
+5. THE PRE-REGISTRATION HONORED: ONE look — the primary computed once, at the completed cell; the prior firings stopped at the count gate (234 twice; the 303-state count "the primary stays deferred"); the first firing's llm glimpse NAMED in the record ("the first's llm glimpse named, the pooled primary never computed"); the realized-m branch applied as registered; the cell rule STATED BEFORE the compute (togo's fold 21:37:03 < the datum 22:26:57); the slices exploratory at the Bonferroni-ruled reading (0.1796 > 0.025 — no slice-level signal, never a cure key).
+
+## 4. THE VERDICT — EVERY NUMBER CONFIRMED, no divergence at the bytes
+
+| the claim | my recompute | verdict |
+|---|---|---|
+| the count 319 | 319 (sum [78,78,78,85]) | CONFIRMED |
+| the 7 doubles at P01..P07 | 7 at P01..P07 (VOTE-0235..0241 + VOTE-0242..0248; the disputed cells verified at the bytes) | CONFIRMED |
+| the P01 human split | the split ["prefer-b","prefer-a"] — excluded, reported | CONFIRMED |
+| m = 26 (human 14 + llm 12) | 26 (14 + 12) | CONFIRMED |
+| k = 16 | 16 (10 + 6) | CONFIRMED |
+| p = 0.3269 | 0.32693958282470703 | CONFIRMED |
+| the critical k ≥ 19 | 19 (18 → 0.0755; 19 → 0.0290) | CONFIRMED |
+| θ̂ 0.615 | 0.6153846153846154 | CONFIRMED |
+| Wilson [0.4253, 0.7757] | [0.42534520039420076, 0.7757164048816557] | CONFIRMED |
+| the null at ±0.192 | 0.19219381243542036 | CONFIRMED |
+| human 10/14 (p 0.1796) | 10/14, 0.1795654296875 | CONFIRMED |
+| llm 6/12 (p 1.0) | 6/12, 1 | CONFIRMED |
+
+THE ONE CATCH-AND-RELEASE OF THIS RECOMPUTE, named for the record's honesty: my first-pass raw read briefly mis-aligned the human swapped session boundary by one vote (deriving the 7th double at P11); the re-check at the bytes — the raw-file greps at the disputed cells, the trace's own cells, the count's cell map — settled it: the doubles are exactly P01..P07, P11's cell single (VOTE-0304). The divergence was mine, never the datum's; the discipline (every suspicion re-derived at the instrument before it rides) held.
+
+THE DATUM'S TRUST: THE GATE'S GROUND HOLDS — every number confirmed at the bytes, the telling honest at every item. The measured record stands whole for the G-DATUM ruling: the null at its realized bound ±0.192 (θ̂ 0.615, Wilson [0.4253, 0.7757], p 0.3269), the flips real (φ̂ 0.168) and their direction's asymmetry unestablished at m = 26.
+
+*Provenance: kensho (検証), packet measure/probe (the verification act), route order-bias-probe, 2026-11-26. READ-ONLY held — this report the packet's only write; the smoke's artifact re-landing byte-identical (the instrument's own semantics, the determinism law). The tree is the truth: every trace quoted verbatim from my own fires at the calculate instrument this session; the count gate re-fired at the vote_query engine's own lane; the raw votes read whole at the source.*
