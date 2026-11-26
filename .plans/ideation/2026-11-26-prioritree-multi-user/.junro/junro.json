@@ -71,6 +71,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/votersessionspec",
+            "owner": "togo",
+            "gate": "G-VOTERSESSIONSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -78,7 +92,29 @@
         "id": "build",
         "purpose": "THE MULTI-USER BUILD — the units the cycle's outcome earns (named not pinned: the voter session [the probe's RUN-0008 completion riding its build gate — the dependency named at both stores], the register/operator surfaces, the README's story), the two-lane brief -> spec -> build per unit, one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALKS at the user-facing units' build gates (R4 — this effort the UX's own ground), one-commit-per-increment; the ThreePart mandatory at the refusals; the llm-class constraint held (the session the humans' lane, the llm ride unchanged at the stdio/tools tier); the configurability law at every knob from birth",
         "entry_condition": "G-MULTI-USER-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch (the precedence law); the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law)",
-        "increments": []
+        "increments": [
+          {
+            "id": "build/voter-session",
+            "owner": "jikko",
+            "gate": "G-VOTER-SESSION",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "close",
@@ -118,6 +154,27 @@
             ]
           }
         ]
+      },
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE (engine-stamped, amendment 19): each build unit's discover → understand → synthesize before its build — discover/understand ride ungated packets; the synthesis is the gated increment here closing its own G-<UNIT>-BRIEF; THE PRECEDENCE: no build unit's dispatch fires until its brief gate is green",
+        "entry_condition": "the route is composed through the engine's post-amendment-19 machinery — each unit's pipeline precedes its build; no build dispatch fires until its unit's brief gate is green",
+        "increments": [
+          {
+            "id": "synthesize/voter-session",
+            "owner": "togo",
+            "gate": "G-VOTER-SESSION-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       }
     ],
     "gates": {
@@ -150,6 +207,29 @@
         "conditions": [
           "hansei's retro landed (the friction ledger the intake — FR-MEM-0041 the earn's evidence carried whole; the lessons named); the effort's records landed (the CONTINUATION entry — the identity model carried whole, the next era named, the banked shapes carried)",
           "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-multi-user resolved at the record"
+        ]
+      },
+      "G-VOTER-SESSION": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the voter session lands per the approved spec (the exact-task law): the SessionMiddleware child-mounted (the remember seam, the assert-guard armed), the two-role stamping (the id from the session web-lane-scoped, the class the key's verified stamp — F8 held), the conditional ask (the name field only when the session is empty; the expiry taught in the refusal's next_action), the epoch-bound CSRF (the token minted once at identification, path+epoch-bound), the visible carried identity (\"voting as: <name>\" at every render), the correction affordance (the change/un-remember verbs on the engine's deletion cookie), the secret's env knob + the boot-time strength check, the itsdangerous door at the dependency gate",
+          "the floor green (the suite grown per the spec's arcs — the exact count named; ruff zero findings; pyright 0/0); kensho's independent verification green (validate/voter-session); MOHO'S IMPLEMENTATION WALK at the build gate (R4 — the user-facing unit walked cold: the identification once, the carried operations, the correction verbs, the findings riding the gate as evidence)",
+          "the llm-class constraint verified live (the session the humans' lane — the llm votes at the stdio/tools tier unchanged, the class verification untouched at the doors); the RUN-0008 dependency verified (the completion card's 71 cells drivable at the landed session: the deliberate judge page serving the sessioned identity — the probe's unblocking proven, not assumed)"
+        ]
+      },
+      "G-VOTERSESSIONSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed (the bytes whole, every edit fenced): the remember module/region whole (the middleware mount, the secret's knob, the two-role stamping seam), the conditional-ask template forms, the epoch-bound CSRF region, the visible-identity renders, the correction affordance's routes, the itsdangerous dependency door, the test files, the per-step plan (R8 — one file per dispatch, the read-backs named)",
+          "the llm-class constraint held at the spec's every surface (the session the humans' lane, the class verification unchanged at the doors); the configurability law at every knob (the secret, the max_age, the cookie flags)",
+          "the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)"
+        ]
+      },
+      "G-VOTER-SESSION-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit voter-session LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/voter-session) + mechanism analysis (understand/voter-session) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
     },
@@ -275,6 +355,38 @@
         "actor": "shinko",
         "timestamp": "2026-11-26T17:04:13Z",
         "op": "set-route-status"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the voter session lands per the approved spec (the exact-task law): the SessionMiddleware child-mounted (the remember seam, the assert-guard armed), the two-role stamping (the id from the session web-lane-scoped, the class the key's verified stamp — F8 held), the conditional ask (the name field only when the session is empty; the expiry taught in the refusal's next_action), the epoch-bound CSRF (the token minted once at identification, path+epoch-bound), the visible carried identity (\\\\\\\"voting as: <name>\\\\\\\" at every render), the correction affordance (the change/un-remember verbs on the engine's deletion cookie), the secret's env knob + the boot-time strength check, the itsdangerous door at the dependency gate\\\", \\\"the floor green (the suite grown per the spec's arcs — the exact count named; ruff zero findings; pyright 0/0); kensho's independent verification green (validate/voter-session); MOHO'S IMPLEMENTATION WALK at the build gate (R4 — the user-facing unit walked cold: the identification once, the carried operations, the correction verbs, the findings riding the gate as evidence)\\\", \\\"the llm-class constraint verified live (the session the humans' lane — the llm votes at the stdio/tools tier unchanged, the class verification untouched at the doors); the RUN-0008 dependency verified (the completion card's 71 cells drivable at the landed session: the deliberate judge page serving the sessioned identity — the probe's unblocking proven, not assumed)\\\"]\", \"gate\": \"G-VOTER-SESSION\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T18:18:35Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed (the bytes whole, every edit fenced): the remember module/region whole (the middleware mount, the secret's knob, the two-role stamping seam), the conditional-ask template forms, the epoch-bound CSRF region, the visible-identity renders, the correction affordance's routes, the itsdangerous dependency door, the test files, the per-step plan (R8 — one file per dispatch, the read-backs named)\\\", \\\"the llm-class constraint held at the spec's every surface (the session the humans' lane, the class verification unchanged at the doors); the configurability law at every knob (the secret, the max_age, the cookie flags)\\\", \\\"the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)\\\"]\", \"gate\": \"G-VOTERSESSIONSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T18:19:04Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-VOTER-SESSION\", \"increment\": \"build/voter-session\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-VOTER-SESSION-BRIEF\", \"packets\": [\"discover/voter-session\", \"understand/voter-session\"], \"synthesize_increment\": \"synthesize/voter-session\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T18:19:12Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-VOTERSESSIONSPEC-BRIEF\", \"increment\": \"synthesize/votersessionspec\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T18:19:19Z",
+        "op": "add-increment"
       }
     ]
   },
