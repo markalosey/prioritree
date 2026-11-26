@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — measure/probe
 
-**Route:** order-bias-probe (executing) | **Events:** 29 | **Reports:** 19
+**Route:** order-bias-probe (executing) | **Events:** 35 | **Reports:** 22
 
 ## The packet's chain (ledger order)
 
@@ -36,6 +36,12 @@
 | 27 | report | jikko | 2026-11-26T05:05:34Z |
 | 28 | dispatch | shinko | 2026-11-26T05:08:25Z |
 | 29 | report | jikko | 2026-11-26T05:25:34Z |
+| 30 | dispatch | shinko | 2026-11-26T14:41:18Z |
+| 31 | dispatch | shinko | 2026-11-26T14:41:18Z |
+| 32 | report | jikko | 2026-11-26T14:42:05Z |
+| 33 | report | keisan | 2026-11-26T15:17:16Z |
+| 34 | dispatch | shinko | 2026-11-26T15:18:51Z |
+| 35 | report | jikko | 2026-11-26T15:36:45Z |
 ## Reported by jikko — 2026-11-26T03:08:57Z
 
 # THE INSTRUMENT STEP — jikko (実行), packet measure/probe, route order-bias-probe, 2026-11-26
@@ -370,3 +376,171 @@ READ-BACK card 2 first 3: 1. [P01 · meadow vs river · swapped](http://127.0.0.
 THE COUNT: card 1 = 78, card 2 = 78 (grep-verified: 156 link lines; 78 &swap=true = 39 + 39, the §3a split held; every card-2 cell the OPPOSITE presentation of card 1's cell for that pair; every link absolute http://127.0.0.1:8000/...; the words named as PRESENTED = the page's Card A/B; NO winner guidance anywhere).
 THE LIVE STATE (honest, observed): the server is STILL THE PRE-FIX BOOT — pid 26086 (the web-lane fix report's own pid; the log one boot whole, the web tier key present) — the restart NOT done at my read: the collaborator's remaining precondition before the first link (the deliberate-pair routes 404 on the old process); a keyless restart REFUSED by me (the Makefile's PRIORITYTREE_WEB_KEY default is empty — the registered key-verified human stamps would degrade to self-claims; the tier key's plaintext is the collaborator's, shown once at its mint).
 NOT DONE: no votes cast, no tally, no census, no analysis (H4's one-look law held); the human lane's driving the collaborator's.
+## Reported by jikko — 2026-11-26T14:42:05Z
+
+R11 — tally on RUN-0008: DONE (no safe-halt; win-rate-v1).
+Ranked whole best-first: w08:orchard | w02:meadow | w01:river=w09:willow | w05:cedar | w13:clover | w06:ember | w03:lantern=w04:harbor | w07:tide | w11:fennel | w10:granite | w12:thistle.
+Headline: orchard tops 31W/5L; thistle bottoms 1W/35L; ties 0 across all 13.
+Coverage: pairs_expected 78, pairs_at_quorum 78, done=true; 1 component (all 13 items connected); 1 structural cycle (lantern/harbor/tide) dissolved into win fractions.
+Certification: the tally completed = the floor met on every pair = the human lane's 156 landed whole (312 expected votes, the 4-vote cells human+llm x canonical+swapped).
+## Reported by keisan — 2026-11-26T15:17:16Z
+
+# THE DATUM — THE ONE LOOK (keisan 計算, measure/probe's analysis act, route order-bias-probe, 2026-11-26)
+
+THE SEAT: keisan — the pre-registered analysis, fired ONCE, at the tool; every trace line quoted verbatim below (my own fires at the calculate instrument this session). READ-ONLY held; this report the packet's only write. The votes read WHOLE (.prioritree/runs/RUN-0008.jsonl — 235 lines: 1 manifest + 234 votes, every line), the disk cross-checked (grep: moho 52 = 26 canonical + 26 swapped; the human lines all canonical; zero "tie" winners).
+
+## 0. THE PRE-REGISTRATION CARRIED (the ruled form, probe-design §3 + the plan's filed composition)
+
+The primary = the POOLED FLIP ASYMMETRY θ (among the discordant cells, the share flipping toward the first-presented position; the classes pooled); the test = the exact two-sided sign test at α 0.05, ONE look; the design point m=35, critical k≥24 — the REALIZED-m branch registered (the exact test at the realized m, the critical value recomputed at the tool); the tie rule registered (ties excluded, the tie rate at its own weight); the slices EXPLORATORY (Bonferroni-ruled reading, never a cure key); the null's bound |θ−0.5| ≲ ±1.96·0.5/√m (±0.17 at the design point); the descriptives registered (φ̂, θ̂, ŵ, the BF with its prior named); the earn conditions named BEFORE the measurement.
+
+## 1. THE REALIZED CORPUS — THE COUNTS VERIFIED AT THE TOOL (the finding at full weight)
+
+THE DISPATCH EXPECTED 312 (156 llm + 156 human); THE DISK CARRIES 234:
+- the llm lane: 156 — every pair judged at BOTH orders, the two orders at TWO seats (the C5 between-seat cure held: no seat saw both orders of any pair — verified cell-by-cell in the table below).
+- the human lane: 78 — ONE judgment per pair, ALL at canonical presentation (the pairs cited canonical, presentation_order "canonical" at every human line, grep-verified; the sitting's bare canonical chain as driven).
+
+THE TRACES (the counts):
+- the llm lane: `{"op":"sum","args":{"values":"[78,78]"},"result":156}` — 78 canonical + 78 swapped;
+- the human lane: `{"op":"sum","args":{"values":"[78,0]"},"result":78}` — 78 canonical + 0 swapped;
+- the whole: `{"op":"add","args":{"a":"156","b":"78"},"result":234}`;
+- THE SHORTFALL: `{"op":"subtract","args":{"a":"312","b":"234"},"result":78}` — exactly the human complementary half.
+
+**THE HUMAN LANE'S SWAPPED HALF IS ABSENT ON DISK.** The registered plan's 156 human cells (the counterbalance's 39/39 split; the two sweep cards at reports/measure/human-cards.md) did not land as registered — 0 swapped-presentation human votes exist. The consequences, named never smoothed: (1) the POOLED primary computes over the llm cells only (a human unit needs BOTH orders to be a contrast unit — its 78 judgments corroborate, they cannot flip); (2) the human slice is structurally EMPTY — not "the human shows no bias": the human class's both-orders datum DOES NOT EXIST at this look (the retrospective corpus's shape: zero order contrasts); (3) the pooled θ̂ at this look IS the llm lane's θ̂ — every class claim scoped to "the seated voters" (jikko, kensho, moho — the stdio self-claim stamps named at plan §0.4), never "the class" (C2), the domain named as a scope limit (C3). The corroboration floor IS met (every pair ≥1 human + ≥1 llm — the tally can certify); the design's 4-vote cell is NOT met on the human side. The pre-registration's own law — any deviation named at the record, never a silent fork — THIS IS THE NAMING; the gate (G-DATUM) sees it whole.
+
+THE TIE DATUM (the registered rule): 0 ties in the whole corpus (every winner prefer-a or prefer-b at the whole-file read; the manifest's "tie" verdict never cast): `{"op":"proportion","args":{"part":"0","whole":"234"},"result":0}` — the exclusions ZERO; the tie rate 0/234 = 0.0%.
+
+The winners' split (vote-by-vote at the bytes): llm canonical 48a/30b; llm swapped 30a/48b; human 61a/17b. The llm lane's first-presented share (descriptive): `{"op":"proportion","args":{"part":"78","whole":"156"},"result":0.5}` — exactly 50% (the position-marginal balanced in this lane's own bytes).
+
+## 2. THE FLIPS TABLE WHOLE (the analysis's data; the winners mapped to PRESENTED POSITION)
+
+THE MAPPING (the instrument's landed form): prefer-a = the FIRST word shown won; a swapped-presentation vote's prefer-a = the canonical item_b's win (the file's winner is positional over the presented order; the door maps presented→canonical at the tally's read). THE CELL LAW: a pair-class cell is DISCORDANT (a flip) when the two orders produced different ITEM winners — equivalently, both votes' POSITION outcomes agree (both first-presented won → the flip toward FIRST ★; both second won → toward SECOND); CONCORDANT ⟺ the same item won at both orders (the positions balanced). In the file's bytes: DISC ⟺ the two stored winner letters are EQUAL; CONC ⟺ they differ. THE HUMAN COLUMN: one canonical judgment per pair (vote→winner, all first-order) — NO CELL FORMABLE (the swapped half absent); every human cell "no contrast" by the corpus's shape, stated once here rather than 78 times.
+
+| pair | llm canon | llm swap | llm cell | human |
+|---|---|---|---|---|
+| P01 w01:w02 | V105 b (w02@2nd) | V27 a (w02@1st) | CONC | V157 a |
+| P02 w01:w03 | V1 b (w03@2nd) | V79 b (w01@2nd) | DISC→2ND | V158 a |
+| P03 w01:w04 | V2 a (w01@1st) | V80 b (w01@2nd) | CONC | V159 a |
+| P04 w01:w05 | V106 a (w01@1st) | V28 b (w01@2nd) | CONC | V160 b |
+| P05 w01:w06 | V107 a (w01@1st) | V29 b (w01@2nd) | CONC | V161 a |
+| P06 w01:w07 | V53 a (w01@1st) | V131 b (w01@2nd) | CONC | V162 a |
+| P07 w01:w08 | V108 b (w08@2nd) | V30 a (w08@1st) | CONC | V163 a |
+| P08 w01:w09 | V54 b (w09@2nd) | V132 a (w09@1st) | CONC | V164 a |
+| P09 w01:w10 | V109 a (w01@1st) | V31 b (w01@2nd) | CONC | V165 a |
+| P10 w01:w11 | V55 a (w01@1st) | V133 b (w01@2nd) | CONC | V166 a |
+| P11 w01:w12 | V56 a (w01@1st) | V134 b (w01@2nd) | CONC | V167 a |
+| P12 w01:w13 | V3 b (w13@2nd) | V81 b (w01@2nd) | DISC→2ND | V168 a |
+| P13 w02:w03 | V4 a (w02@1st) | V82 b (w02@2nd) | CONC | V169 a |
+| P14 w02:w04 | V110 a (w02@1st) | V32 b (w02@2nd) | CONC | V170 b |
+| P15 w02:w05 | V5 a (w02@1st) | V83 b (w02@2nd) | CONC | V171 b |
+| P16 w02:w06 | V57 a (w02@1st) | V135 b (w02@2nd) | CONC | V172 a |
+| P17 w02:w07 | V111 a (w02@1st) | V33 b (w02@2nd) | CONC | V173 a |
+| P18 w02:w08 | V112 b (w08@2nd) | V34 a (w08@1st) | CONC | V174 a |
+| P19 w02:w09 | V58 a (w02@1st) | V136 b (w02@2nd) | CONC | V175 a |
+| P20 w02:w10 | V59 a (w02@1st) | V138 b (w02@2nd) | CONC | V176 a |
+| P21 w02:w11 | V113 a (w02@1st) | V35 b (w02@2nd) | CONC | V177 a |
+| P22 w02:w12 | V114 a (w02@1st) | V36 b (w02@2nd) | CONC | V178 a |
+| P23 w02:w13 | V60 b (w13@2nd) | V137 b (w02@2nd) | DISC→2ND | V179 a |
+| P24 w03:w04 | V6 a (w03@1st) | V84 b (w03@2nd) | CONC | V180 b |
+| P25 w03:w05 | V61 a (w03@1st) | V139 b (w03@2nd) | CONC | V181 b |
+| P26 w03:w06 | V7 b (w06@2nd) | V85 a (w06@1st) | CONC | V182 b |
+| P27 w03:w07 | V8 b (w07@2nd) | V86 b (w03@2nd) | DISC→2ND | V183 b |
+| P28 w03:w08 | V9 b (w08@2nd) | V87 a (w08@1st) | CONC | V184 b |
+| P29 w03:w09 | V10 b (w09@2nd) | V88 a (w09@1st) | CONC | V185 b |
+| P30 w03:w10 | V62 a (w03@1st) | V140 b (w03@2nd) | CONC | V186 a |
+| P31 w03:w11 | V63 a (w03@1st) | V141 b (w03@2nd) | CONC | V187 a |
+| P32 w03:w12 | V64 a (w03@1st) | V143 b (w03@2nd) | CONC | V188 a |
+| P33 w03:w13 | V115 a (w03@1st) | V37 a (w13@1st) | DISC→1ST ★ | V189 a |
+| P34 w04:w05 | V11 b (w05@2nd) | V89 a (w05@1st) | CONC | V190 a |
+| P35 w04:w06 | V65 b (w06@2nd) | V142 a (w06@1st) | CONC | V191 a |
+| P36 w04:w07 | V116 a (w04@1st) | V38 a (w07@1st) | DISC→1ST ★ | V192 a |
+| P37 w04:w08 | V66 b (w08@2nd) | V144 a (w08@1st) | CONC | V193 a |
+| P38 w04:w09 | V67 b (w09@2nd) | V145 a (w09@1st) | CONC | V194 a |
+| P39 w04:w10 | V68 a (w04@1st) | V146 b (w04@2nd) | CONC | V195 a |
+| P40 w04:w11 | V117 a (w04@1st) | V39 a (w11@1st) | DISC→1ST ★ | V196 a |
+| P41 w04:w12 | V12 a (w04@1st) | V90 b (w04@2nd) | CONC | V197 a |
+| P42 w04:w13 | V118 b (w13@2nd) | V40 a (w13@1st) | CONC | V198 a |
+| P43 w05:w06 | V119 b (w06@2nd) | V41 b (w05@2nd) | DISC→2ND | V199 a |
+| P44 w05:w07 | V13 b (w07@2nd) | V91 b (w05@2nd) | DISC→2ND | V200 a |
+| P45 w05:w08 | V14 b (w08@2nd) | V92 a (w08@1st) | CONC | V201 a |
+| P46 w05:w09 | V15 b (w09@2nd) | V93 a (w09@1st) | CONC | V202 a |
+| P47 w05:w10 | V120 a (w05@1st) | V42 b (w05@2nd) | CONC | V203 a |
+| P48 w05:w11 | V16 a (w05@1st) | V94 b (w05@2nd) | CONC | V204 a |
+| P49 w05:w12 | V69 a (w05@1st) | V147 b (w05@2nd) | CONC | V205 a |
+| P50 w05:w13 | V25 b (w13@2nd) | V95 a (w13@1st) | CONC | V206 a |
+| P51 w06:w07 | V70 a (w06@1st) | V148 b (w06@2nd) | CONC | V207 b |
+| P52 w06:w08 | V17 b (w08@2nd) | V96 a (w08@1st) | CONC | V208 b |
+| P53 w06:w09 | V18 b (w09@2nd) | V97 a (w09@1st) | CONC | V209 b |
+| P54 w06:w10 | V121 a (w06@1st) | V43 b (w06@2nd) | CONC | V210 a |
+| P55 w06:w11 | V71 a (w06@1st) | V149 b (w06@2nd) | CONC | V211 a |
+| P56 w06:w12 | V19 a (w06@1st) | V98 b (w06@2nd) | CONC | V212 a |
+| P57 w06:w13 | V122 b (w13@2nd) | V44 a (w13@1st) | CONC | V213 a |
+| P58 w07:w08 | V72 b (w08@2nd) | V150 a (w08@1st) | CONC | V214 b |
+| P59 w07:w09 | V20 a (w07@1st) | V99 a (w09@1st) | DISC→1ST ★ | V215 b |
+| P60 w07:w10 | V123 a (w07@1st) | V45 b (w07@2nd) | CONC | V216 a |
+| P61 w07:w11 | V73 a (w07@1st) | V151 b (w07@2nd) | CONC | V217 a |
+| P62 w07:w12 | V124 a (w07@1st) | V46 b (w07@2nd) | CONC | V218 a |
+| P63 w07:w13 | V125 b (w13@2nd) | V47 a (w13@1st) | CONC | V219 a |
+| P64 w08:w09 | V21 a (w08@1st) | V100 a (w09@1st) | DISC→1ST ★ | V220 a |
+| P65 w08:w10 | V126 a (w08@1st) | V48 b (w08@2nd) | CONC | V221 a |
+| P66 w08:w11 | V22 a (w08@1st) | V101 b (w08@2nd) | CONC | V222 a |
+| P67 w08:w12 | V23 a (w08@1st) | V102 b (w08@2nd) | CONC | V223 a |
+| P68 w08:w13 | V24 a (w08@1st) | V103 b (w08@2nd) | CONC | V224 a |
+| P69 w09:w10 | V26 a (w09@1st) | V104 b (w09@2nd) | CONC | V225 a |
+| P70 w09:w11 | V74 a (w09@1st) | V152 b (w09@2nd) | CONC | V226 a |
+| P71 w09:w12 | V75 a (w09@1st) | V153 b (w09@2nd) | CONC | V227 a |
+| P72 w09:w13 | V76 a (w09@1st) | V154 b (w09@2nd) | CONC | V228 a |
+| P73 w10:w11 | V127 b (w11@2nd) | V49 a (w11@1st) | CONC | V229 a |
+| P74 w10:w12 | V128 a (w10@1st) | V50 a (w12@1st) | DISC→1ST ★ | V230 a |
+| P75 w10:w13 | V129 b (w13@2nd) | V51 a (w13@1st) | CONC | V231 b |
+| P76 w11:w12 | V130 a (w11@1st) | V52 b (w11@2nd) | CONC | V232 a |
+| P77 w11:w13 | V77 b (w13@2nd) | V155 a (w13@1st) | CONC | V233 b |
+| P78 w12:w13 | V78 b (w13@2nd) | V156 a (w13@1st) | CONC | V234 b |
+
+THE TALLY: 66 CONC + 12 DISC — toward FIRST (k): P33, P36, P40, P59, P64, P74; toward SECOND: P02, P12, P23, P27, P43, P44 — `{"op":"sum","args":{"values":"[6,6]"},"result":12}`. Every llm cell's two orders at two seats (the cyclic assignment held: jikko/kensho/moho each 26 canonical + 26 swapped, no pair in both orders at one seat).
+
+## 3. THE PRIMARY AT THE TOOL — THE ONE LOOK
+
+- **m = 12** (the pooled discordant count: the llm cells' 12; the human cells contribute 0 formable units — absent, never concordant).
+- **k = 6** (the discordant cells where the FIRST-PRESENTED position won).
+- **THE SIGN TEST — THE trace line**: `{"op":"binom-test","args":{"k":"6","n":"12","p":"0.5","sided":"two"},"result":1}` — **p = 1.0** (the datum sits at the null's heart: k = m/2 exactly).
+- **THE REALIZED CRITICAL VALUE** (the smallest k rejecting at α 0.05 at m=12, its work shown): k=9 misses `{"op":"binom-test","args":{"k":"9","n":"12","p":"0.5","sided":"two"},"result":0.14599609375}`; k=10 rejects `{"op":"binom-test","args":{"k":"10","n":"12","p":"0.5","sided":"two"},"result":0.03857421875}` — **the critical value k ≥ 10** (by symmetry k ≤ 2 the opposite direction).
+- **THE VERDICT** against the pre-registered rule (k ≥ critical → the directional reject; else the null): **k=6 < 10 → THE NULL at its realized bound.**
+- θ̂: `{"op":"proportion","args":{"part":"6","whole":"12"},"result":0.5}` — 50.0%.
+- THE WILSON BOUNDS at the realized m: `{"op":"wilson","args":{"k":"6","n":"12","z":"1.96"},"result":[0.2537781703934222,0.7462218296065778]}` — [25.38%, 74.62%].
+- **THE NULL'S REALIZED BOUND** (the registered chain at m=12): `{"op":"divide","args":{"a":"0.25","b":"12"},"result":0.020833333333333332}` → `{"op":"sqrt","args":{"a":"0.020833333333333332"},"result":0.14433756729740643}` → `{"op":"multiply","args":{"a":"1.96","b":"0.14433756729740643"},"result":0.2829016319029166}` — **|θ−0.5| ≲ ±0.28** (the design point's ±0.17 widened at the realized m — the under-powered landing's honest price).
+
+THE TELLING (the interval-first form, the bound never "no bias"): 6 of 12 discordant cells flipped toward the first-presented position (θ̂ = 50.0%, 95% Wilson [25.4%, 74.6%], exact two-sided p = 1.0) — at this realized m the share is indistinguishable from fair, and the datum bounds any first-position capture among the flips below 74.6%; the null's realized bound |θ−0.5| ≲ ±0.28 — and the datum at this look is the seated llm voters' datum (the human both-orders cells absent on disk, §1). THE NULL'S FACE, worded once: "No gross- or half-class first-position capture in the tree's own judgment at this bench's power — |θ−0.5| ≲ ±0.28; the modest band stays honest (15.1% power at this m) — never 'no order bias.'"
+
+## 4. THE REGISTERED DESCRIPTIVES (the analysis branch)
+
+- **φ̂ (the flip rate)**: `{"op":"proportion","args":{"part":"12","whole":"78"},"result":0.15384615384615385}` — 15.4% of the llm cells discordant. The §3-c bank threshold (φ̂ ≥ 0.25) NOT met — the early-stop shape's pricing not earned.
+- **ŵ = φ̂θ̂ + (1−φ̂)/2** (descriptive): `{"op":"multiply","args":{"a":"0.15384615384615385","b":"0.5"},"result":0.07692307692307693}` + `{"op":"multiply","args":{"a":"0.8461538461538461","b":"0.5"},"result":0.4230769230769231}` = `{"op":"add","args":{"a":"0.07692307692307693","b":"0.4230769230769231"},"result":0.5}` — **ŵ = 0.500** (θ̂ at the null's heart ⇒ ŵ exactly fair; the chain's `{"op":"subtract","args":{"a":"1","b":"0.15384615384615385"},"result":0.8461538461538461}`).
+- **THE BF SUPPLEMENTARY** (the design's registered chain; the prior named as the design's choice — uniform on θ, carried as such): `{"op":"log","args":{"a":"2"},"result":0.6931471805599453}` → `{"op":"multiply","args":{"a":"12","b":"0.6931471805599453"},"result":8.317766166719343}` + `{"op":"log-beta","args":{"a":"9","b":"5"},"result":-8.769507120030227}` = `{"op":"add","args":{"a":"8.317766166719343","b":"-8.769507120030227"},"result":-0.4517409533108836}` → `{"op":"exp","args":{"a":"-0.4517409533108836"},"result":0.6365190365190363}` — BF₁₀ = 0.637; BF₀₁ = `{"op":"divide","args":{"a":"1","b":"0.6365190365190363"},"result":1.5710449218750004}` ≈ **1.57** — the datum MILDLY favors the null (weak evidence, weighted honestly).
+
+## 5. THE SLICES (EXPLORATORY; the Bonferroni-ruled reading; NEVER a cure key)
+
+- **THE LLM SLICE**: k=6, m=12 — its binom-test trace is byte-identical to the primary's (`{"op":"binom-test","args":{"k":"6","n":"12","p":"0.5","sided":"two"},"result":1}`): at this look the pooled primary and the llm slice ARE THE SAME NUMBERS, because the human half is structurally absent. No separate information — named, never smoothed.
+- **THE HUMAN SLICE**: m = 0 formable cells. The empty test fired honestly: `{"op":"binom-test","args":{"k":"0","n":"0","p":"0.5","sided":"two"},"result":1}` — the VACUOUS p at m=0: no information; the class's flip datum structurally absent. NOT "the human shows no bias" — the human class's both-orders datum does not exist at this look; a future question's seed (the complementary cells purchasable prospectively — the instrument landed, the casts never made).
+- **THE BONFERRONI-RULED READING**: the slices EXPLORATORY, UNCORRECTED (the class-difference confirmatory form priced ~1,540+ votes and ruled out at this bench; the 3-look uncorrected ceiling 14.26% named at the design — the multiplicity's price carried, never spent on a confirmatory claim). NO slice keys any cure — the pooled primary is the datum's only key.
+- **THE HUMAN LANE'S DESCRIPTIVE SHARE** (its own weight; the retrospective's wording law VERBATIM): the human canonical-first share is 78.21% [67.84%, 85.92%], exact two-sided p = 5.66e-07 — `{"op":"proportion","args":{"part":"61","whole":"78"},"result":0.782051282051282}`, `{"op":"wilson","args":{"k":"61","n":"78","z":"1.96"},"result":[0.6783908645244479,0.8592330333465614]}`, `{"op":"binom-test","args":{"k":"61","n":"78","p":"0.5","sided":"two"},"result":5.663739625418237e-07}` — a descriptive signal over THIS corpus's 78 one-order judgments, NEVER a causal order-bias estimate: position collinear with item identity at every judgment (the id-sort confound — the very contrast the swaps were designed to buy is the one absent). The strong share is item-merit + position JOINTLY, unmeasured.
+
+## 6. THE REALIZED POWER (the under-powered landing §3-d, registered) + THE EARN CONDITIONS READ
+
+m=12 < the design point 35 → the datum at the realized m's own weight, the verdict at the realized power (at the critical k≥10): θ=0.5 `{"op":"binom-test","args":{"k":"10","n":"12","p":"0.5","sided":"one"},"result":0.019287109375}` (the one-sided size); θ=0.65 `{"op":"binom-test","args":{"k":"10","n":"12","p":"0.65","sided":"one"},"result":0.15128757833526738}` — 15.1%, THE MISS NAMED; θ=0.75 `{"op":"binom-test","args":{"k":"10","n":"12","p":"0.75","sided":"one"},"result":0.39067500829696655}` — 39.1%; θ=0.825 `{"op":"binom-test","args":{"k":"10","n":"12","p":"0.825","sided":"one"},"result":0.6476970255643882}` — 64.8% (even Wang's gross class under-powered at this m); θ=0.90 `{"op":"binom-test","args":{"k":"10","n":"12","p":"0.9","sided":"one"},"result":0.889130022255}` — 88.9%. At m=12 the bench rejects reliably only at near-deterministic capture (θ ≳ 0.9); the null's ±0.28 is the datum's honest width.
+
+THE EARN CONDITIONS (named BEFORE the measurement — the datum earns, never desire): (a) THE PRIMARY REJECTS: NO — p = 1.0 > 0.05, k = 6 < 10. (c) THE EARLY-STOP BANK (φ̂ ≥ 0.25): NOT earned — φ̂ = 0.1538. (d) THE UNDER-POWERED LANDING: m=12 < 35 → the earn key unchanged; a reject at any realized m would mint per (a) — none here. → **(b) THE NULL: NOTHING MINTS** — the finding carried at the ruled bound (±0.28 at the realized m); the canonical id-sorted order stands as the ruled default; R7's deferral closes at the measured truth; no cure dispatch fires. The shuffle mode stays a CURE, un-built; the both-orders discipline un-minted; the canonical presentation measured adequate at the ruled bound.
+
+## 7. THE LOOKS TAKEN (H4's record)
+
+ONE look at the primary — fired once at the sweep's realized state at the tool (§3's trace). ZERO interim looks before it (each llm seat's sweep report: "NO tally, NO interim analysis"; the human driving carried no analysis). The exploratory descriptives (φ̂, ŵ, the BF, the slices, the human share) fired beside the primary, reported at their own weight — never threshold reads. The one-vote lesson held at my own hand: every count re-verified vote-by-vote at the bytes before this report (the human share recounted at the line level — 61/78; my own first summary count corrected BEFORE the datum's numbers were fixed; the discarded probes never entered the record).
+
+*Provenance: keisan (計算), packet measure/probe, route order-bias-probe, 2026-11-26. READ-ONLY held except this report. Every load-bearing number carries its trace line quoted verbatim — my own fires at the calculate instrument this session. The tree is the truth: the votes at .prioritree/runs/RUN-0008.jsonl (235 lines, read whole), the registered plan + the sweep reports at the packet's chain, the design at reports/synthesize/probe-design.md. THE DATUM: θ̂ = 6/12 = 50.0% [25.4%, 74.6%], exact two-sided p = 1.0, the null at |θ−0.5| ≲ ±0.28 — the pooled-at-realized the seated llm voters' datum, the human both-orders half absent on disk, named never smoothed. Kensho's independent verification (the datum recomputed at the second eyes) and the gate's ruling (G-DATUM: the cure FIRES or the NULL STANDS) are the next acts — this report the record they land on.*
+## Reported by jikko — 2026-11-26T15:36:45Z
+
+R11 — the completion-card step (jikko, measure/probe, order-bias-probe, 2026-11-26): THE COMPLETION CARD generated at reports/measure/human-completion-card.md (the file NEW, 95 lines, patch the one mutation verb) — the human lane's second half: 78 ordered links, EVERY pair in the plan's P01→P78 schedule order, each the judge page with &swap=true (the pair's canonical item_a/item_b, the words shown REVERSED on the card).
+1. THE READ-BACK (first 3 lines verbatim): "<!-- human-completion-card — the completion of the human lane's second half: every pair's SWAPPED presentation, 78 links, P01→P78 schedule order (order-bias-probe; the error-proof completion of the design's cell) -->" / "# The Human Completion Card — RUN-0008, the human lane's second half (78 links, each pair shown the OTHER way round)" / "" (blank).
+2. THE COUNT: 78 links (file lines 16–93, read back whole), EVERY one &swap=true; every link text names the PRESENTED order (the Card A word first, the header stating "On every line below, the word named first is the word you will see on Card A"); the order the registered token map's P01→P78 (probe.md §3).
+3. THE HEADER: plain words — the completion of the human lane's second half, the same 78 pairs each shown the OTHER way round, judge fresh, the question the same "Which word feels more pleasant to you?", Prefer A = the FIRST word shown; the memory confound one honest line (line 8 verbatim: "You have seen these pairs before — judge each pair on its own two words as presented now; the design pre-named this carry."); NO winner guidance anywhere.
+4. ONE DEFECT FOUND + FIXED (honest): the first landing's 39 link texts carried card 2's complement word order (the canonical cells' labels) — inconsistent with the pages' swapped presentation; a second patch unified all 78 texts to the presented order (the sibling card's convention).
+5. THE SERVER (the card's line 4's liveness, evidence at the read): make status verbatim — "pid: 88579 (live)" / "port: 8000 answering-and-armed (HTTP 401 on /runs/RUN-9999/next; AUTH=on, the ready form)".
+NOT DONE (honest): no votes cast, no tally, no analysis — the driving is the human's; the card the driving form only (NOT card 2: every cell swapped, zero double-votes — card 2's 39 canonical cells would pollute).
