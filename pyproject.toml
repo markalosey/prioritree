@@ -189,6 +189,36 @@ select = ["ALL"]
 # ignore IS the ruling, named. It retires only if the tool's own signature is re-ruled.
 "tests/test_mcp_server_face.py" = ["PLR0913", "PLR0917"]
 
+# RULING R4 (the coordinator's ruling on the step-6 report's 38 findings under this select
+# ALL; Q-CALC-EXPANSION, ruled 2026-11-25; hikari's delivery note received via the
+# collaborator's channel 2026-11-26): the calculate engine (.opencode/scripts/calculate.py)
+# is hikari's VERBATIM CARGO — its bytes never edited at prioritree (the delivery note's
+# law), so every finding rules here, the S311 entry's own pattern extended. The fork-free
+# cargo — hikari's verbatim emission bytes: the header [CPY001], the shebang [EXE001],
+# hikari's docstring conventions [D401/D403/D103], hikari's annotation style
+# [PYI041/TC003/PIE808], the numeric constants [PLR2004]. The trace-line output IS prints —
+# the provenance schema's own form [T201]. The 30-case argparse dispatch — the registry's
+# shape [PLR0911/PLR0915]. The seeded seam [S311, standing — the shuffle op seeds its ONE
+# random.Random(seed) instance, the ruled reproducibility seam (the seed IS the input: the
+# same seed always yields the same permutation), a SEEDED SIMULATION, stdlib-reproducible,
+# private state, never a cryptographic surface; the rule's crypto intent does not apply to
+# the ruled band; the acceptance.py/budget_curve.py S311 precedent re-carried at the engine
+# tier]. The entry — never an in-engine noqa — keeps the verbatim-copy bytes fork-free (the
+# engine a byte-identical copy across the trees). The ignores ARE the rulings, named —
+# never blanket, no code unnamed.
+".opencode/scripts/calculate.py" = ["CPY001", "EXE001", "D401", "D403", "D103", "T201", "PYI041", "PLR2004", "PLR0911", "PLR0915", "PIE808", "TC003", "S311"]
+
+# RULING (Q-CALC-EXPANSION, ruled 2026-11-25; the KAT is prioritree's test file — the
+# fork-free law is the ENGINE's, never the KAT's): S603 — the KAT's fixed-argv subprocess
+# IS its design (the S603 battery — [sys.executable, the engine path, the op, the
+# --flag=value argv], fired LIVE per row; the tests/test_harness.py S603 precedent
+# re-carried at the KAT tier; the untrusted-input intent never rides a deterministic
+# byte-assert battery). S311 — the shuffle row's seeded seam (:359, random.Random(42) —
+# the seed IS the input, the permutation stdlib-reproducible, never a cryptographic
+# surface; the acceptance.py/budget_curve.py S311 precedent re-carried at the fixture
+# tier). The ignores ARE the rulings, named.
+"tests/test_calculate_expansion_kat.py" = ["S603", "S311"]
+
 [tool.ruff.format]
 quote-style = "double"
 

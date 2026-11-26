@@ -340,9 +340,7 @@ def _components(ids: Sequence[str], counted_pairs: Sequence[Pair]) -> tuple[tupl
     members: dict[str, list[str]] = {}
     for item_id in ids:
         members.setdefault(find(item_id), []).append(item_id)
-    return tuple(
-        tuple(sorted(group)) for _, group in sorted(members.items(), key=lambda entry: entry[1][0])
-    )
+    return tuple(tuple(sorted(group)) for _, group in sorted(members.items(), key=lambda entry: entry[1][0]))
 
 
 def _found_sections(
@@ -376,8 +374,7 @@ def _found_sections(
         sections.append(f"under-quorum pairs: {shown}")
     if missing_class_pairs:
         rendered = ", ".join(
-            f"({pair.item_a}, {pair.item_b}) missing {', '.join(classes)}"
-            for pair, classes in missing_class_pairs
+            f"({pair.item_a}, {pair.item_b}) missing {', '.join(classes)}" for pair, classes in missing_class_pairs
         )
         sections.append(f"uncorroborated pairs: {rendered}")
     return "; ".join(sections)
@@ -419,8 +416,7 @@ def _next_action_sections(
         sections.append(f"cast the missing votes: {shown} -- quorum needs MORE VOTES on existing pairs")
     if missing_class_pairs:
         rendered = ", ".join(
-            f"({pair.item_a}, {pair.item_b}) needs {', '.join(classes)}"
-            for pair, classes in missing_class_pairs
+            f"({pair.item_a}, {pair.item_b}) needs {', '.join(classes)}" for pair, classes in missing_class_pairs
         )
         floor_head = f"cast the corroborating votes: {rendered}"
         sections.append(f"{floor_head} -- corroboration needs votes from BOTH CLASSES on existing pairs")
@@ -506,7 +502,10 @@ def register(body: RegisterInput) -> RegisterAck:
     except (StoreRefusedError, VotesRefusedError) as refusal:
         raise _refuse(refusal) from refusal
     return RegisterAck(
-        run_id=stem, count=len(body.items), quorum=body.quorum, verdicts=sorted(WEAK_ORDER_TRIPLE),
+        run_id=stem,
+        count=len(body.items),
+        quorum=body.quorum,
+        verdicts=sorted(WEAK_ORDER_TRIPLE),
     )
 
 

@@ -483,17 +483,20 @@ class KeyStore:
             self.load_keys()
         key = secrets.token_urlsafe(_KEY_ENTROPY_BYTES)
         digest = hashlib.sha256(key.encode("utf-8")).hexdigest()
-        payload = json.dumps(
-            {
-                "digest": digest,
-                "comparator_id": comparator_id,
-                "comparator_class": comparator_class,
-                "scopes": sorted(set(scope_list)),
-                "audience": audience,
-                "created_at": created_at or datetime.now(UTC).isoformat(),
-            },
-            sort_keys=True,
-        ) + "\n"
+        payload = (
+            json.dumps(
+                {
+                    "digest": digest,
+                    "comparator_id": comparator_id,
+                    "comparator_class": comparator_class,
+                    "scopes": sorted(set(scope_list)),
+                    "audience": audience,
+                    "created_at": created_at or datetime.now(UTC).isoformat(),
+                },
+                sort_keys=True,
+            )
+            + "\n"
+        )
         try:
             with self.home.open("a", encoding="utf-8") as handle:
                 handle.write(payload)

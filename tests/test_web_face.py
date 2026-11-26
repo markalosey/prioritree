@@ -484,7 +484,8 @@ def test_csrf_mismatched_token_refused(client: TestClient) -> None:
 
 
 def test_csrf_stale_secret_refused_re_render_cures(
-    client: TestClient, monkeypatch: pytest.MonkeyPatch,
+    client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """A new secret refuses the stale token; the re-render mints fresh and passes — the restart price, in-process."""
     stale = _scrape_csrf(client.get("/").text)
@@ -500,7 +501,9 @@ def test_csrf_stale_secret_refused_re_render_cures(
 
 
 def test_web_401_page_lane_key_path_never_fold(
-    client: TestClient, tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    client: TestClient,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Auth on + an empty key store + the tier key unset => the sitting page renders the auth page at 401.
 
@@ -520,7 +523,9 @@ def test_web_401_page_lane_key_path_never_fold(
 
 
 def test_web_403_page_lane_scope_path(
-    client: TestClient, tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    client: TestClient,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """A cast-only key at the child's client => the sitting page renders the scope path at 403."""
     app.state.auth = "on"
@@ -538,7 +543,9 @@ def test_web_403_page_lane_scope_path(
 
 
 def test_tier_key_rides_the_client_default_header(
-    client: TestClient, tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    client: TestClient,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """The six-token key on the child's client => the register fragment's ack through the gated service.
 

@@ -112,7 +112,9 @@ def test_quorum_as_data() -> None:
             registry.register_run([("a", "one"), ("b", "two")], operator=_declaration(), quorum=cast("int", bad))
         assert exc_info.value.expected == "an integer >= 1 (default 1)"
     _run_id, manifest, _count = registry.register_run(
-        [("a", "one"), ("b", "two")], operator=_declaration(), quorum=1_000_000,
+        [("a", "one"), ("b", "two")],
+        operator=_declaration(),
+        quorum=1_000_000,
     )
     assert manifest.quorum == 1_000_000
 

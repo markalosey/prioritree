@@ -59,6 +59,7 @@ _KIND_MANIFEST: Final[str] = "manifest"
 _KIND_VOTE: Final[str] = "vote"
 _PAIR_LENGTH: Final[int] = 2
 
+
 class StoreRefusedError(Exception):
     """StoreRefusedError — the typed refusal: expected, found, next_action.
 
@@ -172,7 +173,10 @@ def _require_str_field(line: Mapping[str, object], field: str, position: int, ru
 
 
 def _require_optional_str_field(
-    line: Mapping[str, object], field: str, position: int, run_file: Path,
+    line: Mapping[str, object],
+    field: str,
+    position: int,
+    run_file: Path,
 ) -> str | None:
     """Return the line's string-or-None field, refusing the missing or mistyped.
 
@@ -681,7 +685,10 @@ class Persist:
                     next_action=_repair_path(run_file),
                 )
             vote_id, pair, winner, comparator_id, comparator_class, notes, supersedes = _validate_vote_line(
-                line, position, ground, run_file,
+                line,
+                position,
+                ground,
+                run_file,
             )
             earlier_pairs[vote_id] = pair
             votes.append((pair, winner, comparator_id, comparator_class, notes, supersedes))
@@ -760,7 +767,7 @@ class Persist:
         best = 0
         if store_home.is_dir():
             for path in store_home.glob(f"{_RUN_FILE_PREFIX}*{_RUN_FILE_SUFFIX}"):
-                digits = path.stem[len(_RUN_FILE_PREFIX):]
+                digits = path.stem[len(_RUN_FILE_PREFIX) :]
                 if digits.isdigit() and int(digits) > best:
                     best = int(digits)
         return best + 1

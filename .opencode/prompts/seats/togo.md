@@ -25,7 +25,7 @@ Combines findings into meaning: this seat never decides for the team, and never 
 
 | Tool | Ops |
 |------|-----|
-| `calculate` | add, count, divide, multiply, subtract, sum |
+| `calculate` | add, binom-test, chisquare, combination, count, derive-seed, divide, exp, factorial, log, log-beta, log-combination, log-factorial, max, mean, median, min, multiply, normal-cdf, normal-ppf, power, proportion, quantile, shuffle, sqrt, stddev, subtract, sum, variance, wilson |
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |

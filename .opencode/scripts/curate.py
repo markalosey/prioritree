@@ -123,12 +123,7 @@ class _FieldError(Exception):
 
 def _refuse(expected: str, found: str, next_action: str) -> int:
     """The doctrine-shaped refusal block on stderr; stdout stays empty."""
-    sys.stderr.write(
-        "REFUSED\n"
-        f"Expected: {expected}\n"
-        f"Found: {found}\n"
-        f"Next-action: {next_action}\n"
-    )
+    sys.stderr.write(f"REFUSED\nExpected: {expected}\nFound: {found}\nNext-action: {next_action}\n")
     return 1
 
 
@@ -149,18 +144,14 @@ def _guard_target(target: Path, root: Path) -> int | None:
             found=f"{target} resolves outside it (realpath: {resolved})",
             next_action="confine the curation to the tree it runs in",
         )
-    parts = resolved.parts[len(root.parts):]
+    parts = resolved.parts[len(root.parts) :]
     if any(part in PROTECTED_LEDGER_DIRS for part in parts):
         return _refuse(
             expected="a curatable protected surface (a render or the census)",
             found=(
-                f"{target} sits inside the ledger store "
-                f"({', '.join(PROTECTED_LEDGER_DIRS)}) — an append-only ledger"
+                f"{target} sits inside the ledger store ({', '.join(PROTECTED_LEDGER_DIRS)}) — an append-only ledger"
             ),
-            next_action=(
-                "the ledgers' own tools' lane — append through the "
-                "ledger's own tool, never curate"
-            ),
+            next_action=("the ledgers' own tools' lane — append through the ledger's own tool, never curate"),
         )
     if target.name in PROTECTED_LEDGERS:
         return _refuse(
@@ -170,10 +161,7 @@ def _guard_target(target: Path, root: Path) -> int | None:
                 'taxonomy verbatim: "a generated render, the census, or '
                 'an append-only ledger" — the third class routes elsewhere'
             ),
-            next_action=(
-                "the ledgers' own tools' lane — append through the "
-                "ledger's own tool, never curate"
-            ),
+            next_action=("the ledgers' own tools' lane — append through the ledger's own tool, never curate"),
         )
     if target.suffix in PROTECTED_SUFFIXES or target.name in PROTECTED_CURATABLE:
         return None
@@ -196,10 +184,7 @@ def _require_ruling(raw: str | None) -> int | None:
     """Refusal (c) — Ruling 5's actor-refusal shape, named."""
     if raw is None or not raw.strip():
         return _refuse(
-            expected=(
-                "a ruling citation — question id + date + one-line summary, "
-                "carried verbatim from the dispatch"
-            ),
+            expected=("a ruling citation — question id + date + one-line summary, carried verbatim from the dispatch"),
             found="no ruling citation (missing or empty)",
             next_action=(
                 "a curation without a ruling citation refuses, naming the "
@@ -282,10 +267,7 @@ def _append_record(root: Path, record: dict[str, object]) -> int | None:
         return None
     except OSError as exc:
         return _refuse(
-            expected=(
-                "the curation record appended to its durable home "
-                f"({store_dir / 'curations.jsonl'})"
-            ),
+            expected=(f"the curation record appended to its durable home ({store_dir / 'curations.jsonl'})"),
             found=(
                 f"the append failed: {exc} — the curation itself SUCCEEDED "
                 "(the target's new bytes stand) but its record did not land"
@@ -351,10 +333,7 @@ def _cmd_apply(args: argparse.Namespace) -> int:
         return _refuse(
             expected="a field path whose intermediates are JSON objects",
             found=str(exc),
-            next_action=(
-                "adjust the field path — field-level sets only, "
-                "not a free-form editor"
-            ),
+            next_action=("adjust the field path — field-level sets only, not a free-form editor"),
         )
     write_refusal = _write_atomic(target, doc)
     if write_refusal is not None:
@@ -385,15 +364,12 @@ def _build_parser() -> argparse.ArgumentParser:
             "protected target, provenance mandatory"
         ),
     )
-    subparsers = parser.add_subparsers(
-        dest="subcommand", required=True, metavar="<subcommand>"
-    )
+    subparsers = parser.add_subparsers(dest="subcommand", required=True, metavar="<subcommand>")
     sub = subparsers.add_parser(
         "apply",
         help=(
-            "execute exactly a ruling — set one field at a JSON path "
-            "within a protected target, provenance mandatory"
-        )
+            "execute exactly a ruling — set one field at a JSON path within a protected target, provenance mandatory"
+        ),
     )
     sub.add_argument("--target", required=True, help="the protected file's path")
     sub.add_argument(

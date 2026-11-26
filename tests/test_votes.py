@@ -32,7 +32,8 @@ def _declaration() -> OperatorDeclaration:
 def _registered_run(registry: Registry) -> str:
     """Mint a 3-item run (a, b, c) and return its handle."""
     run_id, _manifest, _count = registry.register_run(
-        [("a", "one"), ("b", "two"), ("c", "three")], operator=_declaration(),
+        [("a", "one"), ("b", "two"), ("c", "three")],
+        operator=_declaration(),
     )
     return run_id
 
@@ -48,7 +49,11 @@ def test_first_vote_mints_vote_0001() -> None:
     """The empty ledger's first cast mints VOTE-0001 with stamps and a counting census."""
     _registry, ledger, run_id = _ledger()
     handle, record, count, acknowledged = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     assert handle == "VOTE-0001"
     assert count == 1
@@ -74,7 +79,11 @@ def test_changed_verdict_revote_is_a_new_record() -> None:
     _registry, ledger, run_id = _ledger()
     ledger.cast_vote(run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human")
     handle, _record, count, acknowledged = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-b", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-b",
+        comparator_id="x",
+        comparator_class="human",
     )
     assert handle == "VOTE-0002"
     assert count == 2
@@ -89,10 +98,18 @@ def test_identical_resend_acks_the_original_handle() -> None:
     """A byte-identical re-send is the loud ack — the original handle, count, and log."""
     _registry, ledger, run_id = _ledger()
     _handle, original, count, _acknowledged = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     handle, record, resent_count, acknowledged = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     assert handle == "VOTE-0001"
     assert record == original
@@ -107,25 +124,43 @@ def test_supersede_chain() -> None:
     """A correction rides supersedes; chains linearly; invalid targets refuse — nothing lands."""
     _registry, ledger, run_id = _ledger()
     original, _orig_record, _orig_count, _orig_ack = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     correction, corr_record, corr_count, _corr_ack = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-b", comparator_id="x", comparator_class="human",
-        notes="clerical fix", supersedes=original,
+        run_id,
+        _AB_PAIR,
+        "prefer-b",
+        comparator_id="x",
+        comparator_class="human",
+        notes="clerical fix",
+        supersedes=original,
     )
     assert correction == "VOTE-0002"
     assert corr_record.supersedes == original
     assert corr_count == 2
     chained, _chain_record, _chain_count, _chain_ack = ledger.cast_vote(
-        run_id, _AB_PAIR, "tie", comparator_id="x", comparator_class="human",
-        notes="fixing the fix", supersedes=correction,
+        run_id,
+        _AB_PAIR,
+        "tie",
+        comparator_id="x",
+        comparator_class="human",
+        notes="fixing the fix",
+        supersedes=correction,
     )
     assert chained == "VOTE-0003"
     census = ledger.read_vote_state(run_id)
     assert [record.supersedes for record in census.vote_log] == [None, original, correction]
     with pytest.raises(VotesRefusedError) as exc_info:
         ledger.cast_vote(
-            run_id, _AB_PAIR, "tie", comparator_id="x", comparator_class="human",
+            run_id,
+            _AB_PAIR,
+            "tie",
+            comparator_id="x",
+            comparator_class="human",
             supersedes="VOTE-9999",
         )
     assert exc_info.value.expected == (
@@ -133,16 +168,26 @@ def test_supersede_chain() -> None:
     )
     assert exc_info.value.found == "'VOTE-9999'"
     second_run, _second_manifest, _second_count = _registry.register_run(
-        [("a", "one-2"), ("b", "two-2"), ("c", "three-2")], operator=_declaration(),
+        [("a", "one-2"), ("b", "two-2"), ("c", "three-2")],
+        operator=_declaration(),
     )
     with pytest.raises(VotesRefusedError) as exc_info:
         ledger.cast_vote(
-            second_run, _AB_PAIR, "tie", comparator_id="y", comparator_class="llm", supersedes=original,
+            second_run,
+            _AB_PAIR,
+            "tie",
+            comparator_id="y",
+            comparator_class="llm",
+            supersedes=original,
         )
     assert "same run" in exc_info.value.expected
     with pytest.raises(VotesRefusedError) as exc_info:
         ledger.cast_vote(
-            run_id, _BC_PAIR, "tie", comparator_id="z", comparator_class="human",
+            run_id,
+            _BC_PAIR,
+            "tie",
+            comparator_id="z",
+            comparator_class="human",
             supersedes=correction,
         )
     assert "same pair" in exc_info.value.expected
@@ -154,10 +199,18 @@ def test_two_comparators_on_one_pair() -> None:
     """A human and an llm both land on the same pair — both classes through the one interface."""
     _registry, ledger, run_id = _ledger()
     _h_handle, h_record, _h_count, _h_ack = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     _l_handle, l_record, _l_count, _l_ack = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="y", comparator_class="llm",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="y",
+        comparator_class="llm",
     )
     assert h_record.comparator_class == "human"
     assert l_record.comparator_class == "llm"
@@ -192,9 +245,7 @@ def test_wrong_verdict_refused() -> None:
     _registry, ledger, run_id = _ledger()
     with pytest.raises(VotesRefusedError) as exc_info:
         ledger.cast_vote(run_id, _AB_PAIR, "abstain", comparator_id="x", comparator_class="human")
-    assert exc_info.value.expected == (
-        "a verdict from the run's declared set ['prefer-a', 'prefer-b', 'tie']"
-    )
+    assert exc_info.value.expected == ("a verdict from the run's declared set ['prefer-a', 'prefer-b', 'tie']")
     assert exc_info.value.found == "'abstain'"
     assert exc_info.value.next_action == "cast a verdict from the declared set"
     assert ledger.read_vote_state(run_id).vote_log == ()
@@ -221,15 +272,27 @@ def test_idempotency_key_stable_across_intervening_votes() -> None:
     """A's re-send still acks VOTE-0001 after B's intervening vote — the key is content, not position."""
     _registry, ledger, run_id = _ledger()
     first, _record, _count, _ack = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     assert first == "VOTE-0001"
     intervening, _int_record, _int_count, _int_ack = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-b", comparator_id="y", comparator_class="llm",
+        run_id,
+        _AB_PAIR,
+        "prefer-b",
+        comparator_id="y",
+        comparator_class="llm",
     )
     assert intervening == "VOTE-0002"
     handle, _record, count, acknowledged = ledger.cast_vote(
-        run_id, _AB_PAIR, "prefer-a", comparator_id="x", comparator_class="human",
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     assert handle == "VOTE-0001"
     assert acknowledged is True

@@ -271,9 +271,7 @@ def _components(ids: Sequence[str], counted_pairs: Sequence[Pair]) -> tuple[tupl
     members: dict[str, list[str]] = {}
     for item_id in ids:
         members.setdefault(find(item_id), []).append(item_id)
-    return tuple(
-        tuple(sorted(group)) for _, group in sorted(members.items(), key=lambda entry: entry[1][0])
-    )
+    return tuple(tuple(sorted(group)) for _, group in sorted(members.items(), key=lambda entry: entry[1][0]))
 
 
 def _dominance_adjacency(ids: Sequence[str], preference: Mapping[Pair, tuple[int, int]]) -> dict[str, list[str]]:
@@ -296,8 +294,6 @@ def _dominance_adjacency(ids: Sequence[str], preference: Mapping[Pair, tuple[int
     for neighbors in adjacency.values():
         neighbors.sort()
     return adjacency
-
-
 
 
 def _find_cycle(ids: Sequence[str], preference: Mapping[Pair, tuple[int, int]]) -> tuple[tuple[str, str], ...]:
@@ -372,14 +368,11 @@ def _found_sections(
         rendered = ", ".join(f"({', '.join(component)})" for component in components)
         sections.append(f"components: {rendered}")
     if shortfalls:
-        rendered = ", ".join(
-            f"({pair.item_a}, {pair.item_b}) {count} of {quorum}" for pair, count in shortfalls
-        )
+        rendered = ", ".join(f"({pair.item_a}, {pair.item_b}) {count} of {quorum}" for pair, count in shortfalls)
         sections.append(f"under-quorum pairs: {rendered}")
     if missing_class_pairs:
         rendered = ", ".join(
-            f"({pair.item_a}, {pair.item_b}) missing {', '.join(classes)}"
-            for pair, classes in missing_class_pairs
+            f"({pair.item_a}, {pair.item_b}) missing {', '.join(classes)}" for pair, classes in missing_class_pairs
         )
         sections.append(f"uncorroborated pairs: {rendered}")
     return "; ".join(sections)
@@ -420,8 +413,7 @@ def _next_action_sections(
         sections.append(f"cast the missing votes: {rendered} — quorum needs MORE VOTES on existing pairs")
     if missing_class_pairs:
         rendered = ", ".join(
-            f"({pair.item_a}, {pair.item_b}) needs {', '.join(classes)}"
-            for pair, classes in missing_class_pairs
+            f"({pair.item_a}, {pair.item_b}) needs {', '.join(classes)}" for pair, classes in missing_class_pairs
         )
         floor_head = f"cast the corroborating votes: {rendered}"
         sections.append(f"{floor_head} — corroboration needs votes from BOTH CLASSES on existing pairs")
@@ -450,6 +442,7 @@ def _rank_groups(
     §3.3-§3.4 (the score, the ruled exact comparison, the Fraction carrier),
     the census (c) ruling (cross-multiplied integers, never floats).
     """
+
     def score(item_id: str) -> Fraction:
         """Return the exact win fraction — (2·wins + ties)/(2·comparisons)."""
         comparisons = wins[item_id] + losses[item_id] + ties[item_id]
@@ -517,9 +510,7 @@ def tally_votes(manifest: RunManifest, vote_log: Sequence[VoteRecord]) -> TallyR
     state = _count_votes(ids, expected_pairs, counted)
 
     # (3) THE COVERAGE GATE — before the score (division safety).
-    comparisons = {
-        item_id: state.wins[item_id] + state.losses[item_id] + state.ties[item_id] for item_id in ids
-    }
+    comparisons = {item_id: state.wins[item_id] + state.losses[item_id] + state.ties[item_id] for item_id in ids}
     zero_coverage = sorted(item_id for item_id in ids if comparisons[item_id] == 0)
     counted_pairs = [pair for pair in expected_pairs if state.pair_counts[pair] >= 1]
     components = _components(ids, counted_pairs)
@@ -540,10 +531,17 @@ def tally_votes(manifest: RunManifest, vote_log: Sequence[VoteRecord]) -> TallyR
         raise TallyRefusedError(
             expected=expected,
             found=_found_sections(
-                zero_coverage, components, shortfalls, missing_class_pairs, manifest.quorum,
+                zero_coverage,
+                components,
+                shortfalls,
+                missing_class_pairs,
+                manifest.quorum,
             ),
             next_action=_next_action_sections(
-                components, shortfalls, missing_class_pairs, manifest.quorum,
+                components,
+                shortfalls,
+                missing_class_pairs,
+                manifest.quorum,
             ),
         )
 
@@ -564,8 +562,7 @@ def tally_votes(manifest: RunManifest, vote_log: Sequence[VoteRecord]) -> TallyR
             cycle=cycle,
             pair_counts=state.pair_counts,
             pair_class_counts={
-                f"{pair.item_a}|{pair.item_b}": class_map
-                for pair, class_map in state.pair_class_counts.items()
+                f"{pair.item_a}|{pair.item_b}": class_map for pair, class_map in state.pair_class_counts.items()
             },
             done=True,
         ),

@@ -276,7 +276,9 @@ def test_resolve_auth_mode_the_three(raw: str | None, expected: str | None) -> N
     [
         pytest.param("class", f"a comparator_class from {sorted(COMPARATOR_CLASSES)}", id="class-outside"),
         pytest.param(
-            "scope", f"a non-empty --scopes list of tokens from {sorted(SCOPE_TOKENS)}", id="scope-outside",
+            "scope",
+            f"a non-empty --scopes list of tokens from {sorted(SCOPE_TOKENS)}",
+            id="scope-outside",
         ),
         pytest.param("audience", f"an --audience from {sorted(AUDIENCES)}", id="audience-outside"),
     ],

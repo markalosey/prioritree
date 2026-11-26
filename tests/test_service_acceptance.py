@@ -65,6 +65,7 @@ _VOTE_BODY = {
     "comparator_class": "human",
 }
 
+
 def _boot(home: Path) -> tuple[Popen[bytes], int]:
     """Start the uvicorn subprocess at home and parse the banner for the port.
 
@@ -126,7 +127,8 @@ def _wait_ready(client: httpx.Client, base_url: str) -> None:
     while monotonic() < deadline:
         try:
             response = client.get(
-                f"{base_url}/runs/{_RUN_ID}/next", timeout=_CALL_TIMEOUT,
+                f"{base_url}/runs/{_RUN_ID}/next",
+                timeout=_CALL_TIMEOUT,
             )
         except (httpx.ConnectError, httpx.ConnectTimeout):
             sleep(_INTERVAL)
@@ -242,7 +244,17 @@ def test_accept_the_eleven_request_arc(service: tuple[httpx.Client, str]) -> Non
     responses = _drive_arc(client, base_url)
     assert len(responses) == 11  # the arc's own shape: 1 register, 1 manifest, 1 next, 6 votes, 1 done, 1 tally
     assert [response.status_code for response in responses] == [
-        201, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
+        201,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
     ]
     bodies = [response.json() for response in responses]
     assert bodies[0] == {"run_id": _RUN_ID}
@@ -454,4 +466,6 @@ def test_interleave_the_concurrency_arc(service: tuple[httpx.Client, str], tmp_p
         key = f"{record.pair.item_a}|{record.pair.item_b}"
         pair_counts[key] = pair_counts.get(key, 0) + 1
     assert pair_counts == {"a|b": 2, "a|c": 1, "b|c": 1}
+
+
 _REFUSAL_KEYS = frozenset({"expected", "found", "next_action"})

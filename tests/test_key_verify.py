@@ -115,7 +115,7 @@ def test_dummy_compute_miss_path_sha256_count(tmp_path: Path, monkeypatch: pytes
     hit_calls = list(counter.calls)
     with pytest.raises(KeyVerifyError):
         verify(store, _WRONG_KEY, _SERVICE_AUDIENCE, None)  # the miss path
-    miss_calls = counter.calls[len(hit_calls):]
+    miss_calls = counter.calls[len(hit_calls) :]
     # The hit's count: the presented key hashed ONCE (hit = 1, the landed fingerprint).
     assert hit_calls == [key.encode("utf-8")]
     # The miss's count: the SAME presented-key hash PLUS the F9 dummy's — the spec's "count equals

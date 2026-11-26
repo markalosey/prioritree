@@ -209,10 +209,7 @@ def _check_cardinality(rows: tuple[tuple[str, str], ...]) -> None:
         raise RegistryRefusedError(
             expected="at least 2 item rows (a comparison needs a pair)",
             found=f"{len(rows)} item row" + ("s" if len(rows) != 1 else ""),
-            next_action=(
-                _action_head
-                + "refusals, not special rankings"
-            ),
+            next_action=(_action_head + "refusals, not special rankings"),
         )
 
 
@@ -263,10 +260,7 @@ def _check_operator(operator: object) -> tuple[str, str, frozenset[str]]:
         raise RegistryRefusedError(
             expected="the weak-order triple {prefer-a, prefer-b, tie} (the declared set's default)",
             found=f"{operator.verdicts!r}",
-            next_action=(
-                _action_head
-                + "the F2 deferral's widening path"
-            ),
+            next_action=(_action_head + "the F2 deferral's widening path"),
         )
     return op_id, op_question, operator.verdicts
 
@@ -286,10 +280,7 @@ def _require_quorum(quorum: object) -> int:
         raise RegistryRefusedError(
             expected="an integer >= 1 (default 1)",
             found=f"{quorum!r}",
-            next_action=(
-                _action_head
-                + "unreachable quorum is tally's coverage-gate territory, not registration's"
-            ),
+            next_action=(_action_head + "unreachable quorum is tally's coverage-gate territory, not registration's"),
         )
     return quorum
 
@@ -386,10 +377,7 @@ class Registry:
             raise RegistryRefusedError(
                 expected=f"a live RUN-{{####}} handle ({live})",
                 found=f"{run_id!r}",
-                next_action=(
-                    _action_head
-                    + "register the payload first"
-                ),
+                next_action=(_action_head + "register the payload first"),
             )
         return manifest
 

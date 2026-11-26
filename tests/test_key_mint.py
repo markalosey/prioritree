@@ -89,7 +89,10 @@ def test_mint_record_on_disk(tmp_path: Path, capsys: pytest.CaptureFixture[str])
     ],
 )
 def test_mint_vocabulary_refusals_exit_one(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str], case: str, needle: str,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    case: str,
+    needle: str,
 ) -> None:
     """The bad class / scope / audience each refuse at exit 1 — the store's door, never argparse's choices=."""
     home = tmp_path / _KEYS_FILE

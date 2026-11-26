@@ -743,7 +743,9 @@ def test_re_tally_after_cure(caller: str) -> None:
     ],
 )
 def test_parse_argv_derives_the_run_call(
-    argv: list[str], expected: tuple[tuple[str, ...], dict[str, object]], monkeypatch: pytest.MonkeyPatch,
+    argv: list[str],
+    expected: tuple[tuple[str, ...], dict[str, object]],
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Parse main()'s argv form => the derived server.run call whole, the three forms parametrized.
 

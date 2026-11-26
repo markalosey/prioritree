@@ -241,4 +241,6 @@ def compare_run(item_count: int, noise_rate: float, seed: int, quorum: int) -> C
     acceptance = accept_run(item_count, noise_rate, seed, quorum)
     sizer = size_run(item_count, noise_rate, seed, quorum)
     return CurveRecord(acceptance=acceptance, sizer=sizer)
+
+
 SIZER_SEED_TEMPLATE: Final[str] = "{seed}-sizer"

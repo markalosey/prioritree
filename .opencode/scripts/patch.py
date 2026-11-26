@@ -100,7 +100,7 @@ def guard_surface(path: Path, root: Path) -> None:
             "fix the diff's paths — the tool confines to the tree it runs in",
         )
     parts = resolved.parts
-    if any(part in PROTECTED_DIRS for part in parts[len(root.parts):]):
+    if any(part in PROTECTED_DIRS for part in parts[len(root.parts) :]):
         refuse(
             "a mutable target (the store is born memory, never patch-mutated)",
             f"{path} sits inside the store",
@@ -121,7 +121,7 @@ def guard_surface(path: Path, root: Path) -> None:
     # maintained index.md docs uneditable through any governed instrument;
     # the scoping choice lands hyoka's MEDIUM-3). Hand-maintained index.md
     # files are patch's lane.
-    if path.name == "index.md" and "clarity-theorem" in parts[len(root.parts):]:
+    if path.name == "index.md" and "clarity-theorem" in parts[len(root.parts) :]:
         refuse(
             "a mutable target",
             f"{path.name} is a protected surface (the render-home index.md — "
@@ -145,6 +145,7 @@ def parse_diff(text: str) -> dict[str, Any]:
     header (the markdown-list-item class, FR-MEM-0111)."""
     files: dict[str, Any] = {}
     current: dict[str, Any] | None = None
+
     def _hunk_incomplete(hunk: dict[str, Any]) -> bool:
         """True while the hunk still requires body lines per its declared
         counts — a header-prefixed line during that window is deletion
@@ -296,8 +297,7 @@ def apply_file(path: Path, entry: dict[str, Any], root: Path) -> str:
                 refuse(
                     "the hunk's pre-image EXACTLY at line "
                     f"{hunk['old_start']} (strict semantics — line numbers are load-bearing)",
-                    "the file has: "
-                    f"{json.dumps([('...' + ln[:60] if len(ln) > 60 else ln) for ln in actual][:6])}",
+                    f"the file has: {json.dumps([('...' + ln[:60] if len(ln) > 60 else ln) for ln in actual][:6])}",
                     "the file and the diff disagree — re-read the file and regenerate the diff (the caller's loop)",
                 )
         else:

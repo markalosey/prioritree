@@ -44,7 +44,6 @@ __all__ = [
 ]
 
 
-
 class Serialize:
     """Serialize — the requests' store acts under the file lock outermost, the process-wide lock within.
 
@@ -174,7 +173,12 @@ class Serialize:
         """
         with Lock(self._store_home), self._lock:
             return Persist.load(self._store_home, run_id).cast(
-                pair, winner, comparator_id, comparator_class, notes, supersedes,
+                pair,
+                winner,
+                comparator_id,
+                comparator_class,
+                notes,
+                supersedes,
             )
 
     def census(self, run_id: str) -> VoteCensus:

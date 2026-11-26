@@ -23,7 +23,7 @@ Pairs every proposal with an explicit recommendation and its reasoning: this sea
 
 | Tool | Ops |
 |------|-----|
-| `calculate` | add, count, divide, multiply, subtract, sum |
+| `calculate` | add, binom-test, chisquare, combination, count, derive-seed, divide, exp, factorial, log, log-beta, log-combination, log-factorial, max, mean, median, min, multiply, normal-cdf, normal-ppf, power, proportion, quantile, shuffle, sqrt, stddev, subtract, sum, variance, wilson |
 | `friction` |  |
 | `glob` |  |
 | `grep` |  |

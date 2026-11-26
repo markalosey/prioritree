@@ -154,8 +154,7 @@ def test_every_coverage_prefix_defined() -> None:
     with pytest.raises(TallyRefusedError) as prefix_3:
         tally_votes(manifest, script[:3])
     assert prefix_3.value.found == (
-        "under-quorum pairs: (b, c) 0 of 1; "
-        "uncorroborated pairs: (a, c) missing llm, (b, c) missing human, llm"
+        "under-quorum pairs: (b, c) 0 of 1; uncorroborated pairs: (a, c) missing llm, (b, c) missing human, llm"
     )
     with pytest.raises(TallyRefusedError) as prefix_4:
         tally_votes(manifest, script[:4])
@@ -354,8 +353,7 @@ def test_weighted_vs_census_seam() -> None:
         tally_votes(_manifest(["a", "b"]), votes)
     assert corroboration.value.found == "uncorroborated pairs: (a, b) missing llm"
     assert corroboration.value.next_action == (
-        "cast the corroborating votes: (a, b) needs llm"
-        " — corroboration needs votes from BOTH CLASSES on existing pairs"
+        "cast the corroborating votes: (a, b) needs llm — corroboration needs votes from BOTH CLASSES on existing pairs"
     )
 
 
@@ -386,8 +384,7 @@ def test_floor_human_only_halt_names_missing_llm() -> None:
     assert exc_info.value.found == "uncorroborated pairs: (a, b) missing llm"
     assert "under-quorum" not in exc_info.value.found
     assert exc_info.value.next_action == (
-        "cast the corroborating votes: (a, b) needs llm"
-        " — corroboration needs votes from BOTH CLASSES on existing pairs"
+        "cast the corroborating votes: (a, b) needs llm — corroboration needs votes from BOTH CLASSES on existing pairs"
     )
 
 
@@ -456,10 +453,7 @@ def test_floor_zero_vote_pair_names_both_classes() -> None:
     with pytest.raises(TallyRefusedError) as exc_info:
         tally_votes(manifest, votes)
     assert "under-quorum pairs: (a, c) 0 of 1, (b, c) 0 of 1" in exc_info.value.found
-    assert (
-        "uncorroborated pairs: (a, c) missing human, llm, (b, c) missing human, llm"
-        in exc_info.value.found
-    )
+    assert "uncorroborated pairs: (a, c) missing human, llm, (b, c) missing human, llm" in exc_info.value.found
 
 
 def test_datum_pair_class_counts_named_at_done() -> None:
@@ -536,7 +530,9 @@ def test_refusal_three_fields_same_type() -> None:
     refusal = exc_info.value
     assert (refusal.found, refusal.next_action) == (
         "uncorroborated pairs: (a, b) missing llm",
-        ("cast the corroborating votes: (a, b) needs llm"
-        " — corroboration needs votes from BOTH CLASSES on existing pairs"),
+        (
+            "cast the corroborating votes: (a, b) needs llm"
+            " — corroboration needs votes from BOTH CLASSES on existing pairs"
+        ),
     )
     assert refusal.expected.startswith("the coverage gate met")

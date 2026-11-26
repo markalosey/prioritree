@@ -111,9 +111,7 @@ _FORBIDDEN: Final[int] = 403
 # restart-invalidation price carried: a boot's outstanding tokens die, the
 # re-render mints fresh, the failure's ThreePart teaches the reload).
 _CSRF_SECRET_ENV: Final[str] = "PRIORITYTREE_WEB_CSRF_SECRET"
-_csrf_secret: Final[bytes] = (
-    os.environ.get(_CSRF_SECRET_ENV, "").encode() or secrets.token_urlsafe(32).encode()
-)
+_csrf_secret: Final[bytes] = os.environ.get(_CSRF_SECRET_ENV, "").encode() or secrets.token_urlsafe(32).encode()
 _CSRF_FIELD: Final[str] = "csrf_token"
 
 
@@ -164,6 +162,7 @@ async def _csrf_guard(request: Request) -> None:
             found="absent-or-mismatched",
             next_action="reload the page and re-send — the re-render mints a fresh token",
         )
+
 
 # The mounted whole's legal set (web-brief §3e): the nine web routes (the
 # child's own path constants above) + the six service routes (the frozen
@@ -237,7 +236,8 @@ _client = httpx2.AsyncClient(
     headers={AUTH_HEADER_DEFAULT: _web_key} if _web_key else None,
 )
 logging.getLogger("uvicorn.error").info(
-    "web tier key: %s (a six-token grant)", "present" if _web_key else "absent",
+    "web tier key: %s (a six-token grant)",
+    "present" if _web_key else "absent",
 )
 
 
@@ -299,7 +299,10 @@ def _unknown(request: Request, body: dict[str, Any]) -> Response:
     Provenance: web-brief §5 (the 404 page), the design §4, G-WEB.
     """
     return templates.TemplateResponse(
-        request, "unknown.html", {"fields": _fields(body)}, status_code=_NOT_FOUND,
+        request,
+        "unknown.html",
+        {"fields": _fields(body)},
+        status_code=_NOT_FOUND,
     )
 
 
@@ -311,7 +314,9 @@ def _auth_page(request: Request, body: dict[str, Any], *, forbidden: bool) -> Re
     Provenance: the unit brief §1c, rikai map 3, G-SERVING-TIER-INTEGRATION-BRIEF.
     """
     return templates.TemplateResponse(
-        request, "auth.html", {"fields": _fields(body), "forbidden": forbidden},
+        request,
+        "auth.html",
+        {"fields": _fields(body), "forbidden": forbidden},
         status_code=_FORBIDDEN if forbidden else _UNAUTHORIZED,
     )
 
@@ -332,7 +337,10 @@ def _refuse_fragment(request: Request, fields: dict[str, str], *, fold: bool = F
     fragment), the design §4, R5, G-WEB.
     """
     return templates.TemplateResponse(
-        request, "refuse.html", {"fields": fields, "fold": fold}, status_code=_OK,
+        request,
+        "refuse.html",
+        {"fields": fields, "fold": fold},
+        status_code=_OK,
     )
 
 
@@ -396,7 +404,10 @@ def fold(request: Request, exc: Exception) -> Response:
     if request.url.path.startswith(_FRAGMENT_LANE):
         return _refuse_fragment(request, _fields_fold, fold=True)
     return templates.TemplateResponse(
-        request, "fold.html", {"fields": _fields_fold}, status_code=_CRASH,
+        request,
+        "fold.html",
+        {"fields": _fields_fold},
+        status_code=_CRASH,
     )
 
 
@@ -462,7 +473,10 @@ async def sitting(request: Request, stem: str) -> Response:
         if manifest.status_code == _FORBIDDEN:
             return _auth_page(request, manifest.json(), forbidden=True)
         return templates.TemplateResponse(
-            request, "fold.html", {"fields": _fields(manifest.json())}, status_code=manifest.status_code,
+            request,
+            "fold.html",
+            {"fields": _fields(manifest.json())},
+            status_code=manifest.status_code,
         )
     nxt = await _service("GET", f"/runs/{stem}/next")
     if nxt.status_code != _OK:
@@ -473,7 +487,10 @@ async def sitting(request: Request, stem: str) -> Response:
         if nxt.status_code == _FORBIDDEN:
             return _auth_page(request, nxt.json(), forbidden=True)
         return templates.TemplateResponse(
-            request, "fold.html", {"fields": _fields(nxt.json())}, status_code=nxt.status_code,
+            request,
+            "fold.html",
+            {"fields": _fields(nxt.json())},
+            status_code=nxt.status_code,
         )
     body = nxt.json()
     if body.get("done"):
@@ -522,13 +539,19 @@ async def done(request: Request, stem: str) -> Response:
         if nxt.status_code == _FORBIDDEN:
             return _auth_page(request, nxt.json(), forbidden=True)
         return templates.TemplateResponse(
-            request, "fold.html", {"fields": _fields(nxt.json())}, status_code=nxt.status_code,
+            request,
+            "fold.html",
+            {"fields": _fields(nxt.json())},
+            status_code=nxt.status_code,
         )
     body = nxt.json()
     if not body.get("done"):
         return Response(status_code=_OK, headers={"HX-Redirect": f"/runs/{stem}"})
     return templates.TemplateResponse(
-        request, "done.html", {"stem": stem, "fields": _fields(body)}, status_code=_OK,
+        request,
+        "done.html",
+        {"stem": stem, "fields": _fields(body)},
+        status_code=_OK,
     )
 
 
@@ -556,7 +579,10 @@ async def progress(request: Request, stem: str) -> Response:
         if result.status_code == _FORBIDDEN:
             return _auth_page(request, result.json(), forbidden=True)
         return templates.TemplateResponse(
-            request, "fold.html", {"fields": _fields(result.json())}, status_code=result.status_code,
+            request,
+            "fold.html",
+            {"fields": _fields(result.json())},
+            status_code=result.status_code,
         )
     body = result.json()
     return templates.TemplateResponse(
@@ -604,12 +630,18 @@ async def result(request: Request, stem: str) -> Response:
         if tally.status_code == _FORBIDDEN:
             return _auth_page(request, tally.json(), forbidden=True)
         return templates.TemplateResponse(
-            request, "fold.html", {"fields": _fields(tally.json())}, status_code=tally.status_code,
+            request,
+            "fold.html",
+            {"fields": _fields(tally.json())},
+            status_code=tally.status_code,
         )
     whole = tally.json()
     if not bool(whole["coverage"]["done"]):
         return templates.TemplateResponse(
-            request, "halt.html", {"stem": stem, "gated": True}, status_code=_OK,
+            request,
+            "halt.html",
+            {"stem": stem, "gated": True},
+            status_code=_OK,
         )
     manifest = await _service("GET", f"/runs/{stem}/manifest")
     if manifest.status_code != _OK:
@@ -618,7 +650,10 @@ async def result(request: Request, stem: str) -> Response:
         if manifest.status_code == _FORBIDDEN:
             return _auth_page(request, manifest.json(), forbidden=True)
         return templates.TemplateResponse(
-            request, "fold.html", {"fields": _fields(manifest.json())}, status_code=manifest.status_code,
+            request,
+            "fold.html",
+            {"fields": _fields(manifest.json())},
+            status_code=manifest.status_code,
         )
     labels = _labels(manifest.json())
     ranked: list[tuple[int, list[str]]] = []

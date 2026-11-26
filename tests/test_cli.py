@@ -138,7 +138,10 @@ def test_done_exhausted_line_at_zero(tmp_path: Path, capsys: pytest.CaptureFixtu
     ],
 )
 def test_refusals_exit_one_str_bytes(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str], case: str, needle: str,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    case: str,
+    needle: str,
 ) -> None:
     """Each refusal lineage returns 1 + stderr carrying the refused — prefix and its distinctive field."""
     if case == "store":
@@ -157,7 +160,9 @@ def test_refusals_exit_one_str_bytes(
 
 
 def test_unexpected_exit_two_traceback_verbatim(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """A monkeypatched store verb raising RuntimeError → 2 + the traceback's name and message on stderr."""
 

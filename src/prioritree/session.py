@@ -155,7 +155,9 @@ class Session:
             return self._registry.read_manifest(run_id)
         except RegistryRefusedError as refusal:
             raise VotesRefusedError(
-                expected=refusal.expected, found=refusal.found, next_action=refusal.next_action,
+                expected=refusal.expected,
+                found=refusal.found,
+                next_action=refusal.next_action,
             ) from refusal
 
     def register_run(
@@ -185,7 +187,9 @@ class Session:
             return self._registry.register_run(items, operator, quorum)
         except RegistryRefusedError as refusal:
             raise VotesRefusedError(
-                expected=refusal.expected, found=refusal.found, next_action=refusal.next_action,
+                expected=refusal.expected,
+                found=refusal.found,
+                next_action=refusal.next_action,
             ) from refusal
 
     def next_pair(self, run_id: str, seed: int | None = None) -> tuple[str, str, int]:

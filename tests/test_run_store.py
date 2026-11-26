@@ -78,6 +78,7 @@ def test_round_trip_clock_free_surface_equal(tmp_path: Path) -> None:
     # The external id — the file's stem, unchanged by construction.
     assert reloaded.run_id == store.run_id
 
+
 def _corrupt_entries(entries: list[dict[str, Any]], case: str) -> None:
     """Mutate the parsed entries per the corruption case — the record-level triggers."""
     if case == "missing_field":
@@ -98,7 +99,6 @@ def _corrupt_entries(entries: list[dict[str, Any]], case: str) -> None:
         entries.append(dict(entries[0]))
 
 
-
 def _corrupt_run_file(run_file: Path, raw: str, case: str) -> None:
     """Mutate the run file per the corruption case — the §4 trigger's bytes."""
     if case == "garbage_line":
@@ -111,7 +111,6 @@ def _corrupt_run_file(run_file: Path, raw: str, case: str) -> None:
         entries: list[dict[str, Any]] = [json.loads(line) for line in raw.splitlines()]
         _corrupt_entries(entries, case)
         run_file.write_text("".join(json.dumps(entry, sort_keys=True) + "\n" for entry in entries))
-
 
 
 @pytest.mark.parametrize(
@@ -223,10 +222,16 @@ def test_double_cast_absorbed_count_unchanged(tmp_path: Path) -> None:
     store_home = tmp_path / "runs"
     store = _register(store_home)
     first_id, first_record, first_count, first_ack = store.cast(
-        ("a", "b"), "prefer-a", comparator_id="x", comparator_class="human",
+        ("a", "b"),
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     second_id, second_record, second_count, second_ack = store.cast(
-        ("a", "b"), "prefer-a", comparator_id="x", comparator_class="human",
+        ("a", "b"),
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
     )
     # The door's loud ack — the dedup IS the idempotence; the store appends NOTHING on the ack (R9 at
     # the file tier; the crash-retry re-casts THROUGH the store, never hand-writes the file — a

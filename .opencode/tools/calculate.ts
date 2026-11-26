@@ -19,18 +19,46 @@ function formatOutput(result: {
 }
 
 export default tool({
-  description: "Pure-query arithmetic and counting — six ops (add, subtract, multiply, divide, sum, count), each a deterministic read that returns a number. Stateless, actorless, refuse-nothing: no store, no provenance stamp, no session — the same inputs always return the same number (Q-CALC-1, the calculate composition, 2026-09-28). anti_scenario: NOT a calculator for prose, NOT a mutation surface, NOT a substitute for kensho's verification — arithmetic and counting only.",
+  description: "Pure-query arithmetic and counting — 30 deterministic ops (Q-CALC-1's six arithmetic and counting + Q-CALC-EXPANSION's 24: statistics, combinatorics, distribution, seeded permutation), each a deterministic read that returns one trace line ({\"op\",\"args\",\"result\"} compact JSON — the same inputs always return the same trace bytes). Stateless, actorless, refuse-nothing: no store, no provenance stamp, no session (Q-CALC-1, the calculate composition, 2026-09-28; Q-CALC-EXPANSION, ruled 2026-11-25). anti_scenario: NOT a calculator for prose, NOT a mutation surface, NOT a substitute for kensho's verification — arithmetic, counting, statistics, combinatorics, distribution, and seeded permutation only.",
   args: {
     operation: tool.schema
-      .enum(["add","subtract","multiply","divide","sum","count"])
+      .enum(["add","subtract","multiply","divide","sum","count","sqrt","power","factorial","combination","proportion","mean","variance","stddev","max","min","median","quantile","wilson","binom-test","normal-cdf","normal-ppf","log","exp","log-factorial","log-combination","log-beta","chisquare","shuffle","derive-seed"])
       .or(tool.schema.literal("help"))
       .describe("Operation to perform (use \"help\" to print this tool's usage)"),
     a: tool.schema.string().optional()
-      .describe("the first operand (a number)"),
+      .describe("the first operand (a number, as a string) (add); the first operand (a number, as a string) (subtract); the first operand (a number, as a string) (multiply); the first operand (a number, as a string) (divide); the radicand (a number, as a string) (sqrt); the base (a number, as a string) (power); the argument (a positive number, as a string) (log); the exponent (a number, as a string) (exp); the first shape (a positive number, as a string) (log-beta)"),
     b: tool.schema.string().optional()
-      .describe("the second operand (a number)"),
+      .describe("the second operand (a number, as a string) (add); the second operand (a number, as a string) (subtract); the second operand (a number, as a string) (multiply); the second operand (a number, as a string) (divide); the exponent (a number, as a string) (power); the second shape (a positive number, as a string) (log-beta)"),
     values: tool.schema.string().optional()
-      .describe("a JSON array of numbers to total"),
+      .describe("the list to aggregate (a JSON array) (sum); the list to aggregate (a JSON array) (count); the list (a non-empty JSON array of numbers) (mean); the list (a non-empty JSON array of numbers) (variance); the list (a non-empty JSON array of numbers) (stddev); the list (a non-empty JSON array of numbers) (max); the list (a non-empty JSON array of numbers) (min); the list (a non-empty JSON array of numbers) (median); the list (a non-empty JSON array of numbers) (quantile); the list (a non-empty JSON array) (shuffle)"),
+    n: tool.schema.string().optional()
+      .describe("the count (an integer, as a string) (factorial); the population count (an integer, as a string) (combination); the trial count (an integer >= 1, as a string) (wilson); the trial count (an integer >= 0, as a string) (binom-test); the count (a non-negative integer, as a string) (log-factorial); the population count (an integer, as a string) (log-combination)"),
+    k: tool.schema.string().optional()
+      .describe("the selection count (an integer, as a string) (combination); the success count (an integer, as a string) (wilson); the success count (an integer, as a string) (binom-test); the selection count (an integer, as a string) (log-combination)"),
+    p: tool.schema.string().optional()
+      .describe("the quantile position in [0, 1] (a number, as a string) (quantile); the null probability in [0, 1] (a number, as a string) (binom-test)"),
+    part: tool.schema.string().optional()
+      .describe("the part (a number, as a string) (proportion)"),
+    whole: tool.schema.string().optional()
+      .describe("the whole (a nonzero number, as a string) (proportion)"),
+    form: tool.schema.string().optional()
+      .describe("the form: population or sample (variance); the form: population or sample (stddev)"),
+    z: tool.schema.string().optional()
+      .describe("the z constant (a positive number, as a string) (wilson)"),
+    sided: tool.schema.string().optional()
+      .describe("the sidedness: two or one (binom-test)"),
+    x: tool.schema.string().optional()
+      .describe("the point (a number, as a string) (normal-cdf)"),
+    q: tool.schema.string().optional()
+      .describe("the probability strictly inside (0, 1) (a number, as a string) (normal-ppf)"),
+    observed: tool.schema.string().optional()
+      .describe("the observed counts (a non-empty JSON array of numbers) (chisquare)"),
+    expected: tool.schema.string().optional()
+      .describe("the expected counts (a JSON array of positive numbers) (chisquare)"),
+    seed: tool.schema.string().optional()
+      .describe("the seed (an integer, as a string — required, never random) (shuffle)"),
+    text: tool.schema.string().optional()
+      .describe("the handle (any string) (derive-seed)"),
   },
   async execute(args, context) {
 
@@ -69,8 +97,143 @@ export default tool({
         if (args.values !== undefined) eargs.push(`--values=${args.values}`)
         return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
       }
+      case "sqrt": {
+        const eargs = ["sqrt"]
+        if (args.a !== undefined) eargs.push(`--a=${args.a}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "power": {
+        const eargs = ["power"]
+        if (args.a !== undefined) eargs.push(`--a=${args.a}`)
+        if (args.b !== undefined) eargs.push(`--b=${args.b}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "factorial": {
+        const eargs = ["factorial"]
+        if (args.n !== undefined) eargs.push(`--n=${args.n}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "combination": {
+        const eargs = ["combination"]
+        if (args.n !== undefined) eargs.push(`--n=${args.n}`)
+        if (args.k !== undefined) eargs.push(`--k=${args.k}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "proportion": {
+        const eargs = ["proportion"]
+        if (args.part !== undefined) eargs.push(`--part=${args.part}`)
+        if (args.whole !== undefined) eargs.push(`--whole=${args.whole}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "mean": {
+        const eargs = ["mean"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "variance": {
+        const eargs = ["variance"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        if (args.form !== undefined) eargs.push(`--form=${args.form}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "stddev": {
+        const eargs = ["stddev"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        if (args.form !== undefined) eargs.push(`--form=${args.form}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "max": {
+        const eargs = ["max"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "min": {
+        const eargs = ["min"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "median": {
+        const eargs = ["median"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "quantile": {
+        const eargs = ["quantile"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        if (args.p !== undefined) eargs.push(`--p=${args.p}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "wilson": {
+        const eargs = ["wilson"]
+        if (args.k !== undefined) eargs.push(`--k=${args.k}`)
+        if (args.n !== undefined) eargs.push(`--n=${args.n}`)
+        if (args.z !== undefined) eargs.push(`--z=${args.z}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "binom-test": {
+        const eargs = ["binom-test"]
+        if (args.k !== undefined) eargs.push(`--k=${args.k}`)
+        if (args.n !== undefined) eargs.push(`--n=${args.n}`)
+        if (args.p !== undefined) eargs.push(`--p=${args.p}`)
+        if (args.sided !== undefined) eargs.push(`--sided=${args.sided}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "normal-cdf": {
+        const eargs = ["normal-cdf"]
+        if (args.x !== undefined) eargs.push(`--x=${args.x}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "normal-ppf": {
+        const eargs = ["normal-ppf"]
+        if (args.q !== undefined) eargs.push(`--q=${args.q}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "log": {
+        const eargs = ["log"]
+        if (args.a !== undefined) eargs.push(`--a=${args.a}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "exp": {
+        const eargs = ["exp"]
+        if (args.a !== undefined) eargs.push(`--a=${args.a}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "log-factorial": {
+        const eargs = ["log-factorial"]
+        if (args.n !== undefined) eargs.push(`--n=${args.n}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "log-combination": {
+        const eargs = ["log-combination"]
+        if (args.n !== undefined) eargs.push(`--n=${args.n}`)
+        if (args.k !== undefined) eargs.push(`--k=${args.k}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "log-beta": {
+        const eargs = ["log-beta"]
+        if (args.a !== undefined) eargs.push(`--a=${args.a}`)
+        if (args.b !== undefined) eargs.push(`--b=${args.b}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "chisquare": {
+        const eargs = ["chisquare"]
+        if (args.observed !== undefined) eargs.push(`--observed=${args.observed}`)
+        if (args.expected !== undefined) eargs.push(`--expected=${args.expected}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "shuffle": {
+        const eargs = ["shuffle"]
+        if (args.values !== undefined) eargs.push(`--values=${args.values}`)
+        if (args.seed !== undefined) eargs.push(`--seed=${args.seed}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
+      case "derive-seed": {
+        const eargs = ["derive-seed"]
+        if (args.text !== undefined) eargs.push(`--text=${args.text}`)
+        return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/calculate.py", ...eargs], { cwd: context.directory }))
+      }
       case "help": {
-        return "calculate — Pure-query arithmetic and counting — six ops (add, subtract, multiply, divide, sum, count), each a deterministic read that returns a number. Stateless, actorless, refuse-nothing: no store, no provenance stamp, no session — the same inputs always return the same number (Q-CALC-1, the calculate composition, 2026-09-28). anti_scenario: NOT a calculator for prose, NOT a mutation surface, NOT a substitute for kensho's verification — arithmetic and counting only.\n\nOperations:\n  add  [uv run python .opencode/scripts/calculate.py add]\n    a + b — the sum of two numbers (deterministic)\n      - a [required]: the first operand (a number)\n      - b [required]: the second operand (a number)\n    example: operation=\"add\", a=\"<value>\", b=\"<value>\"\n  subtract  [uv run python .opencode/scripts/calculate.py subtract]\n    a - b — the difference of two numbers (deterministic)\n      - a [required]: the first operand (a number)\n      - b [required]: the second operand (a number)\n    example: operation=\"subtract\", a=\"<value>\", b=\"<value>\"\n  multiply  [uv run python .opencode/scripts/calculate.py multiply]\n    a * b — the product of two numbers (deterministic)\n      - a [required]: the first operand (a number)\n      - b [required]: the second operand (a number)\n    example: operation=\"multiply\", a=\"<value>\", b=\"<value>\"\n  divide  [uv run python .opencode/scripts/calculate.py divide]\n    a / b — the quotient of two numbers (deterministic)\n      - a [required]: the first operand (a number)\n      - b [required]: the second operand (a number)\n    example: operation=\"divide\", a=\"<value>\", b=\"<value>\"\n  sum  [uv run python .opencode/scripts/calculate.py sum]\n    the total of a JSON array of numbers (deterministic)\n      - values [required]: a JSON array of numbers to total\n    example: operation=\"sum\", values=\"<value>\"\n  count  [uv run python .opencode/scripts/calculate.py count]\n    the number of elements in a JSON array (deterministic)\n      - values [required]: a JSON array whose elements to count\n    example: operation=\"count\", values=\"<value>\"\n\nTo list every make target, use the `help` tool or run `make help`."
+        return "calculate — Pure-query arithmetic and counting — 30 deterministic ops (Q-CALC-1's six arithmetic and counting + Q-CALC-EXPANSION's 24: statistics, combinatorics, distribution, seeded permutation), each a deterministic read that returns one trace line ({\"op\",\"args\",\"result\"} compact JSON — the same inputs always return the same trace bytes). Stateless, actorless, refuse-nothing: no store, no provenance stamp, no session (Q-CALC-1, the calculate composition, 2026-09-28; Q-CALC-EXPANSION, ruled 2026-11-25). anti_scenario: NOT a calculator for prose, NOT a mutation surface, NOT a substitute for kensho's verification — arithmetic, counting, statistics, combinatorics, distribution, and seeded permutation only.\n\nOperations:\n  add  [uv run python .opencode/scripts/calculate.py add]\n    a + b — the sum of two numbers\n      - a [required]: the first operand (a number, as a string)\n      - b [required]: the second operand (a number, as a string)\n    example: operation=\"add\", a=\"<value>\", b=\"<value>\"\n  subtract  [uv run python .opencode/scripts/calculate.py subtract]\n    a - b — the difference of two numbers\n      - a [required]: the first operand (a number, as a string)\n      - b [required]: the second operand (a number, as a string)\n    example: operation=\"subtract\", a=\"<value>\", b=\"<value>\"\n  multiply  [uv run python .opencode/scripts/calculate.py multiply]\n    a * b — the product of two numbers\n      - a [required]: the first operand (a number, as a string)\n      - b [required]: the second operand (a number, as a string)\n    example: operation=\"multiply\", a=\"<value>\", b=\"<value>\"\n  divide  [uv run python .opencode/scripts/calculate.py divide]\n    a / b — the quotient of two numbers\n      - a [required]: the first operand (a number, as a string)\n      - b [required]: the second operand (a number, as a string)\n    example: operation=\"divide\", a=\"<value>\", b=\"<value>\"\n  sum  [uv run python .opencode/scripts/calculate.py sum]\n    the total of a JSON array of numbers\n      - values [required]: the list to aggregate (a JSON array)\n    example: operation=\"sum\", values=\"<value>\"\n  count  [uv run python .opencode/scripts/calculate.py count]\n    the number of elements in a JSON array\n      - values [required]: the list to aggregate (a JSON array)\n    example: operation=\"count\", values=\"<value>\"\n  sqrt  [uv run python .opencode/scripts/calculate.py sqrt]\n    the principal square root of a\n      - a [required]: the radicand (a number, as a string)\n    example: operation=\"sqrt\", a=\"<value>\"\n  power  [uv run python .opencode/scripts/calculate.py power]\n    a raised to b (b real)\n      - a [required]: the base (a number, as a string)\n      - b [required]: the exponent (a number, as a string)\n    example: operation=\"power\", a=\"<value>\", b=\"<value>\"\n  factorial  [uv run python .opencode/scripts/calculate.py factorial]\n    n! in exact, arbitrary-precision int\n      - n [required]: the count (an integer, as a string)\n    example: operation=\"factorial\", n=\"<value>\"\n  combination  [uv run python .opencode/scripts/calculate.py combination]\n    C(n, k) in exact int\n      - n [required]: the population count (an integer, as a string)\n      - k [required]: the selection count (an integer, as a string)\n    example: operation=\"combination\", n=\"<value>\", k=\"<value>\"\n  proportion  [uv run python .opencode/scripts/calculate.py proportion]\n    the share part/whole\n      - part [required]: the part (a number, as a string)\n      - whole [required]: the whole (a nonzero number, as a string)\n    example: operation=\"proportion\", part=\"<value>\", whole=\"<value>\"\n  mean  [uv run python .opencode/scripts/calculate.py mean]\n    the arithmetic mean of a JSON array of finite numbers\n      - values [required]: the list (a non-empty JSON array of numbers)\n    example: operation=\"mean\", values=\"<value>\"\n  variance  [uv run python .opencode/scripts/calculate.py variance]\n    the population or sample variance of a JSON array\n      - values [required]: the list (a non-empty JSON array of numbers)\n      - form [required]: the form: population or sample\n    example: operation=\"variance\", values=\"<value>\", form=\"<value>\"\n  stddev  [uv run python .opencode/scripts/calculate.py stddev]\n    the population or sample standard deviation of a JSON array\n      - values [required]: the list (a non-empty JSON array of numbers)\n      - form [required]: the form: population or sample\n    example: operation=\"stddev\", values=\"<value>\", form=\"<value>\"\n  max  [uv run python .opencode/scripts/calculate.py max]\n    the greatest element of a JSON array of finite numbers\n      - values [required]: the list (a non-empty JSON array of numbers)\n    example: operation=\"max\", values=\"<value>\"\n  min  [uv run python .opencode/scripts/calculate.py min]\n    the least element of a JSON array of finite numbers\n      - values [required]: the list (a non-empty JSON array of numbers)\n    example: operation=\"min\", values=\"<value>\"\n  median  [uv run python .opencode/scripts/calculate.py median]\n    the middle value of a JSON array of finite numbers\n      - values [required]: the list (a non-empty JSON array of numbers)\n    example: operation=\"median\", values=\"<value>\"\n  quantile  [uv run python .opencode/scripts/calculate.py quantile]\n    the p-quantile by fixed (n-1)-based linear interpolation\n      - values [required]: the list (a non-empty JSON array of numbers)\n      - p [required]: the quantile position in [0, 1] (a number, as a string)\n    example: operation=\"quantile\", values=\"<value>\", p=\"<value>\"\n  wilson  [uv run python .opencode/scripts/calculate.py wilson]\n    the Wilson score interval [lo, hi] of k in n at z\n      - k [required]: the success count (an integer, as a string)\n      - n [required]: the trial count (an integer >= 1, as a string)\n      - z [required]: the z constant (a positive number, as a string)\n    example: operation=\"wilson\", k=\"<value>\", n=\"<value>\", z=\"<value>\"\n  binom-test  [uv run python .opencode/scripts/calculate.py binom-test]\n    the exact binomial tail p of k in n at p (one or two sided)\n      - k [required]: the success count (an integer, as a string)\n      - n [required]: the trial count (an integer >= 0, as a string)\n      - p [required]: the null probability in [0, 1] (a number, as a string)\n      - sided [required]: the sidedness: two or one\n    example: operation=\"binom-test\", k=\"<value>\", n=\"<value>\", p=\"<value>\", sided=\"<value>\"\n  normal-cdf  [uv run python .opencode/scripts/calculate.py normal-cdf]\n    the standard normal CDF at x\n      - x [required]: the point (a number, as a string)\n    example: operation=\"normal-cdf\", x=\"<value>\"\n  normal-ppf  [uv run python .opencode/scripts/calculate.py normal-ppf]\n    the standard normal inverse CDF at q\n      - q [required]: the probability strictly inside (0, 1) (a number, as a string)\n    example: operation=\"normal-ppf\", q=\"<value>\"\n  log  [uv run python .opencode/scripts/calculate.py log]\n    the natural logarithm of a\n      - a [required]: the argument (a positive number, as a string)\n    example: operation=\"log\", a=\"<value>\"\n  exp  [uv run python .opencode/scripts/calculate.py exp]\n    e raised to a\n      - a [required]: the exponent (a number, as a string)\n    example: operation=\"exp\", a=\"<value>\"\n  log-factorial  [uv run python .opencode/scripts/calculate.py log-factorial]\n    the natural log of n!\n      - n [required]: the count (a non-negative integer, as a string)\n    example: operation=\"log-factorial\", n=\"<value>\"\n  log-combination  [uv run python .opencode/scripts/calculate.py log-combination]\n    the natural log of C(n, k)\n      - n [required]: the population count (an integer, as a string)\n      - k [required]: the selection count (an integer, as a string)\n    example: operation=\"log-combination\", n=\"<value>\", k=\"<value>\"\n  log-beta  [uv run python .opencode/scripts/calculate.py log-beta]\n    the natural log of the Beta function B(a, b)\n      - a [required]: the first shape (a positive number, as a string)\n      - b [required]: the second shape (a positive number, as a string)\n    example: operation=\"log-beta\", a=\"<value>\", b=\"<value>\"\n  chisquare  [uv run python .opencode/scripts/calculate.py chisquare]\n    the goodness-of-fit [statistic, df] of observed vs expected\n      - observed [required]: the observed counts (a non-empty JSON array of numbers)\n      - expected [required]: the expected counts (a JSON array of positive numbers)\n    example: operation=\"chisquare\", observed=\"<value>\", expected=\"<value>\"\n  shuffle  [uv run python .opencode/scripts/calculate.py shuffle]\n    the deterministic permutation of a JSON array under a seed\n      - values [required]: the list (a non-empty JSON array)\n      - seed [required]: the seed (an integer, as a string — required, never random)\n    example: operation=\"shuffle\", values=\"<value>\", seed=\"<value>\"\n  derive-seed  [uv run python .opencode/scripts/calculate.py derive-seed]\n    the stable integer seed derived from a text handle\n      - text [required]: the handle (any string)\n    example: operation=\"derive-seed\", text=\"<value>\"\n\nTo list every make target, use the `help` tool or run `make help`."
       }
     }
     return `Unknown operation: ${args.operation}`

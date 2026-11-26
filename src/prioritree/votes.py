@@ -347,7 +347,9 @@ class VoteLedger:
             return self._registry.read_manifest(run_id)
         except RegistryRefusedError as refusal:
             raise VotesRefusedError(
-                expected=refusal.expected, found=refusal.found, next_action=refusal.next_action,
+                expected=refusal.expected,
+                found=refusal.found,
+                next_action=refusal.next_action,
             ) from refusal
 
     def cast_vote(
@@ -435,10 +437,7 @@ class VoteLedger:
             swapped = Pair(item_a=canonical_pair.item_b, item_b=canonical_pair.item_a)
             if swapped in legal_pairs:
                 raise VotesRefusedError(
-                    expected=(
-                        f"a canonical pair (item_a < item_b) — the canonical form of these "
-                        f"ids is {swapped!r}"
-                    ),
+                    expected=(f"a canonical pair (item_a < item_b) — the canonical form of these ids is {swapped!r}"),
                     found=f"{pair!r}",
                     next_action=(
                         "re-send the pair id-sorted — the verdict vocabulary is positional "

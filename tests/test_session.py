@@ -48,7 +48,9 @@ def test_end_to_end_fixture_register_vote_done_tally() -> None:
     """
     session = _session()
     run_id, manifest, count = session.register_run(
-        [("a", "one"), ("b", "two"), ("c", "three")], operator=_declaration(), quorum=1,
+        [("a", "one"), ("b", "two"), ("c", "three")],
+        operator=_declaration(),
+        quorum=1,
     )
     assert count == 1
     assert [row.id for row in manifest.items] == ["a", "b", "c"]
@@ -96,7 +98,12 @@ def test_seam_divergence_next_pair_done_tally_safe_halt() -> None:
     run_id = _registered(session, [("a", "one"), ("b", "two")], quorum=2)
     session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
     session.cast_vote(
-        run_id, ("a", "b"), "prefer-b", comparator_id="x", comparator_class="human", supersedes="VOTE-0001",
+        run_id,
+        ("a", "b"),
+        "prefer-b",
+        comparator_id="x",
+        comparator_class="human",
+        supersedes="VOTE-0001",
     )
     with pytest.raises(ExhaustedQueue):
         session.next_pair(run_id)

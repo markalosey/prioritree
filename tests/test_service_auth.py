@@ -151,7 +151,10 @@ def _assert_same_401(body: dict[str, str]) -> None:
     ],
 )
 def test_no_key_refused_401_at_every_route(
-    client: TestClient, method: str, path: str, body: dict[str, object] | None,
+    client: TestClient,
+    method: str,
+    path: str,
+    body: dict[str, object] | None,
 ) -> None:
     """No key at the door => 401 at all six routes, the SAME ThreePart bytes (the oracle never fed)."""
     response = client.post(path, json=body) if method == "post" else client.get(path)
@@ -232,7 +235,9 @@ def test_right_key_route_bodies_returned(client: TestClient) -> None:
     assert pair.status_code == 200
     assert pair.json() == {"item_a": "a", "item_b": "b", "count": 0}
     vote = client.post(
-        f"/runs/{_RUN_ID}/votes", json=_VOTE_BODY, headers={AUTH_HEADER_DEFAULT: human_key},
+        f"/runs/{_RUN_ID}/votes",
+        json=_VOTE_BODY,
+        headers={AUTH_HEADER_DEFAULT: human_key},
     )
     assert vote.status_code == 200
     assert vote.json() == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
@@ -318,7 +323,8 @@ def test_handler_lane_401_stays_401_never_500(client: TestClient) -> None:
 
 
 def test_supersedes_author_mismatch_403_found_elides_the_author(
-    client: TestClient, tmp_path: Path,
+    client: TestClient,
+    tmp_path: Path,
 ) -> None:
     """Another author's supersedes => 403, found elides the author; the target pair untouched (VOTE-0001 counted)."""
     key_a = _grant(("register", "cast", "state"), home=app.state.keys)
@@ -412,9 +418,7 @@ def test_fence_route_table_walk_every_service_route_gated() -> None:
             continue
         assert route.path in _SIX_PATHS
         markers = [
-            dependency.call.__qualname__
-            for dependency in route.dependant.dependencies
-            if dependency.call is not None
+            dependency.call.__qualname__ for dependency in route.dependant.dependencies if dependency.call is not None
         ]
         assert any(marker.startswith("require_key") for marker in markers)  # the factory marker
         gated.add(route.path)

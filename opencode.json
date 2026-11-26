@@ -179,7 +179,7 @@
       "variant": "medium"
     },
     "keisan": {
-      "description": "Prioritree seat keisan (計算, calculate) — Answer **what is the number** — complex computational things: arithmetic and counting on the calculate surface.",
+      "description": "Prioritree seat keisan (計算, calculate) — Answer **what is the number** — complex computational things: arithmetic, counting, statistics, combinatorics, distribution, and seeded permutation on the calculate surface.",
       "mode": "subagent",
       "model": "asi1/asi1-ultra-1m",
       "permission": {

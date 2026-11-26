@@ -217,8 +217,12 @@ logging.getLogger(_BOOT_LOG_CHANNEL).info(
 # anonymous marker (the cast route's fallback reads it; the boot marker names
 # the degrade — never per-request noise).
 _ANONYMOUS: Final[KeyRecord] = KeyRecord(
-    digest="", comparator_id="", comparator_class="human",
-    scopes=frozenset(), audience=_SERVICE_AUDIENCE, created_at="",
+    digest="",
+    comparator_id="",
+    comparator_class="human",
+    scopes=frozenset(),
+    audience=_SERVICE_AUDIENCE,
+    created_at="",
 )
 
 
@@ -243,12 +247,14 @@ def require_key(token: str) -> Callable[[Request], KeyRecord]:
     Provenance: the unit brief §1a/§3a, the design's F5/F8/F9, rikai map 1,
     G-SERVING-TIER-INTEGRATION-BRIEF.
     """
+
     def _door(request: Request) -> KeyRecord:
         if request.app.state.auth == _AUTH_OFF:
             return _ANONYMOUS
         store = cast("KeyStore", request.app.state.keys)
         presented = request.headers.get(AUTH_HEADER_DEFAULT, "")
         return verify(store, presented, _SERVICE_AUDIENCE, token)
+
     return _door
 
 
@@ -313,9 +319,7 @@ def rebadge(request: Request, exc: RequestValidationError) -> JSONResponse:
     Q-service-routes ("400 the request's own grammar" + "422 exclusively the
     door's"), G-SERVICE-FACE.
     """
-    _violation = "; ".join(
-        f"{'.'.join(str(part) for part in error['loc'])}: {error['msg']}" for error in exc.errors()
-    )
+    _violation = "; ".join(f"{'.'.join(str(part) for part in error['loc'])}: {error['msg']}" for error in exc.errors())
     if request.url.path == _RUNS_PATH:
         _fields = "items a list of [id, label] two-string arrays (payload order preserved)"
         _expected = f"a register body: {_fields}; operator_id, question strings; quorum an integer"
@@ -425,6 +429,8 @@ def refuse_scope(request: Request, exc: KeyScopeError) -> JSONResponse:
     G-SERVING-TIER-INTEGRATION-BRIEF.
     """
     return JSONResponse(status_code=_FORBIDDEN, content=render_refusal(exc))
+
+
 _TALLY_PATH: Final[str] = "/runs/{run_id}/tally"
 # The route table as the wire's own cure vocabulary (the legal lanes named
 # ONCE from the path constants — content-in-configuration; the framework-
@@ -612,9 +618,7 @@ def rank(request: Request, run_id: str, record: _TallyDoor) -> JSONResponse:
         return JSONResponse(status_code=409, content=render_refusal(refusal))
     stripped = replace(result, coverage=replace(result.coverage, pair_counts={}))
     whole = asdict(stripped)
-    _counts = {
-        f"{pair.item_a}|{pair.item_b}": pair_count for pair, pair_count in result.coverage.pair_counts.items()
-    }
+    _counts = {f"{pair.item_a}|{pair.item_b}": pair_count for pair, pair_count in result.coverage.pair_counts.items()}
     whole[COVERAGE][PAIR_COUNTS] = _counts
     return JSONResponse(status_code=200, content=whole)
 
