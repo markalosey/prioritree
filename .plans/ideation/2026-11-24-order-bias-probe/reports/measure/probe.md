@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — measure/probe
 
-**Route:** order-bias-probe (executing) | **Events:** 39 | **Reports:** 24
+**Route:** order-bias-probe (executing) | **Events:** 46 | **Reports:** 27
 
 ## The packet's chain (ledger order)
 
@@ -46,6 +46,13 @@
 | 37 | report | keisan | 2026-11-26T15:49:34Z |
 | 38 | dispatch | shinko | 2026-11-26T16:09:22Z |
 | 39 | report | keisan | 2026-11-26T16:14:06Z |
+| 40 | dispatch | shinko | 2026-11-26T16:26:29Z |
+| 41 | dispatch | shinko | 2026-11-26T21:13:55Z |
+| 42 | report | keisan | 2026-11-26T21:17:31Z |
+| 43 | dispatch | shinko | 2026-11-26T21:22:36Z |
+| 44 | report | togo | 2026-11-26T21:37:03Z |
+| 45 | dispatch | shinko | 2026-11-26T21:37:23Z |
+| 46 | report | jikko | 2026-11-26T21:52:01Z |
 ## Reported by jikko — 2026-11-26T03:08:57Z
 
 # THE INSTRUMENT STEP — jikko (実行), packet measure/probe, route order-bias-probe, 2026-11-26
@@ -608,3 +615,72 @@ THE NEXT-ACTION (the gap's closure, for the driver): the 78 swapped cells landin
 NO flips table (STEP 1), NO primary (STEP 2 — no m, no k, no binom-test, no critical value, no verdict on the datum), NO slices, NO Wilson bounds, NO faces (STEP 3) — NOTHING beyond the count gate's arithmetic. The datum's verdict on Q-order-bias remains DEFERRED — the third firing's refusal, identical in kind to the second's: the complete cell is the demand, and the record does not carry it.
 
 *Provenance: keisan (計算), packet measure/probe (the analysis act, the third firing), route order-bias-probe, 2026-11-26. READ-ONLY held — this report the packet's only write this firing. The traces are my own fires at the calculate instrument this session (the tool proven live); the greps the disk's own counts; the run file read whole (235 lines, every record). The tree is the truth.*
+## Reported by keisan — 2026-11-26T21:17:31Z
+
+THE COUNT — the record's state after the collaborator's latest session (keisan 計算, the standing read, the FR-MEM-0040 protocol; measure/probe, order-bias-probe, RUN-0008, 2026-11-26). The count alone — no analysis, no primary, no verdict; the primary stays deferred.
+
+0. THE RECORD'S SHAPE (.prioritree/runs/RUN-0008.jsonl, read whole): 304 lines = 1 manifest + 303 votes; vote-ids contiguous VOTE-0001..VOTE-0303, every supersedes null, zero "tie" winners. The identity note carried from the prior firings: the file is RUN-0008 by filename and manifest (13 words w01:river..w13:clover, operator "mark", quorum 1, "Which word feels more pleasant to you?"); the records inside stamp the format's constant run_id "RUN-0001" as every run file's records do — no phantom run counted.
+
+1. THE CLASS × PRESENTATION TABLE (each trace verbatim, my own fires at the calculate instrument this session; each array the cell's vote numbers):
+
+llm × canonical = 78 — {"op": "count", "args": {"values": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130]"}, "result": 78} — moho VOTE-0001..0026 (lines 2-27) + kensho VOTE-0053..0078 (lines 54-79) + jikko VOTE-0105..0130 (lines 106-131).
+
+llm × swapped = 78 — {"op": "count", "args": {"values": "[27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156]"}, "result": 78} — moho VOTE-0027..0052 (lines 28-53) + kensho VOTE-0079..0104 (lines 80-105) + jikko VOTE-0131..0156 (lines 132-157).
+
+human × canonical = 78 — {"op": "count", "args": {"values": "[157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234]"}, "result": 78} — mark, VOTE-0157..0234 (lines 158-235), recorded 14:38:12–14:40:16Z.
+
+human × swapped = 69 — {"op": "count", "args": {"values": "[235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303]"}, "result": 69} — VOTE-0235..0303 (lines 236-304), TWO sessions: the prior 7 by comparator "mark" (VOTE-0235..0241, recorded 16:21:17–16:23:03Z — {"op": "count", "args": {"values": "[235,236,237,238,239,240,241]"}, "result": 7}) and the new session 62 by comparator "Mark Losey" (VOTE-0242..0303, recorded 21:06:09–21:12:13Z — {"op": "count", "args": {"values": "[242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303]"}, "result": 62}).
+
+2. THE TOTAL + THE GAP:
+total = 303 — {"op": "sum", "args": {"values": "[78,78,78,69]"}, "result": 303}
+gap to 312 = 9 — {"op": "subtract", "args": {"a": "312", "b": "303"}, "result": 9}
+landed since the 241-count = 62 (the new session's votes, VOTE-0242..VOTE-0303, the trace above).
+
+3. THE CELL MAP (the completion card reports/measure/human-completion-card.md read whole — 78 cells, P01→P78 schedule order, each cell a pair's SWAPPED presentation; a cell LANDS when a human swapped vote exists for its pair, matched by unordered pair):
+
+landed cells = 62 — {"op": "count", "args": {"values": "[1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,20,21,22,23,24,25,26,27,28,29,30,31,33,35,36,37,38,39,40,42,43,46,47,50,51,52,53,54,55,56,57,58,59,60,63,64,67,71,72,73,74,75,76,77,78]"}, "result": 62} — the landed set: P01–P10, P12–P18, P20–P31, P33, P35–P40, P42–P43, P46–P47, P50–P60, P63–P64, P67, P71–P78 (P01–P07 landed twice over — see 4).
+
+THE REMAINING CELLS' EXACT LIST (16 — the flow fix's serving size, the chain's carrying set; the card's P01→P78 order; each line the P-number, the pair id, the card's presented words):
+- P11 · w01:river × w12:thistle (thistle vs river)
+- P19 · w02:meadow × w09:willow (willow vs meadow)
+- P32 · w03:lantern × w12:thistle (thistle vs lantern)
+- P34 · w04:harbor × w05:cedar (cedar vs harbor)
+- P41 · w04:harbor × w12:thistle (thistle vs harbor)
+- P44 · w05:cedar × w07:tide (tide vs cedar)
+- P45 · w05:cedar × w08:orchard (orchard vs cedar)
+- P48 · w05:cedar × w11:fennel (fennel vs cedar)
+- P49 · w05:cedar × w12:thistle (thistle vs cedar)
+- P61 · w07:tide × w11:fennel (fennel vs tide)
+- P62 · w07:tide × w12:thistle (thistle vs tide)
+- P65 · w08:orchard × w10:granite (granite vs orchard)
+- P66 · w08:orchard × w11:fennel (fennel vs orchard)
+- P68 · w08:orchard × w13:clover (clover vs orchard)
+- P69 · w09:willow × w10:granite (granite vs willow)
+- P70 · w09:willow × w11:fennel (fennel vs willow)
+
+remaining cells = 16 — {"op": "count", "args": {"values": "[11,19,32,34,41,44,45,48,49,61,62,65,66,68,69,70]"}, "result": 16}
+
+4. THE DOUBLE-VOTE FACT (a count fact, named plainly, no verdict): 69 human swapped votes sit on 62 cells — {"op": "subtract", "args": {"a": "69", "b": "62"}, "result": 7} — VOTE-0242..0248 (the new session's first 7) re-land P01..P07, the very cells VOTE-0235..0241 (comparator "mark") already carried (each pair byte-identical). The record counts records: the remaining 16 cells, once landed one vote each, carry the record to {"op": "add", "args": {"a": "303", "b": "16"}, "result": 319} — {"op": "subtract", "args": {"a": "319", "b": "312"}, "result": 7} past the design's 312 mark. The plain gap (9) and the serving size (16) differ by exactly the 7 double-votes.
+
+THE COUNT IS THE RECORD'S STATE: 303 of 312 on the record's face; 62 of 78 card cells landed; 16 cells remain. The primary stays deferred.
+## Reported by togo — 2026-11-26T21:37:03Z
+
+# THE FLOW-FIX FOLDS — togo (統合), packet measure/probe, route order-bias-probe, 2026-11-26 — the two rulings fenced before the builds land. THE GROUND READ WHOLE: web.py's vote POST (:1098-1157) + vote-ack.html + the judge/pick routes + the pair fragment's DONE redirect (:1075); votes.py (the dedup key 8-wide — two votes two records, never one); tally.py's tie rule (the tie positionless — no dominance edge); FR-MEM-0042; keisan's count (the 16 remaining, the 7 doubles).
+RULING 1 — THE ACK-CARRY: THE RULED SEQUENCE = THE COUNT'S REMAINING LIST (keisan's 16, the axis query's product, the card's P-order: P11,P19,P32,P34,P41,P44,P45,P48,P49,P61,P62,P65,P66,P68,P69,P70), NOT the card's static P-order — read both, the static order RULED OUT: from P11 (the count's first remaining) the static next is P12, LANDED (the count's cell map) — the chain would mechanize the very doubles FR-MEM-0042 names; and the remaining-ness is NOT derivable at the ack's render — the state route elides per-pair counts ("never resurrected", the seam's own law), the census elides the vote log, the tally's coverage per-pair weighted and presentation-blind (the pair×class×presentation axis rides NO web seam), the no-anchoring law bars count reads at sitting-context controllers, and the design's cell (2 human votes per pair) is never the product's law — SO THE LIST RIDES THE URL (FR-MEM-0042's own scoping: "the session carrying nothing new [the sequence in the URL]"), the count's act the only remaining-deriver: the judge route gains the `chain` query param (default "", passed to the sitting context) + pair.html the hidden carry `{% if chain %}<input type="hidden" name="chain" value="{{ chain }}">{% endif %}` (the sitting page + the pair fragment: chain undefined → no field → THE SITTING LANE BYTE-UNTACHED); the seed = P11's judge URL + `&chain=` the count's 16 tokens comma-joined (byte-citable against the count's list).
+THE TEMPLATE — vote-ack.html:5 BEFORE (verbatim): `<div hx-get="/ui/runs/{{ stem }}/pair{% if swap %}?swap=true{% endif %}" hx-trigger="load" hx-target="#pair-region" hx-swap="outerHTML"></div>`; AFTER: `{% if next_url %}<p><a class="next-pair" href="{{ next_url }}">next pair -></a></p>{% elif done_url %}<p class="quiet">That was the last pair on this card — the list has ended; every judgment is recorded.</p><p><a href="{{ done_url }}">the done page</a></p>{% else %}` + the fetch line UNCHANGED + `{% endif %}` — THE ACK STAYS (no fetch embedded when the chain rides: the /done bounce never fires at the deliberate lane; the pair fragment's DONE branch untouched — the sitting lane's amendment-22 law) — the done page A LINK, NEVER A REDIRECT.
+THE HANDLER — web.py's vote POST ack render BEFORE (verbatim, :1146-1157): the six-field TemplateResponse (stem/winner/acknowledged/label_a/label_b/swap); AFTER: `chain = str(form.get("chain", "")).strip()` — when present: `schedule = _scheduled_pairs(manifest.json())` (already in hand), the just-voted P-token (`P{schedule's index of the id-sorted pair + 1:02d}`) dropped from the token list; non-empty rest → `next_url` = the head's judge URL `/runs/{stem}/pair?item_a={a}&item_b={b}` + `&swap=true` when the page's mode is swapped (the sitting lane's own precedent: the chain rides the page's presentation) + `&chain={the rest}`; empty rest → `done_url = /runs/{stem}/done` — the count fields never read, no seam extended, the session untouched.
+RULING 2 — THE CELL RULE (the doubles, fenced BEFORE the compute): THE CELL = one pair × one class × the two presentations (the flips table's unit); THE ANCHOR = the canonical side's winner (the item that won — the record carries zero ties; the pre-registered tie rule unchanged: a tie vote excluded from the sign test, the tie rate at its own weight); each swapped-side vote classifies against the anchor — CONC (the same item won) or DISC (the other item won — a flip whose direction is FIXED BY THE ANCHOR'S POSITION: the first-presented won at canonical → toward FIRST, else toward SECOND — every discord of a cell shares it).
+THE RULE: ONE swapped vote (the 55 singles + every llm cell — the cyclic assignment one per cell) → the pre-registered form; TWO swapped votes (the doubles — P01..P07's human cells, "mark" + "Mark Losey": one human, two session identities, the rule identity-blind — the record counts records) → UNANIMOUS (both CONC or both DISC) = THE CELL COUNTS ONCE (a discord one unit of m and, toward FIRST, one of k); SPLIT (one CONC, one DISC) = THE CELL EXCLUDED AND REPORTED — the pair id + the two votes' winners named in the datum's report, never silent (THE TIE RULE'S NATURAL EXTENSION: a cell carrying no direction leaves the sign test as a tie vote does — excluded, carried at its own weight).
+THE PLACE: STEP 1 — the flips table's build (the rule stated before the table renders one cell), hence before STEP 2's one look fires; THE REALIZED-m BRANCH EXTENDED: m and k computed over the cells as ruled (unanimous doubles once, split doubles excluded), the exclusions + the doubles' treatment carried in the datum's report — the m arithmetic honest at the cell map (the 78×2 table with the 7 doubles marked, any exclusions named).
+*Provenance: togo (統合), packet measure/probe (the flow-fix folds), route order-bias-probe, 2026-11-26. READ-ONLY held — this report the packet's only write. The bytes cited verbatim from the tree (web.py, vote-ack.html, pair.html, votes.py, tally.py); the findings cited from the record (FR-MEM-0042, keisan's count at the packet's chain); the tree is the truth.*
+## Reported by jikko — 2026-11-26T21:52:01Z
+
+R11 — the flow-fix build (jikko, measure/probe, order-bias-probe, 2026-11-26): togo's fold landed — the ack-carry bytes at the three fenced files (one patch, 7 hunks, applied clean; the sitting lane byte-untouched); the floor: ruff "All checks passed!", pyright "0 errors, 0 warnings, 0 informations".
+1. THE HANDLER'S CHAIN REGION (web.py:1163-1176, verbatim): `chain = str(form.get("chain", "")).strip()` / `next_url = ""` / `done_url = ""` / `if chain:` / `schedule = _scheduled_pairs(manifest.json())` / `voted_a, voted_b = sorted(payload["pair"])` / `just_token = f"P{schedule.index((voted_a, voted_b)) + 1:02d}"` / `rest = [token for token in (part.strip() for part in chain.split(",")) if token and token != just_token]` / `if rest:` / `head = schedule[int(rest[0][1:]) - 1]` / `swap_form = "&swap=true" if presentation == PRESENTATION_SWAPPED else ""` / `next_url = f"/runs/{stem}/pair?item_a={head[0]}&item_b={head[1]}{swap_form}&chain={','.join(rest)}"` / `else:` / `done_url = f"/runs/{stem}/done"`; the render context + `"next_url": next_url, "done_url": done_url` — the count fields never read, no seam extended, the session untouched.
+2. THE ACK TEMPLATE'S LINK (vote-ack.html:5, verbatim): `{% if next_url %}<p><a class="next-pair" href="{{ next_url }}">next pair -></a></p>{% elif done_url %}<p class="quiet">That was the last pair on this card — the list has ended; every judgment is recorded.</p><p><a href="{{ done_url }}">the done page</a></p>{% else %}<div hx-get="/ui/runs/{{ stem }}/pair{% if swap %}?swap=true{% endif %}" hx-trigger="load" hx-target="#pair-region" hx-swap="outerHTML"></div>{% endif %}` — the fetch line byte-UNCHANGED inside the else arm: the ack STAYS when the chain rides (no fetch, the /done bounce never fires), the sitting lane's bytes whole.
+3. THE LAST CELL'S FORM (verbatim): the handler's `done_url = f"/runs/{stem}/done"` + the template's `{% elif done_url %}<p class="quiet">That was the last pair on this card — the list has ended; every judgment is recorded.</p><p><a href="{{ done_url }}">the done page</a></p>` — the done page A LINK, never a redirect; the pair fragment's DONE branch untouched (amendment 22's law held).
+4. THE JUDGE PASS-THROUGH + THE CARRY: web.py:847 `chain = request.query_params.get("chain", "").strip()` → :867 the sitting context's `"chain": chain,`; pair.html:12 the fold's carry verbatim `{% if chain %}<input type="hidden" name="chain" value="{{ chain }}">{% endif %}` — chain undefined at the sitting/fragment lanes → no field → those lanes byte-untouched. THE CHOICE REPORTED: the chain read via request.query_params, NOT a sixth signature argument — PLR0913's five-argument bar fires past five and pyproject's ignore list carries only named rulings (the fold fences no pyproject edit); the URL grammar, the default "", and the pass-through identical to the fold's ruled form.
+5. THE SEED (byte-citable against keisan's 16): /runs/RUN-0008/pair?item_a=w01:river&item_b=w12:thistle&swap=true&chain=P11,P19,P32,P34,P41,P44,P45,P48,P49,P61,P62,P65,P66,P68,P69,P70 — the card's 16 cells all swapped-presentation (the count's own datum), so the chain riding the page's presentation keeps every cell swapped the whole 16 long; the first ack's next link composes the head P19 + the 15-token rest.
+6. THE MANGLE EDGE (honest, un-ruled by the fold): a malformed chain token (not P<number>, or past the schedule's span) crashes the ack render to the standing 500 fold — the fold rules the count's well-formed list; both handlers' docstrings grown to name the chain branch (the five-field law), their Provenance citing the flow-fix folds.
+7. NOT DONE: no tests landed (the fold fences no test file; kensho's arcs the verifier); the template comment lines left untouched (the fold names the :5 region + the carry alone; the standing comments stay truthful — the fetch rides the else arm); the serving — the seed URL's driving — the collaborator's act, not mine.
+Provenance: jikko (実行), packet measure/probe (the flow-fix build), route order-bias-probe, 2026-11-26. The tree is the truth: every byte quoted verbatim from the disk post-apply; the lint/pyright outcomes the instruments' own output.

@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — recommend/calc-ops
 
-**Route:** order-bias-probe (executing) | **Events:** 22 | **Reports:** 11
+**Route:** order-bias-probe (executing) | **Events:** 24 | **Reports:** 12
 
 ## The packet's chain (ledger order)
 
@@ -29,6 +29,8 @@
 | 20 | dispatch | shinko | 2026-11-26T01:31:11Z |
 | 21 | report | moho | 2026-11-26T01:32:26Z |
 | 22 | report | jikko | 2026-11-26T01:38:35Z |
+| 23 | dispatch | shinko | 2026-11-26T21:37:23Z |
+| 24 | report | jikko | 2026-11-26T22:07:08Z |
 ## Reported by suisen — 2026-11-25T04:42:57Z
 
 # suisen (推薦) — THE CALCULATE EXPANSION ASSESSED FOR HIKARI: the op manifest, the provenance schema, the numerics policy, the priorities
@@ -324,3 +326,14 @@ ACT 1 — THE KAT'S RE-RUN: "87 passed in 3.31s" — 87/87 (the floor row's ruff
 ACT 2 — THE FLOOR: "423 passed in 33.52s" — the full suite, all passing.
 ACT 3 — THE LINT ACT: ruff check .opencode/scripts/calculate.py tests/test_calculate_expansion_kat.py — ZERO findings, proven at the floor row fired alone ("1 passed in 0.48s" — the battery's own lane, the no-shell law: the row's subprocess IS the exact explicit argv, returncode 0 asserted; the row's pyright leg green with it).
 NOT DONE: no engine byte touched (the fork-free law held); no make-lint/typecheck acts (not among the dispatch's three).
+## Reported by jikko — 2026-11-26T22:07:08Z
+
+R11 — THE AXIS-QUERY BUILD LANDED (packet recommend/calc-ops, order-bias-probe, 2026-11-26; FR-MEM-0043's cure; the .opencode school, zero product bytes).
+1) THE ENGINE — .opencode/scripts/vote_query.py NEW (555 lines, ruff ZERO findings at the patch tool's bar): op cell-table (--run-file + --items: the id list, or the manifest file's path read whole); pure/deterministic/fixed-argv, the trace line {"op","args","result"} on stdout, ThreePart refusals, five-field docstrings; THE CELL RULE'S GROUND SERVED (winners per cell AS RECORDED, positional over the served pair — the analysis stays keisan's); + .opencode/scripts/__init__.py NEW (the INP001 marker — the engines fire by path, never imported, inert).
+2) THE SMOKE — .opencode/scripts/smoke_vote_query.py NEW (zero findings) fired via the test lane: "1 passed in 0.01s" — the in-process fire (the engine's main() with the seat-facing argv; the subprocess/assert battery class rides pyproject's tests/** ruling — the zero-findings form inside the fence); the artifact .opencode/scripts/vote-query-smoke-RUN-0008.trace = the fired trace verbatim (trace == the independent in-process derivation; both items forms agree; the re-fire byte-identical).
+3) THE WRAPPER — .opencode/tools/vote_query.ts NEW (the calculate family form: runArgv over uv run python .opencode/scripts/vote_query.py); the one tsc finding = the family's standing `stderr: Buffer | string` gap (byte-identical to every wrapper; the tsconfig's own comment rules tools/ out of tsc scope).
+4) THE REGISTRATION — opencode.json: 13 rows (12 × allow + shinko deny :463 — the calculate rows' form; keisan's allow :225, the FR-MEM-0043 sufferer covered).
+READ-BACKS — engine's head verbatim: "# Copyright (C) 2026 Mark Losey. All rights reserved." / '"""vote_query.py — the axis-query engine over the vote data (FR-MEM-0043's cure).'
+TRACE at RUN-0008 verbatim (the artifact's head, one line): '{"op": "cell-table", "args": {"run_file": ".prioritree/runs/RUN-0008.jsonl", "items": ".prioritree/runs/RUN-0008.jsonl"}, "result": {"total_votes": 303, "cells": [{"pair": ["w01:river", "w02:meadow"], "class": "human", "presentation": "canonical", "count": 1, "winners": ["prefer-a"]}, {"pair": ["w01:river", "w02:meadow"], "class": "human", "presentation": "swapped", "count": 2, "winners": ["prefer-b", "prefer-a"]}, ...' — THE 303 STATE AT ONE CALL; the 7 doubles at their cells (human+swapped, the re-landed pairs): (w01,w02) ["prefer-b","prefer-a"] THE SPLIT; (w01,w03), (w01,w04), (w01,w05) verbatim in-window each ["prefer-b","prefer-b"]; (w01,w06), (w01,w07), (w01,w08) the same winners, beyond the 2000-char read window (the artifact carries all seven; the smoke's equality proof the guarantee).
+WRAPPER'S ROW verbatim: '.enum(["cell-table"]).or(tool.schema.literal("help")).describe("Operation to perform (use \"help\" to print this tool's usage)")' (vote_query.ts:29-32); registration row verbatim: '"vote_query": "allow",' (keisan's map, opencode.json:225).
+NOT DONE, named: the wrapper's op is NOT live at THIS session's seats (the registry rides the harness restart — the collaborator's act; the seat smoke re-fires at the restarted harness); no KAT battery landed (the dispatch's smoke was RUN-0008; the byte-pinned battery is kensho/the coordinator's lane); no lint/typecheck/suite runs beyond the smoke's own lane (the coordinator's instruments).

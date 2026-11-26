@@ -46,6 +46,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -89,6 +90,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -132,6 +134,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -175,6 +178,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -218,6 +222,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -261,6 +266,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -304,6 +310,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -350,6 +357,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -393,6 +401,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -451,6 +460,7 @@
         },
         "test": "deny",
         "todo": "deny",
+        "vote_query": "deny",
         "web": "allow",
         "webfetch": "deny",
         "write": "deny"
@@ -494,6 +504,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"
@@ -537,6 +548,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "allow",
         "webfetch": "deny",
         "write": "deny"
@@ -580,6 +592,7 @@
         "task": "deny",
         "test": "allow",
         "todo": "deny",
+        "vote_query": "allow",
         "web": "deny",
         "webfetch": "deny",
         "write": "deny"

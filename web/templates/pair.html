@@ -9,6 +9,7 @@
     <input type="hidden" name="item_b" value="{{ item_b }}">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     <input type="hidden" name="presentation_order" value="{{ presentation_order }}">
+    {% if chain %}<input type="hidden" name="chain" value="{{ chain }}">{% endif %}
     <div class="cards">
       <sl-card class="pair-card"><sl-badge slot="header">A</sl-badge><span class="card-label">{{ label_a }}</span></sl-card>
       <sl-card class="pair-card"><sl-badge slot="header">B</sl-badge><span class="card-label">{{ label_b }}</span></sl-card>

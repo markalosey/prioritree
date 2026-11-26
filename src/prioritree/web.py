@@ -813,13 +813,19 @@ async def judge(
     any registered pair at any coverage point). 404 => the unknown-run
     page; 401/403 => the auth pages; any other non-200 => the fold page at
     the response's own status.
+    The chain query param (default "", read from the request's query)
+    passes through to the sitting context — the ack-carry lane's remaining
+    list (the flow fix: the count's P-tokens comma-joined; non-empty rides
+    pair.html's hidden carry page to page, absent/empty renders no field —
+    the sitting lane byte-untouched).
     Refuses when: never by this hand — the page renders the pair AS CITED
     (the wire the sole validator: a mangled citation renders honestly, the
     vote's legality the door's own act).
     Re-run: deterministic given the store state.
     Touches: nothing — a query.
     Provenance: amendment 22 (the deliberate-pair lane — the existing card
-    + the door unchanged), web-brief §4 route 2's surface re-used,
+    + the door unchanged), web-brief §4 route 2's surface re-used, the
+    flow-fix folds (the ack-carry — the chain param's pass-through),
     G-WEBSPEC-BRIEF.
     """
     manifest = await _service("GET", f"/runs/{stem}/manifest")
@@ -838,6 +844,7 @@ async def judge(
         )
     manifest_body = manifest.json()
     labels = _labels(manifest_body)
+    chain = request.query_params.get("chain", "").strip()
     presented_a, presented_b = (item_b, item_a) if swap else (item_a, item_b)
     return templates.TemplateResponse(
         request,
@@ -857,6 +864,7 @@ async def judge(
             "presentation_order": PRESENTATION_SWAPPED if swap else PRESENTATION_CANONICAL,
             "labels": labels,
             "pairs": _scheduled_pairs(manifest_body),
+            "chain": chain,
         },
     )
 
@@ -1105,14 +1113,23 @@ async def vote(request: Request, stem: str) -> Response:
     (B)" / the tie form; acknowledged:true => the idempotent echo in
     words; the count UNREAD, never rendered) and embeds hx-trigger="load" +
     hx-get to the pair fragment targeting the pair region — the POST's
-    response NEVER carries the pair; the load fires the fetch. Any non-200
+    response NEVER carries the pair; the load fires the fetch. THE CHAIN
+    FORM FIELD (the flow fix's ack-carry), when present, REPLACES the
+    fetch: the just-voted P-token (the schedule's index of the id-sorted
+    pair, 02d) dropped from the comma-joined token list; non-empty rest =>
+    the ack links the head's judge URL (the swap knob carried when the
+    page's mode is swapped — the chain rides the page's presentation; the
+    shrunken chain riding the URL); empty rest => the done-page LINK + the
+    list-has-ended teaching — the ack STAYS (no fetch embedded: the /done
+    bounce never fires at the deliberate lane). Any non-200
     on either call => the inline refusal at 200 — THE PAIR REGION UNTOUCHED
     (the same pair retryable: the refusal swaps into the ack region, never
     the pair region).
     Refuses when: never by this hand — the branches render honestly.
     Re-run: deterministic given the store state.
     Touches: the run file through the service (the command).
-    Provenance: web-brief §4 route 8, the design §7a/§8, G-WEBSPEC-BRIEF.
+    Provenance: web-brief §4 route 8, the design §7a/§8, the flow-fix folds
+    (the ack-carry — the chain's next link), G-WEBSPEC-BRIEF.
     """
     form = await request.form()
     name = _remembered(request)
@@ -1143,6 +1160,20 @@ async def vote(request: Request, stem: str) -> Response:
     if manifest.status_code != _OK:
         return _refuse_fragment(request, _fields(manifest.json()), fold=manifest.status_code == _CRASH)
     labels = _labels(manifest.json())
+    chain = str(form.get("chain", "")).strip()
+    next_url = ""
+    done_url = ""
+    if chain:
+        schedule = _scheduled_pairs(manifest.json())
+        voted_a, voted_b = sorted(payload["pair"])
+        just_token = f"P{schedule.index((voted_a, voted_b)) + 1:02d}"
+        rest = [token for token in (part.strip() for part in chain.split(",")) if token and token != just_token]
+        if rest:
+            head = schedule[int(rest[0][1:]) - 1]
+            swap_form = "&swap=true" if presentation == PRESENTATION_SWAPPED else ""
+            next_url = f"/runs/{stem}/pair?item_a={head[0]}&item_b={head[1]}{swap_form}&chain={','.join(rest)}"
+        else:
+            done_url = f"/runs/{stem}/done"
     return templates.TemplateResponse(
         request,
         "vote-ack.html",
@@ -1153,6 +1184,8 @@ async def vote(request: Request, stem: str) -> Response:
             "label_a": labels.get(payload["pair"][0], payload["pair"][0]),
             "label_b": labels.get(payload["pair"][1], payload["pair"][1]),
             "swap": presentation == PRESENTATION_SWAPPED,
+            "next_url": next_url,
+            "done_url": done_url,
         },
     )
 

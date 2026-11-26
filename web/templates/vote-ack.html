@@ -2,5 +2,5 @@
 <div id="vote-ack">
   <p class="ack-line">{% if winner == 'prefer-a' %}You preferred {{ label_a }} (A) over {{ label_b }} (B).{% elif winner == 'prefer-b' %}You preferred {{ label_b }} (B) over {{ label_a }} (A).{% else %}Tie: {{ label_a }} (A) and {{ label_b }} (B) stand equal.{% endif %}</p>
   {% if acknowledged %}<p class="quiet">This pair was already recorded with the same answer — it stands once.</p>{% endif %}
-  <div hx-get="/ui/runs/{{ stem }}/pair{% if swap %}?swap=true{% endif %}" hx-trigger="load" hx-target="#pair-region" hx-swap="outerHTML"></div>
+  {% if next_url %}<p><a class="next-pair" href="{{ next_url }}">next pair -></a></p>{% elif done_url %}<p class="quiet">That was the last pair on this card — the list has ended; every judgment is recorded.</p><p><a href="{{ done_url }}">the done page</a></p>{% else %}<div hx-get="/ui/runs/{{ stem }}/pair{% if swap %}?swap=true{% endif %}" hx-trigger="load" hx-target="#pair-region" hx-swap="outerHTML"></div>{% endif %}
 </div>
