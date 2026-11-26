@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — measure/probe
 
-**Route:** order-bias-probe (executing) | **Events:** 35 | **Reports:** 22
+**Route:** order-bias-probe (executing) | **Events:** 37 | **Reports:** 23
 
 ## The packet's chain (ledger order)
 
@@ -42,6 +42,8 @@
 | 33 | report | keisan | 2026-11-26T15:17:16Z |
 | 34 | dispatch | shinko | 2026-11-26T15:18:51Z |
 | 35 | report | jikko | 2026-11-26T15:36:45Z |
+| 36 | dispatch | shinko | 2026-11-26T15:46:04Z |
+| 37 | report | keisan | 2026-11-26T15:49:34Z |
 ## Reported by jikko — 2026-11-26T03:08:57Z
 
 # THE INSTRUMENT STEP — jikko (実行), packet measure/probe, route order-bias-probe, 2026-11-26
@@ -544,3 +546,27 @@ R11 — the completion-card step (jikko, measure/probe, order-bias-probe, 2026-1
 4. ONE DEFECT FOUND + FIXED (honest): the first landing's 39 link texts carried card 2's complement word order (the canonical cells' labels) — inconsistent with the pages' swapped presentation; a second patch unified all 78 texts to the presented order (the sibling card's convention).
 5. THE SERVER (the card's line 4's liveness, evidence at the read): make status verbatim — "pid: 88579 (live)" / "port: 8000 answering-and-armed (HTTP 401 on /runs/RUN-9999/next; AUTH=on, the ready form)".
 NOT DONE (honest): no votes cast, no tally, no analysis — the driving is the human's; the card the driving form only (NOT card 2: every cell swapped, zero double-votes — card 2's 39 canonical cells would pollute).
+## Reported by keisan — 2026-11-26T15:49:34Z
+
+THE COUNT GATE'S REPORT — the completion's claim verified at the tool BEFORE the analysis (the FR-MEM-0040 protocol; keisan, the measure/probe increment's analysis act, second firing, the complete cell the demand)
+
+THE VERDICT: INCOMPLETE — THE GATE REFUSES THE ANALYSIS. The complete cell demands 312 votes; the run's record carries 234. The human swapped half — 78 links — is ABSENT from the record. Per the protocol: STOP, compute NOTHING — no flips table, no primary, no slices, no faces (the incomplete look's class is the sin named once already). The verdict remains DEFERRED, exactly as the first firing left it.
+
+STEP 0 — THE COUNT GATE (.prioritree/runs/RUN-0008.jsonl: 235 lines = 1 manifest + 234 votes; the vote-ids contiguous VOTE-0001..VOTE-0234, every supersedes null. Identity note: the file is RUN-0008 by filename and manifest — 13 words w01:river..w13:clover, operator mark, "Which word feels more pleasant to you?" — while the records inside carry the format's constant label run_id "RUN-0001", as every run file's records do; no phantom run is being counted).
+
+The lane × presentation cells, counted at the tool (the traces quoted verbatim):
+- llm × canonical = {"op": "sum", "args": {"values": "[26, 26, 26]"}, "result": 78} — moho VOTE-0001..0026 (lines 2-27), kensho VOTE-0053..0078 (lines 54-79), jikko VOTE-0105..0130 (lines 106-131).
+- llm × swapped = {"op": "sum", "args": {"values": "[26, 26, 26]"}, "result": 78} — moho VOTE-0027..0052 (lines 28-53), kensho VOTE-0079..0104 (lines 80-105), jikko VOTE-0131..0156 (lines 132-157).
+- human × canonical = {"op": "count", "args": {"values": "[157, 158, ... 234]"}, "result": 78} — mark, VOTE-0157..VOTE-0234 (lines 158-235, the file's last block; the last vote VOTE-0234 = [w12:thistle, w13:clover], canonical, recorded 2026-11-26T14:40:16 — the file ends on it).
+- human × swapped = 0 — no vote of class human carries a swapped presentation. The swapped-presentation search over .prioritree/runs whole returns exactly 78 matches, every one llm (all in RUN-0008); the human-class search returns 92 over the runs whole (RUN-0002: 10, RUN-0003: 3, RUN-0007: 1, RUN-0008: 78), RUN-0008's 78 all canonical; the runs directory holds RUN-0001..RUN-0008 and nothing after — no second file carries the round.
+
+The totals, at the tool (the traces quoted verbatim):
+- llm whole = {"op": "sum", "args": {"values": "[78, 78]"}, "result": 156}
+- human whole = {"op": "sum", "args": {"values": "[78, 0]"}, "result": 78}
+- the cell as found = {"op": "sum", "args": {"values": "[156, 78]"}, "result": 234}
+- the cell as demanded = {"op": "multiply", "args": {"a": "78", "b": "4"}, "result": 312} (78 pairs × 2 classes × 2 presentations)
+- the gap = {"op": "subtract", "args": {"a": "312", "b": "234"}, "result": 78} — exactly the human swapped half.
+
+THE CLAIM vs THE COUNT: the completion card (reports/measure/human-completion-card.md) claims the human lane's second half complete — 78 swapped links, the collaborator's second judging round, the word "proceed" as the completion's claim. The count falsifies the claim's landing: the card is the schedule (78 swapped links, P01→P78, every one &swap=true) — but not one of those 78 judgments exists in the run's record. The human block ends at VOTE-0234, the canonical round's last pair, and the file ends with it. The word "proceed" is the claim; the count is the fact — the FR-MEM-0040 protocol held: the cell verified at the tool BEFORE the analysis, the completion never assumed from the word.
+
+THE GAP NAMED (the return): the human swapped half — mark's 78 swapped-presentation judgments (the card's P01..P78), minted into .prioritree/runs/RUN-0008.jsonl as class human × presentation swapped. Whether the second round never ran or its votes were minted nowhere, the record is the truth and the record holds 234. Until the 78 land and the count returns 312, the complete cell does not exist: the flips table over the complete cell, the pooled primary (binom-test at the realized m), the slices (human, llm, the pooled θ-hat's Wilson bounds), and the faces all WAIT. The datum is not this firing's product; the refusal is.
