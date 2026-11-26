@@ -85,6 +85,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/identitystoryspec",
+            "owner": "togo",
+            "gate": "G-IDENTITYSTORYSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -97,6 +111,27 @@
             "id": "build/voter-session",
             "owner": "jikko",
             "gate": "G-VOTER-SESSION",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/identity-story",
+            "owner": "jikko",
+            "gate": "G-IDENTITY-STORY",
             "revert": "one-increment",
             "steps": [
               {
@@ -173,6 +208,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/identity-story",
+            "owner": "togo",
+            "gate": "G-IDENTITY-STORY-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       }
@@ -229,6 +278,29 @@
         "type": "collaborator-ruling",
         "conditions": [
           "THE BUILD BRIEF for the unit voter-session LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/voter-session) + mechanism analysis (understand/voter-session) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-IDENTITY-STORY": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the README's identity story lands per the approved spec (the exact-task law): the multi-user section told honestly — the voter session's shape (identify once, remembered across every page), the two-role identity (the name yours, the class the key's), the correction verbs taught (change / un-remember), the honest statement carried (the hardest line: the session cures the UX cost, never the identity fabrication; the self-claimed pseudonym persistent, never verified; the browser binding), the commands byte-exact at their sources, every public claim citable",
+          "the floor green (the suite unbroken at 475 — the README is prose but the instruments still run; ruff zero, pyright 0/0); kensho's independent verification green (validate/identity-story); MOHO'S COLD READ at the build gate (R4 — the told-vs-the-lived: every public claim verified honest, the drift named)",
+          "the llm-class constraint told (the session the humans' lane, the llm ride unchanged); the RUN-0008 dependency's story told (the probe's datum served by this unit's landing — the era order carried)"
+        ]
+      },
+      "G-IDENTITYSTORYSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed (the bytes whole, every line fenced): the README section's placement + the story's prose (the session's shape, the two roles, the correction verbs, the honest statement verbatim from the design brief), the stale cures (any counts the session changed — the floor 475, the templates' counts, the auth section's numbers), the claims' citations, the per-step plan (the README one dispatch + the floor, the read-backs named)",
+          "the llm-class constraint held at every line (the humans' lane told); the configurability law told at the knobs (the two secrets' env forms, the T-form)",
+          "the collaborator's approval — the build dispatch cites the approved spec (the exact-task law)"
+        ]
+      },
+      "G-IDENTITY-STORY-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit identity-story LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/identity-story) + mechanism analysis (understand/identity-story) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
           "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
@@ -386,6 +458,38 @@
         "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
         "actor": "shinko",
         "timestamp": "2026-11-26T18:19:19Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the README's identity story lands per the approved spec (the exact-task law): the multi-user section told honestly — the voter session's shape (identify once, remembered across every page), the two-role identity (the name yours, the class the key's), the correction verbs taught (change / un-remember), the honest statement carried (the hardest line: the session cures the UX cost, never the identity fabrication; the self-claimed pseudonym persistent, never verified; the browser binding), the commands byte-exact at their sources, every public claim citable\\\", \\\"the floor green (the suite unbroken at 475 — the README is prose but the instruments still run; ruff zero, pyright 0/0); kensho's independent verification green (validate/identity-story); MOHO'S COLD READ at the build gate (R4 — the told-vs-the-lived: every public claim verified honest, the drift named)\\\", \\\"the llm-class constraint told (the session the humans' lane, the llm ride unchanged); the RUN-0008 dependency's story told (the probe's datum served by this unit's landing — the era order carried)\\\"]\", \"gate\": \"G-IDENTITY-STORY\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T23:29:23Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed (the bytes whole, every line fenced): the README section's placement + the story's prose (the session's shape, the two roles, the correction verbs, the honest statement verbatim from the design brief), the stale cures (any counts the session changed — the floor 475, the templates' counts, the auth section's numbers), the claims' citations, the per-step plan (the README one dispatch + the floor, the read-backs named)\\\", \\\"the llm-class constraint held at every line (the humans' lane told); the configurability law told at the knobs (the two secrets' env forms, the T-form)\\\", \\\"the collaborator's approval — the build dispatch cites the approved spec (the exact-task law)\\\"]\", \"gate\": \"G-IDENTITYSTORYSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T23:29:31Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-IDENTITY-STORY\", \"increment\": \"build/identity-story\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-IDENTITY-STORY-BRIEF\", \"packets\": [\"discover/identity-story\", \"understand/identity-story\"], \"synthesize_increment\": \"synthesize/identity-story\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T23:29:38Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-IDENTITYSTORYSPEC-BRIEF\", \"increment\": \"synthesize/identitystoryspec\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T23:29:45Z",
         "op": "add-increment"
       }
     ]
