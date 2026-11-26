@@ -32,7 +32,7 @@ start:     ## Start the server in the background (run from the repo root; pid ->
 	fi
 	@mkdir -p .prioritree
 	@nohup env -u WEB_CONCURRENCY AUTH=$(AUTH) PRIORITYTREE_WEB_KEY=$(PRIORITYTREE_WEB_KEY) .venv/bin/uvicorn prioritree.service:app --host $(HOST) --port $(PORT) > .prioritree/server.log 2>&1 & echo $$! > .prioritree/server.pid
-	@sleep 1; curl -s -o /dev/null -w 'read-back: HTTP %{http_code} on http://127.0.0.1:$(PORT)/ (404 = answering; 000 = still booting: make status)\n' http://127.0.0.1:$(PORT)/runs/RUN-9999/next || true
+	@sleep 1; curl -s -o /dev/null -w 'read-back: HTTP %{http_code} on http://127.0.0.1:$(PORT)/ ($(if $(filter on,$(AUTH)),401 = answering-and-armed (AUTH=on); 404 = answering but the gate is not armed,404 = answering); 000 = still booting: make status)\n' http://127.0.0.1:$(PORT)/runs/RUN-9999/next || true
 
 stop:      ## Stop the server: SIGTERM + the bounded drain (pid read from .prioritree/server.pid; run from the repo root)
 	@if [ ! -f .prioritree/server.pid ]; then echo "stop: no pidfile; nothing managed (already down)"; exit 0; fi
@@ -63,8 +63,10 @@ status:    ## Report the pid and the port, both labeled, read-only (run from the
 		echo "pid: none (no pidfile; not managed)"; \
 	fi
 	@code=$$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:$(PORT)/runs/RUN-9999/next); \
-	if [ "$$code" = "404" ]; then echo "port: $(PORT) answering (HTTP 404 on /runs/RUN-9999/next; the ready form)"; \
+	if [ "$(AUTH)" = "on" ] && [ "$$code" = "401" ]; then echo "port: $(PORT) answering-and-armed (HTTP 401 on /runs/RUN-9999/next; AUTH=on, the ready form)"; \
+	elif [ "$(AUTH)" = "on" ] && [ "$$code" = "404" ]; then echo "port: $(PORT) answered HTTP 404 on /runs/RUN-9999/next (answering but the gate is not armed; AUTH=on expects 401; next-action: make restart AUTH=on)"; \
 	elif [ "$$code" = "000" ]; then echo "port: $(PORT) refused (down)"; \
+	elif [ "$$code" = "404" ]; then echo "port: $(PORT) answering (HTTP 404 on /runs/RUN-9999/next; the ready form)"; \
 	else echo "port: $(PORT) answered HTTP $$code (unexpected; not the ready form)"; \
 	fi
 
