@@ -79,21 +79,23 @@ def test_end_to_end_fixture_register_vote_done_tally() -> None:
 
 
 def test_done_signal_caught_by_type_three_fields() -> None:
-    """The DONE signal is caught BY TYPE and carries the brief §2 field bytes verbatim."""
+    """The DONE signal is caught BY TYPE and carries the corroboration-aware field bytes verbatim."""
     session = _session()
     run_id = _registered(session, [("a", "one"), ("b", "two"), ("c", "three")])
     _cast_all(session, run_id)
     with pytest.raises(ExhaustedQueue) as exc_info:
         session.next_pair(run_id)
-    assert exc_info.value.expected == "all 3 scheduled pairs at quorum k=1"
+    assert exc_info.value.expected == (
+        "all 3 scheduled pairs at quorum k=1 AND corroborated (>=1 human AND >=1 llm per pair)"
+    )
     assert exc_info.value.found.startswith("the queue is exhausted")
     assert exc_info.value.next_action.startswith("call tally_rank")
     assert not issubclass(ExhaustedQueue, VotesRefusedError)
     assert not issubclass(ExhaustedQueue, TallyRefusedError)
 
 
-def test_seam_divergence_next_pair_done_tally_safe_halt() -> None:
-    """A standing correction at k=2 exhausts the census-keyed queue yet SAFE HALTs the weighted gate."""
+def test_seam_divergence_next_pair_serves_tally_safe_halt() -> None:
+    """A standing correction at k=2: the census at quorum yet UNCORROBORATED — the chain serves, the gate halts."""
     session = _session()
     run_id = _registered(session, [("a", "one"), ("b", "two")], quorum=2)
     session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
@@ -105,8 +107,9 @@ def test_seam_divergence_next_pair_done_tally_safe_halt() -> None:
         comparator_class="human",
         supersedes="VOTE-0001",
     )
-    with pytest.raises(ExhaustedQueue):
-        session.next_pair(run_id)
+    # The census counts 2 (at quorum k=2) yet the counted set is ONE human vote —
+    # uncorroborated: the chain SERVES the pair; the weighted gate still SAFE HALTs.
+    assert session.next_pair(run_id) == ("a", "b", 2)
     with pytest.raises(TallyRefusedError) as exc_info:
         session.tally_rank(run_id)
     assert "(a, b) 1 of 2" in exc_info.value.found
@@ -197,10 +200,44 @@ def test_quorum_two_partial_returns_count_one() -> None:
     assert session.next_pair(run_id) == ("a", "b", 1)
 
 
+def test_uncorroborated_pair_served_at_raw_quorum() -> None:
+    """RUN-0008's shape: a pair at quorum with llm votes only stays SERVED until a human corroborates."""
+    session = _session()
+    run_id = _registered(session, [("a", "one"), ("b", "two")])
+    session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="llm")
+    session.cast_vote(run_id, ("a", "b"), "prefer-b", comparator_id="y", comparator_class="llm")
+    assert session.next_pair(run_id) == ("a", "b", 2)  # at quorum k=1 on the census, uncorroborated -> SERVED
+    session.cast_vote(run_id, ("a", "b"), "tie", comparator_id="z", comparator_class="human")
+    with pytest.raises(ExhaustedQueue):
+        session.next_pair(run_id)
+
+
+def test_corroboration_reads_the_counted_set() -> None:
+    """A superseded vote's class never corroborates — the consult reads the counted (weighted) set."""
+    session = _session()
+    run_id = _registered(session, [("a", "one"), ("b", "two")])
+    session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
+    session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="x", comparator_class="llm")
+    session.cast_vote(
+        run_id,
+        ("a", "b"),
+        "prefer-b",
+        comparator_id="x",
+        comparator_class="human",
+        supersedes="VOTE-0002",
+    )
+    # The llm vote superseded by a human correction: the counted set is human+human — uncorroborated.
+    assert session.next_pair(run_id) == ("a", "b", 3)
+    session.cast_vote(run_id, ("a", "b"), "prefer-a", comparator_id="y", comparator_class="llm")
+    with pytest.raises(ExhaustedQueue):
+        session.next_pair(run_id)
+
+
 def _cast_all(session: Session, run_id: str) -> None:
-    """Cast the three-pair script through op 3 (one tie among the verdicts)."""
+    """Cast the three-pair script corroborated through op 3 (human then llm per pair, one tie among the verdicts)."""
     for pair, winner in _SCRIPT:
         session.cast_vote(run_id, pair, winner, comparator_id="x", comparator_class="human")
+        session.cast_vote(run_id, pair, winner, comparator_id="x", comparator_class="llm")
 
 
 def test_swapped_cast_delegation_maps_canonical() -> None:

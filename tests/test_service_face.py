@@ -306,6 +306,15 @@ def test_done_200(client: TestClient) -> None:
             "comparator_class": "human",
         },
     )
+    client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={
+            "pair": ["a", "b"],
+            "winner": "prefer-a",
+            "comparator_id": "x",
+            "comparator_class": "llm",
+        },
+    )
     response = client.get(f"/runs/{_RUN_ID}/next")
     assert response.status_code == 200
     body = response.json()

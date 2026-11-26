@@ -122,6 +122,7 @@ def test_done_exhausted_line_at_zero(tmp_path: Path, capsys: pytest.CaptureFixtu
     """A 2-item run driven to coverage, then next → 0 + the exhausted line naming tally."""
     _register(tmp_path, _ITEMS_AB)
     _cast(tmp_path, "a", "b", _PREFER_A)
+    _cast(tmp_path, "a", "b", _PREFER_A, _LLM)
     capsys.readouterr()
     assert command(["next", _RUN_ONE, _HOME_FLAG, str(tmp_path)]) == 0
     out = capsys.readouterr().out

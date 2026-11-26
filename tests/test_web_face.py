@@ -13,7 +13,10 @@ member (app.state.auth = "off"): the standing arcs ride the degrade —
 their request bytes byte-standing, the suite green with NO key store; the
 auth-on arcs overwrite the state per test (the seam's own law).
 The arcs: the page arcs (landing, sitting, done, progress, result
-200/409/404); the fragment arcs (register 201/422/bad-quorum, the two-step
+200/409/404 — the sitting's corroboration-aware arcs beside them: the
+uncorroborated pair still SERVED, the done page rendered for the plain
+browser, the deliberate lane's picker + chosen pair, either presentation);
+the fragment arcs (register 201/422/bad-quorum, the two-step
 chain, the idempotent echo, the HX-Redirect, the 422 pair-untouched, the
 state strip, the fold fragment); the CSRF arcs (the token minted in the
 three render contexts; the valid token's register + vote; the drive-by
@@ -191,13 +194,21 @@ def test_sitting_serves_first_pair_server_side(client: TestClient) -> None:
     assert "tally" not in response.text
 
 
-def test_sitting_done_redirects(client: TestClient) -> None:
-    """The exhausted run's sitting redirects to the done page (the DONE state read)."""
+def test_sitting_done_renders_the_done_page(client: TestClient) -> None:
+    """The done run's sitting renders the done page for the plain browser — no bare HX-Redirect."""
     client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
     client.post(f"/runs/{_RUN_ID}/votes", json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE})
+    client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE, "comparator_class": "llm"},
+    )
     response = client.get(f"/runs/{_RUN_ID}")
     assert response.status_code == 200
-    assert response.headers["hx-redirect"] == f"/runs/{_RUN_ID}/done"
+    assert "hx-redirect" not in response.headers
+    assert "The sitting is complete." in response.text
+    assert "corroborated" in response.text
+    assert f'href="/runs/{_RUN_ID}/result"' in response.text
+    assert f'href="/runs/{_RUN_ID}/pairs"' in response.text
 
 
 def test_sitting_unknown_run_404(client: TestClient) -> None:
@@ -210,13 +221,19 @@ def test_sitting_unknown_run_404(client: TestClient) -> None:
 
 
 def test_done_page_states_coverage(client: TestClient) -> None:
-    """The done page renders the DONE body's expected VERBATIM + the result link."""
+    """The done page renders the DONE body's expected VERBATIM + the tally's and the deliberate lane's links."""
     client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
     client.post(f"/runs/{_RUN_ID}/votes", json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE})
+    client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE, "comparator_class": "llm"},
+    )
     response = client.get(f"/runs/{_RUN_ID}/done")
     assert response.status_code == 200
-    assert "all 1 scheduled pairs at quorum k=1" in response.text
+    assert "all 1 scheduled pairs at quorum k=1 AND corroborated" in response.text
+    assert "&gt;=1 human AND &gt;=1 llm per pair" in response.text  # Jinja's autoescape — the bytes as served
     assert f'href="/runs/{_RUN_ID}/result"' in response.text
+    assert f'href="/runs/{_RUN_ID}/pairs"' in response.text
 
 
 def test_done_reopened_redirects(client: TestClient) -> None:
@@ -388,9 +405,13 @@ def test_vote_refusal_pair_untouched(client: TestClient) -> None:
 
 
 def test_pair_fragment_done_redirects(client: TestClient) -> None:
-    """The exhausted pair fragment answers 200 with the HX-Redirect response header."""
+    """The exhausted pair fragment answers 200 with the HX-Redirect response header (the HTMX lane intact)."""
     client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
     client.post(f"/runs/{_RUN_ID}/votes", json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE})
+    client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE, "comparator_class": "llm"},
+    )
     response = client.get(f"/ui/runs/{_RUN_ID}/pair")
     assert response.status_code == 200
     assert response.headers["hx-redirect"] == f"/runs/{_RUN_ID}/done"
@@ -611,3 +632,84 @@ def test_vote_swapped_hidden_field_resends(client: TestClient) -> None:
     assert "You preferred two (A) over one (B)." in response.text
     # The ack chain carries the swap — the fragment's fetch re-presents swapped.
     assert f'hx-get="/ui/runs/{_RUN_ID}/pair?swap=true"' in response.text
+
+
+def test_sitting_uncorroborated_still_serves(client: TestClient) -> None:
+    """The at-quorum-but-uncorroborated pair stays SERVED — the sitting renders the card, never the done page."""
+    client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
+    client.post(f"/runs/{_RUN_ID}/votes", json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE})
+    response = client.get(f"/runs/{_RUN_ID}")
+    assert response.status_code == 200
+    assert 'id="pair-region"' in response.text
+    assert "The sitting is complete." not in response.text
+
+
+def test_sitting_lists_the_pair_picker(client: TestClient) -> None:
+    """The sitting page carries the deliberate lane's picker: every scheduled pair, both presentations' links."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    response = client.get(f"/runs/{_RUN_ID}")
+    assert response.status_code == 200
+    assert 'id="pair-picker"' in response.text
+    # the three-pair universe whole, each pair openable in EITHER presentation (6 links)
+    assert response.text.count('href="/runs/RUN-0001/pair?item_a=') == 6
+    assert 'href="/runs/RUN-0001/pair?item_a=a&item_b=b"' in response.text
+    assert 'href="/runs/RUN-0001/pair?item_a=a&item_b=b&swap=true"' in response.text
+    assert 'href="/runs/RUN-0001/pair?item_a=b&item_b=c&swap=true"' in response.text
+
+
+def test_picker_page_lists_the_pairs(client: TestClient) -> None:
+    """The deliberate lane's picker page serves the list at any coverage point — the done page's link target."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    response = client.get(f"/runs/{_RUN_ID}/pairs")
+    assert response.status_code == 200
+    assert 'id="pair-picker"' in response.text
+    assert response.text.count('href="/runs/RUN-0001/pair?item_a=') == 6
+    assert 'href="/runs/RUN-0001/pair?item_a=b&item_b=c"' in response.text
+    assert f'href="/runs/{_RUN_ID}"' in response.text  # the back-to-the-sitting link
+
+
+def test_deliberate_pair_card_either_presentation(client: TestClient) -> None:
+    """The picked pair's page re-uses the existing card + cast form, in the chosen presentation."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    canonical = client.get(f"/runs/{_RUN_ID}/pair?item_a=b&item_b=c")
+    assert canonical.status_code == 200
+    assert 'id="pair-region"' in canonical.text
+    assert 'name="item_a" value="b"' in canonical.text
+    assert 'name="item_b" value="c"' in canonical.text
+    assert 'name="presentation_order" value="canonical"' in canonical.text
+    swapped = client.get(f"/runs/{_RUN_ID}/pair?item_a=b&item_b=c&swap=true")
+    assert swapped.status_code == 200
+    assert 'name="item_a" value="c"' in swapped.text
+    assert 'name="item_b" value="b"' in swapped.text
+    assert 'name="presentation_order" value="swapped"' in swapped.text
+    assert "three" in swapped.text  # the first-presented label (c = three)
+
+
+def test_deliberate_vote_lands_stamped_and_mapped(client: TestClient) -> None:
+    """The deliberate vote rides the unchanged door — the swapped citation mapped, the classes corroborating."""
+    client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=b&swap=true").text)
+    deliberate = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={
+            "item_a": "b",
+            "item_b": "a",
+            "winner": "prefer-a",
+            "presentation_order": "swapped",
+            **_VOTE,
+            "csrf_token": token,
+        },
+    )
+    assert deliberate.status_code == 200
+    # the ack restates in the PRESENTED labels — the first-presented (b = bravo) preferred.
+    assert "You preferred bravo (A) over alpha (B)." in deliberate.text
+    corroborating = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={"pair": ["a", "b"], "winner": "prefer-b", "comparator_id": "y", "comparator_class": "llm"},
+    )
+    assert corroborating.status_code == 200
+    tally = client.get(f"/runs/{_RUN_ID}/tally")
+    assert tally.status_code == 200
+    # the deliberate swapped vote mapped canonical (prefer-a on the presented (b, a) = b's win) + the llm's prefer-b
+    assert tally.json()["ranked_groups"] == [["b"], ["a"]]
+    assert tally.json()["coverage"]["pair_class_counts"] == {"a|b": {"human": 1, "llm": 1}}

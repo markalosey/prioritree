@@ -1,12 +1,14 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""web — the web fronts: the child app over the service's wire, the nine routes.
+"""web — the web fronts: the child app over the service's wire, the eleven routes.
 
 The web unit (web-brief §1.1 + the approved design §8, re-settled per
 Q-ux-surface R9/R10 — the template-source law): the CHILD application
 (FastAPI with the docs routes disabled — the web tier is the human's
 surface, not an API), mounted at the service app's TAIL (service.py's mount
-line, the one touch); the nine routes (5 pages at honest statuses + 4
-rendering fragments at 200); the in-process service client (httpx2
+line, the one touch); the eleven routes (7 pages at honest statuses + 4
+rendering fragments at 200 — the deliberate-pair lane's two pages riding
+amendment 22: the picker + the chosen pair, the existing card and door
+re-used); the in-process service client (httpx2
 .AsyncClient over ASGITransport against the imported service app —
 raise_app_exceptions=False REQUIRED: the service fold sends its envelope
 then always re-raises, and the fold case needs the envelope RETURNED, rikai
@@ -65,6 +67,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from prioritree.key_verify import AUTH_HEADER_DEFAULT
+from prioritree.scheduler import schedule_pairs
 from prioritree.service import ESCALATION
 from prioritree.service import app as service_app
 from prioritree.votes import PRESENTATION_CANONICAL, PRESENTATION_SWAPPED
@@ -81,6 +84,8 @@ _SITTING: Final[str] = "/runs/{stem}"
 _DONE: Final[str] = "/runs/{stem}/done"
 _PROGRESS: Final[str] = "/runs/{stem}/progress"
 _RESULT: Final[str] = "/runs/{stem}/result"
+_PICKER: Final[str] = "/runs/{stem}/pairs"
+_DELIBERATE: Final[str] = "/runs/{stem}/pair"
 _REGISTER: Final[str] = "/ui/register"
 _PAIR: Final[str] = "/ui/runs/{stem}/pair"
 _VOTE: Final[str] = "/ui/runs/{stem}/vote"
@@ -175,6 +180,8 @@ _WEB_LANES: Final[tuple[str, ...]] = (
     f"GET {_DONE}",
     f"GET {_PROGRESS}",
     f"GET {_RESULT}",
+    f"GET {_PICKER}",
+    f"GET {_DELIBERATE}",
     f"POST {_REGISTER}",
     f"GET {_PAIR}",
     f"POST {_VOTE}",
@@ -268,6 +275,25 @@ def _labels(manifest: dict[str, Any]) -> dict[str, str]:
     Provenance: the design §2 (the sixth query's response form), §7a, G-WEB.
     """
     return {str(row[0]): str(row[1]) for row in manifest["items"]}
+
+
+def _scheduled_pairs(manifest: dict[str, Any]) -> list[tuple[str, str]]:
+    """Return the manifest's scheduled pairs — the picker list's datum, the pair set's one home cited.
+
+    Purpose: the deliberate lane's list datum — schedule_pairs over the
+    manifest body's item ids (the scheduler's own enumeration, CITED never
+    re-derived — the same pair universe the chain walks and the door
+    legalizes), rendered as (item_a, item_b) tuples for the templates
+    (the canonical id-sorted order; the picker's links compose the ?swap
+    form over it — either presentation openable).
+    Refuses when: never — a pure projection over the manifest's own rows.
+    Re-run: deterministic — the same items yield the same pair list.
+    Touches: nothing.
+    Provenance: amendment 22 (the deliberate-pair lane — the manifest's
+    data), R7 (the pair set's one home), G-WEB.
+    """
+    ids = [str(row[0]) for row in manifest["items"]]
+    return [(pair.item_a, pair.item_b) for pair in schedule_pairs(ids)]
 
 
 def _fields(body: dict[str, Any]) -> dict[str, str]:
@@ -456,17 +482,23 @@ async def sitting(request: Request, stem: str, *, swap: bool = False) -> Respons
     render; the two-step law bars the POST's RESPONSE from carrying the
     pair, never the page's query). Cards A/B marked + labeled (the label
     map); the count UNREAD — never in the render context (the no-anchoring
-    law, by construction). DONE => redirect to the done page; 404 => the
-    swap the query knob: the pair PRESENTED in the swapped order (the
-    order-bias probe's instrument — the served body's item_a/item_b the
-    presented pair, the hidden presentation_order field re-sent at the vote).
-    unknown-run page at the honest 404; any other non-200 => the fold page
-    at the response's own status. The buttons hx-post the vote; the
-    comparator entry rides every post.
+    law, by construction). DONE => the done page rendered whole for the
+    plain browser (the bare 200 + HX-Redirect an HTMX-only affordance a
+    plain browser never honors — the white screen's cure, amendment 22;
+    the teaching + the tally's and the deliberate lane's links riding the
+    template). The swap the query knob: the pair PRESENTED in the swapped
+    order (the order-bias probe's instrument — the served body's
+    item_a/item_b the presented pair, the hidden presentation_order field
+    re-sent at the vote). 404 => the unknown-run page at the honest 404;
+    any other non-200 => the fold page at the response's own status. The
+    buttons hx-post the vote; the comparator entry rides every post; the
+    deliberate lane's picker rides below the card (the manifest's pairs,
+    each openable in either presentation).
     Refuses when: never by this hand — the branches render honestly.
     Re-run: deterministic given the store state.
     Touches: nothing — queries only.
-    Provenance: web-brief §4 route 2, the design §7a/§8, G-WEBSPEC-BRIEF.
+    Provenance: web-brief §4 route 2, the design §7a/§8, amendment 22 (the
+    done-state page + the sitting page's pair-picker), G-WEBSPEC-BRIEF.
     """
     manifest = await _service("GET", f"/runs/{stem}/manifest")
     if manifest.status_code != _OK:
@@ -498,7 +530,12 @@ async def sitting(request: Request, stem: str, *, swap: bool = False) -> Respons
         )
     body = nxt.json()
     if body.get("done"):
-        return Response(status_code=_OK, headers={"HX-Redirect": f"/runs/{stem}/done"})
+        return templates.TemplateResponse(
+            request,
+            "done.html",
+            {"stem": stem, "fields": _fields(body)},
+            status_code=_OK,
+        )
     manifest_body = manifest.json()
     labels = _labels(manifest_body)
     return templates.TemplateResponse(
@@ -515,6 +552,8 @@ async def sitting(request: Request, stem: str, *, swap: bool = False) -> Respons
             "label_a": labels.get(str(body["item_a"]), str(body["item_a"])),
             "label_b": labels.get(str(body["item_b"]), str(body["item_b"])),
             "presentation_order": str(body["presentation_order"]),
+            "labels": labels,
+            "pairs": _scheduled_pairs(manifest_body),
         },
     )
 
@@ -525,11 +564,11 @@ async def done(request: Request, stem: str) -> Response:
 
     Purpose: consume next (the DONE body — a VALUE, never an error):
     done:true => the coverage statement (the body's expected field VERBATIM —
-    "all {N} scheduled pairs at quorum k={K}" — + the plain-words restatement
-    + the result link); a pair body (the re-opened edge — the signal is a
-    state read, not a latch) => redirect to the sitting page; 404 => the
-    unknown-run page; any other non-200 => the fold page at the response's
-    own status.
+    every pair at quorum k={K} AND corroborated — + the plain-words
+    restatement + the tally's link + the deliberate lane's link); a pair
+    body (the re-opened edge — the signal is a state read, not a latch) =>
+    redirect to the sitting page; 404 => the unknown-run page; any other
+    non-200 => the fold page at the response's own status.
     Refuses when: never by this hand.
     Re-run: deterministic given the store state.
     Touches: nothing — a query.
@@ -557,6 +596,117 @@ async def done(request: Request, stem: str) -> Response:
         "done.html",
         {"stem": stem, "fields": _fields(body)},
         status_code=_OK,
+    )
+
+
+@web_app.get(_PICKER)
+async def pick(request: Request, stem: str) -> Response:
+    """Pick the pair deliberately — the lane's picker page: every scheduled pair, both presentations.
+
+    Purpose: the deliberate-pair lane's HOME (the done page's link target —
+    the lane reachable at ANY coverage point): consume the manifest (the
+    items — the picker list's datum), render the picker page listing every
+    scheduled pair with BOTH presentations' links (the ?swap form composed
+    into the links — the order-bias probe's instrument at the deliberate
+    lane); NO next consult (the lane coverage-blind: the chain's done state
+    never gates the deliberate judgment — every judgment appended, the
+    record keeps them all). 404 => the unknown-run page; 401/403 => the auth
+    pages; any other non-200 => the fold page at the response's own status.
+    Refuses when: never by this hand — the branches render honestly.
+    Re-run: deterministic given the store state.
+    Touches: nothing — a query.
+    Provenance: amendment 22 (the deliberate-pair lane — the picker's
+    list), web-brief §4's page school, G-WEBSPEC-BRIEF.
+    """
+    manifest = await _service("GET", f"/runs/{stem}/manifest")
+    if manifest.status_code != _OK:
+        if manifest.status_code == _NOT_FOUND:
+            return _unknown(request, manifest.json())
+        if manifest.status_code == _UNAUTHORIZED:
+            return _auth_page(request, manifest.json(), forbidden=False)
+        if manifest.status_code == _FORBIDDEN:
+            return _auth_page(request, manifest.json(), forbidden=True)
+        return templates.TemplateResponse(
+            request,
+            "fold.html",
+            {"fields": _fields(manifest.json())},
+            status_code=manifest.status_code,
+        )
+    manifest_body = manifest.json()
+    return templates.TemplateResponse(
+        request,
+        "pairs.html",
+        {"stem": stem, "labels": _labels(manifest_body), "pairs": _scheduled_pairs(manifest_body)},
+    )
+
+
+@web_app.get(_DELIBERATE)
+async def judge(
+    request: Request,
+    stem: str,
+    item_a: str = "",
+    item_b: str = "",
+    *,
+    swap: bool = False,
+) -> Response:
+    """Judge the chosen pair deliberately — the existing card + cast form, either presentation.
+
+    Purpose: the deliberate lane's CARD (the picker's link target): consume
+    the manifest, render the CHOSEN pair on the sitting surface (the
+    existing pair card + the existing cast form re-used whole — the door
+    UNCHANGED: the stamps via the tier key at the authenticated door, the
+    body's claim at the degrade; presentation_order carried by the hidden
+    field; every judgment appended — the record keeps them all). The
+    presented pair: (item_a, item_b) as cited at the canonical form; the
+    swap query knob presents the SWAPPED order (the order-bias probe's
+    instrument — the same knob the sitting page carries); NO next consult
+    (the chosen pair rendered whatever the chain serves — a vote legal on
+    any registered pair at any coverage point). 404 => the unknown-run
+    page; 401/403 => the auth pages; any other non-200 => the fold page at
+    the response's own status.
+    Refuses when: never by this hand — the page renders the pair AS CITED
+    (the wire the sole validator: a mangled citation renders honestly, the
+    vote's legality the door's own act).
+    Re-run: deterministic given the store state.
+    Touches: nothing — a query.
+    Provenance: amendment 22 (the deliberate-pair lane — the existing card
+    + the door unchanged), web-brief §4 route 2's surface re-used,
+    G-WEBSPEC-BRIEF.
+    """
+    manifest = await _service("GET", f"/runs/{stem}/manifest")
+    if manifest.status_code != _OK:
+        if manifest.status_code == _NOT_FOUND:
+            return _unknown(request, manifest.json())
+        if manifest.status_code == _UNAUTHORIZED:
+            return _auth_page(request, manifest.json(), forbidden=False)
+        if manifest.status_code == _FORBIDDEN:
+            return _auth_page(request, manifest.json(), forbidden=True)
+        return templates.TemplateResponse(
+            request,
+            "fold.html",
+            {"fields": _fields(manifest.json())},
+            status_code=manifest.status_code,
+        )
+    manifest_body = manifest.json()
+    labels = _labels(manifest_body)
+    presented_a, presented_b = (item_b, item_a) if swap else (item_a, item_b)
+    return templates.TemplateResponse(
+        request,
+        "sitting.html",
+        {
+            "stem": stem,
+            "csrf_token": _mint_csrf(f"/ui/runs/{stem}/vote"),
+            "question": str(manifest_body["question"]),
+            "verdicts": list(manifest_body["verdicts"]),
+            "quorum": int(manifest_body["quorum"]),
+            "item_a": presented_a,
+            "item_b": presented_b,
+            "label_a": labels.get(presented_a, presented_a),
+            "label_b": labels.get(presented_b, presented_b),
+            "presentation_order": PRESENTATION_SWAPPED if swap else PRESENTATION_CANONICAL,
+            "labels": labels,
+            "pairs": _scheduled_pairs(manifest_body),
+        },
     )
 
 

@@ -5,7 +5,8 @@
   <h1>The sitting is complete.</h1>
   <sl-badge variant="success">done</sl-badge>
   <p class="coverage">{{ fields.expected }}</p>
-  <p>The run is complete — each pair has its judgments.</p>
+  <p>Every pair has its judgments, and each one is corroborated — at least one human and one llm judgment stand behind every comparison. The tally can rank the whole.</p>
   <sl-button variant="primary" href="/runs/{{ stem }}/result">See the result</sl-button>
+  <a href="/runs/{{ stem }}/pairs">Judge a pair deliberately</a>
 </section>
 {% endblock %}

@@ -174,13 +174,15 @@ def test_crash_tail_truncated_refused_clean_minus_tail_loads(tmp_path: Path) -> 
     clean_home = tmp_path / "runs-again"
     clean = _register(clean_home)
     clean.cast(("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
-    clean.cast(("a", "c"), "prefer-b", comparator_id="y", comparator_class="llm")
+    clean.cast(("a", "b"), "prefer-a", comparator_id="y", comparator_class="llm")
+    clean.cast(("a", "c"), "prefer-b", comparator_id="y", comparator_class="human")
+    clean.cast(("a", "c"), "prefer-b", comparator_id="z", comparator_class="llm")
     clean.cast(("b", "c"), "tie", comparator_id="z", comparator_class="human")
     clean_file = clean_home / f"{clean.run_id}.jsonl"
     clean_file.write_text("".join(clean_file.read_text().splitlines(keepends=True)[:-1]))
     reloaded = Persist.load(clean_home, clean.run_id)
     census = reloaded.census()
-    assert len(census.vote_log) == 2  # the census reflects the FILE — the loss invisible, bounded at one cast
+    assert len(census.vote_log) == 4  # the census reflects the FILE — the loss invisible, bounded at one cast
     assert reloaded.serve() == ("b", "c", 0)  # .serve re-serves the same pair as before the removal
 
 
@@ -279,6 +281,7 @@ def test_legacy_lines_load_clean_canonical_default(tmp_path: Path) -> None:
     store_home = tmp_path / "runs"
     store = _register(store_home)
     store.cast(("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
+    store.cast(("a", "b"), "prefer-a", comparator_id="y", comparator_class="llm")
     run_file = store_home / f"{store.run_id}.jsonl"
     entries = [json.loads(line) for line in run_file.read_text().splitlines()]
     del entries[1]["presentation_order"]

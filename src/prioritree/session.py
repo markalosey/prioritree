@@ -6,15 +6,21 @@ behind both stores by construction (the session constructs VoteLedger(registry)
 internally; the mismatched-pair hazard unrepresentable), the five ops of the
 frozen interface (register_run, next_pair, cast_vote, read_vote_state,
 tally_rank), and the DONE signal minted here whole — ExhaustedQueue, the
-typed terminal state raised when the first-under-quorum walk falls through
-(the queue from U2, the counts from U3's census, the quorum from U1's
-manifest; distinguishable from error BY TYPE, hence suffix-free — the
-StopIteration kin). The fence held by construction: no scores, no rankings,
-no coverage verdicts (U4's alone — tally_votes called, its frozen TallyResult
-returned whole); the pair set CITED never re-derived (schedule_pairs called);
-the census consulted AS-IS, never re-weighted (the census-vs-weighted seam
-NAMED and carried, never reconciled); no cache beyond the two store
-references; no CLI/service/web concerns, no comparator-elicitation UX.
+typed terminal state raised when the first-unservable walk falls through
+(a pair SERVABLE while under-quorum OR uncorroborated — the corroboration
+floor's law extended from the tally's gate to the serving chain, amendment
+22: the queue from U2, the quorum leg's counts from U3's census AS-IS, the
+corroboration leg's rollup over the run's COUNTED votes with
+policy.missing_classes the ONE home, cited; distinguishable from error BY
+TYPE, hence suffix-free — the StopIteration kin). The fence held by
+construction: no scores, no rankings, no coverage verdicts (U4's alone —
+tally_votes called, its frozen TallyResult returned whole); the pair set
+CITED never re-derived (schedule_pairs called); the census consulted AS-IS
+at the quorum leg, never re-weighted (the census-vs-weighted seam NAMED and
+carried, never reconciled; the corroboration leg's own consult built over
+the census's log with the tally's weighting form — the counted votes, the
+floor's datum); no cache beyond the two store references; no CLI/service/web
+concerns, no comparator-elicitation UX.
 Zero runtime dependencies; no subprocess; NO datetime — nothing at U5 stamps
 time.
 """
@@ -26,6 +32,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
+from prioritree.policy import missing_classes
 from prioritree.registry import (
     ItemRow,
     OperatorDeclaration,
@@ -51,11 +58,12 @@ __all__ = [
 
 
 class ExhaustedQueue(Exception):
-    """ExhaustedQueue — the DONE signal: the queue is exhausted, every pair at quorum.
+    """ExhaustedQueue — the DONE signal: the queue is exhausted, every pair at quorum AND corroborated.
 
     Purpose: carry the walk's terminal state as data — expected (the full
-    scheduled queue at its quorum), found (the fall-through, the census's
-    AS-IS counts named), next_action (the tally path, the seam named and
+    scheduled queue at its quorum AND corroboration), found (the
+    fall-through, the census's AS-IS counts and the counted per-class
+    rollup named), next_action (the tally path, the seam named and
     carried) — raised, never returned, at next_pair's fall-through; caught
     BY TYPE by the wrappers (the type distinction IS the hierarchy: never a
     subclass of any RefusedError, so an except-RefusedError clause never
@@ -65,8 +73,8 @@ class ExhaustedQueue(Exception):
     message renders all three fields so an uncaught traceback still names
     the state and the path ("exhausted —", never "refused —").
     Re-run: deterministic — the same exhausted state raises the same three
-    fields; a later cast below quorum makes next_pair return a pair again
-    (the signal is a state read, not a latch).
+    fields; a later cast below quorum or un-corroborating makes next_pair
+    return a pair again (the signal is a state read, not a latch).
     Touches: nothing — a plain Exception subclass (zero runtime deps).
     Provenance: the DONE mint site — U5 WHOLE (scheduler-brief §1 riding
     G-SESSION condition 2), the naming law ("the queue is exhausted" — the
@@ -91,6 +99,38 @@ class ExhaustedQueue(Exception):
         self.found = found
         self.next_action = next_action
         super().__init__(f"exhausted — expected: {expected} | found: {found} | next: {next_action}")
+
+
+def _counted_class_counts(run_id: str, vote_log: Sequence[VoteRecord]) -> dict[Pair, dict[str, int]]:
+    """Return the counted votes' per-pair class rollup — the corroboration consult's one datum.
+
+    Purpose: the corroboration consult's ONE datum — the per-pair class
+    rollup over the run's COUNTED votes (the weighting pass's own form, the
+    tally's school cited: the run filter, then the exclusion set
+    E = {r.supersedes for r in the run's log if not None} — a superseded
+    vote's class NEVER corroborates; next_pair composes policy.missing_classes
+    over this rollup, the floor's law at the serving seam — the predicate's
+    ONE home cited, never re-declared).
+    Refuses when: never — a pure accumulation; pair legality and class
+    membership are CITED PRECONDITIONS (U3's write gate the authority,
+    never re-policed).
+    Re-run: deterministic — integer accumulation over the log's multiset,
+    order-independent.
+    Touches: nothing — pure over its arguments.
+    Provenance: amendment 22 (the corroboration floor extended from the
+    tally's gate to the serving chain), tally-brief §3.1 (the weighting
+    pass's form — the run filter + the exclusion set), policy.py's
+    missing_classes (the ONE home, the consumer here).
+    """
+    in_run = [record for record in vote_log if record.run_id == run_id]
+    excluded = {record.supersedes for record in in_run if record.supersedes is not None}
+    rollups: dict[Pair, dict[str, int]] = {}
+    for record in in_run:
+        if record.vote_id in excluded:
+            continue
+        rollup = rollups.setdefault(record.pair, {})
+        rollup[record.comparator_class] = rollup.get(record.comparator_class, 0) + 1
+    return rollups
 
 
 class Session:
@@ -194,47 +234,60 @@ class Session:
             ) from refusal
 
     def next_pair(self, run_id: str, seed: int | None = None) -> tuple[str, str, int]:
-        """Next under-quorum pair — the composed loop: manifest, queue, census.
+        """Next servable pair — the composed loop: manifest, queue, census, corroboration.
 
         Purpose: per call, pure between calls — (1) read the manifest (the
         miss wrapped); (2) resolve the seed: derive_seed(run_id) when None,
         else the caller's seed, and derive the queue from the manifest's ids
         via schedule_pairs (the queue per-call, CITED never re-derived);
         (3) read the census (the fresh per-call consult, the counts AS-IS);
-        (4) walk the queue in order — the FIRST pair whose census count <
-        quorum returns (item_a, item_b, count), the count riding the pair it
-        was found on; (5) the fall-through: raise ExhaustedQueue (§2's bytes)
-        — the single ordered scan, the raise only at the scan's end, no
-        second pass.
+        (4) build the corroboration rollup — the run's COUNTED votes per
+        pair, the weighted set (the run filter + the exclusion set: a
+        superseded vote's class never corroborating), policy.missing_classes
+        the ONE home consulted at the walk; (5) walk the queue in order —
+        the FIRST pair under quorum on the census's AS-IS counts OR
+        uncorroborated on the counted rollup returns (item_a, item_b,
+        count), the census count riding the pair it was found on; (6) the
+        fall-through: raise ExhaustedQueue (§2's bytes) — the single
+        ordered scan, the raise only at the scan's end, no second pass.
         Refuses when: the run is unknown (the wrap); the queue exhausted —
-        ExhaustedQueue, the DONE signal, raised never returned (NOT a
-        refusal: a value-returning op whose terminal state is a typed
-        signal; no state mutated, no scores computed).
+        ExhaustedQueue, the DONE signal (every pair at quorum AND
+        corroborated), raised never returned (NOT a refusal: a
+        value-returning op whose terminal state is a typed signal; no
+        state mutated, no scores computed).
         Re-run: pure between calls — the same store state yields the same
         pair; a re-call between casts returns the same pair; a fresh run
         returns the first scheduled pair with count 0 (a value, never a
         refusal).
         Touches: nothing — the reads ride the registry and the ledger; no
         state of its own.
-        Provenance: op 2, session-brief §3.2 (the loop's five steps, the
-        op-2 triple carrier, the seed's consumption — derive_seed
-        consumed as op 2's default), G-SESSION condition 3 (the DONE minted
-        at U5 whole); the census-as-is keying (session-brief §4 — the
-        census-vs-weighted seam named and carried, never reconciled).
+        Provenance: op 2, session-brief §3.2 (the loop's steps, the op-2
+        triple carrier, the seed's consumption — derive_seed consumed as
+        op 2's default), G-SESSION condition 3 (the DONE minted at U5
+        whole); the census-as-is keying (session-brief §4 — the
+        census-vs-weighted seam named and carried, never reconciled);
+        amendment 22 (the corroboration floor's law extended from the
+        tally's gate to the serving chain — the product's own story held
+        whole).
         """
         manifest = self._read_manifest(run_id)
         resolved = derive_seed(run_id) if seed is None else seed
         queue = schedule_pairs([row.id for row in manifest.items], seed=resolved)
         census = self._ledger.read_vote_state(run_id)
+        corroborations = _counted_class_counts(manifest.run_id, census.vote_log)
         for pair in queue:
             count = census.per_pair_counts[pair]
-            if count < manifest.quorum:
+            if count < manifest.quorum or missing_classes(corroborations.get(pair, {})):
                 return (pair.item_a, pair.item_b, count)
         raise ExhaustedQueue(
-            expected=f"all {len(queue)} scheduled pairs at quorum k={manifest.quorum}",
+            expected=(
+                f"all {len(queue)} scheduled pairs at quorum k={manifest.quorum} AND corroborated "
+                "(>=1 human AND >=1 llm per pair)"
+            ),
             found=(
-                "the queue is exhausted — the walk fell through with no under-quorum pair "
-                "(every pair at quorum on the census's AS-IS counts)"
+                "the queue is exhausted — the walk fell through with no under-quorum or "
+                "uncorroborated pair (every pair at quorum on the census's AS-IS counts AND "
+                "corroborated on the counted votes' per-class rollup)"
             ),
             next_action=(
                 "call tally_rank(run_id) — the tally path (R12's DONE; a standing correction "

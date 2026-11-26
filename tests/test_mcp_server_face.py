@@ -272,9 +272,10 @@ def test_tally_view_at_full_coverage(caller: str) -> None:
 
 
 def test_next_done_terminal(caller: str) -> None:
-    """The exhausted two-item sitting => done=true a RESULT, the three fields populated, no error."""
+    """The exhausted two-item sitting => done=true a RESULT, the corroboration-aware fields, no error."""
     _register(caller, ["a", "b"])
     _cast(caller, ["a", "b"], "prefer-a", "x")
+    _cast(caller, ["a", "b"], "prefer-a", "x", "llm")
     result = _call(caller, "runs.next", {"run_id": _RUN_ID})
     assert result.is_error is False
     body = result.structured_content
@@ -284,7 +285,9 @@ def test_next_done_terminal(caller: str) -> None:
     assert body["item_a"] == ""
     assert body["item_b"] == ""
     assert body["count"] == 0
-    assert body["expected"] == "all 1 scheduled pairs at quorum k=1"
+    assert body["expected"] == (
+        "all 1 scheduled pairs at quorum k=1 AND corroborated (>=1 human AND >=1 llm per pair)"
+    )
     assert "the queue is exhausted" in body["found"]
     assert "call tally_rank(run_id)" in body["next_action"]
 
@@ -624,13 +627,14 @@ def test_census_as_is_after_correction(caller: str) -> None:
 
 
 def test_next_serves_past_the_quorumed_pair(caller: str) -> None:
-    """A next after the first pair reached quorum => the second pair, its own count 0.
+    """A next after the first pair reached quorum AND corroboration => the second pair, its own count 0.
 
     The count riding the pair it was found on: the cast pair's 1 never
     leaks onto the served pair's 0.
     """
     _register(caller, _ITEMS)
     _cast(caller, ["a", "b"], "prefer-a", "x")
+    _cast(caller, ["a", "b"], "prefer-a", "x", "llm")
     result = _call(caller, "runs.next", {"run_id": _RUN_ID})
     assert result.is_error is False
     assert result.structured_content == {

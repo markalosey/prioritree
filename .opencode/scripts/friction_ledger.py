@@ -1130,7 +1130,6 @@ def build_parser() -> argparse.ArgumentParser:
 
     return parser
 
-
 def op_union(args):
     """Union the forked friction ledgers — delegates to scripts/friction_ledger_union.py.
 
@@ -1155,7 +1154,6 @@ def op_union(args):
         union_argv += ["--backup-dir", args.backup_dir]
     _flu.main(union_argv)  # prints the plan + legend; SystemExit carries 0/2/3/4 up
     return ""  # defensive: _flu.main always exits
-
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)

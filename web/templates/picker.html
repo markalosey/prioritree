@@ -1,0 +1,10 @@
+<!-- picker — the deliberate-pair lane's list: every scheduled pair from the manifest's data, each openable in either presentation (amendment 22's web-lane fix; the ?swap form composed into the links) -->
+<ul class="picker-list" id="pair-picker">
+  {% for pair in pairs %}
+  <li>
+    <span class="picker-pair">{{ labels[pair[0]] }} vs {{ labels[pair[1]] }}</span>
+    <a href="/runs/{{ stem }}/pair?item_a={{ pair[0] }}&item_b={{ pair[1] }}">{{ labels[pair[0]] }} first</a>
+    <a href="/runs/{{ stem }}/pair?item_a={{ pair[0] }}&item_b={{ pair[1] }}&swap=true">{{ labels[pair[1]] }} first</a>
+  </li>
+  {% endfor %}
+</ul>
