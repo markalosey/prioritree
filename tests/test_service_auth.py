@@ -23,9 +23,19 @@ gated, the exemptions named; (15) the fence's kin — the source scan, six door
 tokens; (16) the docs trio 404s at both tiers. The S101/PLR2004 tests ruling
 stands.
 
+The voter-session growth (votersessionspec §4): the three two-role arcs at
+the door — the web lane's marker patched to the key's digest (the module-level
+seam's own monkeypatch school): the body's id riding with the class the KEY's
+(F8 live at the web lane); the body's class claim dying at the same door; and
+a second service key beside the live marker keeping the record's id (the
+blanket crossing refused).
+
 Provenance: servingtierintegrationspec §7a (the arcs' fence), the unit brief
 §1/§3 (the doors and the handlers), packet build/serving-tier-integration
 step 8 of 9, route prioritree-auth, 2026-11-24 session.
+Provenance (the voter-session growth): votersessionspec §4 (the three
+two-role arcs), packet build/voter-session step 7 of 7, route
+prioritree-multi-user, 2026-11-26 session.
 """
 
 from __future__ import annotations
@@ -41,6 +51,7 @@ if TYPE_CHECKING:
 from fastapi.routing import APIRoute
 from fastapi.testclient import TestClient
 
+from prioritree import service
 from prioritree.key_store import KeyStore
 from prioritree.key_verify import AUTH_HEADER_DEFAULT
 from prioritree.service import app
@@ -437,3 +448,70 @@ def test_docs_trio_stripped_at_both_tiers(client: TestClient) -> None:
     for path in ("/docs", "/redoc", "/openapi.json"):
         response = client.get(path)
         assert response.status_code == 404
+
+
+# The voter-session growth's three two-role arcs (votersessionspec §4 — the web-lane
+# branch's three-way law pinned at the door's own bytes; the marker patched per the
+# module-level seam's monkeypatch school, the spec's own fence).
+
+
+def test_web_lane_sessioned_id_rides_class_the_keys(
+    client: TestClient,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The web lane's caller carries the body's id — the sessioned name rides; the class stays the key's stamp."""
+    key, digest = KeyStore(tmp_path / _KEYS_FILE).mint("web-tier", "human", _ALL, "service")
+    monkeypatch.setattr(service, "_WEB_LANE_DIGEST", digest)
+    client.post(_RUNS, json=_REGISTER_BODY, headers={AUTH_HEADER_DEFAULT: key})
+    ack = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={**_VOTE_BODY, "comparator_id": "sessioned-mark"},
+        headers={AUTH_HEADER_DEFAULT: key},
+    )
+    assert ack.status_code == 200
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert len(log) == 1
+    assert log[0].comparator_id == "sessioned-mark"  # the body's id rode — the web lane's own seam
+    assert log[0].comparator_class == "human"  # the KEY's class — F8 live at the web lane
+
+
+def test_web_lane_class_claim_dies(
+    client: TestClient,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The web lane's body claims 'llm' — the human key's class stamps the record (the class gate's truth)."""
+    key, digest = KeyStore(tmp_path / _KEYS_FILE).mint("web-tier", "human", _ALL, "service")
+    monkeypatch.setattr(service, "_WEB_LANE_DIGEST", digest)
+    client.post(_RUNS, json=_REGISTER_BODY, headers={AUTH_HEADER_DEFAULT: key})
+    ack = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={**_VOTE_BODY, "comparator_class": "llm"},
+        headers={AUTH_HEADER_DEFAULT: key},
+    )
+    assert ack.status_code == 200
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert len(log) == 1
+    assert log[0].comparator_class == "human"  # the body's 'llm' claim died — the class is the key's
+
+
+def test_non_web_keyed_caller_id_never_rides(
+    client: TestClient,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A second service key beside the live web marker keeps F8 — the record's id stands, the body's never rides."""
+    _web_key, web_digest = KeyStore(tmp_path / _KEYS_FILE).mint("web-tier", "human", _ALL, "service")
+    monkeypatch.setattr(service, "_WEB_LANE_DIGEST", web_digest)  # the marker LIVE at another key's digest
+    other_key, _digest = KeyStore(tmp_path / _KEYS_FILE).mint("key-holder", "human", _ALL, "service")
+    client.post(_RUNS, json=_REGISTER_BODY, headers={AUTH_HEADER_DEFAULT: other_key})
+    ack = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={**_VOTE_BODY, "comparator_id": "web-composed-name"},
+        headers={AUTH_HEADER_DEFAULT: other_key},
+    )
+    assert ack.status_code == 200
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert len(log) == 1
+    assert log[0].comparator_id == "key-holder"  # the record's id stood — the crossing web-lane-scoped alone

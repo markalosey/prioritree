@@ -1,6 +1,10 @@
-<!-- pair — the shared pair region: the sitting includes it, the fragment route serves it (web-brief §4 routes 2+7; the design §7a) -->
+<!-- pair — the shared pair region: the sitting includes it, the fragment route serves it (web-brief §4 routes 2+7; the design §7a; the voter-session spec §3b) -->
 <div id="pair-region">
-  <form hx-post="/ui/runs/{{ stem }}/vote" hx-target="#ack-region" hx-swap="innerHTML" hx-include="[name='comparator_id']">
+  <form hx-post="/ui/runs/{{ stem }}/vote" hx-target="#ack-region" hx-swap="innerHTML">
+    {% if not remembered_name %}
+    <label for="comparator-id">Your name for yourself as a judge — it stamps your votes. Asked once; remembered for every judgment from this device.</label>
+    <input id="comparator-id" name="comparator_id" required minlength="1">
+    {% endif %}
     <input type="hidden" name="item_a" value="{{ item_a }}">
     <input type="hidden" name="item_b" value="{{ item_b }}">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">

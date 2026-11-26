@@ -3,8 +3,15 @@
 {% block content %}
 <section class="card">
   <h1>{{ question }}</h1>
-  <label for="comparator-id">Your name for yourself as a judge — it stamps your votes. The same entry rides every judgment you cast on this page.</label>
-  <input id="comparator-id" name="comparator_id" required minlength="1">
+  {% if remembered_name %}
+  <p class="quiet">voting as: {{ remembered_name }}</p>
+  <form hx-post="/ui/runs/{{ stem }}/unremember" hx-swap="none" class="quiet">
+    <input type="hidden" name="csrf_token" value="{{ unremember_token }}">
+    <button type="submit">not you? change your name or un-remember this device</button>
+  </form>
+  {% else %}
+  <p class="quiet">Your name is asked once — the site remembers your entry for every judgment you cast from this device.</p>
+  {% endif %}
   {% if quorum > 1 %}<p class="quiet">Each pair needs {{ quorum }} judgments — you may see pairs you already judged until every pair has {{ quorum }} judgments.</p>{% endif %}
   {% include "pair.html" %}
   <div id="ack-region"></div>

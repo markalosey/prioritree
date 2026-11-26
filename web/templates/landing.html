@@ -9,7 +9,7 @@
 <section class="card">
   <h2>Register a run</h2>
   <form hx-post="/ui/register" hx-target="#register-result" hx-swap="innerHTML">
-    <label>Your name for yourself on this run. <input name="operator_id" required minlength="1"></label>
+    <label>Your name for yourself on this run. <input name="operator_id" required minlength="1"{% if remembered_name %} value="{{ remembered_name }}"{% endif %}></label>
     <label>The question to answer. <input name="question" required minlength="1"></label>
     <label>How many judgments each pair needs — 1 means just you; 2 or more means you need other judges, and a pair stays open until it has them. <input type="number" name="quorum" value="1" min="1"></label>
     <fieldset>

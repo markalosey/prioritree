@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — synthesize/votersessionspec
 
-**Route:** prioritree-multi-user (executing) | **Events:** 2 | **Reports:** 1
+**Route:** prioritree-multi-user (executing) | **Events:** 8 | **Reports:** 3
 
 ## The packet's chain (ledger order)
 
@@ -9,6 +9,12 @@
 |---|---|---|---|
 | 1 | dispatch | shinko | 2026-11-26T18:28:38Z |
 | 2 | report | togo | 2026-11-26T18:46:55Z |
+| 3 | result | shinko | 2026-11-26T18:47:41Z |
+| 4 | gate | shinko | 2026-11-26T18:50:52Z |
+| 5 | dispatch | shinko | 2026-11-26T19:37:44Z |
+| 6 | report | togo | 2026-11-26T19:39:09Z |
+| 7 | dispatch | shinko | 2026-11-26T20:50:46Z |
+| 8 | report | togo | 2026-11-26T20:51:56Z |
 ## Reported by togo — 2026-11-26T18:46:55Z
 
 # THE VOTER-SESSION EXACT-TASK SPEC — the unit's bytes whole (togo, packet synthesize/votersessionspec, route prioritree-multi-user, 2026-11-26)
@@ -484,3 +490,22 @@ Then **FLOOR-GREEN** (the increment's second step, the three acts verbatim): `uv
 The spec opens the unit's every byte on the approved brief's ground: the door (one wheel, the lock inside the act, the ModuleNotFoundError face), the remember region whole (the child mount + the assert-guard + the shared secret home + the epoch CSRF + the cast read + the correction route), the three templates' exact forms, the 26 arcs at their exact names, the seven dispatches + the floor-green. The trade-off the plan carries, unchanged from the brief: a carried, browser-bound, self-claimed pseudonym — persistent, never verified — bought for the human's time back; the llm lanes, the class verification, and the tally's semantics byte-standing. The approval is the collaborator's act at G-VOTERSESSIONSPEC-BRIEF; this spec the build's whole ground.
 
 — togo (統合), the exact-task spec whole; every edit fenced at the tree's own bytes, every choice citable to the approved brief and the cycle's record; nothing decided that is the collaborator's to decide.
+## Reported by togo — 2026-11-26T19:39:09Z
+
+R6 — the micro-fold's two rulings (togo, synthesize/votersessionspec; jikko's step-2 findings the intake, reports/build/voter-session.md).
+RULING 1 — THE ENV NAME: the T-form STANDS; the spec's "PRIORITYREE_WEB_REMEMBER_SECRET" (§2a) and the §2d CSRF-knob cites are the elided-T typo, this fold its correction. Read-back web.py:124-125: _CSRF_SECRET_ENV = "PRIORITYTREE_WEB_CSRF_SECRET"; _REMEMBER_SECRET_ENV = "PRIORITYTREE_WEB_REMEMBER_SECRET" — the standing "PRIORITYTREE_WEB_*" law (web.py's constant, README:183, the auth spec's own fence); every cycle record citing the elided form corrects to the T; arc 5's subprocess cites the T-form.
+RULING 2 — THE §2d FENCE STANDS, the lapse copy wins; §4's byte-standing claim is the stale one (pinned against the old single-branch copy). The expired-or-forged case is the EMPTY session (the cookie died at max_age, the secret rotated, or the drive-by never held one): the identity is gone, and "reload the page and re-send" teaches a blind re-send that re-refuses at the cast read's session-first lane (jikko's read-back, web.py:1114-1127) — the stumble NOT cured in one step (moho's walk precedent). The lapse copy names the state and the one-step cure: reload → the page re-asks the name → re-identify (the epoch re-minted, web.py:200-201) → the re-send lands.
+The winning branch's exact bytes (web.py:276): "your identification lapsed — reload, the page re-asks your name". The reload copy (web.py:274): "reload the page and re-send — the re-render mints a fresh token" — stands for the LIVE-session stale-tab branch only (the rotated epoch under a live session: reload re-renders the current token, re-send passes, no re-identification needed).
+THE TWO ARCS' RE-DERIVED PINNED BYTES: test_csrf_drive_by_refused_write_never_lands + test_csrf_mismatched_token_refused pin the refusal's next_action = "your identification lapsed — reload, the page re-asks your name" (re-derived from the old pinned "reload the page and re-send — the re-render mints a fresh token"; the re-derivation dispatch 6's act, named here per the fold's charge).
+## Reported by togo — 2026-11-26T20:51:56Z
+
+THE REGISTER-LANE VALIDATE-SIDE EXCEPTION FENCED (jikko's one red — test_register_token_stays_path_bound; the fix-home web.py's guard, the brief §86's own law; READ-ONLY held, the bytes the gate's to land).
+BEFORE (web.py:271 verbatim): `expected = _mint_bound(request.url.path, request)` — epoch-composed whenever a live session rides, against the landing's unconditional `_mint_csrf(_REGISTER)` at :616: the sessioned browser can never register, and the :273 reload-teaching lies (the re-render mints path-bound again).
+AFTER (the route-scoped branch — the register lane ALONE, NEVER a blanket bypass):
+    if request.url.path == _REGISTER:  # §86 — the register validates PATH-BOUND even when the session now exists
+        expected = _mint_csrf(_REGISTER)  # mirrors the landing's mint at :616
+    else:
+        expected = _mint_bound(request.url.path, request)  # the vote + unremember lanes: the epoch-bound recompute byte-standing
+THE FENCE'S LAW (why the exception is honest): the landing's mint PRE-DATES the identification — :616 never reads the session; the epoch the SESSION's own act (minted once at identification; the register POST never writes the session), the register token the ANONYMOUS act — so the validate side now mirrors the mint side for that one lane alone.
+BOTH CURES WHOLE: the epoch-rotation cure untouched on every sessioned lane (the guard's three wired POSTs — register :990, vote :1095, unremember :1181 — only the register branch changes); the register's drive-by cure standing (the POST still demands the page-minted token at the same compare_digest); the lying reload-teaching dead by construction (expected = the page's mint on that lane, whatever the session's state).
+— togo (統合), R6; the guard whole + the arc's assertion + the landing's mint read back at the cited bytes this pass.

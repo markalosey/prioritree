@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 license = "MIT"
 authors = [{ name = "Mark Losey" }]
-dependencies = ["fastapi", "httpx2", "jinja2", "ouncemcp", "python-multipart", "uvicorn[standard]"]
+dependencies = ["fastapi", "httpx2", "itsdangerous", "jinja2", "ouncemcp", "python-multipart", "uvicorn[standard]"]
 
 [build-system]
 requires = ["hatchling"]
@@ -148,6 +148,9 @@ select = ["ALL"]
 # G-SERVING-TIER-INTEGRATION-BRIEF approved 2026-11-24): S105 — _CSRF_SECRET_ENV's
 # literal is the env knob's own public NAME (the constant names the secret's source,
 # the boot-mint fallback the configurability law — never a credential in source);
+# the wording grown per the voter-session spec §4 (G-VOTERSESSIONSPEC-BRIEF approved
+# 2026-11-26): _REMEMBER_SECRET_ENV's literal the SAME public-name class (the remember
+# knob's own NAME, the same boot-mint fallback — the same ruling, no new entry);
 # PLR0911 — sitting's and result's return counts ARE the ruled lane's own form
 # (§3d's exact two-branch insert at every fold site grows the page routes past the
 # rule's bar — the 401/403 branches before the fold branch ARE the ruled surface);
@@ -218,6 +221,13 @@ select = ["ALL"]
 # surface; the acceptance.py/budget_curve.py S311 precedent re-carried at the fixture
 # tier). The ignores ARE the rulings, named.
 "tests/test_calculate_expansion_kat.py" = ["S603", "S311"]
+
+# RULING (the voter-session spec §4, G-VOTERSESSIONSPEC-BRIEF approved 2026-11-26): S603 — the
+# strength-check arc's subprocess.run IS the no-shell law's own form (sys.executable + "-c" +
+# the fixed in-source program; the untrusted-input intent never rides a deterministic
+# import-boundary probe). S607 named for the ruling's form's stability. The ignores ARE the
+# rulings, named.
+"tests/test_web_face.py" = ["S603", "S607"]
 
 [tool.ruff.format]
 quote-style = "double"

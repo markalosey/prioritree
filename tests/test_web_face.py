@@ -39,12 +39,16 @@ prioritree-auth, 2026-11-24 session.
 
 from __future__ import annotations
 
+import os
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 import httpx2
 import pytest
 from fastapi.testclient import TestClient
+from starlette.middleware.sessions import SessionMiddleware
 
 from prioritree import web
 from prioritree.key_store import KeyStore
@@ -77,6 +81,19 @@ _REGISTER_FORM = {
 _ALL_SCOPES = ("register", "next", "cast", "state", "tally", "manifest")
 _SERVICE_BASE = "http://prioritree.internal"
 _KEYS_FILE = "keys.jsonl"
+# The voter-session arcs' own vocabulary (votersessionspec §4): the remember cookie's name
+# and priced max_age, the correction route at this file's fixed run id, the fold's two pinned
+# refusal copies (the micro-fold Ruling 2, togo 2026-11-26T19:39:09Z: the empty session's
+# lapse bytes; the live session's stale-tab reload bytes), the T-form env knob names (the
+# fold's Ruling 1), the strength-check arc's fixed in-source program, and the identified
+# form's shape without the ask's field.
+_REMEMBER_COOKIE = "remember"
+_REMEMBER_MAX_AGE = 14 * 24 * 60 * 60  # 1209600 — the 14-day default, keisan's pricing
+_UNREMEMBER = f"/ui/runs/{_RUN_ID}/unremember"
+_LAPSE_COPY = "your identification lapsed — reload, the page re-asks your name"
+_RELOAD_COPY = "reload the page and re-send — the re-render mints a fresh token"
+_IMPORT_PROBE = "import prioritree.service"  # service-first — the standing import cycle resolves this order alone
+_ANON_VOTE = {"item_a": "a", "item_b": "b", "winner": "prefer-a"}  # no name field — the identified form's shape
 
 
 @pytest.fixture
@@ -109,6 +126,49 @@ def _scrape_csrf(page: str) -> str:
     match = re.search(r'name="csrf_token" value="([^"]+)"', page)
     assert match is not None
     return match.group(1)
+
+
+def _scrape_unremember_token(page: str) -> str:
+    """Read the correction form's token from an IDENTIFIED render — the sitting's first csrf_token input.
+
+    Purpose: the correction arcs' own scraper (votersessionspec §4): on the
+    identified sitting the conditional renders the un-remember form BEFORE the
+    pair include, so the page's FIRST csrf_token input is the correction lane's
+    own mint — the vote lanes' tokens scraped from the pair fragment instead
+    (its page carries the one token).
+    Refuses when: never — the assert IS the scrape's own gate (an identified
+    page without the correction token a test bug, never a value).
+    Re-run: deterministic — the same page yields the same token.
+    Touches: nothing — a pure read over the response's text.
+    Provenance: votersessionspec §4 (the correction arcs), togo's fold Ruling 2,
+    G-VOTERSESSIONSPEC-BRIEF.
+    """
+    matches = re.findall(r'name="csrf_token" value="([^"]+)"', page)
+    assert matches
+    return matches[0]
+
+
+def _identified(client: TestClient) -> httpx2.Response:
+    """Register a three-pair run and identify this browser — the identify-once act, the jar armed.
+
+    Purpose: the session arcs' shared setup (votersessionspec §4): the register
+    through the service lane (NO session write), then the identifying vote —
+    the body's comparator_id the identifying act, the epoch minted, the cookie
+    landed in httpx2's native jar automatically; the returned response the
+    identifying POST's own (the cookie arcs read its headers).
+    Refuses when: never — a setup (the assert is the act's own gate).
+    Re-run: deterministic — a fresh run id per store.
+    Touches: the run file through the service (the register + the vote).
+    Provenance: votersessionspec §2e/§4, G-VOTERSESSIONSPEC-BRIEF.
+    """
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}").text)
+    identified = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "mark", "csrf_token": token},
+    )
+    assert identified.status_code == 200
+    return identified
 
 
 def _gated_client(key: str) -> httpx2.AsyncClient:
@@ -385,7 +445,11 @@ def test_vote_echo_already_recorded(client: TestClient) -> None:
     fresh = client.post(f"/ui/runs/{_RUN_ID}/vote", data={**_FORM_VOTE, "csrf_token": token})
     assert fresh.status_code == 200
     assert "already recorded with the same answer" not in fresh.text
-    again = client.post(f"/ui/runs/{_RUN_ID}/vote", data={**_FORM_VOTE, "csrf_token": token})
+    # §2e's note: the identifying POST minted the epoch, so the page's path-bound token is
+    # stale AFTER the identification — the browser's own token source is the chain's fresh
+    # fragment (epoch-bound); the second POST's token scraped per the session's law.
+    again_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    again = client.post(f"/ui/runs/{_RUN_ID}/vote", data={**_FORM_VOTE, "csrf_token": again_token})
     assert again.status_code == 200
     assert "already recorded with the same answer" in again.text
 
@@ -490,7 +554,9 @@ def test_csrf_drive_by_refused_write_never_lands(client: TestClient) -> None:
     assert "The request was refused" in response.text
     assert "the form&#39;s csrf_token field (minted into the served page)" in response.text  # the autoescaped byte
     assert "absent-or-mismatched" in response.text
-    assert "reload the page and re-send" in response.text
+    # the fold's Ruling 2 re-derived pin: the anonymous drive-by is the EMPTY-session case —
+    # the LAPSE copy, never the stale-tab reload copy (the micro-fold, togo 2026-11-26T19:39:09Z).
+    assert "your identification lapsed — reload, the page re-asks your name" in response.text
     assert "Something broke" not in response.text  # never the fold's clothes
     assert client.get(f"/runs/{_RUN_ID}").status_code == 404  # the write never landed
 
@@ -500,7 +566,8 @@ def test_csrf_mismatched_token_refused(client: TestClient) -> None:
     response = client.post("/ui/register", data={**_REGISTER_FORM, "csrf_token": "f" * 64})
     assert response.status_code == 200
     assert "absent-or-mismatched" in response.text
-    assert "reload the page and re-send" in response.text
+    # the fold's Ruling 2 re-derived pin (the mismatch leg — the same empty-session copy).
+    assert "your identification lapsed — reload, the page re-asks your name" in response.text
     assert client.get(f"/runs/{_RUN_ID}").status_code == 404
 
 
@@ -713,3 +780,328 @@ def test_deliberate_vote_lands_stamped_and_mapped(client: TestClient) -> None:
     # the deliberate swapped vote mapped canonical (prefer-a on the presented (b, a) = b's win) + the llm's prefer-b
     assert tally.json()["ranked_groups"] == [["b"], ["a"]]
     assert tally.json()["coverage"]["pair_class_counts"] == {"a|b": {"human": 1, "llm": 1}}
+
+
+# The voter-session arcs (votersessionspec §4 — the 23; the fold's Ruling 1 T-form env
+# names + Ruling 2's re-derived lapse pins carried, the echo arc's second-token cure
+# landed above). The S101/PLR2004 tests ruling stands; the strength-check arc's
+# subprocess rides the S603/S607 ruling at pyproject.
+
+
+def test_remember_cookie_lands_in_the_jar(client: TestClient) -> None:
+    """The identifying vote's response carries Set-Cookie — the jar holds 'remember', the attributes pinned."""
+    identified = _identified(client)
+    assert client.cookies.get(_REMEMBER_COOKIE) is not None
+    set_cookie = "; ".join(identified.headers.get_list("set-cookie")).lower()
+    assert "httponly" in set_cookie  # the engine's hardwired flag (sessions.py:34 — never a knob)
+    assert "samesite=lax" in set_cookie  # the shareable URL's top-level entry preserved
+
+
+def test_remember_max_age_fourteen_days(client: TestClient) -> None:
+    """The cookie's own Max-Age attribute pinned at 1209600 — the 14-day default, keisan's priced floor."""
+    identified = _identified(client)
+    set_cookie = "; ".join(identified.headers.get_list("set-cookie")).lower()
+    assert f"max-age={_REMEMBER_MAX_AGE}" in set_cookie
+
+
+def test_anonymous_get_never_mints(client: TestClient) -> None:
+    """The anonymous landing, sitting, and pair fragment GETs carry no Set-Cookie — nothing to fixate pre-identify."""
+    landing = client.get("/")
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    sitting = client.get(f"/runs/{_RUN_ID}")
+    fragment = client.get(f"/ui/runs/{_RUN_ID}/pair")
+    for response in (landing, sitting, fragment):
+        assert "set-cookie" not in response.headers
+
+
+def test_service_lanes_never_see_a_session(client: TestClient) -> None:
+    """The service app's middleware stack carries no SessionMiddleware; its lanes set no cookie."""
+    assert not any(middleware.cls is SessionMiddleware for middleware in app.user_middleware)
+    client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
+    pair = client.get(f"/runs/{_RUN_ID}/next")
+    assert pair.status_code == 200
+    assert "set-cookie" not in pair.headers
+
+
+def test_underfloor_secret_refuses_at_import() -> None:
+    """An under-floor env secret at either knob refuses the web tier's import — the ThreePart bytes carried."""
+    for env_name in ("PRIORITYTREE_WEB_REMEMBER_SECRET", "PRIORITYTREE_WEB_CSRF_SECRET"):  # the T-form (Ruling 1)
+        env = {**os.environ, env_name: "short"}
+        probe = subprocess.run(  # the S603/S607 ruled form — fixed argv, never a shell
+            [sys.executable, "-c", _IMPORT_PROBE],
+            capture_output=True,
+            env=env,
+            check=False,
+        )
+        assert probe.returncode != 0
+        stderr = probe.stderr.decode()
+        expected = f"expected: the {env_name} env secret 32 bytes (256 bits) or longer, or unset for the boot-mint"
+        assert expected in stderr
+        assert "found: 5 bytes" in stderr
+        assert f"next_action: set {env_name} to a 256-bit secret" in stderr
+
+
+def test_first_vote_asks_once_then_carried(client: TestClient) -> None:
+    """The anonymous sitting renders the ask; the identifying vote mints the session; the fragment pre-stamped."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    sitting = client.get(f"/runs/{_RUN_ID}")
+    assert 'name="comparator_id"' in sitting.text  # the ask served INSIDE the vote form
+    assert "Your name is asked once" in sitting.text
+    token = _scrape_csrf(sitting.text)
+    landed = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "mark", "csrf_token": token},
+    )
+    assert landed.status_code == 200
+    assert client.cookies.get(_REMEMBER_COOKIE) is not None  # the session minted at the identification
+    fragment = client.get(f"/ui/runs/{_RUN_ID}/pair")
+    assert fragment.status_code == 200
+    assert 'name="comparator_id"' not in fragment.text  # the ask asked ONCE — the fragment pre-stamped
+
+
+def test_identified_renders_carry_no_ask_both_lanes(client: TestClient) -> None:
+    """The identified sitting and judge pages render pre-stamped — no comparator_id field, the identity line present."""
+    _identified(client)
+    sitting = client.get(f"/runs/{_RUN_ID}")
+    assert 'name="comparator_id"' not in sitting.text
+    assert "voting as: mark" in sitting.text
+    judge = client.get(f"/runs/{_RUN_ID}/pair?item_a=b&item_b=c")
+    assert 'name="comparator_id"' not in judge.text
+    assert "voting as: mark" in judge.text
+
+
+def test_judge_page_fresh_get_carried_identity(client: TestClient) -> None:
+    """The deliberate lane's fresh GET serves the carried identity — the per-visit re-ask dead."""
+    _identified(client)
+    judge = client.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=b")
+    assert judge.status_code == 200
+    assert "voting as: mark" in judge.text
+
+
+def test_vote_reads_the_remembered_id(client: TestClient, tmp_path: Path) -> None:
+    """At the auth-off degrade the record's id is the sessioned name — the body's field ignored when a session rides."""
+    _identified(client)
+    token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    second = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "imposter", "csrf_token": token},
+    )
+    assert second.status_code == 200
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert len(log) == 1
+    assert log[0].comparator_id == "mark"  # the sessioned name stamped — the body's claim never landed
+
+
+def test_expired_session_taught_refusal_reload_recovers(client: TestClient, tmp_path: Path) -> None:
+    """The jar cleared, the stale POST teaches the lapse; the write never lands; the reload recovers."""
+    _identified(client)
+    census_before = len(Serialize(tmp_path).census(_RUN_ID).vote_log)
+    stale_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    client.cookies.clear()  # the cookie died at max_age — the empty-session state
+    refused = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_ANON_VOTE, "csrf_token": stale_token},  # the identified form's shape — no name field
+    )
+    assert refused.status_code == 200
+    assert _LAPSE_COPY in refused.text  # the taught lapse, in the human's words
+    assert "the schema" not in refused.text  # never the schema's words
+    assert len(Serialize(tmp_path).census(_RUN_ID).vote_log) == census_before  # the write never landed
+    reloaded = client.get(f"/runs/{_RUN_ID}")
+    assert 'name="comparator_id"' in reloaded.text  # the reload re-renders the ask
+    assert "Your name is asked once" in reloaded.text
+    fresh_token = _scrape_csrf(reloaded.text)
+    recovered = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "item_a": "a", "item_b": "c", "comparator_id": "mark", "csrf_token": fresh_token},
+    )
+    assert recovered.status_code == 200  # the re-identify + re-send lands — the one-step cure
+
+
+def test_two_browsers_two_sessions(client: TestClient, tmp_path: Path) -> None:
+    """Two TestClients, two names — both votes land distinct in the log, the multi-user truth at the record."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    token_a = _scrape_csrf(client.get(f"/runs/{_RUN_ID}").text)
+    first = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "alice", "csrf_token": token_a},
+    )
+    assert first.status_code == 200
+    browser_b = TestClient(app)  # a second TestClient IS a second browser (its own empty jar)
+    token_b = _scrape_csrf(browser_b.get(f"/runs/{_RUN_ID}").text)
+    second = browser_b.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "bob", "csrf_token": token_b},
+    )
+    assert second.status_code == 200
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert {record.comparator_id for record in log} == {"alice", "bob"}
+
+
+def test_epoch_token_minted_once(client: TestClient) -> None:
+    """Two identified sitting GETs hold the SAME token — the epoch minted once, no per-render session write."""
+    _identified(client)
+    first = _scrape_unremember_token(client.get(f"/runs/{_RUN_ID}").text)
+    second = _scrape_unremember_token(client.get(f"/runs/{_RUN_ID}").text)
+    assert first == second
+
+
+def test_concurrent_tabs_same_token_both_pass(client: TestClient) -> None:
+    """Two votes posted with the same held token both land — the concurrent-tab cure asserted."""
+    _identified(client)
+    held = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    one = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={"item_a": "a", "item_b": "c", "winner": "prefer-a", "csrf_token": held},
+    )
+    assert one.status_code == 200
+    two = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={"item_a": "b", "item_b": "c", "winner": "prefer-b", "csrf_token": held},
+    )
+    assert two.status_code == 200
+
+
+def test_scraped_token_dead_in_another_browser(client: TestClient, tmp_path: Path) -> None:
+    """Client A's identified token posted from client B (its own empty jar) is refused — the write never lands."""
+    _identified(client)
+    census_before = len(Serialize(tmp_path).census(_RUN_ID).vote_log)
+    stolen = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    browser_b = TestClient(app)  # its own empty jar — the scraped token's new browser
+    refused = browser_b.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "mallory", "csrf_token": stolen},
+    )
+    assert refused.status_code == 200
+    assert "absent-or-mismatched" in refused.text
+    assert "set-cookie" not in refused.headers  # the theft identified no one
+    assert len(Serialize(tmp_path).census(_RUN_ID).vote_log) == census_before  # the write never landed
+
+
+def test_register_token_stays_path_bound(client: TestClient) -> None:
+    """The identified landing's token stays path-bound (never epoch-composed); the register POST lands the ack."""
+    _identified(client)
+    landing_token = _scrape_csrf(client.get("/").text)
+    anonymous_token = _scrape_csrf(TestClient(app).get("/").text)
+    assert landing_token == anonymous_token  # the register lane's mint NEVER epoch-composed, even sessioned
+    registered = client.post("/ui/register", data={**_REGISTER_FORM, "csrf_token": landing_token})
+    assert registered.status_code == 200
+    assert "BEGIN THE SITTING" in registered.text  # the ack landed — the binding never presumed
+
+
+def test_reidentification_rotates_epoch_old_token_dies(client: TestClient) -> None:
+    """The un-remember then the re-identification rotates the epoch — the pre-rotation token dies, the fresh passes."""
+    _identified(client)
+    stale_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)  # the pre-rotation epoch's mint
+    correction_token = _scrape_unremember_token(client.get(f"/runs/{_RUN_ID}").text)
+    forgotten = client.post(_UNREMEMBER, data={"csrf_token": correction_token})
+    assert forgotten.status_code == 200
+    reask = client.get(f"/runs/{_RUN_ID}")
+    assert 'name="comparator_id"' in reask.text  # the ask returned at the anonymous render
+    reidentify_token = _scrape_csrf(reask.text)
+    reidentified = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "item_a": "a", "item_b": "c", "comparator_id": "mark", "csrf_token": reidentify_token},
+    )
+    assert reidentified.status_code == 200  # the re-identification — a NEW epoch minted
+    refused = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={"item_a": "b", "item_b": "c", "winner": "prefer-a", "csrf_token": stale_token},
+    )
+    assert refused.status_code == 200
+    assert _RELOAD_COPY in refused.text  # the live session's stale-tab cure — the reload taught
+    served = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    passed = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={"item_a": "b", "item_b": "c", "winner": "prefer-a", "csrf_token": served},
+    )
+    assert passed.status_code == 200  # the fresh token passes — the reload's own cure
+
+
+def test_voting_as_renders_both_lanes(client: TestClient) -> None:
+    """The visible identity line at both lanes — the cookie-swap, the typo, the shared-machine bleed all SEEN."""
+    _identified(client)
+    assert "voting as: mark" in client.get(f"/runs/{_RUN_ID}").text
+    assert "voting as: mark" in client.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=b").text
+
+
+def test_anonymous_never_renders_identity_line(client: TestClient) -> None:
+    """The anonymous render shows the ask's twin — never the identity line nor the correction form."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    sitting = client.get(f"/runs/{_RUN_ID}")
+    assert "Your name is asked once" in sitting.text
+    assert 'name="comparator_id"' in sitting.text
+    assert "voting as:" not in sitting.text
+    assert "not you?" not in sitting.text
+    assert "unremember" not in sitting.text  # the correction form's action absent at the anonymous render
+
+
+def test_unremember_deletion_cookie_ask_returns(client: TestClient) -> None:
+    """The un-remember POST carries the engine's deletion cookie + the HX-Redirect; the next render shows the ask."""
+    _identified(client)
+    correction_token = _scrape_unremember_token(client.get(f"/runs/{_RUN_ID}").text)
+    forgotten = client.post(_UNREMEMBER, data={"csrf_token": correction_token})
+    assert forgotten.status_code == 200
+    header = "; ".join(forgotten.headers.get_list("set-cookie")).lower()
+    assert "remember=null" in header  # the engine's own deletion cookie (sessions.py:80-89)
+    assert "expires=thu, 01 jan 1970" in header  # the 1970 expiry — the identity-erase verb
+    assert "max-age" not in header  # the deletion's own form — expires alone, no max-age
+    assert forgotten.headers["hx-redirect"] == f"/runs/{_RUN_ID}"  # the sitting re-render navigation
+    after = client.get(f"/runs/{_RUN_ID}")
+    assert 'name="comparator_id"' in after.text  # the ask returned
+    assert "voting as:" not in after.text
+
+
+def test_change_verb_reidentifies_new_name_lands(client: TestClient, tmp_path: Path) -> None:
+    """The change verb's re-identification: the new name lands in the log, the render shows it, the epoch rotated."""
+    _identified(client)
+    before_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)  # the old epoch's mint
+    correction_token = _scrape_unremember_token(client.get(f"/runs/{_RUN_ID}").text)
+    client.post(_UNREMEMBER, data={"csrf_token": correction_token})
+    reask = client.get(f"/runs/{_RUN_ID}")
+    assert 'name="comparator_id"' in reask.text  # the ask returns — the re-identification's entry
+    rename_token = _scrape_csrf(reask.text)
+    changed = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "item_a": "a", "item_b": "c", "comparator_id": "makr", "csrf_token": rename_token},
+    )
+    assert changed.status_code == 200
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert [record.comparator_id for record in log] == ["mark", "makr"]  # the typo's stamps kept; the new name lands
+    assert "voting as: makr" in client.get(f"/runs/{_RUN_ID}").text  # the render shows it
+    after_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    assert after_token != before_token  # the epoch rotated — asserted via the token change
+
+
+def test_landing_prefills_operator_when_remembered(client: TestClient) -> None:
+    """The identified landing's operator field carries the visible editable prefill — the claim still the body's own."""
+    _identified(client)
+    match = re.search(r'<input name="operator_id"[^>]*>', client.get("/").text)
+    assert match is not None
+    assert 'value="mark"' in match.group(0)  # the visible editable value — a prefill, never a substitute
+    assert "readonly" not in match.group(0)  # the input stays editable — the claim rides what the operator types
+
+
+def test_anonymous_landing_no_prefill(client: TestClient) -> None:
+    """The anonymous landing's operator field carries no value attribute — no prefill to silently substitute."""
+    match = re.search(r'<input name="operator_id"[^>]*>', client.get("/").text)
+    assert match is not None
+    assert "value=" not in match.group(0)
+
+
+def test_cookie_roundtrip_within_priced_bound(client: TestClient) -> None:
+    """The cookie's signed value lands within the re-derived priced bound — keisan's unpadding residual verified."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}").text)
+    identified = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "Mark Losey", "csrf_token": token},
+    )
+    assert identified.status_code == 200
+    jarred = client.cookies.get(_REMEMBER_COOKIE)
+    assert jarred is not None
+    # keisan's priced form re-derived at the landed session (the spec's 70-94 was the name-only
+    # research-stage price; the session carries the 43-char epoch per §2b): the payload
+    # {"name": "Mark Losey", "epoch": <43>} = 78 B -> b64encode 104 chars (sessions.py:70's
+    # standard form, padding kept) + the TimestampSigner's "." + 6-char timestamp + "." +
+    # 27-char sha1 signature (signer.py:220 + timed.py:48) = 139, the 2-B unpadding variance.
+    assert 137 <= len(jarred) <= 141

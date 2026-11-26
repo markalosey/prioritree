@@ -62,6 +62,7 @@ constants); no asserts, no prints — the wire replaces stdout.
 
 from __future__ import annotations
 
+import hashlib
 import logging
 import os
 from dataclasses import asdict, replace
@@ -130,6 +131,22 @@ _NEXT_PATH: Final[str] = "/runs/{run_id}/next"
 _VOTES_PATH: Final[str] = "/runs/{run_id}/votes"
 _STATE_PATH: Final[str] = "/runs/{run_id}/state"
 _MANIFEST_PATH: Final[str] = "/runs/{run_id}/manifest"
+
+
+# THE TWO-ROLE SEAM'S WEB-LANE MARKER (the voter-session spec §2g): the
+# process's own web key — the same PRIORITYTREE_WEB_KEY the web tier's
+# in-process client carries (one process, one env, both tiers) — digested
+# once at import; under a verified digest the WEB LANE'S callers alone may
+# carry the body's comparator_id (the sessioned name the web tier composed);
+# every OTHER keyed caller's record id stands (F8 whole for them — the
+# blanket crossing refused at the design). THE HONEST RESIDUAL: the web key's
+# holder + this seam = id forgery for that holder — priced at the loopback's
+# no-new-reach (the class already owns the machine) and the key's custody;
+# the id PERSISTENT, NEVER VERIFIED (the record says what it knows and what
+# it merely carries).
+_WEB_KEY_ENV: Final[str] = "PRIORITYTREE_WEB_KEY"
+_WEB_KEY_PRESENT: Final[str] = os.environ.get(_WEB_KEY_ENV, "")
+_WEB_LANE_DIGEST: Final[str] = hashlib.sha256(_WEB_KEY_PRESENT.encode()).hexdigest() if _WEB_KEY_PRESENT else ""
 
 
 class RegisterRunRequest(BaseModel):
@@ -561,7 +578,8 @@ def cast_vote(request: Request, run_id: str, body: CastVoteRequest, record: _Cas
     servingtierintegrationspec §1h/§1i, G-SERVING-TIER-INTEGRATION-BRIEF.
     """
     seam = cast("Serialize", request.app.state.seam)
-    comparator_id = record.comparator_id if record.digest else body.comparator_id
+    _web_lane = bool(record.digest) and record.digest == _WEB_LANE_DIGEST
+    comparator_id = body.comparator_id if _web_lane or not record.digest else record.comparator_id
     comparator_class = record.comparator_class if record.digest else body.comparator_class
     try:
         vote_id, _record, count, acknowledged = seam.cast(
