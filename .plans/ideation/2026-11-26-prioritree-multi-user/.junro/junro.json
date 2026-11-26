@@ -1,0 +1,287 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-multi-user",
+    "title": "Prioritree Multi-User — the voter session and the identity model at the browser: the auth design's banked session shape earned by the lived cost (identify once per browser, each browser its own voter, the shareable URL's fate ruled at the gates), designed through the full-team cycle, built to be publicly right — the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "THE COLLABORATOR'S CONVENING (2026-11-26, two rulings): the session shape EARNED (verbatim: \"having to re-enter voter name each time basically makes the task non-completeable... too much work on the human\" + \"multi-user functionality is earned.... like built into the system as opposed to trying to get the user to identify themselves on each individual operation\") + THE GOVERNANCE FORM RULED (verbatim, stated twice — the weight: \"going straight to build for something as big as multi-user is pretty weak. We are going to need full team input on multi-user.\") — the full-team cycle, never a straight build",
+      "THE BANKED SHAPE (the auth design's web-tier divergence, option [i], priced and deferred 2026-11-24): the login/session form — a session cookie minted at the first identification, each human's identity riding their browser, the CSRF token riding the session, the shareable URL's narrowing the priced cost; the alternatives ([ii] the server-side key bare, [iii] the key-free child) both priced at their own evidence — the divergence re-opened at full weight with the lived cost now measured",
+      "THE LIVED COST (FR-MEM-0041, severity high, 2026-11-26): the per-operation identification refused as non-completeable at the collaborator's own hands (the completion card's 78 swapped judgments abandoned at the repeated identification) — the deferral's price measured at last; the probe's record carries the dependency (RUN-0008 at 234/312, the datum deferred, the count gate standing)",
+      "THE LANDED SURFACES THE DESIGN COMPOSES WITH: the auth build whole (the tier key's verified class, the CSRF, the web 401/403 lane, the deliberate-pair lane, the sitting chain's corroboration-aware form, the register/operator surfaces, the probe-era lanes: the picker, the judge page, the done page); the id-binding residual named (the browser's self-claim at the web tier) — the session narrows it, the design rules honestly",
+      "the standing laws carried: the seat-authored report (R6/R11), the per-step dispatch (R8, the file-unit), the two-lane form, the ThreePart, the census-first composition, the claims lane (extract -> research -> verify -> rule), the implementation-walk law (R4), the free-tier spirit (the session prices its own infrastructure)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "research",
+        "purpose": "THE RESEARCH STAGE (the full-team mandate realized): FIVE parallel ungated legs over the identity ground, every discover seat its own discipline — tansa's identity census (the web tier's current identity surfaces line-pinned: the sitting chain's hidden-field carry, the deliberate lane's fresh per-visit forms, the register's operator field, the probe-era lanes [the picker, the judge page, the done page]; every identity-asking form in the tree found); shindan's threat model (the session's own surface: fixation, hijack, the CSRF's composition with a session, the shareable URL's fate, the id-binding residual's narrowing); rikai's mechanism maps (Starlette's SessionMiddleware and the cookie forms at their own sources — the claims lane at every source; the tiers' identity seams; the llm-class constraint's boundary [the session the humans' lane]); keisan's arithmetic (the forms' costs, the concurrent-humans pricing, the knobs' free-tier prices); MOHO'S IDENTIFICATION WALK (the lived cost walked again — FR-MEM-0041's ground: the per-operation identification's every surface, the completion card's abandonment re-walked); togo's gated synthesis closing G-MULTI-USER-RESEARCH — the claims' verdicts + the candidate identity models, every seat's input visible",
+        "entry_condition": "G-COMPOSITION is green — the route validated; the research fires first, its findings assumed by none of this composition",
+        "increments": [
+          {
+            "id": "synthesize/multi-user-research",
+            "owner": "togo",
+            "gate": "G-MULTI-USER-RESEARCH",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "evaluation",
+        "purpose": "THE EVALUATION STAGE (the full bench over the candidate identity models): FOUR parallel ungated packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (every candidate attacked: the fixation/hijack forms, the session-theft surfaces, the CSRF bypass routes, the shareable-URL leakage); moho's blind walks (the candidate forms walked as the human: the identification once, the carried operations, the concurrent-browser truth); keisan's pricing (every candidate against the constraints: the free-tier spirit, the llm-class constraint, the configurability law, the concurrent-humans arithmetic); shindan's exposure diagnosis (every candidate's residual: what remains identifiable, what remains per-operation) — the divergences reconciled at togo's design synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate",
+        "entry_condition": "G-MULTI-USER-RESEARCH is green — the identity ground researched whole, the candidates mapped",
+        "increments": []
+      },
+      {
+        "id": "recommendation",
+        "purpose": "THE RECOMMENDATION STAGE (the reasoning whole): suisen's full-depth recommendation (the identity model designed whole: the session's shape, the concurrent-humans truth, the shareable URL's fate, the tiers' seams; the alternatives named with their prices; the honest residuals carried) + togo's gated synthesis integrating the whole bench's findings — the divergences reconciled never averaged away, the banked option (i) vs its alternatives resolved at full weight with the lived cost measured — closing G-MULTI-USER-DESIGN at the collaborator's ruling on the full record: the design judged publicly right, the build set earned by the cycle's outcome (the voter session the likely first unit — the probe's RUN-0008 completion riding its build gate)",
+        "entry_condition": "the evaluation's packets landed whole — every candidate attacked, walked, priced, diagnosed; the divergences carried whole",
+        "increments": [
+          {
+            "id": "synthesize/multi-user-design",
+            "owner": "togo",
+            "gate": "G-MULTI-USER-DESIGN",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE MULTI-USER BUILD — the units the cycle's outcome earns (named not pinned: the voter session [the probe's RUN-0008 completion riding its build gate — the dependency named at both stores], the register/operator surfaces, the README's story), the two-lane brief -> spec -> build per unit, one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALKS at the user-facing units' build gates (R4 — this effort the UX's own ground), one-commit-per-increment; the ThreePart mandatory at the refusals; the llm-class constraint held (the session the humans' lane, the llm ride unchanged at the stdio/tools tier); the configurability law at every knob from birth",
+        "entry_condition": "G-MULTI-USER-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch (the precedence law); the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law)",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake — FR-MEM-0041 the earn's evidence carried; the lessons named), the effort's records (the CONTINUATION entry — the identity model carried whole, the next era named, the banked shapes carried), the done call at the collaborator's ruling",
+        "entry_condition": "the route's build gates closed green (the probe's completion unblocked at the session unit's gate) and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "retro",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-synthesis",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-landing",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "done-call",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [research -> evaluation -> recommendation -> build -> close], the gates, the increments, the ten ungated placements — every seat placed, the full-team mandate's proof; the R/E/R cycle realized, no build unit before the design gate green)",
+          "every choice cites its ruling: the convening's two rulings verbatim (the shape earned + the governance form stated twice) + the banked shape (the auth design's web-tier divergence option [i] with its priced alternatives) + the lived cost (FR-MEM-0041) + the standing laws (the full-team input mandate, the claims lane, R4's walks at the design AND build gates, the free-tier spirit, the llm-class constraint [the session the humans' lane], the configurability law) + the probe's dependency named (RUN-0008 at 234/312 riding the session unit's gate)",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-MULTI-USER-RESEARCH": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the identity ground researched whole: the web tier's current identity surfaces line-pinned (the sitting chain's hidden-field carry, the deliberate lane's fresh forms, the register's operator field, the probe-era lanes); the session/identity landscape at the sources (the claims lane at every source: Starlette's SessionMiddleware, the signed cookie forms, the session-binding precedents); the threat model (the session's own surface: fixation, hijack, the CSRF's composition with the session, the shareable URL's fate); the pricing (the forms' costs, the concurrent-humans arithmetic, the knobs)",
+          "every seat's input visible (tansa's identity census, shindan's threat model, rikai's mechanism maps, keisan's arithmetic, moho's identification walk [the lived cost FR-MEM-0041 the ground] — the full-team record; a divergence that survives reconciliation blocks the gate, never rides silently)",
+          "the collaborator rules the research whole — no evaluation packet fires before it is green"
+        ]
+      },
+      "G-MULTI-USER-DESIGN": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the recommendation ruled on the full record: suisen's full-depth whole + togo's synthesis integrating the bench's findings — the divergence (the banked option [i] vs its alternatives [ii]/[iii]) resolved at full weight with the lived cost measured, never assumed; the identity model designed publicly right (the session's shape, the concurrent-humans truth, the shareable URL's fate ruled, the tiers' identity seams, the honest residuals named: the id-binding narrowed never erased, the session's threat surface priced)",
+          "the build set ruled (the units named not pinned: the voter session the likely first [the probe's RUN-0008 completion riding its build gate — the dependency honest at both stores], the register/operator surfaces, the README's story); the llm-class constraint carried (the session the humans' lane — the llm votes ride unchanged at the stdio/tools tier); the configurability law at every knob from birth (the session secret, the cookie's forms)",
+          "no build dispatch fires before it is green — the collaborator's ruling on the full record the gate's own act"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed (the friction ledger the intake — FR-MEM-0041 the earn's evidence carried whole; the lessons named); the effort's records landed (the CONTINUATION entry — the identity model carried whole, the next era named, the banked shapes carried)",
+          "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-multi-user resolved at the record"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-multi-user\", \"text\": \"What is prioritree's multi-user design — the identity model at the browser (the voter session: identify once per browser, every operation carried; each browser its own voter), the concurrent-humans truth, the shareable URL's fate, the tiers' identity seams (the register's operator, the web's comparator, the session's composition with the tier key's verified class), the auth design's banked option re-opened at full weight with the lived cost measured (FR-MEM-0041) — designed through the full-team research/evaluation/recommendation cycle, built to be publicly right?\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:42:37Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-multi-user\", \"ruling\": \"THE CONVENING (the collaborator's two rulings, 2026-11-26, both verbatim on the record): (1) THE SHAPE EARNED — \\\"having to re-enter voter name each time basically makes the task non-completeable. This is the opposite of human intuitive and puts too much work on the human\\\" + \\\"I think this means that multi-user functionality is earned.... like built into the system as opposed to trying to get the user to identify themselves on each individual operation\\\" — the per-operation identification is the measured non-completeable form; multi-user rides BUILT-IN, never per-operation; (2) THE GOVERNANCE FORM — \\\"going straight to build for something as big as multi-user is pretty weak. We are going to need full team input on multi-user\\\" (stated twice, the weight) — the full-team cycle (every seat at every stage, the divergences reconciled at the synthesis, never averaged away — Q-auth-widening ruling 4's standing law), never a straight build; the cancelled tooling dispatch the named precedent. THE STANDING CONSTRAINTS: the free-tier spirit (the session prices its own infrastructure — the stdlib/Starlette forms the research already verified); the llm-class constraint carried (the llm votes ride the stdio/tools lane, never the browser's session — the session is the HUMANS' lane); the configurability law at every knob (the session secret, the cookie's forms); the honest residuals named (the id-binding narrowed never erased, the session's own threat surface priced); THE PROBE'S DEPENDENCY: RUN-0008's completion (234/312) rides this effort's session landing — the first build unit per the composition's ruling, the datum's wait honest on both stores' records.\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:42:47Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [research -> evaluation -> recommendation -> build -> close], the gates, the increments, the ten ungated placements — every seat placed, the full-team mandate's proof; the R/E/R cycle realized, no build unit before the design gate green)\\\", \\\"every choice cites its ruling: the convening's two rulings verbatim (the shape earned + the governance form stated twice) + the banked shape (the auth design's web-tier divergence option [i] with its priced alternatives) + the lived cost (FR-MEM-0041) + the standing laws (the full-team input mandate, the claims lane, R4's walks at the design AND build gates, the free-tier spirit, the llm-class constraint [the session the humans' lane], the configurability law) + the probe's dependency named (RUN-0008 at 234/312 riding the session unit's gate)\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:51:17Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the identity ground researched whole: the web tier's current identity surfaces line-pinned (the sitting chain's hidden-field carry, the deliberate lane's fresh forms, the register's operator field, the probe-era lanes); the session/identity landscape at the sources (the claims lane at every source: Starlette's SessionMiddleware, the signed cookie forms, the session-binding precedents); the threat model (the session's own surface: fixation, hijack, the CSRF's composition with the session, the shareable URL's fate); the pricing (the forms' costs, the concurrent-humans arithmetic, the knobs)\\\", \\\"every seat's input visible (tansa's identity census, shindan's threat model, rikai's mechanism maps, keisan's arithmetic, moho's identification walk [the lived cost FR-MEM-0041 the ground] — the full-team record; a divergence that survives reconciliation blocks the gate, never rides silently)\\\", \\\"the collaborator rules the research whole — no evaluation packet fires before it is green\\\"]\", \"gate\": \"G-MULTI-USER-RESEARCH\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:51:25Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the recommendation ruled on the full record: suisen's full-depth whole + togo's synthesis integrating the bench's findings — the divergence (the banked option [i] vs its alternatives [ii]/[iii]) resolved at full weight with the lived cost measured, never assumed; the identity model designed publicly right (the session's shape, the concurrent-humans truth, the shareable URL's fate ruled, the tiers' identity seams, the honest residuals named: the id-binding narrowed never erased, the session's threat surface priced)\\\", \\\"the build set ruled (the units named not pinned: the voter session the likely first [the probe's RUN-0008 completion riding its build gate — the dependency honest at both stores], the register/operator surfaces, the README's story); the llm-class constraint carried (the session the humans' lane — the llm votes ride unchanged at the stdio/tools tier); the configurability law at every knob from birth (the session secret, the cookie's forms)\\\", \\\"no build dispatch fires before it is green — the collaborator's ruling on the full record the gate's own act\\\"]\", \"gate\": \"G-MULTI-USER-DESIGN\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:51:33Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed (the friction ledger the intake — FR-MEM-0041 the earn's evidence carried whole; the lessons named); the effort's records landed (the CONTINUATION entry — the identity model carried whole, the next era named, the banked shapes carried)\\\", \\\"the done call at the collaborator's ruling — the route's status set done at the ruling, Q-multi-user resolved at the record\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:51:44Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green — the route validated; the research fires first, its findings assumed by none of this composition\", \"purpose\": \"THE RESEARCH STAGE (the full-team mandate realized): FIVE parallel ungated legs over the identity ground, every discover seat its own discipline — tansa's identity census (the web tier's current identity surfaces line-pinned: the sitting chain's hidden-field carry, the deliberate lane's fresh per-visit forms, the register's operator field, the probe-era lanes [the picker, the judge page, the done page]; every identity-asking form in the tree found); shindan's threat model (the session's own surface: fixation, hijack, the CSRF's composition with a session, the shareable URL's fate, the id-binding residual's narrowing); rikai's mechanism maps (Starlette's SessionMiddleware and the cookie forms at their own sources — the claims lane at every source; the tiers' identity seams; the llm-class constraint's boundary [the session the humans' lane]); keisan's arithmetic (the forms' costs, the concurrent-humans pricing, the knobs' free-tier prices); MOHO'S IDENTIFICATION WALK (the lived cost walked again — FR-MEM-0041's ground: the per-operation identification's every surface, the completion card's abandonment re-walked); togo's gated synthesis closing G-MULTI-USER-RESEARCH — the claims' verdicts + the candidate identity models, every seat's input visible\", \"stage\": \"research\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:51:58Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-MULTI-USER-RESEARCH is green — the identity ground researched whole, the candidates mapped\", \"purpose\": \"THE EVALUATION STAGE (the full bench over the candidate identity models): FOUR parallel ungated packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (every candidate attacked: the fixation/hijack forms, the session-theft surfaces, the CSRF bypass routes, the shareable-URL leakage); moho's blind walks (the candidate forms walked as the human: the identification once, the carried operations, the concurrent-browser truth); keisan's pricing (every candidate against the constraints: the free-tier spirit, the llm-class constraint, the configurability law, the concurrent-humans arithmetic); shindan's exposure diagnosis (every candidate's residual: what remains identifiable, what remains per-operation) — the divergences reconciled at togo's design synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate\", \"stage\": \"evaluation\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:52:07Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the evaluation's packets landed whole — every candidate attacked, walked, priced, diagnosed; the divergences carried whole\", \"purpose\": \"THE RECOMMENDATION STAGE (the reasoning whole): suisen's full-depth recommendation (the identity model designed whole: the session's shape, the concurrent-humans truth, the shareable URL's fate, the tiers' seams; the alternatives named with their prices; the honest residuals carried) + togo's gated synthesis integrating the whole bench's findings — the divergences reconciled never averaged away, the banked option (i) vs its alternatives resolved at full weight with the lived cost measured — closing G-MULTI-USER-DESIGN at the collaborator's ruling on the full record: the design judged publicly right, the build set earned by the cycle's outcome (the voter session the likely first unit — the probe's RUN-0008 completion riding its build gate)\", \"stage\": \"recommendation\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:52:15Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-MULTI-USER-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch (the precedence law); the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law)\", \"purpose\": \"THE MULTI-USER BUILD — the units the cycle's outcome earns (named not pinned: the voter session [the probe's RUN-0008 completion riding its build gate — the dependency named at both stores], the register/operator surfaces, the README's story), the two-lane brief -> spec -> build per unit, one file per dispatch (R8's file-unit law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALKS at the user-facing units' build gates (R4 — this effort the UX's own ground), one-commit-per-increment; the ThreePart mandatory at the refusals; the llm-class constraint held (the session the humans' lane, the llm ride unchanged at the stdio/tools tier); the configurability law at every knob from birth\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:52:21Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's build gates closed green (the probe's completion unblocked at the session unit's gate) and the collaborator has called the close\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake — FR-MEM-0041 the earn's evidence carried; the lessons named), the effort's records (the CONTINUATION entry — the identity model carried whole, the next era named, the banked shapes carried), the done call at the collaborator's ruling\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:52:29Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-MULTI-USER-RESEARCH\", \"increment\": \"synthesize/multi-user-research\", \"owner\": \"togo\", \"stage\": \"research\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:52:37Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-MULTI-USER-DESIGN\", \"increment\": \"synthesize/multi-user-design\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:52:44Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"retro\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-synthesis\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-landing\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"done-call\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-26",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-26T16:52:52Z",
+        "op": "add-increment"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-multi-user",
+      "question": "What is prioritree's multi-user design — the identity model at the browser (the voter session: identify once per browser, every operation carried; each browser its own voter), the concurrent-humans truth, the shareable URL's fate, the tiers' identity seams (the register's operator, the web's comparator, the session's composition with the tier key's verified class), the auth design's banked option re-opened at full weight with the lived cost measured (FR-MEM-0041) — designed through the full-team research/evaluation/recommendation cycle, built to be publicly right?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE CONVENING (the collaborator's two rulings, 2026-11-26, both verbatim on the record): (1) THE SHAPE EARNED — \"having to re-enter voter name each time basically makes the task non-completeable. This is the opposite of human intuitive and puts too much work on the human\" + \"I think this means that multi-user functionality is earned.... like built into the system as opposed to trying to get the user to identify themselves on each individual operation\" — the per-operation identification is the measured non-completeable form; multi-user rides BUILT-IN, never per-operation; (2) THE GOVERNANCE FORM — \"going straight to build for something as big as multi-user is pretty weak. We are going to need full team input on multi-user\" (stated twice, the weight) — the full-team cycle (every seat at every stage, the divergences reconciled at the synthesis, never averaged away — Q-auth-widening ruling 4's standing law), never a straight build; the cancelled tooling dispatch the named precedent. THE STANDING CONSTRAINTS: the free-tier spirit (the session prices its own infrastructure — the stdlib/Starlette forms the research already verified); the llm-class constraint carried (the llm votes ride the stdio/tools lane, never the browser's session — the session is the HUMANS' lane); the configurability law at every knob (the session secret, the cookie's forms); the honest residuals named (the id-binding narrowed never erased, the session's own threat surface priced); THE PROBE'S DEPENDENCY: RUN-0008's completion (234/312) rides this effort's session landing — the first build unit per the composition's ruling, the datum's wait honest on both stores' records.",
+          "ruled_at": "2026-11-26",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 <!-- regen: uv run python scripts/generation/kumi_views.py -->
 # Packet Report — measure/probe
 
-**Route:** order-bias-probe (executing) | **Events:** 37 | **Reports:** 23
+**Route:** order-bias-probe (executing) | **Events:** 39 | **Reports:** 24
 
 ## The packet's chain (ledger order)
 
@@ -44,6 +44,8 @@
 | 35 | report | jikko | 2026-11-26T15:36:45Z |
 | 36 | dispatch | shinko | 2026-11-26T15:46:04Z |
 | 37 | report | keisan | 2026-11-26T15:49:34Z |
+| 38 | dispatch | shinko | 2026-11-26T16:09:22Z |
+| 39 | report | keisan | 2026-11-26T16:14:06Z |
 ## Reported by jikko — 2026-11-26T03:08:57Z
 
 # THE INSTRUMENT STEP — jikko (実行), packet measure/probe, route order-bias-probe, 2026-11-26
@@ -570,3 +572,39 @@ The totals, at the tool (the traces quoted verbatim):
 THE CLAIM vs THE COUNT: the completion card (reports/measure/human-completion-card.md) claims the human lane's second half complete — 78 swapped links, the collaborator's second judging round, the word "proceed" as the completion's claim. The count falsifies the claim's landing: the card is the schedule (78 swapped links, P01→P78, every one &swap=true) — but not one of those 78 judgments exists in the run's record. The human block ends at VOTE-0234, the canonical round's last pair, and the file ends with it. The word "proceed" is the claim; the count is the fact — the FR-MEM-0040 protocol held: the cell verified at the tool BEFORE the analysis, the completion never assumed from the word.
 
 THE GAP NAMED (the return): the human swapped half — mark's 78 swapped-presentation judgments (the card's P01..P78), minted into .prioritree/runs/RUN-0008.jsonl as class human × presentation swapped. Whether the second round never ran or its votes were minted nowhere, the record is the truth and the record holds 234. Until the 78 land and the count returns 312, the complete cell does not exist: the flips table over the complete cell, the pooled primary (binom-test at the realized m), the slices (human, llm, the pooled θ-hat's Wilson bounds), and the faces all WAIT. The datum is not this firing's product; the refusal is.
+## Reported by keisan — 2026-11-26T16:14:06Z
+
+# THE COUNT GATE'S VERDICT — INCOMPLETE: 234 OF 312, THE HUMAN SWAPPED HALF ABSENT (keisan 計算, measure/probe's analysis act, the THIRD firing, route order-bias-probe, 2026-11-26)
+
+THE PROTOCOL HELD (FR-MEM-0040, unchanged): STEP 0 fired first — the cell's count verified at the tool BEFORE any computation; the collaborator's second "proceed" is the CLAIM, the count is the FACT. THE FACT: 234 of 312. The human swapped half — the completion card's 78 cells — is ABSENT from the record: ZERO votes. Per the hard-ordered protocol: STOP — no flips table, no primary, no slices, no faces; NOTHING computed beyond the count. THE VERDICT STAYS DEFERRED, exactly as the prior firings left it.
+
+## 0. THE COUNT GATE — the traces quoted verbatim (my own fires at the calculate instrument, this session)
+
+THE RECORD'S SHAPE (.prioritree/runs/RUN-0008.jsonl, read whole: 235 lines = 1 manifest + 234 votes; the vote ids contiguous VOTE-0001..VOTE-0234; every supersedes null; zero "tie" winners). The identity note carried from the prior firings: the file is RUN-0008 by filename and manifest (the 13 words w01:river..w13:clover, operator "mark", quorum 1, the question "Which word feels more pleasant to you?"); the records inside stamp the format's constant run_id label "RUN-0001" as every run file's records do — the file stem is the run's identity; no phantom run counted.
+
+THE FOUR CELLS (class × presentation), each trace verbatim, the array the cell's vote numbers:
+1. llm × canonical = 78 — {"op": "count", "args": {"values": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130]"}, "result": 78} — moho VOTE-0001..0026 (lines 2-27) + kensho VOTE-0053..0078 (lines 54-79) + jikko VOTE-0105..0130 (lines 106-131). [grep: 78 matches]
+2. llm × swapped = 78 — {"op": "count", "args": {"values": "[27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156]"}, "result": 78} — moho VOTE-0027..0052 (lines 28-53) + kensho VOTE-0079..0104 (lines 80-105) + jikko VOTE-0131..0156 (lines 132-157). [grep: 78 matches]
+3. human × canonical = 78 — {"op": "count", "args": {"values": "[157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234]"}, "result": 78} — mark, VOTE-0157..VOTE-0234 (lines 158-235, the file's last block). [grep: 78 matches]
+4. human × swapped = 0 — {"op": "subtract", "args": {"a": "78", "b": "78"}, "result": 0} — the human votes on disk number 78 and EVERY ONE is canonical; ZERO swapped. [grep: ZERO matches — and zero across ALL EIGHT run files: the whole runs home swept, no include filter]
+
+THE TOTALS:
+- the llm half = {"op": "add", "args": {"a": "78", "b": "78"}, "result": 156} — WHOLE (78 canonical + 78 swapped).
+- the disk's whole = {"op": "add", "args": {"a": "156", "b": "78"}, "result": 234}.
+- the gap against the complete cell = {"op": "subtract", "args": {"a": "312", "b": "234"}, "result": 78}.
+
+THE COMPLETE CELL DEMANDS: 312 = 156 llm (78 canonical + 78 swapped) + 156 human (78 canonical + 78 swapped). THE DISK CARRIES: 234. THE GATE REFUSES THE ANALYSIS.
+
+## 1. THE GAP NAMED (the return's burden)
+
+THE HUMAN SWAPPED HALF — 78 CELLS — IS ABSENT, TOTALLY. The completion card (reports/measure/human-completion-card.md, minted 15:18Z: 78 ordered links, P01→P78, every link &swap=true) has produced ZERO votes: no record of class human with presentation_order "swapped" exists anywhere in the runs home; no vote id beyond VOTE-0234 exists (grep VOTE-0235..VOTE-0399 over the file: zero matches); the file's last record is VOTE-0234 — human, canonical, pair [w12:thistle, w13:clover], recorded 2026-11-26T14:40:16Z — the SAME last record the prior firing quoted: the record unchanged since 14:40:16Z, BEFORE the completion card existed (15:18Z).
+
+THE CLAIM vs THE FACT: the collaborator's word (the 78 swapped links judged) is the claim; the count is the fact, and the fact is 234 — the claim and the record diverge. If the judgments were made, they left no records; the seams named only as HYPOTHESES (the service down at the clicking, the submissions failing unrecorded, the judging still pending) — the gate does not adjudicate the mechanism, it reports the count.
+
+THE NEXT-ACTION (the gap's closure, for the driver): the 78 swapped cells landing AS VOTES in RUN-0008.jsonl — the completion card re-driven with every ack SEEN (each cast's record verified on disk: class human, presentation_order "swapped"; the ids would run VOTE-0235..VOTE-0312 at this store); then the gate re-fires at the next "proceed" — at 312 the pre-registered analysis proceeds whole (the flips table over the complete cell, the pooled primary at the realized m, the slices, the bound — the protocol unchanged).
+
+## 2. WHAT WAS NOT COMPUTED (the protocol's own fence)
+
+NO flips table (STEP 1), NO primary (STEP 2 — no m, no k, no binom-test, no critical value, no verdict on the datum), NO slices, NO Wilson bounds, NO faces (STEP 3) — NOTHING beyond the count gate's arithmetic. The datum's verdict on Q-order-bias remains DEFERRED — the third firing's refusal, identical in kind to the second's: the complete cell is the demand, and the record does not carry it.
+
+*Provenance: keisan (計算), packet measure/probe (the analysis act, the third firing), route order-bias-probe, 2026-11-26. READ-ONLY held — this report the packet's only write this firing. The traces are my own fires at the calculate instrument this session (the tool proven live); the greps the disk's own counts; the run file read whole (235 lines, every record). The tree is the truth.*
