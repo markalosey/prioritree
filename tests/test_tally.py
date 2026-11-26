@@ -536,3 +536,27 @@ def test_refusal_three_fields_same_type() -> None:
         ),
     )
     assert refusal.expected.startswith("the coverage gate met")
+
+
+def test_presentation_order_never_read_at_the_count() -> None:
+    """The swapped-presentation record counts exactly as its canonical-frame twin — R12 held over both forms."""
+    manifest = _manifest(["a", "b"])
+    canonical_log = (
+        _vote("VOTE-0001", _AB_PAIR, PREFER_A),
+        _vote("VOTE-0002", _AB_PAIR, PREFER_B, comparator_class="llm"),
+    )
+    both_orders_log = (
+        _vote("VOTE-0001", _AB_PAIR, PREFER_A),
+        dataclasses.replace(
+            _vote("VOTE-0002", _AB_PAIR, PREFER_B, comparator_class="llm"),
+            presentation_order="swapped",
+        ),
+    )
+    # The tally's emission byte-identical over both presentation forms — the
+    # count reads the canonical pair + the mapped winner, never the field.
+    assert tally_votes(manifest, both_orders_log) == tally_votes(manifest, canonical_log)
+    # The flip pair nets one win each — the mapped winner counted positionally.
+    result = tally_votes(manifest, both_orders_log)
+    assert result.per_item_wins == {"a": 1, "b": 1}
+    assert result.per_item_losses == {"a": 1, "b": 1}
+    assert result.coverage.done is True

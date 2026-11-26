@@ -355,3 +355,110 @@ def test_no_score_field() -> None:
     assert "score" not in census_fields
     assert VOTE_PREFIX == "VOTE-"
     assert frozenset({"human", "llm"}) == COMPARATOR_CLASSES
+
+
+def test_presentation_order_recorded_at_every_cast() -> None:
+    """The canonical cast records 'canonical' by default; the swapped cast maps onto the canonical record."""
+    _registry, ledger, run_id = _ledger()
+    _handle, canonical_record, _count, _ack = ledger.cast_vote(
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
+    )
+    assert canonical_record.presentation_order == "canonical"
+    assert canonical_record.pair == _AB_PAIR
+    assert canonical_record.winner == "prefer-a"
+    # The swapped presentation: the pair cited as presented (b first), the
+    # winner positional over the PRESENTED order (prefer-a == the first-presented
+    # == the canonical item_b) — the record canonical + mapped + the token.
+    _handle, swapped_record, _count, _ack = ledger.cast_vote(
+        run_id,
+        ("b", "a"),
+        "prefer-a",
+        comparator_id="y",
+        comparator_class="llm",
+        presentation_order="swapped",
+    )
+    assert swapped_record.presentation_order == "swapped"
+    assert swapped_record.pair == _AB_PAIR
+    assert swapped_record.winner == "prefer-b"  # the mapped winner: the canonical item_b's win
+    census = ledger.read_vote_state(run_id)
+    assert [record.presentation_order for record in census.vote_log] == ["canonical", "swapped"]
+    assert census.per_pair_counts[_AB_PAIR] == 2
+
+
+def test_swapped_citation_composed_with_the_field() -> None:
+    """The fieldless swapped citation still refuses; the contradictions refuse; nothing lands."""
+    _registry, ledger, run_id = _ledger()
+    # The fieldless swapped citation — the standing refusal, the field taught as the explicit act.
+    with pytest.raises(VotesRefusedError) as exc_info:
+        ledger.cast_vote(run_id, ("b", "a"), "prefer-a", comparator_id="x", comparator_class="human")
+    assert exc_info.value.expected == (
+        f"a canonical pair (item_a < item_b) — the canonical form of these ids is {_AB_PAIR!r}"
+    )
+    assert "never silently re-ordered" in exc_info.value.next_action
+    assert "presentation_order='swapped'" in exc_info.value.next_action
+    # The canonical citation with a swapped claim — the contradiction.
+    with pytest.raises(VotesRefusedError) as exc_info:
+        ledger.cast_vote(
+            run_id,
+            _AB_PAIR,
+            "prefer-a",
+            comparator_id="x",
+            comparator_class="human",
+            presentation_order="swapped",
+        )
+    assert "must agree" in exc_info.value.next_action
+    # The token outside the legal set — the schema's refusal naming the set.
+    with pytest.raises(VotesRefusedError) as exc_info:
+        ledger.cast_vote(
+            run_id,
+            _AB_PAIR,
+            "prefer-a",
+            comparator_id="x",
+            comparator_class="human",
+            presentation_order="sideways",
+        )
+    assert "presentation_order got 'sideways'" in exc_info.value.found
+    assert ledger.read_vote_state(run_id).vote_log == ()
+
+
+def test_two_orders_two_distinct_judgments() -> None:
+    """The same judge's canonical and swapped casts are two records; the same-order re-send the ack."""
+    _registry, ledger, run_id = _ledger()
+    first, _record, count, _ack = ledger.cast_vote(
+        run_id,
+        _AB_PAIR,
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
+    )
+    assert first == "VOTE-0001"
+    # The same judge, the SAME mapped winner, the OTHER order — a NEW record
+    # (the dedup key carries the presented order: two orders two judgments).
+    second, second_record, count, _ack = ledger.cast_vote(
+        run_id,
+        ("b", "a"),
+        "prefer-b",  # the second-presented = the canonical item_a — maps to prefer-a
+        comparator_id="x",
+        comparator_class="human",
+        presentation_order="swapped",
+    )
+    assert second == "VOTE-0002"
+    assert second_record.winner == "prefer-a"
+    assert count == 2
+    # The byte-identical re-send of the swapped cast — the loud ack, nothing new.
+    handle, _record, resent_count, acknowledged = ledger.cast_vote(
+        run_id,
+        ("b", "a"),
+        "prefer-b",
+        comparator_id="x",
+        comparator_class="human",
+        presentation_order="swapped",
+    )
+    assert handle == second
+    assert acknowledged is True
+    assert resent_count == 2
+    assert len(ledger.read_vote_state(run_id).vote_log) == 2

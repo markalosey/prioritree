@@ -16,6 +16,17 @@ tally's choice cannot cross the vote interface (there is no field to leak
 through); abstention needs no record (R4). Zero runtime dependencies; no
 subprocess; votes stored verbatim (the system has no opinion about them —
 noise is data).
+The presentation_order datum (the prior-art's anti-order-bias field, the
+order-bias probe's MEASURE-stage instrument): every record carries the
+presented order — 'canonical' (item_a first, the standing form at every
+tier) or 'swapped' (item_b first, the both-orders experiment's second
+presentation). The cast door composes its swapped-citation refusal with
+the field (the fieldless swap never silently re-ordered; the fielded swap
+the explicit, citable act), maps the presented pair onto the canonical
+Pair and the presented-order winner onto the canonical frame — the tally
+NEVER reads the presentation (R12's fence: the count reads the canonical
+pair + the mapped winner; the record's bytes byte-identical at the
+canonical form).
 """
 
 from __future__ import annotations
@@ -25,12 +36,35 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import cast
 
-from prioritree.registry import Registry, RegistryRefusedError, RunManifest
+from prioritree.registry import WEAK_ORDER_TRIPLE, Registry, RegistryRefusedError, RunManifest
 from prioritree.scheduler import Pair, schedule_pairs
 
 # R5's class set as data (content-in-configuration): the vocabulary is a
 # module-level frozenset constant, never inline logic.
 COMPARATOR_CLASSES: frozenset[str] = frozenset({"human", "llm"})
+
+# The presentation vocabulary (the prior-art's anti-order-bias datum, the
+# order-bias probe's instrument — the store's own input): the two orders a
+# pair can be presented in — canonical (item_a first, the standing form at
+# every tier) or swapped (item_b first, the both-orders experiment's second
+# presentation). Content-in-configuration: the vocabulary is a module-level
+# frozenset constant, never inline logic.
+PRESENTATION_CANONICAL: str = "canonical"
+PRESENTATION_SWAPPED: str = "swapped"
+PRESENTATION_ORDERS: frozenset[str] = frozenset({PRESENTATION_CANONICAL, PRESENTATION_SWAPPED})
+
+# The presented-to-canonical winner mapping's positional tokens (the declared
+# triple's positional members — prefer-a the first-presented, prefer-b the
+# second; the tie positionless, mapped unchanged). The literals mirror the
+# registry's own WEAK_ORDER_TRIPLE members; the guard keeps the vocabulary
+# unforked (the mcp_server drift school, this the door's own tier).
+_FORKED_POSITIONAL: str = "the positional verdict tokens forked from the registry's WEAK_ORDER_TRIPLE"
+_PREFER_A: str = "prefer-a"
+_PREFER_B: str = "prefer-b"
+_TIE: str = "tie"
+if frozenset({_PREFER_A, _PREFER_B, _TIE}) != WEAK_ORDER_TRIPLE:
+    raise ImportError(_FORKED_POSITIONAL)
+_POSITIONAL_SWAP: dict[str, str] = {_PREFER_A: _PREFER_B, _PREFER_B: _PREFER_A}
 
 # The handle grammar on the public surface — the citation contract.
 VOTE_PREFIX: str = "VOTE-"
@@ -44,9 +78,12 @@ class VoteRecord:
     """VoteRecord — one frozen judgment, provenance stamped.
 
     Purpose: carry one comparison judgment as data — the handle, the run, the
-    canonical pair, the declared-set winner, the comparator's stamps (R5:
-    identity recorded, never anonymous), the recorded_at stamp, and the
-    clerical correction's reference; the tally's ENTIRE input (U4) and the
+    canonical pair, the presented order (the prior-art's non-optional
+    anti-order-bias datum — 'canonical' the standing form, 'swapped' the
+    both-orders experiment's second presentation), the declared-set winner,
+    the comparator's stamps (R5: identity recorded, never anonymous), the
+    recorded_at stamp, and the clerical correction's reference; the tally's
+    ENTIRE input (U4) and the
     audit surface's unit (U5).
     Refuses when: never at construction — validation happens at cast_vote;
     every gate raises VotesRefusedError before any byte lands there.
@@ -70,6 +107,7 @@ class VoteRecord:
     recorded_at: str
     notes: str | None = None
     supersedes: str | None = None
+    presentation_order: str = PRESENTATION_CANONICAL
 
 
 @dataclass(frozen=True)
@@ -181,8 +219,9 @@ def _require_text(value: object, field_name: str) -> str:
             expected=(
                 "the schema's public types (run_id a non-empty string; pair a Pair or "
                 "2-length sequence of strings; winner a string; comparator_id a non-empty "
-                f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; notes a "
-                "string or None; supersedes a string or None)"
+                f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; "
+                f"presentation_order from {sorted(PRESENTATION_ORDERS)}; notes a string "
+                "or None; supersedes a string or None)"
             ),
             found=f"{field_name} got {value!r}",
             next_action="re-send per the schema — the module's public types (VoteRecord's fields)",
@@ -215,8 +254,9 @@ def _coerce_pair(pair: object) -> Pair:
         expected=(
             "the schema's public types (run_id a non-empty string; pair a Pair or "
             "2-length sequence of strings; winner a string; comparator_id a non-empty "
-            f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; notes a "
-            "string or None; supersedes a string or None)"
+            f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; "
+            f"presentation_order from {sorted(PRESENTATION_ORDERS)}; notes a string "
+            "or None; supersedes a string or None)"
         ),
         found=f"pair got {pair!r}",
         next_action="re-send per the schema — the module's public types (VoteRecord's fields)",
@@ -239,8 +279,9 @@ def _require_optional_text(value: object, field_name: str) -> str | None:
         expected=(
             "the schema's public types (run_id a non-empty string; pair a Pair or "
             "2-length sequence of strings; winner a string; comparator_id a non-empty "
-            f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; notes a "
-            "string or None; supersedes a string or None)"
+            f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; "
+            f"presentation_order from {sorted(PRESENTATION_ORDERS)}; notes a string "
+            "or None; supersedes a string or None)"
         ),
         found=f"{field_name} got {value!r}",
         next_action="re-send per the schema — the module's public types (VoteRecord's fields)",
@@ -262,13 +303,90 @@ def _require_verdict(value: object, field_name: str) -> str:
             expected=(
                 "the schema's public types (run_id a non-empty string; pair a Pair or "
                 "2-length sequence of strings; winner a string; comparator_id a non-empty "
-                f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; notes a "
-                "string or None; supersedes a string or None)"
+                f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; "
+                f"presentation_order from {sorted(PRESENTATION_ORDERS)}; notes a string "
+                "or None; supersedes a string or None)"
             ),
             found=f"{field_name} got {value!r}",
             next_action="re-send per the schema — the module's public types (VoteRecord's fields)",
         )
     return value
+
+
+def _resolve_cited_pair(
+    pair: object,
+    cited_pair: Pair,
+    presentation_order: str,
+    legal_pairs: frozenset[Pair],
+    manifest_id_count: int,
+) -> Pair:
+    """Resolve the cited pair onto the canonical Pair — the presented order composed with the field.
+
+    Purpose: the cast door's stage-3 composition — the citation rides the
+    PRESENTED order: the canonical citation legal at the canonical
+    presentation; the swapped citation legal ONLY as the explicit swapped
+    presentation (the field the license — a swap is never silently
+    re-ordered); a field contradicting the pair's order refused; the
+    presented pair mapped onto the canonical Pair (the record's pair
+    canonical, the presentation_order field the citable datum).
+    Refuses when: the cited pair is outside the legal set (neither the
+    canonical form nor its swap — the unknown-pair refusal); the cited pair
+    is the swapped citation without presentation_order='swapped' (the
+    standing refusal naming the canonical form, the field taught as the
+    explicit act); the canonical citation carries presentation_order
+    'swapped' (the contradiction — the field and the pair's order must
+    agree).
+    Re-run: deterministic.
+    Touches: nothing (raises before any store write).
+    Provenance: the order-bias probe's MEASURE instrument (the design
+    synthesis §2.2's cast-side composition — the door's refusal of swapped
+    citations COMPOSED with the field); votes-brief §3 stage 3 (the legal
+    set's source, the swapped-citation refusal's bytes); the C901 extraction
+    precedent (tally's _dominance_adjacency).
+    """
+    if cited_pair in legal_pairs:
+        if presentation_order != PRESENTATION_SWAPPED:
+            return cited_pair
+        raise VotesRefusedError(
+            expected=(
+                "the pair cited as presented — the canonical citation at presentation_order "
+                "'canonical', the swapped citation at 'swapped' (the field and the pair's "
+                "order agree)"
+            ),
+            found=f"{pair!r} with presentation_order {presentation_order!r}",
+            next_action=(
+                "re-send the pair in the presented order with presentation_order naming "
+                "it — the field and the pair's order must agree"
+            ),
+        )
+    swapped_cited = Pair(item_a=cited_pair.item_b, item_b=cited_pair.item_a)
+    if swapped_cited not in legal_pairs:
+        raise VotesRefusedError(
+            expected=(
+                f"a canonical pair from schedule_pairs over the run's {manifest_id_count} "
+                "manifest ids (the legal set's source)"
+            ),
+            found=f"{pair!r}",
+            next_action=(
+                "cite a canonical scheduled pair — the scheduler suggests; it does not "
+                "confer permission, but a vote cites the canonical form"
+            ),
+        )
+    if presentation_order != PRESENTATION_SWAPPED:
+        raise VotesRefusedError(
+            expected=(
+                f"a canonical pair (item_a < item_b) — the canonical form of these "
+                f"ids is {swapped_cited!r}"
+            ),
+            found=f"{pair!r}",
+            next_action=(
+                "re-send the pair id-sorted — the verdict vocabulary is positional "
+                "over the canonical form; a swap is never silently re-ordered "
+                "(to record a swapped presentation, cite the pair as presented "
+                "with presentation_order='swapped')"
+            ),
+        )
+    return swapped_cited
 
 
 def _mint_vote_id(count: int) -> str:
@@ -296,9 +414,11 @@ class VoteLedger:
     Refuses when: cast_vote refuses (malformed payload; unknown run — the
     registry's refusal re-raised as VotesRefusedError carrying the same three
     fields verbatim; pair outside the legal set, the swapped citation named
-    with the canonical form; winner outside the run's declared set; invalid
-    supersede target) — raising BEFORE any byte lands; read_vote_state refuses
-    the unknown run ONLY and NEVER refuses on coverage.
+    with the canonical form — the fieldless swap; the explicit swapped
+    presentation rides presentation_order, a field contradicting the pair's
+    order or outside the legal set likewise refused; winner outside the run's
+    declared set; invalid supersede target) — raising BEFORE any byte lands;
+    read_vote_state refuses the unknown run ONLY and NEVER refuses on coverage.
     Re-run: read_vote_state is pure over the store; cast_vote is append-only
     — the mint is per-store max+1 in the same synchronous act as the append
     (the synchronous method body IS the atomic window at the single-process
@@ -326,7 +446,7 @@ class VoteLedger:
         """
         self._registry = registry
         self._votes: dict[str, VoteRecord] = {}
-        self._dedup: dict[tuple[str, Pair, str, str, str, str | None, str | None], str] = {}
+        self._dedup: dict[tuple[str, Pair, str, str, str, str | None, str | None, str], str] = {}
 
     def _read_manifest(self, run_id: str) -> RunManifest:
         """Resolve the manifest via the registry, wrapping its refusal.
@@ -361,44 +481,61 @@ class VoteLedger:
         comparator_class: str,
         notes: str | None = None,
         supersedes: str | None = None,
+        presentation_order: str = PRESENTATION_CANONICAL,
     ) -> tuple[str, VoteRecord, int, bool]:
         """Cast one judgment: validate, dedup, mint, append — the ONE mutating op.
 
         Purpose: the seven-stage chain — (1) schema (run_id non-empty stripped;
         pair a Pair or 2-length sequence of strings, AS SENT, never
         re-ordered; winner a string; comparator_id non-empty stripped;
-        comparator_class in COMPARATOR_CLASSES; notes/supersedes string or
-        None); (2) the run live via the registry (the wrap); (3) the pair in
-        the legal set (schedule_pairs over the manifest's ids; the swapped
-        citation refused naming the canonical form — the verdict vocabulary is
-        positional over the canonical form); (4) the winner in the RUN'S OWN
-        declared verdict set (manifest.operator.verdicts, never the module
-        constant); (5) the supersede ground truth (a correction corrects the
-        same judgment — the target live in the same run, on the same pair, by
-        the caller's own hand — the author check) then the dedup key (run_id,
-        canonical pair, winner, comparator_id, comparator_class, notes,
-        supersedes) — a hit is the LOUD idempotent ack: (the original handle,
-        the original record, the UNCHANGED count, acknowledged=True); (6) the
-        VOTE-{####} per-store max+1 mint + the UTC microsecond ISO stamp; (7)
-        the append + verify in one synchronous act — return (vote_id, record,
-        len(store), acknowledged=False); the count reads the store
-        post-append, never a local counter.
+        comparator_class in COMPARATOR_CLASSES; presentation_order in
+        PRESENTATION_ORDERS; notes/supersedes string or None); (2) the run
+        live via the registry (the wrap); (3) the pair in the legal set, the
+        presented order composed with the field (schedule_pairs over the
+        manifest's ids; the canonical citation legal at the canonical
+        presentation; the swapped citation legal ONLY as the explicit swapped
+        presentation — the fieldless swap still refused naming the canonical
+        form, a swap never silently re-ordered; a field contradicting the
+        pair's order refused) with the presented pair mapped onto the
+        canonical Pair here; (4) the winner in the RUN'S OWN declared verdict
+        set (manifest.operator.verdicts, never the module constant) — the
+        WIRE winner, positional over the PRESENTED order; (4b) the
+        presented-to-canonical winner mapping at the swapped presentation
+        (prefer-a mapped to prefer-b, prefer-b to prefer-a; the tie
+        positionless, unchanged) — the record's winner positional over the
+        CANONICAL pair, the tally never reading the presentation (R12's
+        fence); (5) the supersede ground truth (a correction corrects the
+        same judgment — the target live in the same run, on the same pair,
+        by the caller's own hand — the author check) then the dedup key
+        (run_id, canonical pair, the mapped winner, comparator_id,
+        comparator_class, notes, supersedes, presentation_order — a pair's
+        two orders two distinct judgments) — a hit is the LOUD idempotent
+        ack: (the original handle, the original record, the UNCHANGED
+        count, acknowledged=True); (6) the VOTE-{####} per-store max+1 mint
+        + the UTC microsecond ISO stamp; (7) the append + verify in one
+        synchronous act — return (vote_id, record, len(store),
+        acknowledged=False); the count reads the store post-append, never a
+        local counter.
         Refuses when: malformed payload; unknown run (the wrap); pair outside
-        the legal set, the swapped citation included; winner outside the
-        declared set; supersede target not a live handle in the same run on
-        the same pair, or another author's vote — every refusal raises
-        VotesRefusedError, the door's author mismatch SupersedeRefusedError,
-        before any byte lands. NEVER refuses on content plausibility (the system has no
-        opinion about votes — noise is data); no quorum or count check here
-        (an over-quorum vote lands as a legal new sample); abstention needs
-        no record (a comparator who cannot judge does not cast).
+        the legal set, the fieldless swapped citation included;
+        presentation_order outside the legal set or contradicting the
+        pair's order; winner outside the declared set; supersede target not
+        a live handle in the same run on the same pair, or another author's
+        vote — every refusal raises VotesRefusedError, the door's author
+        mismatch SupersedeRefusedError, before any byte lands. NEVER
+        refuses on content plausibility (the system has no opinion about
+        votes — noise is data); no quorum or count check here (an
+        over-quorum vote lands as a legal new sample); abstention needs no
+        record (a comparator who cannot judge does not cast).
         Re-run: deterministic given the same store state; the re-vote
         semantics (R9) — a changed verdict from the same (comparator, pair)
         is a NEW record (a revote is a new sample; both count); a
         byte-identical re-send is the loud ack (zero weight pollution);
         a clerical correction is a NEW record citing the old via supersedes
         (both stand in the log — the tally's weighting walks the link); a
-        correction-of-a-correction chains linearly.
+        correction-of-a-correction chains linearly; the same judgment at the
+        pair's OTHER order a NEW record too (the dedup key carries the
+        presentation — a pair's two orders two distinct judgments).
         Touches: only the store's own records and dedup index — the single
         mutating op (append-only; no edit, no delete — unrepresentable).
         Provenance: R4 (the winner from the run's own declared set), R5 (the
@@ -410,7 +547,7 @@ class VoteLedger:
         """
         # Stage 1 — schema (hand-rolled, the registry school; the pair AS SENT).
         clean_run_id = _require_text(run_id, "run_id")
-        canonical_pair = _coerce_pair(pair)
+        cited_pair = _coerce_pair(pair)
         winner = _require_verdict(winner, "winner")
         clean_comparator_id = _require_text(comparator_id, "comparator_id")
         if comparator_class not in COMPARATOR_CLASSES:
@@ -418,10 +555,23 @@ class VoteLedger:
                 expected=(
                     "the schema's public types (run_id a non-empty string; pair a Pair or "
                     "2-length sequence of strings; winner a string; comparator_id a non-empty "
-                    f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; notes a "
-                    "string or None; supersedes a string or None)"
+                    f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; "
+                    f"presentation_order from {sorted(PRESENTATION_ORDERS)}; notes a string "
+                    "or None; supersedes a string or None)"
                 ),
                 found=f"comparator_class got {comparator_class!r}",
+                next_action="re-send per the schema — the module's public types (VoteRecord's fields)",
+            )
+        if presentation_order not in PRESENTATION_ORDERS:
+            raise VotesRefusedError(
+                expected=(
+                    "the schema's public types (run_id a non-empty string; pair a Pair or "
+                    "2-length sequence of strings; winner a string; comparator_id a non-empty "
+                    f"string; comparator_class from {sorted(COMPARATOR_CLASSES)}; "
+                    f"presentation_order from {sorted(PRESENTATION_ORDERS)}; notes a string "
+                    "or None; supersedes a string or None)"
+                ),
+                found=f"presentation_order got {presentation_order!r}",
                 next_action="re-send per the schema — the module's public types (VoteRecord's fields)",
             )
         clean_notes = _require_optional_text(notes, "notes")
@@ -430,31 +580,18 @@ class VoteLedger:
         # Stage 2 — the run live (the wrap: one refusal grammar at this surface).
         manifest = self._read_manifest(clean_run_id)
 
-        # Stage 3 — the pair in the legal set (the canonical Pair is hashable).
+        # Stage 3 — the pair in the legal set, the presented order composed
+        # with the field (_resolve_cited_pair: the record's pair canonical,
+        # the presentation_order field the citable datum).
         manifest_ids = [row.id for row in manifest.items]
         legal_pairs = frozenset(schedule_pairs(manifest_ids))
-        if canonical_pair not in legal_pairs:
-            swapped = Pair(item_a=canonical_pair.item_b, item_b=canonical_pair.item_a)
-            if swapped in legal_pairs:
-                raise VotesRefusedError(
-                    expected=(f"a canonical pair (item_a < item_b) — the canonical form of these ids is {swapped!r}"),
-                    found=f"{pair!r}",
-                    next_action=(
-                        "re-send the pair id-sorted — the verdict vocabulary is positional "
-                        "over the canonical form; a swap is never silently re-ordered"
-                    ),
-                )
-            raise VotesRefusedError(
-                expected=(
-                    f"a canonical pair from schedule_pairs over the run's {len(manifest_ids)} "
-                    "manifest ids (the legal set's source)"
-                ),
-                found=f"{pair!r}",
-                next_action=(
-                    "cite a canonical scheduled pair — the scheduler suggests; it does not "
-                    "confer permission, but a vote cites the canonical form"
-                ),
-            )
+        canonical_pair = _resolve_cited_pair(
+            pair,
+            cited_pair,
+            presentation_order,
+            legal_pairs,
+            len(manifest_ids),
+        )
 
         # Stage 4 — the winner in the RUN'S OWN declared set (R4: one source of truth).
         declared_verdicts = manifest.operator.verdicts
@@ -464,6 +601,17 @@ class VoteLedger:
                 found=f"{winner!r}",
                 next_action="cast a verdict from the declared set",
             )
+
+        # Stage 4b — the presented-to-canonical winner mapping (the
+        # store/record boundary): the wire winner rides the PRESENTED order;
+        # the record's winner rides the CANONICAL pair. At the swapped
+        # presentation prefer-a (the first-presented, the canonical item_b)
+        # maps to prefer-b and prefer-b maps to prefer-a; the tie carries no
+        # positional preference (unchanged). The tally NEVER reads the
+        # presentation (R12's fence: the count reads the canonical pair +
+        # the mapped winner — the byte-identity held).
+        if presentation_order == PRESENTATION_SWAPPED:
+            winner = _POSITIONAL_SWAP.get(winner, winner)
 
         # Stage 5 — the supersede ground truth, then the dedup key (in one place).
         if clean_supersedes is not None:
@@ -510,6 +658,7 @@ class VoteLedger:
             comparator_class,
             clean_notes,
             clean_supersedes,
+            presentation_order,
         )
         original_id = self._dedup.get(dedup_key)
         if original_id is not None:
@@ -530,6 +679,7 @@ class VoteLedger:
             recorded_at=datetime.now(UTC).isoformat(timespec="microseconds"),
             notes=clean_notes,
             supersedes=clean_supersedes,
+            presentation_order=presentation_order,
         )
         self._votes[vote_id] = record
         self._dedup[dedup_key] = vote_id

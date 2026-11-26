@@ -29,6 +29,7 @@ from typing import TYPE_CHECKING
 
 from prioritree.run_store import Persist
 from prioritree.store_lock import Lock
+from prioritree.votes import PRESENTATION_CANONICAL
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -154,15 +155,17 @@ class Serialize:
         comparator_class: str,
         notes: str | None = None,
         supersedes: str | None = None,
+        presentation_order: str = PRESENTATION_CANONICAL,
     ) -> tuple[str, VoteRecord, int, bool]:
         """Cast the vote under the file lock outermost — the load, the cast, and the append in one acquire.
 
         Purpose: serialize the cast act — load the run file INSIDE the lock (the dedup
         index fresh BY CONSTRUCTION: the re-cast's load rebuilds the door from the file,
         so the ack under the lock is honest), delegate to the door's cast_vote, return
-        the ack quadruple VERBATIM. The seven-argument form mirrors Persist.cast 1:1
+        the ack quadruple VERBATIM. The eight-argument form mirrors Persist.cast 1:1
         (PLR0913/PLR0917 firing — the pyproject's named ruling rides, the run_store.py
-        precedent re-cited).
+        precedent re-cited; the presentation_order the order-bias probe's instrument,
+        additive).
         Refuses when: never its own refusal — the store's own (StoreRefusedError) and
         the door's (VotesRefusedError) ride through verbatim BY TYPE, never wrapped.
         Re-run: deterministic given the store state — the lock never changes values,
@@ -179,6 +182,7 @@ class Serialize:
                 comparator_class,
                 notes,
                 supersedes,
+                presentation_order,
             )
 
     def census(self, run_id: str) -> VoteCensus:

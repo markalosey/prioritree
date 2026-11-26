@@ -67,6 +67,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from prioritree.key_verify import AUTH_HEADER_DEFAULT
 from prioritree.service import ESCALATION
 from prioritree.service import app as service_app
+from prioritree.votes import PRESENTATION_CANONICAL, PRESENTATION_SWAPPED
 
 __all__ = ["resolve", "web_app"]
 
@@ -447,7 +448,7 @@ async def landing(request: Request) -> Response:
 
 
 @web_app.get(_SITTING)
-async def sitting(request: Request, stem: str) -> Response:
+async def sitting(request: Request, stem: str, *, swap: bool = False) -> Response:
     """Sit the comparator — the question as prompt, the first pair server-side.
 
     Purpose: consume the manifest (the question, the declared verdicts, the
@@ -456,6 +457,9 @@ async def sitting(request: Request, stem: str) -> Response:
     pair, never the page's query). Cards A/B marked + labeled (the label
     map); the count UNREAD — never in the render context (the no-anchoring
     law, by construction). DONE => redirect to the done page; 404 => the
+    swap the query knob: the pair PRESENTED in the swapped order (the
+    order-bias probe's instrument — the served body's item_a/item_b the
+    presented pair, the hidden presentation_order field re-sent at the vote).
     unknown-run page at the honest 404; any other non-200 => the fold page
     at the response's own status. The buttons hx-post the vote; the
     comparator entry rides every post.
@@ -478,7 +482,7 @@ async def sitting(request: Request, stem: str) -> Response:
             {"fields": _fields(manifest.json())},
             status_code=manifest.status_code,
         )
-    nxt = await _service("GET", f"/runs/{stem}/next")
+    nxt = await _service("GET", f"/runs/{stem}/next?swap=true" if swap else f"/runs/{stem}/next")
     if nxt.status_code != _OK:
         if nxt.status_code == _NOT_FOUND:
             return _unknown(request, nxt.json())
@@ -510,6 +514,7 @@ async def sitting(request: Request, stem: str) -> Response:
             "item_b": str(body["item_b"]),
             "label_a": labels.get(str(body["item_a"]), str(body["item_a"])),
             "label_b": labels.get(str(body["item_b"]), str(body["item_b"])),
+            "presentation_order": str(body["presentation_order"]),
         },
     )
 
@@ -743,7 +748,7 @@ async def register(request: Request) -> Response:
 
 
 @web_app.get(_PAIR)
-async def pair(request: Request, stem: str) -> Response:
+async def pair(request: Request, stem: str, *, swap: bool = False) -> Response:
     """Serve the bare pair as a fragment — or the HX-Redirect on DONE.
 
     Purpose: consume next (+ the manifest's label map, §7a's label law —
@@ -751,6 +756,8 @@ async def pair(request: Request, stem: str) -> Response:
     200 => the bare-pair fragment (cards A/B marked + labeled; the count
     UNREAD — dropped at the controller); its buttons hx-post the vote as
     the sitting's pair. DONE => the HX-Redirect RESPONSE HEADER to the done
+    swap the query knob: the pair PRESENTED in the swapped order (the
+    order-bias probe's instrument — the served presentation re-sent at the vote).
     page (core HTMX's navigation verb — no extension, no JS). Any non-200
     on either call => the refusal fragment at 200 (the fold wording at
     500).
@@ -759,7 +766,7 @@ async def pair(request: Request, stem: str) -> Response:
     Touches: nothing — a query.
     Provenance: web-brief §4 route 7, the design §7a/§8, G-WEBSPEC-BRIEF.
     """
-    nxt = await _service("GET", f"/runs/{stem}/next")
+    nxt = await _service("GET", f"/runs/{stem}/next?swap=true" if swap else f"/runs/{stem}/next")
     if nxt.status_code != _OK:
         return _refuse_fragment(request, _fields(nxt.json()), fold=nxt.status_code == _CRASH)
     body = nxt.json()
@@ -780,6 +787,7 @@ async def pair(request: Request, stem: str) -> Response:
             "item_b": str(body["item_b"]),
             "label_a": labels.get(str(body["item_a"]), str(body["item_a"])),
             "label_b": labels.get(str(body["item_b"]), str(body["item_b"])),
+            "presentation_order": str(body["presentation_order"]),
             "verdicts": list(manifest_body["verdicts"]),
         },
     )
@@ -805,11 +813,13 @@ async def vote(request: Request, stem: str) -> Response:
     Provenance: web-brief §4 route 8, the design §7a/§8, G-WEBSPEC-BRIEF.
     """
     form = await request.form()
+    presentation = str(form.get("presentation_order", PRESENTATION_CANONICAL))
     payload = {
         "pair": [str(form.get("item_a", "")), str(form.get("item_b", ""))],
         "winner": str(form.get("winner", "")),
         "comparator_id": str(form.get("comparator_id", "")),
         "comparator_class": str(form.get("comparator_class", "human")),
+        "presentation_order": presentation,
     }
     outcome = await _service("POST", f"/runs/{stem}/votes", json=payload)
     if outcome.status_code != _OK:
@@ -827,6 +837,7 @@ async def vote(request: Request, stem: str) -> Response:
             "acknowledged": bool(outcome.json()["acknowledged"]),
             "label_a": labels.get(payload["pair"][0], payload["pair"][0]),
             "label_b": labels.get(payload["pair"][1], payload["pair"][1]),
+            "swap": presentation == PRESENTATION_SWAPPED,
         },
     )
 

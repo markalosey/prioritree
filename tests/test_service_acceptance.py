@@ -265,7 +265,7 @@ def test_accept_the_eleven_request_arc(service: tuple[httpx.Client, str]) -> Non
         "quorum": 1,
         "items": [["a", "one"], ["b", "two"], ["c", "three"]],
     }
-    assert bodies[2] == {"item_a": "a", "item_b": "b", "count": 0}
+    assert bodies[2] == {"item_a": "a", "item_b": "b", "count": 0, "presentation_order": "canonical"}
     assert bodies[3] == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
     assert bodies[4] == {"vote_id": "VOTE-0002", "count": 2, "acknowledged": False}
     assert bodies[5] == {"vote_id": "VOTE-0003", "count": 3, "acknowledged": False}

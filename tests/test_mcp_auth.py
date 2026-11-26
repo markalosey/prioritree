@@ -411,6 +411,7 @@ def test_auth_off_degrade_no_hide_the_scopeless_ride(monkeypatch: pytest.MonkeyP
             "item_a": "a",
             "item_b": "b",
             "count": 0,
+            "presentation_order": "canonical",
             "expected": "",
             "found": "",
             "next_action": "",

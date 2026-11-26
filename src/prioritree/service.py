@@ -80,7 +80,7 @@ from prioritree.run_store import STORE_HOME, StoreRefusedError
 from prioritree.service_store import Serialize
 from prioritree.session import ExhaustedQueue
 from prioritree.tally import TallyRefusedError
-from prioritree.votes import SupersedeRefusedError, VotesRefusedError
+from prioritree.votes import PRESENTATION_CANONICAL, PRESENTATION_SWAPPED, SupersedeRefusedError, VotesRefusedError
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -105,6 +105,7 @@ QUORUM: Final[str] = "quorum"
 EXPECTED: Final[str] = "expected"
 FOUND: Final[str] = "found"
 NEXT_ACTION: Final[str] = "next_action"
+PRESENTATION_ORDER: Final[str] = "presentation_order"
 
 _UNAUTHORIZED: Final[int] = 401
 _FORBIDDEN: Final[int] = 403
@@ -160,13 +161,16 @@ class RegisterRunRequest(BaseModel):
 
 
 class CastVoteRequest(BaseModel):
-    """CastVoteRequest — the vote wire body: the pair, the winner, the comparator, the correction.
+    """CastVoteRequest — the vote wire body: the pair, the winner, the comparator, the correction, the order.
 
     Purpose: carry the vote route's request body as the validated door into the
-    seam's cast — pair (the two-array [item_a, item_b], canonical as sent — the
-    model's tuple[str, str]), winner, comparator_id, comparator_class, and the two
-    optional correction fields notes and supersedes (default None — the door's own
-    optional grammar).
+    seam's cast — pair (the two-array [item_a, item_b] as served — the
+    PRESENTED order at the swapped presentation, the model's tuple[str, str]),
+    winner (positional over the PRESENTED order), comparator_id,
+    comparator_class, presentation_order (the presented order's token — the
+    order-bias probe's instrument; the door maps presented-to-canonical), and
+    the two optional correction fields notes and supersedes (default None —
+    the door's own optional grammar).
     Refuses when: never in Python — the VALIDATION is the model's own: a body missing
     a field, carrying a mistyped value, or a pair that is not a two-array of strings
     raises RequestValidationError at FastAPI's door, re-badged to 400 by the
@@ -184,6 +188,7 @@ class CastVoteRequest(BaseModel):
     comparator_class: str
     notes: str | None = None
     supersedes: str | None = None
+    presentation_order: str = PRESENTATION_CANONICAL
 
 
 # The app the whole ASGI surface (Q-service-lifecycle: the module-level app, the
@@ -325,10 +330,16 @@ def rebadge(request: Request, exc: RequestValidationError) -> JSONResponse:
         _expected = f"a register body: {_fields}; operator_id, question strings; quorum an integer"
         _cure = "correct the named field(s) and re-send the register request"
     elif request.url.path.endswith("/next"):
-        _expected = "an optional integer seed query parameter on the next query (GET next carries no body)"
-        _cure = "correct the seed query parameter and re-send the next request"
+        _expected = (
+            "an optional integer seed query parameter and an optional boolean swap query "
+            "parameter on the next query (GET next carries no body)"
+        )
+        _cure = "correct the seed or swap query parameter and re-send the next request"
     else:
-        _fields = "pair a [item_a, item_b] two-string array; winner, comparator_id, comparator_class strings"
+        _fields = (
+            "pair a [item_a, item_b] two-string array; winner, comparator_id, comparator_class, "
+            "presentation_order strings"
+        )
         _expected = f"a vote body: {_fields}; notes, supersedes strings or null"
         _cure = "correct the named field(s) and re-send the vote request"
     return JSONResponse(
@@ -477,12 +488,23 @@ def register(request: Request, body: RegisterRunRequest, record: _RegisterDoor) 
 
 
 @app.get(_NEXT_PATH)
-def serve(request: Request, run_id: str, record: _NextDoor, seed: int | None = None) -> JSONResponse:
+def serve(
+    request: Request,
+    run_id: str,
+    record: _NextDoor,
+    seed: int | None = None,
+    *,
+    swap: bool = False,
+) -> JSONResponse:
     """Serve the next under-quorum pair over the seam — 200 the triple, DONE a state.
 
     Purpose: the serve route 1:1 — the seed the optional query param (serve's own
-    knob mirrored; GET carries no body), delegate to the seam's serve, return 200
-    with the pair object {"item_a", "item_b", "count"}. The queue exhausted:
+    knob mirrored; GET carries no body), the swap the optional presentation
+    override (the order-bias probe's instrument: the pair PRESENTED in the
+    swapped order — the body's item_a/item_b the PRESENTED pair,
+    presentation_order naming the form, the canonical citation the door's
+    cast maps), delegate to the seam's serve, return 200 with the pair object
+    {"item_a", "item_b", "count", "presentation_order"}. The queue exhausted:
     ExhaustedQueue is DONE, a STATE never an error — 200 with the signal's three
     fields plus the done marker (the tally pointer already in next_action).
     Refuses when: never by this hand — the seam's refusals ride through BY TYPE:
@@ -503,7 +525,15 @@ def serve(request: Request, run_id: str, record: _NextDoor, seed: int | None = N
     except ExhaustedQueue as done:
         _done_body = {DONE: True, EXPECTED: done.expected, FOUND: done.found, NEXT_ACTION: done.next_action}
         return JSONResponse(status_code=200, content=_done_body)
-    return JSONResponse(status_code=200, content={ITEM_A: item_a, ITEM_B: item_b, COUNT: count})
+    if swap:
+        return JSONResponse(
+            status_code=200,
+            content={ITEM_A: item_b, ITEM_B: item_a, COUNT: count, PRESENTATION_ORDER: PRESENTATION_SWAPPED},
+        )
+    return JSONResponse(
+        status_code=200,
+        content={ITEM_A: item_a, ITEM_B: item_b, COUNT: count, PRESENTATION_ORDER: PRESENTATION_CANONICAL},
+    )
 
 
 @app.post(_VOTES_PATH)
@@ -512,8 +542,9 @@ def cast_vote(request: Request, run_id: str, body: CastVoteRequest, record: _Cas
 
     Purpose: the vote route 1:1 — the seam's verb named cast_vote here (its own
     `cast` would shadow typing's typed assertion at module scope — the door's verb
-    carried); delegate with the pair, winner, notes, and supersedes from the body
-    plus the DOOR RECORD'S verified stamps — comparator_id and comparator_class
+    carried); delegate with the pair, winner, presentation_order, notes, and
+    supersedes from the body plus the DOOR RECORD'S verified stamps —
+    comparator_id and comparator_class
     from the dependency's KeyRecord in place of the body's self-claims (F8: the
     self-claim dies at the cast door; under the degrade the body's claim stands —
     the boot marker names it), return 200 with the ack object {"vote_id",
@@ -541,6 +572,7 @@ def cast_vote(request: Request, run_id: str, body: CastVoteRequest, record: _Cas
             comparator_class,
             body.notes,
             body.supersedes,
+            body.presentation_order,
         )
     except StoreRefusedError as refusal:
         return JSONResponse(status_code=404, content=render_refusal(refusal))

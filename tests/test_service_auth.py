@@ -233,7 +233,7 @@ def test_right_key_route_bodies_returned(client: TestClient) -> None:
     assert ack.json() == {"run_id": _RUN_ID}
     pair = client.get(f"/runs/{_RUN_ID}/next", headers={AUTH_HEADER_DEFAULT: human_key})
     assert pair.status_code == 200
-    assert pair.json() == {"item_a": "a", "item_b": "b", "count": 0}
+    assert pair.json() == {"item_a": "a", "item_b": "b", "count": 0, "presentation_order": "canonical"}
     vote = client.post(
         f"/runs/{_RUN_ID}/votes",
         json=_VOTE_BODY,
@@ -275,7 +275,7 @@ def test_midflight_mint_lands_live_through_the_door(client: TestClient, tmp_path
     assert ack.status_code == 201  # the door's boot-time load predates the mint — the stat ride re-loaded
     response = client.get(f"/runs/{_RUN_ID}/next", headers={AUTH_HEADER_DEFAULT: key})
     assert response.status_code == 200
-    assert response.json() == {"item_a": "a", "item_b": "b", "count": 0}
+    assert response.json() == {"item_a": "a", "item_b": "b", "count": 0, "presentation_order": "canonical"}
 
 
 def test_auth_off_degrade_six_routes_pass_bare(client: TestClient) -> None:
@@ -286,7 +286,7 @@ def test_auth_off_degrade_six_routes_pass_bare(client: TestClient) -> None:
     assert ack.json() == {"run_id": _RUN_ID}
     pair = client.get(f"/runs/{_RUN_ID}/next")
     assert pair.status_code == 200
-    assert pair.json() == {"item_a": "a", "item_b": "b", "count": 0}
+    assert pair.json() == {"item_a": "a", "item_b": "b", "count": 0, "presentation_order": "canonical"}
     vote = client.post(f"/runs/{_RUN_ID}/votes", json=_VOTE_BODY)
     assert vote.status_code == 200
     assert vote.json() == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}

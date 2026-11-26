@@ -45,7 +45,14 @@ from prioritree.service_store import Serialize
 from prioritree.session import ExhaustedQueue
 from prioritree.store_lock import Lock
 from prioritree.tally import TallyRefusedError
-from prioritree.votes import COMPARATOR_CLASSES, SupersedeRefusedError, VotesRefusedError
+from prioritree.votes import (
+    COMPARATOR_CLASSES,
+    PRESENTATION_CANONICAL,
+    PRESENTATION_ORDERS,
+    PRESENTATION_SWAPPED,
+    SupersedeRefusedError,
+    VotesRefusedError,
+)
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -91,6 +98,7 @@ BUDGET_REASON_TALLY: Final[str] = (
 _ITEMS_RULE: Final[str] = "items must be at least two, all unique, none empty"
 _FORKED_CLASSES: Final[str] = "the comparator-class vocabulary forked from the core's COMPARATOR_CLASSES"
 _FORKED_VERDICTS: Final[str] = "the winner vocabulary forked from the core's WEAK_ORDER_TRIPLE"
+_FORKED_PRESENTATION: Final[str] = "the presentation vocabulary forked from the core's PRESENTATION_ORDERS"
 _HALT_CAP: Final[int] = 10
 
 # The comparator-class vocabulary: the literal mirrors the core's own set
@@ -107,6 +115,17 @@ if frozenset(get_args(ComparatorClass)) != COMPARATOR_CLASSES:
 Winner = Literal["prefer-a", "prefer-b", "tie"]
 if frozenset(get_args(Winner)) != WEAK_ORDER_TRIPLE:
     raise ImportError(_FORKED_VERDICTS)
+PresentationOrder = Literal["canonical", "swapped"]
+if frozenset(get_args(PresentationOrder)) != PRESENTATION_ORDERS:
+    raise ImportError(_FORKED_PRESENTATION)
+
+# The presentation datum's own text (the cast tool's schema teaching it).
+TEXT_PRESENTATION: Final[str] = (
+    "The order the pair was presented -- 'canonical' (item_a first, the standing "
+    "form) or 'swapped' (item_b first, the both-orders experiment's second form); "
+    "the pair cited as served, the winner positional over the SERVED order, this "
+    "field naming the presentation (the door maps presented-to-canonical)."
+)
 
 # The module-level objects (the spec Section 2(c); the service.py:158-165
 # precedent): the seam injected at construction over the CLI's own store home,
@@ -151,6 +170,7 @@ class NextInput(BaseModel):
 
     run_id: str = Field(min_length=1)
     seed: int | None = None
+    swap: bool = False
 
 
 class CastInput(BaseModel):
@@ -163,6 +183,7 @@ class CastInput(BaseModel):
     comparator_class: ComparatorClass = Field(description=TEXT_COMPARATOR_CLASS)
     notes: str | None = None
     supersedes: str | None = None
+    presentation_order: PresentationOrder = Field(default="canonical", description=TEXT_PRESENTATION)
 
 
 class CensusInput(BaseModel):
@@ -193,6 +214,7 @@ class NextOutcome(BaseModel):
     item_a: str = ""
     item_b: str = ""
     count: int = 0
+    presentation_order: str = ""
     expected: str = ""
     found: str = ""
     next_action: str = ""
@@ -514,7 +536,10 @@ def serve(body: NextInput) -> NextOutcome:
     """Serve the sitting's next under-quorum pair -- the loop's read: call
     until done:true (every pair at quorum), then runs.tally. Returns the pair
     as [item_a, item_b] (the verdicts are positional over this order) and its
-    current count. seed optional: the same seed re-serves the same pair
+    current count. swap optional: true presents the pair in the SWAPPED order
+    -- the both-orders experiment's second presentation, the verdicts still
+    positional over the served order, presentation_order naming the form.
+    seed optional: the same seed re-serves the same pair
     deterministically; omitted, the default seed -- derived from run_id --
     keeps the stable per-run order. done:true carries the closing message
     (expected/found/next_action populated -- the three-part grammar as
@@ -526,7 +551,15 @@ def serve(body: NextInput) -> NextOutcome:
         return NextOutcome(done=True, expected=done.expected, found=done.found, next_action=done.next_action)
     except (StoreRefusedError, VotesRefusedError) as refusal:
         raise _refuse(refusal) from refusal
-    return NextOutcome(done=False, item_a=item_a, item_b=item_b, count=count)
+    if body.swap:
+        return NextOutcome(
+            done=False,
+            item_a=item_b,
+            item_b=item_a,
+            count=count,
+            presentation_order=PRESENTATION_SWAPPED,
+        )
+    return NextOutcome(done=False, item_a=item_a, item_b=item_b, count=count, presentation_order=PRESENTATION_CANONICAL)
 
 
 @server.tool(name="votes.cast", effect=Effect.WRITE, idempotency=True)
@@ -537,7 +570,10 @@ def cast(body: CastInput, ctx: ToolContext) -> CastAck:
     (acknowledged=true, the count unchanged -- one voice, never
     double-counted); a changed verdict is a new record; supersedes cites a
     vote_id to correct one. A vote is legal on any registered pair -- no
-    serve needed.
+    serve needed. presentation_order names the presented order (the pair
+    cited as served, the winner positional over the served order; 'swapped'
+    the both-orders experiment's second form, the door mapping
+    presented-to-canonical).
     """
     # The verified stamps (the brief §1f): the token's claims over the body's
     # self-claims when the caller is authenticated (F8's law tier-agnostic --
@@ -566,6 +602,7 @@ def cast(body: CastInput, ctx: ToolContext) -> CastAck:
             comparator_class,
             body.notes,
             body.supersedes,
+            body.presentation_order,
         )
     except (StoreRefusedError, VotesRefusedError) as refusal:
         raise _refuse(refusal) from refusal

@@ -201,3 +201,20 @@ def _cast_all(session: Session, run_id: str) -> None:
     """Cast the three-pair script through op 3 (one tie among the verdicts)."""
     for pair, winner in _SCRIPT:
         session.cast_vote(run_id, pair, winner, comparator_id="x", comparator_class="human")
+
+
+def test_swapped_cast_delegation_maps_canonical() -> None:
+    """The session's cast with the swapped presentation delegates whole — the record canonical + mapped."""
+    session = _session()
+    run_id = _registered(session, [("a", "one"), ("b", "two")])
+    _handle, record, _count, _ack = session.cast_vote(
+        run_id,
+        ("b", "a"),
+        "prefer-a",
+        comparator_id="x",
+        comparator_class="human",
+        presentation_order="swapped",
+    )
+    assert record.pair == _AB_PAIR
+    assert record.winner == "prefer-b"
+    assert record.presentation_order == "swapped"

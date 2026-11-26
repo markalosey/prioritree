@@ -223,6 +223,7 @@ def test_next_serves_the_first_pair(caller: str) -> None:
         "item_a": "a",
         "item_b": "b",
         "count": 0,
+        "presentation_order": "canonical",
         "expected": "",
         "found": "",
         "next_action": "",
@@ -278,7 +279,7 @@ def test_next_done_terminal(caller: str) -> None:
     assert result.is_error is False
     body = result.structured_content
     assert body is not None
-    assert set(body) == {"done", "item_a", "item_b", "count", "expected", "found", "next_action"}
+    assert set(body) == {"done", "item_a", "item_b", "count", "presentation_order", "expected", "found", "next_action"}
     assert body["done"] is True
     assert body["item_a"] == ""
     assert body["item_b"] == ""
@@ -637,6 +638,7 @@ def test_next_serves_past_the_quorumed_pair(caller: str) -> None:
         "item_a": "a",
         "item_b": "c",
         "count": 0,
+        "presentation_order": "canonical",
         "expected": "",
         "found": "",
         "next_action": "",
@@ -769,3 +771,63 @@ def test_parse_argv_derives_the_run_call(
     monkeypatch.setattr(mcp_server.server, "run", record)
     mcp_server.main()
     assert calls == [expected]
+
+
+def test_next_swap_presents_swapped(caller: str) -> None:
+    """A next with swap=true => the presented pair swapped, presentation_order naming the form."""
+    _register(caller, _ITEMS)
+    result = _call(caller, "runs.next", {"run_id": _RUN_ID, "swap": True})
+    assert result.is_error is False
+    assert result.structured_content == {
+        "done": False,
+        "item_a": "b",
+        "item_b": "a",
+        "count": 0,
+        "presentation_order": "swapped",
+        "expected": "",
+        "found": "",
+        "next_action": "",
+    }
+
+
+def test_cast_swapped_presentation_lands(caller: str) -> None:
+    """The cast on the served swapped pair carries the token — the ack lands, the field rode whole."""
+    _register(caller, _ITEMS)
+    result = _call(
+        caller,
+        "votes.cast",
+        {
+            "run_id": _RUN_ID,
+            "pair": ["b", "a"],
+            "winner": "prefer-a",
+            "comparator_id": "x",
+            "comparator_class": "human",
+            "presentation_order": "swapped",
+        },
+    )
+    assert result.is_error is False
+    assert result.structured_content == {"vote_id": "VOTE-0001", "count": 1, "acknowledged": False}
+    census = _call(caller, "votes.census", {"run_id": _RUN_ID})
+    assert census.is_error is False
+    assert census.structured_content == {"total": 1, "items": {"a": 1, "b": 1, "c": 0}}
+
+
+def test_cast_presentation_refused_at_the_schema(caller: str) -> None:
+    """A cast with presentation_order outside the Literal => the schema's gate, the typed form."""
+    _register(caller, _ITEMS)
+    result = _call(
+        caller,
+        "votes.cast",
+        {
+            "run_id": _RUN_ID,
+            "pair": ["a", "b"],
+            "winner": "prefer-a",
+            "comparator_id": "x",
+            "comparator_class": "human",
+            "presentation_order": "sideways",
+        },
+    )
+    assert result.is_error is True
+    text = _join(result)
+    assert "`presentation_order` must be one of" in text
+    assert "expected:" not in text

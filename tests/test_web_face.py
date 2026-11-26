@@ -579,3 +579,35 @@ def test_auth_off_web_calls_pass_bare(client: TestClient) -> None:
     sitting = client.get(f"/runs/{_RUN_ID}")
     assert sitting.status_code == 200
     assert "Which matters more?" in sitting.text
+
+
+def test_sitting_swap_presents_swapped(client: TestClient) -> None:
+    """The sitting at ?swap=true renders the presented pair swapped, the hidden field carrying the token."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    response = client.get(f"/runs/{_RUN_ID}?swap=true")
+    assert response.status_code == 200
+    # The hidden fields carry the SERVED pair (b first) and the token; card A = the first-presented.
+    assert 'name="item_a" value="b"' in response.text
+    assert 'name="item_b" value="a"' in response.text
+    assert 'name="presentation_order" value="swapped"' in response.text
+
+
+def test_vote_swapped_hidden_field_resends(client: TestClient) -> None:
+    """The swapped sitting's vote re-sends the hidden token — the cast lands, the ack chains the swap carry."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}?swap=true").text)
+    response = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={
+            **_FORM_VOTE,
+            "item_a": "b",
+            "item_b": "a",
+            "presentation_order": "swapped",
+            "csrf_token": token,
+        },
+    )
+    assert response.status_code == 200
+    # The ack restates in the PRESENTED labels — the first-presented (b's label) preferred.
+    assert "You preferred two (A) over one (B)." in response.text
+    # The ack chain carries the swap — the fragment's fetch re-presents swapped.
+    assert f'hx-get="/ui/runs/{_RUN_ID}/pair?swap=true"' in response.text

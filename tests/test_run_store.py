@@ -10,6 +10,8 @@ import pytest
 
 from prioritree.registry import OperatorDeclaration
 from prioritree.run_store import Persist, StoreRefusedError
+from prioritree.scheduler import Pair
+from prioritree.votes import VotesRefusedError
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -249,3 +251,73 @@ def test_double_cast_absorbed_count_unchanged(tmp_path: Path) -> None:
     assert len(census.vote_log) == 1
     assert census.per_pair_counts == store.census().per_pair_counts
     assert census.per_item_counts == store.census().per_item_counts
+
+
+def test_swapped_presentation_round_trip(tmp_path: Path) -> None:
+    """The swapped cast's line carries the wire's bytes; the load replays the mapping identically."""
+    store_home = tmp_path / "runs"
+    store = _register(store_home)
+    store.cast(("b", "a"), "prefer-a", comparator_id="x", comparator_class="human", presentation_order="swapped")
+    # THE LINE — the wire's faithful bytes: the presented pair, the winner as sent, the token.
+    run_file = store_home / f"{store.run_id}.jsonl"
+    lines = [json.loads(line) for line in run_file.read_text().splitlines()]
+    assert lines[1]["pair"] == ["b", "a"]
+    assert lines[1]["winner"] == "prefer-a"
+    assert lines[1]["presentation_order"] == "swapped"
+    # The fresh load — the re-cast replays the door's mapping: the record canonical + mapped.
+    reloaded = Persist.load(store_home, store.run_id)
+    log = reloaded.census().vote_log
+    assert log[0].pair == Pair(item_a="a", item_b="b")
+    assert log[0].winner == "prefer-b"
+    assert log[0].presentation_order == "swapped"
+    # The census's maps round-trip — the canonical pair keyed, the mapped winner counted.
+    assert reloaded.census().per_pair_counts == store.census().per_pair_counts
+
+
+def test_legacy_lines_load_clean_canonical_default(tmp_path: Path) -> None:
+    """A pre-field line (the field stripped) loads clean — the absent field the honest canonical default."""
+    store_home = tmp_path / "runs"
+    store = _register(store_home)
+    store.cast(("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
+    run_file = store_home / f"{store.run_id}.jsonl"
+    entries = [json.loads(line) for line in run_file.read_text().splitlines()]
+    del entries[1]["presentation_order"]
+    run_file.write_text("".join(json.dumps(entry, sort_keys=True) + "\n" for entry in entries))
+    reloaded = Persist.load(store_home, store.run_id)
+    log = reloaded.census().vote_log
+    assert log[0].presentation_order == "canonical"
+    assert reloaded.serve() == ("a", "c", 0)  # the pre-field corpus loads whole
+
+
+def test_swapped_line_without_the_field_refuses(tmp_path: Path) -> None:
+    """A swapped-presentation line with the token deleted refuses at the re-cast — never silently re-labeled."""
+    store_home = tmp_path / "runs"
+    store = _register(store_home)
+    store.cast(("b", "a"), "prefer-a", comparator_id="x", comparator_class="human", presentation_order="swapped")
+    run_file = store_home / f"{store.run_id}.jsonl"
+    entries = [json.loads(line) for line in run_file.read_text().splitlines()]
+    del entries[1]["presentation_order"]
+    run_file.write_text("".join(json.dumps(entry, sort_keys=True) + "\n" for entry in entries))
+    with pytest.raises(VotesRefusedError) as info:
+        Persist.load(store_home, store.run_id)
+    assert "never silently re-ordered" in str(info.value)
+
+
+def test_presentation_field_contradictions_refused(tmp_path: Path) -> None:
+    """The token contradicting the pair's order refuses; an unknown token refuses at the pre-pass."""
+    store_home = tmp_path / "runs"
+    store = _register(store_home)
+    store.cast(("a", "b"), "prefer-a", comparator_id="x", comparator_class="human")
+    run_file = store_home / f"{store.run_id}.jsonl"
+    # The canonical-cited line relabeled swapped — the contradiction refused at the re-cast.
+    entries = [json.loads(line) for line in run_file.read_text().splitlines()]
+    entries[1]["presentation_order"] = "swapped"
+    run_file.write_text("".join(json.dumps(entry, sort_keys=True) + "\n" for entry in entries))
+    with pytest.raises(VotesRefusedError):
+        Persist.load(store_home, store.run_id)
+    # An unknown token — the pre-pass's form check, the legal set named.
+    entries[1]["presentation_order"] = "sideways"
+    run_file.write_text("".join(json.dumps(entry, sort_keys=True) + "\n" for entry in entries))
+    with pytest.raises(StoreRefusedError) as info:
+        Persist.load(store_home, store.run_id)
+    assert "presentation_order" in str(info.value)

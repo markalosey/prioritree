@@ -19,6 +19,14 @@ Single-writer BY CONTRACT (the subcommand shape is sequential; a concurrent
 double-write surfaces at the next load as the id-sequence refusal — loud,
 never silent). Five-field docstrings on every public symbol; zero runtime
 dependencies (json + pathlib, stdlib).
+The presentation_order field (the order-bias probe's MEASURE instrument):
+the vote line carries the cast's WIRE bytes — the pair as cited (the
+PRESENTED order), the winner as sent (positional over the presented
+order), the presentation_order token naming the form; the load's pre-pass
+form-checks the token (the LEGACY pre-field lines' absent field the honest
+canonical default — the presentation at every tier WAS the canonical
+order), and the in-order re-casts replay the door's presented-to-canonical
+mapping identically — the reconstructed record whole.
 """
 
 from __future__ import annotations
@@ -29,7 +37,13 @@ from typing import TYPE_CHECKING, Final, cast
 
 from prioritree.registry import OperatorDeclaration, Registry
 from prioritree.session import Session
-from prioritree.votes import COMPARATOR_CLASSES, VOTE_PREFIX
+from prioritree.votes import (
+    COMPARATOR_CLASSES,
+    PRESENTATION_CANONICAL,
+    PRESENTATION_ORDERS,
+    PRESENTATION_SWAPPED,
+    VOTE_PREFIX,
+)
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
@@ -276,6 +290,38 @@ def _require_pair_field(line: Mapping[str, object], field: str, position: int, r
     return (members[0], members[1])
 
 
+def _read_presentation_order_field(line: Mapping[str, object], position: int, run_file: Path) -> str:
+    """Read the line's presentation_order — the absent field the honest canonical default.
+
+    Purpose: the pre-field corpus's honest read — the LEGACY lines (written
+    before the field existed) carry no presentation_order, and the
+    presentation at every tier WAS the canonical order by construction
+    (the pair IS the order at the canonical form) — the absent field reads
+    back 'canonical', never a refusal; a PRESENT field must be a string
+    from the legal presentation set (the form check — trigger 4's form, an
+    unknown token naming the legal set).
+    Refuses when: the field is present but not a string from
+    PRESENTATION_ORDERS.
+    Re-run: deterministic.
+    Touches: nothing — a pure validation over its arguments.
+    Provenance: run-store-brief §4 triggers 3-4 (the form-check school),
+    the order-bias probe's MEASURE instrument (the design synthesis §2.2's
+    load clause — the legacy corpus loads clean, the absent field the
+    honest default).
+    """
+    if "presentation_order" not in line:
+        return PRESENTATION_CANONICAL
+    value = line["presentation_order"]
+    if not isinstance(value, str) or value not in PRESENTATION_ORDERS:
+        _expected = f"the 'presentation_order' field a JSON string from {sorted(PRESENTATION_ORDERS)}"
+        raise StoreRefusedError(
+            expected=_expected,
+            found=f"line {position}: {value!r}",
+            next_action=_repair_path(run_file),
+        )
+    return value
+
+
 def _require_items_field(line: Mapping[str, object], position: int, run_file: Path) -> list[tuple[str, str]]:
     """Return the manifest's items as (id, label) pairs, payload order preserved.
 
@@ -389,11 +435,13 @@ def _validate_vote_line(
     position: int,
     ground: tuple[str, frozenset[str], set[str], Mapping[str, tuple[str, str]]],
     run_file: Path,
-) -> tuple[str, tuple[str, str], str, str, str, str | None, str | None]:
+) -> tuple[str, tuple[str, str], str, str, str, str | None, str | None, str]:
     """Validate one vote line against the manifest's ground, refusing the corrupt.
 
     Purpose: the pre-pass's per-line core — extract the nine grammar fields
-    (the seven cast fields + the two stamps carried as data), then the six
+    (the seven cast fields + the two stamps carried as data + the
+    presentation_order token — the absent field the honest canonical
+    default), then the six
     value triggers: the winner from the manifest's declared verdicts, the
     comparator_class from the ruled class set, the pair's ids from the
     manifest's items, the supersedes resolving to an EARLIER line's pair,
@@ -423,6 +471,7 @@ def _validate_vote_line(
     _recorded_at = _require_str_field(line, "recorded_at", position, run_file)
     notes = _require_optional_str_field(line, "notes", position, run_file)
     supersedes = _require_optional_str_field(line, "supersedes", position, run_file)
+    presentation_order = _read_presentation_order_field(line, position, run_file)
     if winner not in declared_verdicts_set:
         _expected = f"a winner from the manifest's declared verdicts {sorted(declared_verdicts_set)}"
         raise StoreRefusedError(
@@ -468,7 +517,7 @@ def _validate_vote_line(
             found=f"line {position}: run_id got {vote_run_id!r}",
             next_action=_repair_path(run_file),
         )
-    return (vote_id, pair, winner, comparator_id, comparator_class, notes, supersedes)
+    return (vote_id, pair, winner, comparator_id, comparator_class, notes, supersedes, presentation_order)
 
 
 class Persist:
@@ -665,7 +714,7 @@ class Persist:
         _registered_at = _require_str_field(manifest_line, "registered_at", manifest_position, run_file)
         declared_verdicts_set = frozenset(declared_verdicts)
         item_id_set = {item_id for item_id, _label in manifest_items}
-        votes: list[tuple[tuple[str, str], str, str, str, str | None, str | None]] = []
+        votes: list[tuple[tuple[str, str], str, str, str, str | None, str | None, str]] = []
         earlier_pairs: dict[str, tuple[str, str]] = {}
         ground = (manifest_run_id, declared_verdicts_set, item_id_set, earlier_pairs)
         for index, line in enumerate(lines[1:]):
@@ -684,14 +733,15 @@ class Persist:
                     found=f"line {position}: kind got {line.get('kind')!r}",
                     next_action=_repair_path(run_file),
                 )
-            vote_id, pair, winner, comparator_id, comparator_class, notes, supersedes = _validate_vote_line(
+            fields = _validate_vote_line(
                 line,
                 position,
                 ground,
                 run_file,
             )
+            vote_id, pair, winner, comparator_id, comparator_class, notes, supersedes, presentation_order = fields
             earlier_pairs[vote_id] = pair
-            votes.append((pair, winner, comparator_id, comparator_class, notes, supersedes))
+            votes.append((pair, winner, comparator_id, comparator_class, notes, supersedes, presentation_order))
         # The reconstruction — a fresh door; the door re-derives every frozen
         # type at register_run/cast_vote (the wire's arrays feed the signatures
         # directly; the store never constructs a frozen value itself); the
@@ -704,11 +754,13 @@ class Persist:
         )
         _new_run_id, manifest, _count = session.register_run(manifest_items, operator, quorum_value)
         # The in-order re-casts through the door — the dedup index rebuilt BY
-        # the re-casts themselves (the key's members are the seven fields,
+        # the re-casts themselves (the key's members are the eight fields,
         # neither stamp nor id; the file never carries it); a doubled line
         # (the crash-retry form) absorbs loudly as the ack — the count
-        # unchanged, never double-counted (R9 at the file tier).
-        for pair, winner, comparator_id, comparator_class, notes, supersedes in votes:
+        # unchanged, never double-counted (R9 at the file tier); the
+        # presented-to-canonical mapping replaying identically (the wire's
+        # bytes the re-cast's own input).
+        for pair, winner, comparator_id, comparator_class, notes, supersedes, presentation_order in votes:
             session.cast_vote(
                 manifest_run_id,
                 list(pair),
@@ -717,6 +769,7 @@ class Persist:
                 comparator_class,
                 notes,
                 supersedes,
+                presentation_order,
             )
         return cls(session, manifest_run_id, run_file, manifest)
 
@@ -780,6 +833,7 @@ class Persist:
         comparator_class: str,
         notes: str | None = None,
         supersedes: str | None = None,
+        presentation_order: str = PRESENTATION_CANONICAL,
     ) -> tuple[str, VoteRecord, int, bool]:
         """Cast the vote at the door and append its line at the cast's return.
 
@@ -788,9 +842,12 @@ class Persist:
         then append the line (one complete line + newline, flush); on the
         acknowledged=True ack NOTHING appends (the line is already durable —
         the dedup IS the idempotence; the cleaner file wins); the line
-        carries the door's returned values WHOLE (the seven cast fields in
-        mint order, the pair as the canonical [item_a, item_b], the
-        recorded_at stamp carried as data — the faithful record).
+        carries the cast's WIRE bytes WHOLE (the cast fields in mint order,
+        the pair as cited — the PRESENTED order, presentation_order naming
+        it; the winner as sent — positional over the presented order; the
+        recorded_at stamp carried as data — the faithful record: the load's
+        re-cast replays the door's presented-to-canonical mapping
+        identically, the record reconstructed whole).
         Refuses when: the door refuses (VotesRefusedError rides through
         verbatim, BY TYPE, before any byte lands); the append fails
         (StoreRefusedError, the OS error verbatim — never swallowed).
@@ -809,20 +866,31 @@ class Persist:
             comparator_class,
             notes,
             supersedes,
+            presentation_order,
         )
         if acknowledged:
             return vote_id, record, count, acknowledged
+        # The cited pair — the wire's own bytes (the presented order),
+        # derived from the record's canonical pair + the token (the door's
+        # mapping's own inverse; the load's re-cast replays the mapping
+        # identically — the record reconstructed whole).
+        cited_a, cited_b = (
+            (record.pair.item_b, record.pair.item_a)
+            if presentation_order == PRESENTATION_SWAPPED
+            else (record.pair.item_a, record.pair.item_b)
+        )
         vote_line = {
             "kind": _KIND_VOTE,
             "vote_id": record.vote_id,
             "run_id": record.run_id,
-            "pair": [record.pair.item_a, record.pair.item_b],
-            "winner": record.winner,
+            "pair": [cited_a, cited_b],
+            "winner": winner,
             "comparator_id": record.comparator_id,
             "comparator_class": record.comparator_class,
             "recorded_at": record.recorded_at,
             "notes": record.notes,
             "supersedes": record.supersedes,
+            "presentation_order": presentation_order,
         }
         self._append_line(
             vote_line,

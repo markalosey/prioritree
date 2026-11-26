@@ -36,6 +36,7 @@ from prioritree.registry import (
 from prioritree.scheduler import Pair, derive_seed, schedule_pairs
 from prioritree.tally import TallyRefusedError, TallyResult, tally_votes
 from prioritree.votes import (
+    PRESENTATION_CANONICAL,
     VoteCensus,
     VoteLedger,
     VoteRecord,
@@ -250,14 +251,16 @@ class Session:
         comparator_class: str,
         notes: str | None = None,
         supersedes: str | None = None,
+        presentation_order: str = PRESENTATION_CANONICAL,
     ) -> tuple[str, VoteRecord, int, bool]:
         """Cast one judgment — verbatim delegation to the ledger.
 
         Purpose: the seven-stage chain is U3's, the session adds nothing —
         return the ledger's (vote_id, record, count, acknowledged) quadruple
-        verbatim (the loud dedup ack included); VotesRefusedError rides
-        through verbatim (the ledger already speaks the grammar — no wrap
-        needed here).
+        verbatim (the loud dedup ack included; the presentation_order the
+        order-bias probe's instrument riding last, additive);
+        VotesRefusedError rides through verbatim (the ledger already speaks
+        the grammar — no wrap needed here).
         Refuses when: the ledger refuses (malformed payload; unknown run;
         pair outside the legal set, the swapped citation named; winner
         outside the declared set; invalid supersede target) — every refusal
@@ -267,7 +270,8 @@ class Session:
         semantics (R9) are the ledger's, riding through unchanged.
         Touches: only the ledger's own store and dedup index.
         Provenance: op 3, session-brief §3.3 (the verbatim delegation, the
-        seven arguments ARE op 3's ruled signature), the five-op interface.
+        eight arguments ARE op 3's ruled signature — the probe's instrument
+        additive), the five-op interface.
         """
         return self._ledger.cast_vote(
             run_id,
@@ -277,6 +281,7 @@ class Session:
             comparator_class,
             notes,
             supersedes,
+            presentation_order,
         )
 
     def read_vote_state(self, run_id: str) -> VoteCensus:

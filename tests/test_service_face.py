@@ -83,7 +83,7 @@ def test_serve_success(client: TestClient) -> None:
     client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
     response = client.get(f"/runs/{_RUN_ID}/next")
     assert response.status_code == 200
-    assert response.json() == {"item_a": "a", "item_b": "b", "count": 0}
+    assert response.json() == {"item_a": "a", "item_b": "b", "count": 0, "presentation_order": "canonical"}
 
 
 def test_vote_success(client: TestClient) -> None:
@@ -336,3 +336,87 @@ def test_crash_envelope_500() -> None:
     assert body["found"].startswith("RuntimeError: boom")
     assert body["next_action"] == _ESCALATION
     assert "Traceback" not in response.text
+
+
+def test_serve_swap_presents_swapped(client: TestClient) -> None:
+    """GET next?swap=true => 200 the presented pair swapped, presentation_order naming the form."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    response = client.get(f"/runs/{_RUN_ID}/next?swap=true")
+    assert response.status_code == 200
+    assert response.json() == {"item_a": "b", "item_b": "a", "count": 0, "presentation_order": "swapped"}
+
+
+def test_vote_swapped_presentation_counts_canonical(client: TestClient) -> None:
+    """The swapped cast maps onto the canonical pair — the tally's wins read back the mapped winner."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    # ab judged at the SWAPPED presentation: prefer-a = the first-presented (b) — maps to b's win.
+    swapped = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={
+            "pair": ["b", "a"],
+            "winner": "prefer-a",
+            "comparator_id": "x",
+            "comparator_class": "human",
+            "presentation_order": "swapped",
+        },
+    )
+    assert swapped.status_code == 200
+    # The corroboration floor + coverage: ab's llm vote canonical prefer-b (b's win);
+    # ac + bc both classes canonical.
+    for pair, winner, comparator_class in (
+        (["a", "b"], "prefer-b", "llm"),
+        (["a", "c"], "prefer-a", "human"),
+        (["a", "c"], "prefer-a", "llm"),
+        (["b", "c"], "prefer-a", "human"),
+        (["b", "c"], "prefer-a", "llm"),
+    ):
+        client.post(
+            f"/runs/{_RUN_ID}/votes",
+            json={"pair": pair, "winner": winner, "comparator_id": "y", "comparator_class": comparator_class},
+        )
+    response = client.get(f"/runs/{_RUN_ID}/tally")
+    assert response.status_code == 200
+    body = response.json()
+    # ab: b wins twice (the swapped first-presented + the canonical prefer-b) — the mapping's evidence.
+    assert body["per_item_wins"] == {"a": 2, "b": 4, "c": 0}
+    assert body["ranked_groups"] == [["b"], ["a"], ["c"]]
+
+
+def test_vote_presentation_refusals(client: TestClient) -> None:
+    """The bad token, the fieldless swapped citation, the contradiction — 422 the family grammar each."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    bad_token = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={
+            "pair": ["a", "b"],
+            "winner": "prefer-a",
+            "comparator_id": "x",
+            "comparator_class": "human",
+            "presentation_order": "sideways",
+        },
+    )
+    assert bad_token.status_code == 422
+    assert set(bad_token.json()) == _REFUSAL_KEYS
+    fieldless = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={
+            "pair": ["b", "a"],
+            "winner": "prefer-a",
+            "comparator_id": "x",
+            "comparator_class": "human",
+        },
+    )
+    assert fieldless.status_code == 422
+    assert "never silently re-ordered" in fieldless.json()["next_action"]
+    contradiction = client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={
+            "pair": ["a", "b"],
+            "winner": "prefer-a",
+            "comparator_id": "x",
+            "comparator_class": "human",
+            "presentation_order": "swapped",
+        },
+    )
+    assert contradiction.status_code == 422
+    assert "must agree" in contradiction.json()["next_action"]

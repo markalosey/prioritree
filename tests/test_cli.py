@@ -227,3 +227,42 @@ def test_ack_loud_dedup_count_unchanged(tmp_path: Path, capsys: pytest.CaptureFi
     argv = ["vote", _RUN_ONE, "a", "b", _PREFER_A, _COMPARATOR_ID, _HUMAN, _HOME_FLAG, str(tmp_path)]
     assert command(argv) == 0
     assert capsys.readouterr().out == f"ack\t{_VOTE_ONE}\t1\n"
+
+
+def test_next_swap_presents_swapped(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    """Next --swap prints the presented pair swapped — the triple's order the presentation."""
+    _register(tmp_path, _ITEMS_ABC)
+    capsys.readouterr()
+    assert command(["next", _RUN_ONE, "--swap", _HOME_FLAG, str(tmp_path)]) == 0
+    assert capsys.readouterr().out == "pair\tb\ta\t0\n"
+
+
+def test_vote_swapped_flag_maps_canonical(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    """Vote with --presentation-order swapped maps onto the canonical pair — the tally's ranking the evidence."""
+    _register(tmp_path, _ITEMS_ABC)
+    argv = [
+        "vote",
+        _RUN_ONE,
+        "b",
+        "a",
+        _PREFER_A,
+        _COMPARATOR_ID,
+        _HUMAN,
+        "--presentation-order",
+        "swapped",
+        _HOME_FLAG,
+        str(tmp_path),
+    ]
+    assert command(argv) == 0
+    capsys.readouterr()
+    # ab's swapped human vote maps to b's win; the llm corroboration + the rest canonical — b tops.
+    _cast(tmp_path, "a", "b", "prefer-b", _LLM)
+    _cast(tmp_path, "a", "c", _PREFER_A)
+    _cast(tmp_path, "a", "c", _PREFER_A, _LLM)
+    _cast(tmp_path, "b", "c", _PREFER_A)
+    _cast(tmp_path, "b", "c", _PREFER_A, _LLM)
+    capsys.readouterr()
+    assert command(["tally", _RUN_ONE, _HOME_FLAG, str(tmp_path)]) == 0
+    out = capsys.readouterr().out
+    assert out.startswith("rank\tb\nrank\ta\nrank\tc\n")
+    assert "counts\tb\t4\t0\t0" in out

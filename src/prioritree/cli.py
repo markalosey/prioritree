@@ -35,7 +35,7 @@ from prioritree.run_store import STORE_HOME, Persist, StoreRefusedError
 from prioritree.session import ExhaustedQueue
 from prioritree.store_lock import Lock
 from prioritree.tally import TallyRefusedError
-from prioritree.votes import VotesRefusedError
+from prioritree.votes import PRESENTATION_CANONICAL, VotesRefusedError
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -57,6 +57,8 @@ FLAG_QUORUM: Final[str] = "--quorum"
 FLAG_SEED: Final[str] = "--seed"
 FLAG_NOTES: Final[str] = "--notes"
 FLAG_SUPERSEDES: Final[str] = "--supersedes"
+FLAG_SWAP: Final[str] = "--swap"
+FLAG_PRESENTATION_ORDER: Final[str] = "--presentation-order"
 FLAG_HOME: Final[str] = "--home"
 
 # The separators: the register token's id/label split (FIRST colon — labels
@@ -182,15 +184,21 @@ def _build_parser() -> argparse.ArgumentParser:
     next_parser = subparsers.add_parser(NEXT, parents=[parent], help="serve the next under-quorum pair")
     next_parser.add_argument("run_id", help="the run's RUN-{####} file stem")
     next_parser.add_argument(FLAG_SEED, type=int, default=None, help="the schedule seed (default: the door derives)")
+    next_parser.add_argument(FLAG_SWAP, action="store_true", help="present the pair in the swapped order")
     vote_parser = subparsers.add_parser(VOTE, parents=[parent], help="cast one judgment")
     vote_parser.add_argument("run_id", help="the run's RUN-{####} file stem")
-    vote_parser.add_argument("item_a", help="the served pair's first id, in the served canonical order")
-    vote_parser.add_argument("item_b", help="the served pair's second id, in the served canonical order")
+    vote_parser.add_argument("item_a", help="the served pair's first id, in the served order (canonical or swapped)")
+    vote_parser.add_argument("item_b", help="the served pair's second id, in the served order (canonical or swapped)")
     vote_parser.add_argument("winner", help="the verdict, from the run's declared set")
     vote_parser.add_argument("comparator_id", help="who compared")
     vote_parser.add_argument("comparator_class", help="the comparator's class")
     vote_parser.add_argument(FLAG_NOTES, default=None, help="free-text notes (default: none)")
     vote_parser.add_argument(FLAG_SUPERSEDES, default=None, help="the vote id this cast corrects (default: none)")
+    vote_parser.add_argument(
+        FLAG_PRESENTATION_ORDER,
+        default=PRESENTATION_CANONICAL,
+        help="the presented order the pair was served in (default: canonical; swapped via next --swap)",
+    )
     state_parser = subparsers.add_parser(STATE, parents=[parent], help="census the run's vote state")
     state_parser.add_argument("run_id", help="the run's RUN-{####} file stem")
     tally_parser = subparsers.add_parser(TALLY, parents=[parent], help="rank the run's whole")
@@ -280,6 +288,8 @@ def _command_next(args: argparse.Namespace) -> int:
     with Lock(home):
         persist = Persist.load(home, cast("str", args.run_id))
         item_a, item_b, count = persist.serve(cast("int | None", args.seed))
+        if cast("bool", args.swap):
+            item_a, item_b = item_b, item_a
     _report(FIELD_SEPARATOR.join((MARKER_PAIR, item_a, item_b, str(count))))
     return EXIT_OK
 
@@ -312,6 +322,7 @@ def _command_vote(args: argparse.Namespace) -> int:
             cast("str", args.comparator_class),
             cast("str | None", args.notes),
             cast("str | None", args.supersedes),
+            cast("str", args.presentation_order),
         )
     marker = MARKER_ACK if acknowledged else MARKER_VOTE
     _report(FIELD_SEPARATOR.join((marker, vote_id, str(count))))
