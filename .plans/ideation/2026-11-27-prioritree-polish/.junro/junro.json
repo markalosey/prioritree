@@ -51,7 +51,64 @@
         "id": "cures",
         "purpose": "THE CURES (the polish set landed at its weight — the synthesis's ruling the set's law): the micro-cures under the polish increment's own R8 file-units (the approved spec the set's fence — each cure's before/after, the honest-docs law at every line), the material cures per their own judgment (named not pinned: the done-page detour's UX surface, the app.js audit's behavior question); kensho's independent verification at the cure gate(s) — every cure confirmed at the tree; MOHO'S WALK at the user-facing cures (R4 — the detour's cure lived); the bar at every cure: the floor 475 standing, zero findings, zero ignores (any ruling named per-file), the claims lane at every count",
         "entry_condition": "G-POLISH-PASS is green — the polish set ruled whole, each cure's ceremony matched to its weight; no cure dispatch before the green",
-        "increments": []
+        "increments": [
+          {
+            "id": "build/polish",
+            "owner": "jikko",
+            "gate": "G-POLISH",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "cure",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/done-detour",
+            "owner": "jikko",
+            "gate": "G-DONE-DETOUR",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/donedetourspec",
+            "owner": "togo",
+            "gate": "G-DONEDETOURSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "close",
@@ -115,6 +172,30 @@
         "conditions": [
           "hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the polish state carried whole: every cure confirmed at the tree, the tree honest to its own bytes; the next era named [the outward lane's own convening]; the banked shapes carried)",
           "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-polish resolved at the record"
+        ]
+      },
+      "G-POLISH": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the micro set lands per the approved spec (the synthesis §2's fence — every before/after at the bytes, the 23 R8 file-units' order, the empty-stem arc, the honest-cure forms held [the removals where the structure's cited, the re-derivations never number-bumps], keisan's traces the citation at every count)",
+          "the floor 475 standing (the no-break proof at every cure — doc cures, zero behavior change); ruff zero findings, pyright 0/0, zero ignores; kensho's independent verification green (validate/polish — every cure confirmed at the tree, the refused set untouched)",
+          "the honest-docs law held tree-wide (every count cured at its source, every docstring true to its changed body, the pins cured to the moved bytes or removed where the symbol's the cite)"
+        ]
+      },
+      "G-DONE-DETOUR": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the detour lands per the approved spec (the exact-task law): the ack stays at BOTH forms (the lane datum, the stay-put arm — the confirmation rendered, both links taught, no fetch, no redirect at the bare lane; the done link at the exhausted queue), the sitting/chain lanes and the fragment's done edge byte-untouched, the lane-separation arcs landed (the bare lane's confirmation verified; the chain lane's carry byte-standing)",
+          "the floor 475 standing (the lanes' separation proven by the arcs); ruff zero, pyright 0/0; kensho's independent verification green (validate/done-detour); MOHO'S WALK at the gate (R4 — the confirmation never vanishing, lived at the bare lane: the picker's link at the live queue, the done link at the exhausted — the seven-times-lived cost dead)",
+          "the four constraints held (hyoka's fences: the sitting lane's two-step chain untouched, the no-anchoring law held, the fragment's sitting-serving done edge untouched, the lane-separation proven)"
+        ]
+      },
+      "G-DONEDETOURSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed (the bytes whole, every edit fenced): the ack's before/after (the lane datum, the stay-put arm's composition, the both-links teaching, the done-link form at the exhausted queue), the template branch, the lane-separation arcs, the per-step plan (R8 — the file-units, the read-backs named)",
+          "the four constraints fenced (hyoka's: the sitting lane untouched, the no-anchoring law, the fragment's done edge, the lane-separation) — never violated by the spec's own bytes",
+          "the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)"
         ]
       }
     },
@@ -208,6 +289,54 @@
         "actor": "shinko",
         "timestamp": "2026-11-27T00:48:40Z",
         "op": "set-route-status"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the micro set lands per the approved spec (the synthesis §2's fence — every before/after at the bytes, the 23 R8 file-units' order, the empty-stem arc, the honest-cure forms held [the removals where the structure's cited, the re-derivations never number-bumps], keisan's traces the citation at every count)\\\", \\\"the floor 475 standing (the no-break proof at every cure — doc cures, zero behavior change); ruff zero findings, pyright 0/0, zero ignores; kensho's independent verification green (validate/polish — every cure confirmed at the tree, the refused set untouched)\\\", \\\"the honest-docs law held tree-wide (every count cured at its source, every docstring true to its changed body, the pins cured to the moved bytes or removed where the symbol's the cite)\\\"]\", \"gate\": \"G-POLISH\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T01:20:48Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the detour lands per the approved spec (the exact-task law): the ack stays at BOTH forms (the lane datum, the stay-put arm — the confirmation rendered, both links taught, no fetch, no redirect at the bare lane; the done link at the exhausted queue), the sitting/chain lanes and the fragment's done edge byte-untouched, the lane-separation arcs landed (the bare lane's confirmation verified; the chain lane's carry byte-standing)\\\", \\\"the floor 475 standing (the lanes' separation proven by the arcs); ruff zero, pyright 0/0; kensho's independent verification green (validate/done-detour); MOHO'S WALK at the gate (R4 — the confirmation never vanishing, lived at the bare lane: the picker's link at the live queue, the done link at the exhausted — the seven-times-lived cost dead)\\\", \\\"the four constraints held (hyoka's fences: the sitting lane's two-step chain untouched, the no-anchoring law held, the fragment's sitting-serving done edge untouched, the lane-separation proven)\\\"]\", \"gate\": \"G-DONE-DETOUR\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T01:20:58Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed (the bytes whole, every edit fenced): the ack's before/after (the lane datum, the stay-put arm's composition, the both-links teaching, the done-link form at the exhausted queue), the template branch, the lane-separation arcs, the per-step plan (R8 — the file-units, the read-backs named)\\\", \\\"the four constraints fenced (hyoka's: the sitting lane untouched, the no-anchoring law, the fragment's done edge, the lane-separation) — never violated by the spec's own bytes\\\", \\\"the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)\\\"]\", \"gate\": \"G-DONEDETOURSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T01:21:05Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-POLISH\", \"increment\": \"build/polish\", \"owner\": \"jikko\", \"stage\": \"cures\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"cure\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T01:21:12Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-DONE-DETOUR\", \"increment\": \"build/done-detour\", \"owner\": \"jikko\", \"stage\": \"cures\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T01:21:19Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-DONEDETOURSPEC-BRIEF\", \"increment\": \"synthesize/donedetourspec\", \"owner\": \"togo\", \"stage\": \"cures\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T01:21:25Z",
+        "op": "add-increment"
       }
     ]
   },
