@@ -71,6 +71,20 @@
                 "verification": "gate"
               }
             ]
+          },
+          {
+            "id": "synthesize/cardspec",
+            "owner": "togo",
+            "gate": "G-CARDSPEC-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
           }
         ]
       },
@@ -78,7 +92,50 @@
         "id": "build",
         "purpose": "THE JOURNEY BUILD — the units the cycle's outcome earns (named not pinned: the one-click card the likely first [the option as the choice, the operator between, the two-step retired], the journey findings' cures [the done-page white screen, the re-cast debt], the ack/done/result surfaces per the design's map, the README's journey story), the two-lane brief -> spec -> build per unit, one file per dispatch (R8's file-unit law — the transport law too, the polish lesson), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALKS at the user-facing units' build gates (R4 — this effort the UX's own ground), one-commit-per-increment (the natural unit, never the bypass); the stamps unchanged at the click; the llms at their own UX weight; the honest-docs law at every changed body",
         "entry_condition": "G-JOURNEY-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch; the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law)",
-        "increments": []
+        "increments": [
+          {
+            "id": "build/card",
+            "owner": "jikko",
+            "gate": "G-CARD",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "build/bridge",
+            "owner": "jikko",
+            "gate": "G-BRIDGE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "build",
+                "member": "jikko",
+                "verification": "gate"
+              },
+              {
+                "executor": "deterministic",
+                "id": "floor-green",
+                "member": "jikko",
+                "tool": "make",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "close",
@@ -118,6 +175,41 @@
             ]
           }
         ]
+      },
+      {
+        "id": "pipeline",
+        "purpose": "THE PER-UNIT PIPELINE (engine-stamped, amendment 19): each build unit's discover → understand → synthesize before its build — discover/understand ride ungated packets; the synthesis is the gated increment here closing its own G-<UNIT>-BRIEF; THE PRECEDENCE: no build unit's dispatch fires until its brief gate is green",
+        "entry_condition": "the route is composed through the engine's post-amendment-19 machinery — each unit's pipeline precedes its build; no build dispatch fires until its unit's brief gate is green",
+        "increments": [
+          {
+            "id": "synthesize/card",
+            "owner": "togo",
+            "gate": "G-CARD-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          },
+          {
+            "id": "synthesize/bridge",
+            "owner": "togo",
+            "gate": "G-BRIDGE-BRIEF",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "id": "synthesize",
+                "executor": "semantic",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
       }
     ],
     "gates": {
@@ -150,6 +242,44 @@
         "conditions": [
           "hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the journey's simplification carried whole [every surface's fate named], the next era named [the outward lane — PyPI — or the collaborator's call], the banked shapes carried)",
           "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-journey resolved at the record (the journey simplified to its last click)"
+        ]
+      },
+      "G-CARD": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the card unit lands per the approved spec (the exact-task law): the form-wrapped card pair (the two option cards as submit buttons inside the standing form — the wire byte-identical, the CSRF intact, the accessible names the full labels, the fieldset/legend group semantics), the operator the word 'vs' between (never focusable), the tie's subordinate control carrying its word at the bar, THE UNDO riding the ack (the last vote's id + the re-click affordance at the stay-put ack; the different-verdict re-click riding supersedes; the copy teaching the correction AT the mistake's mirror, never 'erased'; the acknowledged-flag seam test-pinned with RUN-0009's divergence the named residual), the accessibility rides binding (the aria-live at the ack region, the stable ids surviving the two swaps, the focus restoration), hx-sync at the form closing the in-flight race",
+          "the floor green (the suite grown per the spec's arcs — the exact count named from 480; ruff zero findings; pyright 0/0; zero ignores beyond the named per-file rulings); kensho's independent verification green (validate/card-unit); MOHO'S WALK at the build gate (R4 — the card lived cold: the translation dead, the undo discovered, the tie found, the operator teaching, the findings riding the gate as evidence)",
+          "the constraints verified live: the stamps unchanged at the click (the corroboration floor untouched); the llm-class at its own weight (the tools lanes untouched); the landed surfaces ridden never rewritten; both lanes served (the sitting + the deliberate — the same shared fragment); the honest-docs law at every changed body"
+        ]
+      },
+      "G-CARDSPEC-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the exact-task spec landed (the bytes whole, every edit fenced): the card pair's template bytes (the buttons inside the form, the accessible names, the fieldset/legend), the operator's element, the tie's control, the ack's undo region (the id carry, the re-click affordance, the copy's bytes), the rides' attributes (the aria-live, the ids, the focus restoration), the hx-sync line, the seam's test pins, the test files' arcs, the per-step plan (R8 — one file per dispatch, the read-backs named)",
+          "the constraints held at the spec's every surface (the wire byte-identical; the stamps unchanged; the llm lanes untouched; the CSRF guard's one read lane); the honest-docs law at every changed body; the named per-file rulings only",
+          "the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)"
+        ]
+      },
+      "G-BRIDGE": {
+        "type": "deterministic-check",
+        "conditions": [
+          "the micro-bridge lands per the approved fence (each cure independently revertable, ~10-16 lines total): the :757 done-branch's true 302 (the one-line cure; the HTMX-honored lanes verified unaffected; the cache's law named in the docstring), the re-cast copy cure (the stale-token teaching naming the re-cast law at the identifying vote), the conftest pre-import (the F401 at the zero-findings referenced-name form — the named per-file ruling), the quorum label's 16 words (the 45-word sentence retired; the teaching preserved at sitting.html + done.html)",
+          "the floor green (the suite at the grown count; ruff zero; pyright 0/0); kensho's independent verification green (validate/bridge)",
+          "the honest-docs law at every changed body; the bridge never touching the card unit's surfaces"
+        ]
+      },
+      "G-CARD-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit card LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/card) + mechanism analysis (understand/card) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
+        ]
+      },
+      "G-BRIDGE-BRIEF": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "THE BUILD BRIEF for the unit bridge LANDED and APPROVED: togo's synthesis over the unit's discovery census (discover/bridge) + mechanism analysis (understand/bridge) — the brief carrying the banked shapes, the scope fence, and the return forms — the dispatches cite this brief",
+          "THE COLLABORATOR'S APPROVAL: the brief judged ready-to-build; the unit's dispatches fire only after"
         ]
       }
     },
@@ -280,6 +410,54 @@
         "what": "THE PREMISE AMENDMENT (recorded with the research gate's green, at the collaborator's ruling on the recommendations): the effort's ground is THE TREE'S REAL FORM, never the remembered one — the convening's \"two choices, click a button to choose, click a submit button\" does not match the served bytes (zero radios, zero separate submit; the verdict buttons ARE the submits, one click casting since the UX webspec 2026-11-22; RUN-0008's 319 browser-cast votes + moho's measured 1.597 s/judgment the live proof). The click-count halving ALREADY BANKED (N+1 clicks per sitting); the one-click target's true product is the SEMANTICS: THE CHOICE'S RELOCATION (the option card itself the click target — the marker translation dying), THE OPERATOR between the options (absent today), THE TIE'S SHAPE (the ternary's home), and the journey's other real findings: the browser lane's SUPERSEDES OMISSION (the undo's true gap — the wire and tools carry it, only the browser omits it), the ACCESSIBILITY TRUTHS (the ack's aria-live absence, the focus destruction, the marker-alone names), the white screen's one instance (:757), the register's asks, the picker's wall. The design gate rules on this ground; the close's record carries no superseded premise",
         "ruled_at": "2026-11-27",
         "why": "the claims lane turned inward and caught the convening's own premise: the design must rule on the bytes, never the memory — the four seats' convergence + the live record the proof; the collaborator's \"proceed with recommendations\" greens the gate WITH the amendment recorded (the recommendation's first item honored formally)"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the card unit lands per the approved spec (the exact-task law): the form-wrapped card pair (the two option cards as submit buttons inside the standing form — the wire byte-identical, the CSRF intact, the accessible names the full labels, the fieldset/legend group semantics), the operator the word 'vs' between (never focusable), the tie's subordinate control carrying its word at the bar, THE UNDO riding the ack (the last vote's id + the re-click affordance at the stay-put ack; the different-verdict re-click riding supersedes; the copy teaching the correction AT the mistake's mirror, never 'erased'; the acknowledged-flag seam test-pinned with RUN-0009's divergence the named residual), the accessibility rides binding (the aria-live at the ack region, the stable ids surviving the two swaps, the focus restoration), hx-sync at the form closing the in-flight race\\\", \\\"the floor green (the suite grown per the spec's arcs — the exact count named from 480; ruff zero findings; pyright 0/0; zero ignores beyond the named per-file rulings); kensho's independent verification green (validate/card-unit); MOHO'S WALK at the build gate (R4 — the card lived cold: the translation dead, the undo discovered, the tie found, the operator teaching, the findings riding the gate as evidence)\\\", \\\"the constraints verified live: the stamps unchanged at the click (the corroboration floor untouched); the llm-class at its own weight (the tools lanes untouched); the landed surfaces ridden never rewritten; both lanes served (the sitting + the deliberate — the same shared fragment); the honest-docs law at every changed body\\\"]\", \"gate\": \"G-CARD\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T20:17:15Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the exact-task spec landed (the bytes whole, every edit fenced): the card pair's template bytes (the buttons inside the form, the accessible names, the fieldset/legend), the operator's element, the tie's control, the ack's undo region (the id carry, the re-click affordance, the copy's bytes), the rides' attributes (the aria-live, the ids, the focus restoration), the hx-sync line, the seam's test pins, the test files' arcs, the per-step plan (R8 — one file per dispatch, the read-backs named)\\\", \\\"the constraints held at the spec's every surface (the wire byte-identical; the stamps unchanged; the llm lanes untouched; the CSRF guard's one read lane); the honest-docs law at every changed body; the named per-file rulings only\\\", \\\"the collaborator's approval — the build dispatches cite the approved spec (the exact-task law)\\\"]\", \"gate\": \"G-CARDSPEC-BRIEF\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T20:17:29Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the micro-bridge lands per the approved fence (each cure independently revertable, ~10-16 lines total): the :757 done-branch's true 302 (the one-line cure; the HTMX-honored lanes verified unaffected; the cache's law named in the docstring), the re-cast copy cure (the stale-token teaching naming the re-cast law at the identifying vote), the conftest pre-import (the F401 at the zero-findings referenced-name form — the named per-file ruling), the quorum label's 16 words (the 45-word sentence retired; the teaching preserved at sitting.html + done.html)\\\", \\\"the floor green (the suite at the grown count; ruff zero; pyright 0/0); kensho's independent verification green (validate/bridge)\\\", \\\"the honest-docs law at every changed body; the bridge never touching the card unit's surfaces\\\"]\", \"gate\": \"G-BRIDGE\", \"type\": \"deterministic-check\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T20:17:42Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CARD\", \"increment\": \"build/card\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-CARD-BRIEF\", \"packets\": [\"discover/card\", \"understand/card\"], \"synthesize_increment\": \"synthesize/card\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T20:17:54Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-BRIDGE\", \"increment\": \"build/bridge\", \"owner\": \"jikko\", \"pipeline\": {\"brief_gate\": \"G-BRIDGE-BRIEF\", \"packets\": [\"discover/bridge\", \"understand/bridge\"], \"synthesize_increment\": \"synthesize/bridge\"}, \"stage\": \"build\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"build\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"gate\\\"}, {\\\"executor\\\": \\\"deterministic\\\", \\\"id\\\": \\\"floor-green\\\", \\\"member\\\": \\\"jikko\\\", \\\"tool\\\": \\\"make\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T20:18:10Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CARDSPEC-BRIEF\", \"increment\": \"synthesize/cardspec\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T20:18:22Z",
+        "op": "add-increment"
       }
     ]
   },
