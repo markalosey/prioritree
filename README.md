@@ -28,7 +28,7 @@ $ make start
 $ open http://127.0.0.1:8000/
 ```
 
-The browser is the human comparator's surface: register a list, vote the served pairs, read the ranked whole.
+The browser is the human comparator's surface: register a list, vote the served pairs (identifying once at the first judgment — the browser remembers the name), read the ranked whole (see [Multi-user](#multi-user)).
 
 A fresh clone boots armed — the browser's first POST meets the key-path page until the operator mints a key AND wires it (`PRIORITYTREE_WEB_KEY` at the next boot, then `make restart`; both legs at [Auth](#auth)).
 
@@ -53,12 +53,12 @@ Five tiers, one layered architecture, library-first:
 - **Library — `src/prioritree` — built 2026-11-20.** The pure-logic core at the bottom of the stack: items, the comparison operator, pair scheduling, votes, tally — the tally a pure function of the stored votes. State is file-backed JSONL (no database).
 - **CLI — built 2026-11-21.** Wraps the core: the five-op surface at the command line (register → next → vote → state → tally), the `prioritree` console script.
 - **Service (FastAPI) — live 2026-11-21.** Serves the core over HTTP: six routes (the five ops 1:1 + the manifest query), one process-wide lock seam, every error body the three-part form (expected / found / next-action).
-- **Web — built 2026-11-22.** Fronts the service: `src/prioritree/web.py` (820 lines, nine routes, 15 authored Jinja2 templates + 2 static files) over the in-process seam — the human comparator's vote surface at the browser.
-- **MCP — live 2026-11-22.** The agent-callable tier: `src/prioritree/mcp_server.py` (645 lines, the five OunceMCP tools — `runs.register`, `runs.next`, `votes.cast`, `votes.census`, `runs.tally`; the `store_lock.py` flock seam), two run forms.
+- **Web — built 2026-11-22.** Fronts the service: `src/prioritree/web.py` (1241 lines, twelve lanes, 17 authored Jinja2 templates + 2 static files) over the in-process seam — the human comparator's vote surface at the browser.
+- **MCP — live 2026-11-22.** The agent-callable tier: `src/prioritree/mcp_server.py` (681 lines, the five OunceMCP tools — `runs.register`, `runs.next`, `votes.cast`, `votes.census`, `runs.tally`; the `store_lock.py` flock seam), two run forms.
 
 The auth doors live inside the service/web/mcp surfaces — not a sixth tier (see [Auth](#auth)).
 
-Runtime dependencies: six — `fastapi`, `httpx2`, `jinja2`, `ouncemcp`, `python-multipart`, `uvicorn[standard]` (`pyproject.toml`). The quality floor: 336 tests green, pyright clean, ruff clean.
+Runtime dependencies: seven — `fastapi`, `httpx2`, `itsdangerous`, `jinja2`, `ouncemcp`, `python-multipart`, `uvicorn[standard]` (`pyproject.toml`). The quality floor: 475 tests green, pyright clean, ruff clean.
 
 ## Usage
 
@@ -104,7 +104,7 @@ Every route reads the `X-Api-Key` header; the refusals are the three-part form (
 
 The lifecycle targets — `make start`, `make stop`, `make status`, `make restart` (`PORT ?= 8000`, `HOST ?= 127.0.0.1`; override: `make start PORT=8100`). The browser at `http://127.0.0.1:8000/`: register a list, vote the served pairs, read the ranked whole.
 
-The browser is key-free by design (the tier's own server-side key — every judge one voice); the CSRF rides invisibly, a stale token's cure the reload (see [Auth](#auth)).
+The browser is key-free by design (the tier's own server-side key — each browser its own voter, the name asked once and remembered); the CSRF rides invisibly, a stale token's cure the reload, a lapsed identification's cure the same reload — the page re-asks the name (see [Auth](#auth), [Multi-user](#multi-user)).
 
 ### MCP
 
@@ -142,11 +142,11 @@ The store lands at `.prioritree/keys.jsonl`, CWD-relative — run the mint from 
 
 A typo'd AUTH refuses loudly at boot — expected `AUTH one of on|off (or unset)`, found the value verbatim, next-action the fix-and-reboot; the boot dies honestly (key_store.py:554-578).
 
-The carry, three lanes: the service wire reads the `X-Api-Key` header (key_verify.py:32); the browser rides the env — `PRIORITYTREE_WEB_KEY` at the NEXT boot, then `make restart` (the mint alone cures nothing at the browser: the 401's next_action names the mint, never the wiring; the boot log's `web tier key: present|absent (a six-token grant)` line is the wiring's evidence, web.py:239-241); the mcp `--serve` door reads the bearer — `Authorization: Bearer {key}`; the X-Api-Key header never rides at that door (mcp_auth.py:37-39).
+The carry, three lanes: the service wire reads the `X-Api-Key` header (key_verify.py:32); the browser rides the env — `PRIORITYTREE_WEB_KEY` at the NEXT boot, then `make restart` (the mint alone cures nothing at the browser: the 401's next_action names the mint, never the wiring; the boot log's `web tier key: present|absent (a six-token grant)` line is the wiring's evidence, web.py:389-392); the mcp `--serve` door reads the bearer — `Authorization: Bearer {key}`; the X-Api-Key header never rides at that door (mcp_auth.py:37-39).
 
 The audience pair {service, mcp} (key_store.py:53): one key form, two doors, one store — a key is dead at its non-audience, indistinguishably from unknown (the wrong-audience 401 is the SAME form; the identity oracle never fed). The mint validates scopes and audience separately, never the combination.
 
-The web tier's own key — the skeleton key, named honestly: minted with the six-token grant (`--scopes register,next,cast,state,tally,manifest`); its leak is every human's writes — single-point, the design's named price.
+The web tier's own key — the skeleton key, named honestly: minted with the six-token grant (`--scopes register,next,cast,state,tally,manifest`); its leak is every human's writes — single-point, the design's named price, grown one notch by the session's seam: the key's holder can vote as any remembered name at the web lane alone (id forgery at that lane — priced at the loopback's no-new-reach: the class that holds the key can already vote directly; the key's custody the guard).
 
 The comparator's chain — the header at the doors, the class stamped from the KEY, never the body:
 
@@ -171,16 +171,16 @@ The llm comparator rides the SAME ceremony — `prioritree key mint claude --cla
 
 The corroboration floor, told up front (policy.py:69-89 — the standing policy every run declares by being a prioritree run; tally.py:534-548 — the gate): every pair needs >=1 human AND >=1 llm vote at the tally. Where it bites: the tally gate. Which voices count: the key's class. Where the second class rides: the operator's llm-class key at the service/MCP tier (the browser has no llm lane).
 
-The browser's chain: `open http://127.0.0.1:8000/` — key-free by design (the tier key invisible by construction); the CSRF met only as the reload cure (`expected: the form's csrf_token field (minted into the served page) | found: absent-or-mismatched | next_action: reload the page and re-send — the re-render mints a fresh token`); the 401/403 lanes render the service's own three fields at the honest statuses, under the headings "The service asked for a key" / "The key lacks this act's scope" — never the crash page's clothes. Every browser judge is the web tier's ONE comparator: agreement between judges ACKs (the dedup), disagreement counts (a new record) — the other voices ride their own keys at the service/MCP tier.
+The browser's chain: `open http://127.0.0.1:8000/` — key-free by design (the tier key invisible by construction); the CSRF met as the two taught cures (`expected: the form's csrf_token field (minted into the served page) | found: absent-or-mismatched | next_action: reload the page and re-send — the re-render mints a fresh token` — the live-session copy, web.py:277; the lapsed identification teaches `your identification lapsed — reload, the page re-asks your name`, web.py:279); the 401/403 lanes render the service's own three fields at the honest statuses, under the headings "The service asked for a key" / "The key lacks this act's scope" — never the crash page's clothes. Each browser is its own voter at the web tier: the same browser's re-send ACKs (the dedup), two browsers land two ids (two records — the duplication visible, the depth inflation named honestly); the other voices ride their own keys at the service/MCP tier.
 
 The agent's chain: `uv run python -m prioritree.mcp_server --serve` + `Authorization: Bearer {key}`. The five-tool reach per the key's scopes (mcp_auth.py:86-94): `runs.register`→register, `runs.next`→next, `votes.cast`→cast, `votes.census`→state, `runs.tally`→tally — manifest has NO mcp tool (the service tier's sixth route alone; a manifest-only mcp key opens nothing). The wrong-token 401's body is the substrate's own canned OAuth text — "clear authentication tokens in your MCP client and reconnect. Your client should automatically re-register and obtain new tokens" — the reconnect mints nothing; the mint is the only acquisition. A tool absent from your list refuses as absent; check your key's scopes, not the server. Over stdio the spawn IS the credential — all five tools ungated, the stamps the body's self-claims (the local trust; `--serve` and the service wire are the verified forms).
 
 The knobs, at their ?= forms (the configurability law — every name a knob from birth):
 
 - `AUTH ?= on` (Makefile:7) — on|off|unset→on; a typo refuses loudly at boot
-- `PRIORITYTREE_WEB_KEY ?=` (Makefile:8) — the browser lane's wiring, read once at boot (web.py:232-238); the boot log line `web tier key: present|absent (a six-token grant)`
+- `PRIORITYTREE_WEB_KEY ?=` (Makefile:8) — the browser lane's wiring, read once at boot (web.py:382); the boot log line `web tier key: present|absent (a six-token grant)`
 - `PRIORITYTREE_KEYS_HOME` (key_store.py:45-48) — the store's home, resolved absolute at both doors; an empty override falls back to the default
-- `PRIORITYTREE_WEB_CSRF_SECRET` (web.py:113-116) — unset means a boot-minted random; a restart invalidates outstanding tokens (the reload the cure); one secret across workers
+- `PRIORITYTREE_WEB_CSRF_SECRET` / `PRIORITYTREE_WEB_REMEMBER_SECRET` (web.py:124-125) — unset means a boot-minted 256-bit secret; a restart invalidates outstanding tokens and sessions (the reload and the re-ask the cures); one secret each across workers; an under-floor env secret refuses at import in the three-part form
 - the header `X-Api-Key` at the service door (key_verify.py:32); the bearer grammar at the mcp door (mcp_auth.py:37-39); `--host`/`--port` at `--serve`
 
 ### Remains trust
@@ -193,7 +193,7 @@ The knobs, at their ?= forms (the configurability law — every name a knob from
 - The local process's reach: the key fences the socket, not the filesystem — every local process owns every surface.
 - The offline JSONL edit: the checks live at the wire; the seam lives on disk.
 - The issuance's honesty: the operator mints honestly — the operational trust itself.
-- The browser's unbound id: the form's self-claim behind the tier key — the door stamps the web key's id.
+- The browser's remembered id: narrowed, never erased — the session's self-claim carried across the tier key's door from the web lane alone (service.py:581-582), persistent never verified; the class still the key's, stamped over any body's claim.
 - The stdio self-claims: stdio is the local user's trust; `--serve` and the service wire are the verified forms.
 - The hide's teaching loss: the unauthorized agent cannot tell broken-server from unauthorized-self.
 - The quantities: the policy grants verbs, never quantities — owned by the tally-policy lane, never silent.
@@ -205,6 +205,29 @@ The llm-class constraint, told plainly: the llm's key is the SAME mint ceremony 
 The alternatives were priced and refused — the prices cited to the record (auth-design.md §1), never re-derived here: JWT (9.1x-36.4x the wire, the second secret's custody, the downgrade class); the secret manager ($28.80/yr + the credential chain widening the exposure it guards); OAuth (the consent ceremony kills the llm ride). The file earned its place: one file (`.prioritree/keys.jsonl`), one machine's filesystem, one process's in-memory dict, the machine-wide flock.
 
 When this stops being true — the threshold: past <=8 operators, past the single machine, into multi-tenancy, the file's earn ends and the banked machinery begins — JWT at the multi-machine wire, the secret manager at the fleet, OAuth at the external authority. The triggers named, the prices standing at the design's record (auth-design.md §3) — never silent, never copied here.
+
+## Multi-user
+
+The browser remembers the judge — `Your name is asked once — the site remembers your entry for every judgment you cast from this device.` The ask lives inside the vote form at the first judgment, never a separate gate; the cookie named `remember` carries the name across every page load (itsdangerous-signed, 14 days by default). Every render shows `voting as: <name>` — one visible line closes three stumbles: the cookie-swap is seen at the next render, the typo is seen and not just remembered, the shared machine's bleed is seen.
+
+Each browser is its own voter. A fresh browser asks again — the expiry taught in the human's words, `your identification lapsed — reload the page, it re-asks your name`, never the schema's. Two browsers land two voters, the ids distinct at the record, the duplication visible never hidden; two humans on one browser merge into one voter. The tally counts votes, never minds. The register's operator field arrives pre-filled from the remembered name — a visible editable value; the claim always rides the body. The shareable URL stays shareable: anonymous reads unchanged, each judge identifies once at their own browser.
+
+Two roles, named honestly. WHO — the name is yours: a self-claim, persistent, never verified (no account, no secret; k fabrications are still k identifications). WHAT CLASS — the key's verified stamp, never the browser's to claim at any door: the session is the humans' lane, the llm votes ride unchanged at the stdio/tools tier on the mcp audience's keys. The id-binding is narrowed, never erased — the remembered self-claim crosses the verified door from the web lane alone (service.py:581-582), persistent never verified; the record says what it knows and what it merely carries.
+
+> **THE SESSION CURES THE UX COST, NEVER THE IDENTITY FABRICATION**
+>
+> — the design's honest statement, carried verbatim (`.plans/ideation/2026-11-26-prioritree-multi-user/reports/synthesize/multi-user-design.md` §3)
+
+The statement's whole, compact: the record's identity is a browser's self-claim, persistent and pinned, never verified; the corroboration story's strength lives at the class axis (the key's verified stamp), never at the id axis (the self-claim). The browser binding — each browser its own voter: multi-browser-per-human splits one human into k voters, multi-human-per-browser merges many into one. The readable payload — the name's bytes client-side in the cookie, tamper-cured, readable by the holder. The verdict at this bind: UX-first, security-second — the loopback keeps the remote classes dead and the local class already owns the machine; the session's security value prices in at the LAN rebind era. The auth precedent's parallel: the auth cures the wire — the session cures the ceremony; the identity's honesty remains the human's own.
+
+The correction verbs, one affordance (`not you? change your name or un-remember this device`, sitting.html:10). Change — the re-identification rotates the CSRF epoch; the old tabs' tokens die, the reload the cure (`reload the page and re-send — the re-render mints a fresh token`). Un-remember — the engine's deletion cookie (`remember=null; expires=Thu, 01 Jan 1970`, no max-age, web.py:1217-1241): it clears this browser's cookie, never a server kill — a stolen cookie elsewhere rides to the max-age or the secret's rotation.
+
+The knobs, at their env forms (the configurability law — every knob from birth):
+
+- `PRIORITYTREE_WEB_REMEMBER_SECRET` / `PRIORITYTREE_WEB_CSRF_SECRET` (web.py:124-125) — unset means a boot-minted 256-bit secret; a restart invalidates outstanding sessions and tokens (the re-ask and the reload the cures); an under-floor env secret refuses at import in the three-part form — a weak secret weakens every artifact it signs.
+- The 14-day `max_age` — the 780-s card covered 1550×; the price a 14-day stolen-cookie window. `SameSite=lax` — the shareable URL's top-level entry preserved; `HttpOnly` hardcoded at the engine, never a knob.
+
+The era order, told compact: this session was born mid-probe — the order-bias probe's completion card met the per-operation identification and was abandoned at the first sitting (0 of 78; the datum deferred at 241 of 312); the collaborator's governance overrule convened the full-team cycle (research → evaluation → recommendation → the design), the session landed at the floor 475 — and the datum was served: RUN-0008 completed at 319 votes, the null standing at its realized bound |θ−0.5| ≲ ±0.192, never "no bias". The records resolve to the two stores: the datum at `.plans/ideation/2026-11-24-order-bias-probe/` (reports/measure/probe.md; reports/close/records.md), this effort's whole at `.plans/ideation/2026-11-26-prioritree-multi-user/`.
 
 ## Input/Output Examples
 
@@ -290,13 +313,13 @@ $ make start
 $ open http://127.0.0.1:8000/
 ```
 
-**`uv tool install .` — the tool lane.** Installs the `prioritree` console script and its six dependencies — the five CLI ops run from any directory. State is per-project by design: the store mints at `.prioritree/runs` under your CWD; `--home` redirects. The web tier rides this lane too: the wheel ships the templates and static files as package data, and the web homes resolve them from the installed package. Serve the web with the tool env's uvicorn — `$(uv tool dir)/prioritree/bin/uvicorn prioritree.service:app` (any directory; the store mints where you stood). The MCP rides the same install: `$(uv tool dir)/prioritree/bin/python -m prioritree.mcp_server` for stdio, or the same command with `--serve` (port 8100 — co-runnable with the web's 8000).
+**`uv tool install .` — the tool lane.** Installs the `prioritree` console script and its seven dependencies — the five CLI ops run from any directory. State is per-project by design: the store mints at `.prioritree/runs` under your CWD; `--home` redirects. The web tier rides this lane too: the wheel ships the templates and static files as package data, and the web homes resolve them from the installed package. Serve the web with the tool env's uvicorn — `$(uv tool dir)/prioritree/bin/uvicorn prioritree.service:app` (any directory; the store mints where you stood). The MCP rides the same install: `$(uv tool dir)/prioritree/bin/python -m prioritree.mcp_server` for stdio, or the same command with `--serve` (port 8100 — co-runnable with the web's 8000).
 
 **Not on PyPI.** `uv tool install prioritree` and `pip install prioritree` do not resolve — Priori-tree is not published. The publish is deferred: the license, the packaging, and CI have landed; the publish itself remains the outward lane's ruled act.
 
 ## Status
 
-Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools); the auth landed 2026-11-24 (the key store, the grant map, the six doors, the mcp bearer door, the corroboration floor — [Auth](#auth)). CI is live (2026-11-23): the CI workflow (.github/workflows/ci.yml) runs the quality floor — ruff, pytest, pyright — at every push to main and weekly, and CodeQL scans under the tree's own config (.github/codeql/codeql-config.yml); the loop's lands ride direct pushes to main and the workflow runs green at each push — the PR form has no grammar here; the git hook stays the local backstop. The quality floor: 336 tests green, pyright clean, ruff clean.
+Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools); the auth landed 2026-11-24 (the key store, the grant map, the six doors, the mcp bearer door, the corroboration floor — [Auth](#auth)); the order-bias question measured 2026-11-26 (the presented order's bias over the tree's own stamped votes: the flips real — 26 of 155 classifiable cells flipped on the swap; the direction's asymmetry unestablished at the realized m — THE NULL AT ITS BOUND |θ−0.5| ≲ ±0.192, never "no bias"; the record at `.plans/ideation/2026-11-24-order-bias-probe/`); the voter session landed 2026-11-26 (identify once per browser — each browser its own voter, the class still the key's; born mid-probe at the measured refusal, RUN-0008's datum served at 319 — [Multi-user](#multi-user)). CI is live (2026-11-23): the CI workflow (.github/workflows/ci.yml) runs the quality floor — ruff, pytest, pyright — at every push to main and weekly, and CodeQL scans under the tree's own config (.github/codeql/codeql-config.yml); the loop's lands ride direct pushes to main and the workflow runs green at each push — the PR form has no grammar here; the git hook stays the local backstop. The quality floor: 475 tests green, pyright clean, ruff clean.
 
 ## License
 
