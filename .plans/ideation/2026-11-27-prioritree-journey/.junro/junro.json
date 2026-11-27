@@ -1,0 +1,287 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-journey",
+    "title": "Prioritree Journey — the simplification of the journey: the pairwise comparison's one-click form (two options shown, the comparison operator between, one click choosing) and the entire system evaluated in the simplification context — every surface of the human's path measured against the primary purpose (simplifying the ordering of a list); designed through the full-team cycle, built to be publicly right; the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "THE COLLABORATOR'S CONVENING (2026-11-27, two messages verbatim): \"The primary purpose of the system is simplifying the ordering of a list. A part of the simplification is the experience of the pairwise comparison and selection. Currently we show two choices, click a button to choose, click a submit button to send the decision. This could all be simplified to Show two options, click on one of the options. Comparison operation shown in between the two options. This is an example of user experience focus and simplification. We need to evaluate the entire system in this context...but yeah. Implement this after we have team input on the best way to do it.\" + \"it's a simplification of the journey.\"",
+      "THE ONE-CLICK RULING'S SCOPE: the current two-step form pinned (the pair card's radio buttons + the submit button — pair.html's form, every tier's equivalent), the one-click target named (the option itself the choice — one click casting the vote), the comparison operator shown between the options; the entire system evaluated in the simplification context — every surface of the human's journey measured (the register, the sitting, the deliberate lane, the ack, the done page, the result, the CLI/tools lanes at their own weight)",
+      "THE JOURNEY-CLASS FINDINGS CARRIED (moho's three stumbles from the polish walk — the ground's first items): the done-page white screen at the live queue (the plain browser's empty 200 + HX-Redirect — the journey class itself); the stale-token re-cast debt (the anonymous first vote's uninvited CSRF refusal); the import-cycle teaching debt; PLUS the era's standing laws born at the polish close (honest-cure, verification, transport, stamp, regen)",
+      "THE STANDING CONSTRAINTS: the full-team cycle first (the multi-user precedent's own law: \"Implement this after we have team input on the best way to do it\" — the research/evaluation/recommendation arc, every seat at every stage, never a straight build); the free-tier spirit; the llm-class constraint (the one-click form serves both classes — the tools' lanes at their own UX weight); the corroboration floor's interaction with the one-click form (the stamps unchanged — the click casts the same vote); the landed surfaces composed with (the session's identify-once, the CSRF, the chain/deliberate lanes, the ack-carry — the one-click form rides them, never rewrites them)",
+      "the standing laws carried: the seat-authored report (R6/R11), the per-step dispatch (R8, the file-unit — the transport law too), the TwoPart/ThreePart, the claims lane, the implementation-walk law (R4 — this effort the UX's own ground: the walks at the design AND build gates), the honest-docs law, the commit discipline (the natural unit, never the bypass)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "research",
+        "purpose": "THE RESEARCH STAGE (the journey's ground, the full-team mandate realized): FIVE parallel ungated legs, every seat its own discipline — tansa's journey census (every surface of the human's path pinned: the register, the sitting, the card's two-step form [the radio buttons + the submit — pair.html's exact bytes], the deliberate lane, the ack, the done page, the result, the CLI/tools lanes at their own weight — every click and every ask counted); rikai's one-click landscape (the precedents at the sources, the claims lane at every source: the ecosystem's one-click comparison patterns, the accessibility forms [the keyboard, the screen readers, the touch targets], the HTMX click-to-cast patterns); shindan's findings diagnosis (moho's three [the done-page white screen at the live queue — the journey class itself; the stale-token re-cast debt; the import-cycle teaching] + the white-screen class whole); keisan's click arithmetic (the savings quantified at the tool, the effort priced, the free-tier ledger); MOHO'S JOURNEY WALK (the whole path lived cold — the register through the result, the two-step cost measured at the human's hands); togo's gated synthesis closing G-JOURNEY-RESEARCH — the claims' verdicts + the journey map, every seat's input visible",
+        "entry_condition": "G-COMPOSITION is green — the route validated; the research fires first, its findings assumed by none of this composition",
+        "increments": [
+          {
+            "id": "synthesize/journey-research",
+            "owner": "togo",
+            "gate": "G-JOURNEY-RESEARCH",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "evaluation",
+        "purpose": "THE EVALUATION STAGE (the full bench over the one-click candidates): FOUR parallel ungated packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (every candidate attacked: the misclick class [the accidental cast, the no-undo risk], the accessibility attacks, the CSRF composition at the click, the anchor-based race); moho's blind walks (the candidate forms walked as the human: the one-click lived at every surface, the operator's form read cold, the journey's flow at each candidate); keisan's pricing (every candidate against the constraints: the click-count savings, the accessibility's cost, the free-tier spirit); shindan's residual diagnosis (every candidate's residual journey — what friction remains at each) — the divergences reconciled at togo's design synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate",
+        "entry_condition": "G-JOURNEY-RESEARCH is green — the journey's ground researched whole, the one-click landscape mapped",
+        "increments": []
+      },
+      {
+        "id": "recommendation",
+        "purpose": "THE RECOMMENDATION STAGE (the reasoning whole): suisen's full-depth recommendation (the journey's design whole: the one-click form [the option as the choice, the operator between], the entire system's simplification map — every surface measured against the primary purpose, the findings' cures placed, the alternatives named with their prices) + togo's gated synthesis integrating the whole bench's findings — the divergences reconciled never averaged away — closing G-JOURNEY-DESIGN at the collaborator's ruling on the full record: the design judged publicly right, the build set earned by the cycle's outcome",
+        "entry_condition": "the evaluation's packets landed whole — every candidate attacked, walked, priced, diagnosed; the divergences carried whole",
+        "increments": [
+          {
+            "id": "synthesize/journey-design",
+            "owner": "togo",
+            "gate": "G-JOURNEY-DESIGN",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE JOURNEY BUILD — the units the cycle's outcome earns (named not pinned: the one-click card the likely first [the option as the choice, the operator between, the two-step retired], the journey findings' cures [the done-page white screen, the re-cast debt], the ack/done/result surfaces per the design's map, the README's journey story), the two-lane brief -> spec -> build per unit, one file per dispatch (R8's file-unit law — the transport law too, the polish lesson), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALKS at the user-facing units' build gates (R4 — this effort the UX's own ground), one-commit-per-increment (the natural unit, never the bypass); the stamps unchanged at the click; the llms at their own UX weight; the honest-docs law at every changed body",
+        "entry_condition": "G-JOURNEY-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch; the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law)",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake, the lessons named), the effort's records (the CONTINUATION entry — the journey's simplification carried whole, the next era named [the outward lane — PyPI — or the collaborator's call], the banked shapes carried), the done call at the collaborator's ruling",
+        "entry_condition": "the route's build gates closed green (the journey simplified at its every surface) and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "retro",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-synthesis",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-landing",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "done-call",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [research -> evaluation -> recommendation -> build -> close — the stages ARE the cycle], the gates, the increments, the ten ungated placements — all thirteen seats placed, the full-team mandate's proof; no build before the design gate)",
+          "every choice cites its ruling: the convening's four clauses verbatim (the primary purpose as the measure; the one-click target [two options shown, the operator between, one click choosing — the two-step retired]; the full-team cycle first — 'Implement this after we have team input on the best way to do it'; 'it's a simplification of the journey') + the heart's inputs (the journey-class findings [moho's three the research ground's first items]; the standing constraints [the stamps unchanged at the click, the llms at their own UX weight, the landed surfaces ridden never rewritten]; the five standing laws) + the precedents (the multi-user cycle's form, the polish pass's form) + the standing laws (R8's file-unit as the transport law too, R4's walks at the design AND build gates)",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-JOURNEY-RESEARCH": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the journey's ground researched whole: the census of every surface of the human's path (the register, the sitting, the card's two-step form pinned, the deliberate lane, the ack, the done page, the result, the CLI/tools lanes at their own weight — every click and every ask counted); the one-click interaction's landscape at the sources (the claims lane: the ecosystem's one-click comparison patterns, the accessibility forms [the keyboard, the screen readers, the touch targets], the HTMX click-to-cast patterns); the journey findings' diagnosis (moho's three [the done-page white screen at the live queue — the journey class itself; the stale-token re-cast debt; the import-cycle teaching] + the white-screen class whole); the click arithmetic (the savings quantified at the tool, the effort priced); MOHO'S JOURNEY WALK (the whole path lived cold, the two-step cost measured at the human's hands)",
+          "every seat's input visible (tansa's census, rikai's landscape, shindan's diagnosis, keisan's arithmetic, moho's walk — the full-team record; a divergence that survives reconciliation blocks the gate, never rides silently)",
+          "the collaborator rules the research whole — no evaluation packet fires before it is green"
+        ]
+      },
+      "G-JOURNEY-DESIGN": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the recommendation ruled on the full record: suisen's full-depth whole + togo's synthesis integrating the bench's findings — the one-click form designed (the option as the choice, the operator between the options, the two-step retired), the entire system's simplification map ruled (every surface measured against the primary purpose: simplifying the ordering of a list — the register, the sitting, the ack, the done, the result, the findings' cures placed), the divergences resolved never averaged away",
+          "the constraints held: the corroboration stamps unchanged at the click (the click casts the same vote); the llm-class at its own UX weight (the tools' lanes never forced to the browser's form); the landed surfaces ridden never rewritten (the session, the CSRF, the lanes); the journey findings cured or ruled at their homes; the honest statement extended honestly",
+          "no build dispatch fires before it is green — the build set earned by the cycle's outcome (named not pinned: the one-click card the likely first), the collaborator's ruling the gate's own act"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the journey's simplification carried whole [every surface's fate named], the next era named [the outward lane — PyPI — or the collaborator's call], the banked shapes carried)",
+          "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-journey resolved at the record (the journey simplified to its last click)"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-journey\", \"text\": \"What is prioritree's simplified journey — the pairwise comparison's one-click form (two options shown, the comparison operator between them, one click on an option casting the vote — the two-step radio-plus-submit form retired), the entire system evaluated in the simplification context (every surface of the human's path measured against the primary purpose: simplifying the ordering of a list), the journey-class findings cured (the done-page white screen, the re-cast debt, the teaching debts), the one-click form composed with the landed surfaces (the session's identify-once, the CSRF, the chain/deliberate lanes) — designed through the full-team cycle, built to be publicly right?\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:03:04Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-journey\", \"ruling\": \"THE CONVENING (the collaborator's ruling, 2026-11-27, both messages verbatim): (1) THE PRIMARY PURPOSE RESTATED AS THE MEASURE — \\\"The primary purpose of the system is simplifying the ordering of a list. A part of the simplification is the experience of the pairwise comparison and selection.\\\" — every surface of the human's journey measured against it; (2) THE ONE-CLICK TARGET — \\\"Currently we show two choices, click a button to choose, click a submit button to send the decision. This could all be simplified to Show two options, click on one of the options. Comparison operation shown in between the two options.\\\" — the two-step form retired, the option itself the choice, the operator between them; (3) THE GOVERNANCE FORM — \\\"We need to evaluate the entire system in this context...but yeah. Implement this after we have team input on the best way to do it.\\\" — THE FULL-TEAM CYCLE FIRST (the multi-user precedent's own law: the research/evaluation/recommendation arc, every seat at every stage, the divergences reconciled at the synthesis, never a straight build), then the build; (4) THE FRAMING — \\\"it's a simplification of the journey\\\": the simplification named at the journey's scale (the whole path: the register, the sitting, the deliberate lane, the ack, the done page, the result — the entire system in the context), never the button's scale alone. THE STANDING CONSTRAINTS: the free-tier spirit (the journey prices its own surfaces); the llm-class constraint (the one-click form serves both classes — the tools' lanes at their own UX weight, never forced to the browser's form); the corroboration floor's stamps unchanged (the click casts the same vote); the landed surfaces composed with (the session, the CSRF, the lanes — ridden, never rewritten); the five standing laws (honest-cure, verification, transport, stamp, regen) + the standing forms (R8's file-unit as the transport law too, R4's walks at the design AND build gates — this effort the UX's own ground, the walks the ruling's own evidence).\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:03:23Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [research -> evaluation -> recommendation -> build -> close — the stages ARE the cycle], the gates, the increments, the ten ungated placements — all thirteen seats placed, the full-team mandate's proof; no build before the design gate)\\\", \\\"every choice cites its ruling: the convening's four clauses verbatim (the primary purpose as the measure; the one-click target [two options shown, the operator between, one click choosing — the two-step retired]; the full-team cycle first — 'Implement this after we have team input on the best way to do it'; 'it's a simplification of the journey') + the heart's inputs (the journey-class findings [moho's three the research ground's first items]; the standing constraints [the stamps unchanged at the click, the llms at their own UX weight, the landed surfaces ridden never rewritten]; the five standing laws) + the precedents (the multi-user cycle's form, the polish pass's form) + the standing laws (R8's file-unit as the transport law too, R4's walks at the design AND build gates)\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:12:56Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the journey's ground researched whole: the census of every surface of the human's path (the register, the sitting, the card's two-step form pinned, the deliberate lane, the ack, the done page, the result, the CLI/tools lanes at their own weight — every click and every ask counted); the one-click interaction's landscape at the sources (the claims lane: the ecosystem's one-click comparison patterns, the accessibility forms [the keyboard, the screen readers, the touch targets], the HTMX click-to-cast patterns); the journey findings' diagnosis (moho's three [the done-page white screen at the live queue — the journey class itself; the stale-token re-cast debt; the import-cycle teaching] + the white-screen class whole); the click arithmetic (the savings quantified at the tool, the effort priced); MOHO'S JOURNEY WALK (the whole path lived cold, the two-step cost measured at the human's hands)\\\", \\\"every seat's input visible (tansa's census, rikai's landscape, shindan's diagnosis, keisan's arithmetic, moho's walk — the full-team record; a divergence that survives reconciliation blocks the gate, never rides silently)\\\", \\\"the collaborator rules the research whole — no evaluation packet fires before it is green\\\"]\", \"gate\": \"G-JOURNEY-RESEARCH\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:13:10Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the recommendation ruled on the full record: suisen's full-depth whole + togo's synthesis integrating the bench's findings — the one-click form designed (the option as the choice, the operator between the options, the two-step retired), the entire system's simplification map ruled (every surface measured against the primary purpose: simplifying the ordering of a list — the register, the sitting, the ack, the done, the result, the findings' cures placed), the divergences resolved never averaged away\\\", \\\"the constraints held: the corroboration stamps unchanged at the click (the click casts the same vote); the llm-class at its own UX weight (the tools' lanes never forced to the browser's form); the landed surfaces ridden never rewritten (the session, the CSRF, the lanes); the journey findings cured or ruled at their homes; the honest statement extended honestly\\\", \\\"no build dispatch fires before it is green — the build set earned by the cycle's outcome (named not pinned: the one-click card the likely first), the collaborator's ruling the gate's own act\\\"]\", \"gate\": \"G-JOURNEY-DESIGN\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:13:23Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the journey's simplification carried whole [every surface's fate named], the next era named [the outward lane — PyPI — or the collaborator's call], the banked shapes carried)\\\", \\\"the done call at the collaborator's ruling — the route's status set done at the ruling, Q-journey resolved at the record (the journey simplified to its last click)\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:13:38Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green — the route validated; the research fires first, its findings assumed by none of this composition\", \"purpose\": \"THE RESEARCH STAGE (the journey's ground, the full-team mandate realized): FIVE parallel ungated legs, every seat its own discipline — tansa's journey census (every surface of the human's path pinned: the register, the sitting, the card's two-step form [the radio buttons + the submit — pair.html's exact bytes], the deliberate lane, the ack, the done page, the result, the CLI/tools lanes at their own weight — every click and every ask counted); rikai's one-click landscape (the precedents at the sources, the claims lane at every source: the ecosystem's one-click comparison patterns, the accessibility forms [the keyboard, the screen readers, the touch targets], the HTMX click-to-cast patterns); shindan's findings diagnosis (moho's three [the done-page white screen at the live queue — the journey class itself; the stale-token re-cast debt; the import-cycle teaching] + the white-screen class whole); keisan's click arithmetic (the savings quantified at the tool, the effort priced, the free-tier ledger); MOHO'S JOURNEY WALK (the whole path lived cold — the register through the result, the two-step cost measured at the human's hands); togo's gated synthesis closing G-JOURNEY-RESEARCH — the claims' verdicts + the journey map, every seat's input visible\", \"stage\": \"research\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:13:58Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-JOURNEY-RESEARCH is green — the journey's ground researched whole, the one-click landscape mapped\", \"purpose\": \"THE EVALUATION STAGE (the full bench over the one-click candidates): FOUR parallel ungated packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (every candidate attacked: the misclick class [the accidental cast, the no-undo risk], the accessibility attacks, the CSRF composition at the click, the anchor-based race); moho's blind walks (the candidate forms walked as the human: the one-click lived at every surface, the operator's form read cold, the journey's flow at each candidate); keisan's pricing (every candidate against the constraints: the click-count savings, the accessibility's cost, the free-tier spirit); shindan's residual diagnosis (every candidate's residual journey — what friction remains at each) — the divergences reconciled at togo's design synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate\", \"stage\": \"evaluation\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:15:46Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the evaluation's packets landed whole — every candidate attacked, walked, priced, diagnosed; the divergences carried whole\", \"purpose\": \"THE RECOMMENDATION STAGE (the reasoning whole): suisen's full-depth recommendation (the journey's design whole: the one-click form [the option as the choice, the operator between], the entire system's simplification map — every surface measured against the primary purpose, the findings' cures placed, the alternatives named with their prices) + togo's gated synthesis integrating the whole bench's findings — the divergences reconciled never averaged away — closing G-JOURNEY-DESIGN at the collaborator's ruling on the full record: the design judged publicly right, the build set earned by the cycle's outcome\", \"stage\": \"recommendation\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:16:04Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-JOURNEY-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch; the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law)\", \"purpose\": \"THE JOURNEY BUILD — the units the cycle's outcome earns (named not pinned: the one-click card the likely first [the option as the choice, the operator between, the two-step retired], the journey findings' cures [the done-page white screen, the re-cast debt], the ack/done/result surfaces per the design's map, the README's journey story), the two-lane brief -> spec -> build per unit, one file per dispatch (R8's file-unit law — the transport law too, the polish lesson), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, MOHO'S IMPLEMENTATION WALKS at the user-facing units' build gates (R4 — this effort the UX's own ground), one-commit-per-increment (the natural unit, never the bypass); the stamps unchanged at the click; the llms at their own UX weight; the honest-docs law at every changed body\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:16:35Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's build gates closed green (the journey simplified at its every surface) and the collaborator has called the close\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake, the lessons named), the effort's records (the CONTINUATION entry — the journey's simplification carried whole, the next era named [the outward lane — PyPI — or the collaborator's call], the banked shapes carried), the done call at the collaborator's ruling\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:16:46Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-JOURNEY-RESEARCH\", \"increment\": \"synthesize/journey-research\", \"owner\": \"togo\", \"stage\": \"research\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:17:17Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-JOURNEY-DESIGN\", \"increment\": \"synthesize/journey-design\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:17:34Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"retro\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-synthesis\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-landing\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"done-call\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T18:18:09Z",
+        "op": "add-increment"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-journey",
+      "question": "What is prioritree's simplified journey — the pairwise comparison's one-click form (two options shown, the comparison operator between them, one click on an option casting the vote — the two-step radio-plus-submit form retired), the entire system evaluated in the simplification context (every surface of the human's path measured against the primary purpose: simplifying the ordering of a list), the journey-class findings cured (the done-page white screen, the re-cast debt, the teaching debts), the one-click form composed with the landed surfaces (the session's identify-once, the CSRF, the chain/deliberate lanes) — designed through the full-team cycle, built to be publicly right?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE CONVENING (the collaborator's ruling, 2026-11-27, both messages verbatim): (1) THE PRIMARY PURPOSE RESTATED AS THE MEASURE — \"The primary purpose of the system is simplifying the ordering of a list. A part of the simplification is the experience of the pairwise comparison and selection.\" — every surface of the human's journey measured against it; (2) THE ONE-CLICK TARGET — \"Currently we show two choices, click a button to choose, click a submit button to send the decision. This could all be simplified to Show two options, click on one of the options. Comparison operation shown in between the two options.\" — the two-step form retired, the option itself the choice, the operator between them; (3) THE GOVERNANCE FORM — \"We need to evaluate the entire system in this context...but yeah. Implement this after we have team input on the best way to do it.\" — THE FULL-TEAM CYCLE FIRST (the multi-user precedent's own law: the research/evaluation/recommendation arc, every seat at every stage, the divergences reconciled at the synthesis, never a straight build), then the build; (4) THE FRAMING — \"it's a simplification of the journey\": the simplification named at the journey's scale (the whole path: the register, the sitting, the deliberate lane, the ack, the done page, the result — the entire system in the context), never the button's scale alone. THE STANDING CONSTRAINTS: the free-tier spirit (the journey prices its own surfaces); the llm-class constraint (the one-click form serves both classes — the tools' lanes at their own UX weight, never forced to the browser's form); the corroboration floor's stamps unchanged (the click casts the same vote); the landed surfaces composed with (the session, the CSRF, the lanes — ridden, never rewritten); the five standing laws (honest-cure, verification, transport, stamp, regen) + the standing forms (R8's file-unit as the transport law too, R4's walks at the design AND build gates — this effort the UX's own ground, the walks the ruling's own evidence).",
+          "ruled_at": "2026-11-27",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}
