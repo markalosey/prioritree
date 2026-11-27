@@ -1,0 +1,220 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-polish",
+    "title": "Prioritree Polish — the entire team through the entire project: every stale count cured, every teaching debt paid, every drift named, every surface true to the record — the three efforts' banked polish set landed whole, the tree honest to its own bytes; the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "THE COLLABORATOR'S CONVENING (2026-11-27, verbatim: \"a polish pass next. Let's get the entire team to go through the entire project.\") — the full-team pass, every seat its discipline over the whole tree, the review effort's precedent form scaled to the polish set's weight",
+      "THE BANKED POLISH SET (the three efforts' records, each finding named never silenced): the done-page detour (moho's seven-times-lived — the ack's redirect killing the confirmation); the stale in-source counts (kensho's honest-docs fold: web.py's \"nine\" [twelve lanes], the module docstring's \"eleven\" [twelve routes], cast_vote's F8-only docstring, the refuse docstring's fourth instance); the app.js audit (the honest statement's opens named it); the mcp tool description's stale \"(every pair at quorum)\" text; the calculate help's make-target closing line + factorial's bound living only in the refusal (moho's smoke blemishes); the store_lock trust comment's stated-vs-armed gap; the template comments (the flow-fix's named leftover); any drift the pass finds beyond the banked set",
+      "THE PRECEDENT FORM (the 2026-11-22-prioritree-review store): the full-bench pass over the whole tree, the findings synthesized never averaged, the forms scaled down without flattening — the polish set's weight mostly micro-cures (one-line honest-docs), the ceremony matched to the weight",
+      "THE STANDING BAR: the floor 475 standing (the no-break proof at every cure); ruff zero findings, pyright 0/0, zero ignores (any new ruling named per-file); the honest-docs law (docs true to changed bodies); the claims-lane (every count re-read at the tree, never copied); the F6 boundary (mechanism fenced, prose verified by paste)",
+      "the standing laws carried: the seat-authored report (R6/R11), the per-step dispatch (R8, the file-unit), the ThreePart, the claims lane, the implementation-walk law (R4), the free-tier spirit, the commit discipline (the natural unit, never the bypass)"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "pass",
+        "purpose": "THE FULL-TEAM PASS (the entire team through the entire project — the review precedent's full-bench form): SEVEN parallel ungated legs, every seat its discipline over the whole tree — tansa's counts census (every told count re-read at its source: src + tests + README + the templates + the docs whole); shindan's state diagnosis (the stale comments, the stated-vs-lived gaps, the trust statements [store_lock's comment post-auth], the surface's condition whole); rikai's docstrings' maps (the honest-docs fold's ground itemized: every docstring vs its changed body); keisan's numbers (the in-source counts computed at the tool vs the lived — every count's trace); MOHO'S SURFACES WALK (the teaching debt lived: the done-page detour, the refusal surfaces' one-step cures, the calculate help's blemishes); hyoka's adversarial pass (the polish candidates attacked: which cures are honest, which hide drift, the app.js audit's behavior question); suisen's priorities (the polish set ranked: the weight-matched ceremony per cure, the free-tier prices); togo's gated synthesis closing G-POLISH-PASS — the polish set ruled whole at the full record",
+        "entry_condition": "G-COMPOSITION is green — the route validated; the pass fires first, its findings assumed by none of this composition",
+        "increments": [
+          {
+            "id": "synthesize/polish-pass",
+            "owner": "togo",
+            "gate": "G-POLISH-PASS",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cures",
+        "purpose": "THE CURES (the polish set landed at its weight — the synthesis's ruling the set's law): the micro-cures under the polish increment's own R8 file-units (the approved spec the set's fence — each cure's before/after, the honest-docs law at every line), the material cures per their own judgment (named not pinned: the done-page detour's UX surface, the app.js audit's behavior question); kensho's independent verification at the cure gate(s) — every cure confirmed at the tree; MOHO'S WALK at the user-facing cures (R4 — the detour's cure lived); the bar at every cure: the floor 475 standing, zero findings, zero ignores (any ruling named per-file), the claims lane at every count",
+        "entry_condition": "G-POLISH-PASS is green — the polish set ruled whole, each cure's ceremony matched to its weight; no cure dispatch before the green",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake, the lessons named), the effort's records (the CONTINUATION entry — the polish state carried whole, the next era named [the outward lane's own convening], the banked shapes carried), the done call at the collaborator's ruling",
+        "entry_condition": "the cure gates closed green (every cure confirmed at the tree) and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "retro",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-synthesis",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-landing",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "done-call",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the three stages [pass -> cures -> close], the gates, the increments, the seven ungated placements — every seat placed, the full-team mandate's proof)",
+          "every choice cites its ruling: the convening ruling (the full-team pass, the ceremony matched to the weight, the bar whole, the publish fenced out) + the review precedent (the full-bench form scaled, not flattened) + the standing laws (the claims lane at every count, R8's file-units, the honest-docs law, the F6 boundary, kensho per cure gate, R4's walks at the user-facing cures)",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-POLISH-PASS": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the pass's synthesis landed: togo's gated synthesis over the full bench's findings (the counts census, the state diagnosis, the docstrings' maps, the numbers, the walk's teaching debt, the adversarial pass, the priorities) — the polish set ruled WHOLE: every banked finding confirmed at the tree, every finding beyond the banked set caught and named, each cure's priority ranked, each cure's ceremony matched to its weight (the micro-cures one increment; the material cures their own judgment, named not pinned)",
+          "the claims lane held at every finding (each count re-read at the tree, each stale docstring verified at its changed body, each drift named at its bytes — never copied from the banked records)",
+          "the collaborator rules the pass on the full record — no cure dispatch fires before it is green"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the polish state carried whole: every cure confirmed at the tree, the tree honest to its own bytes; the next era named [the outward lane's own convening]; the banked shapes carried)",
+          "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-polish resolved at the record"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-polish\", \"text\": \"What is prioritree's polish state — the entire team through the entire project: every stale count cured at its source, every teaching debt paid (the surfaces teaching what they do, in one step), every drift named, every doc true to its changed body, the three efforts' banked polish set landed whole, and every finding beyond the banked set caught by the full-bench pass — the tree honest to its own bytes, publicly right to the last line?\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:41:43Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-polish\", \"ruling\": \"THE CONVENING (the collaborator's ruling, 2026-11-27, verbatim: \\\"a polish pass next. Let's get the entire team to go through the entire project.\\\"): THE FULL-TEAM PASS — every seat its discipline over the whole tree (the review effort's precedent form, scaled to the polish set's weight — the forms down without flattening): the discover bench censusing and diagnosing (the counts, the state, the mechanisms, the numbers), the adversarial and walk seats passing the surfaces, the recommendation and synthesis seats ruling the polish set's priorities — then the cures landed per R8's file-units, kensho's independent verification, moho's walk at the user-facing cures. THE SCOPE: the banked polish set whole (the done-page detour, the honest-docs fold, the app.js audit, the mcp description, the calculate help's blemishes, the store_lock comment, the template comments) + every finding the pass catches beyond the banked set — the tree the whole ground, no surface exempt. THE BAR: the floor 475 standing at every cure (the no-break proof); zero findings, zero ignores (any ruling named per-file); the honest-docs law (docs true to changed bodies); the claims-lane (every count re-read at the tree); the F6 boundary held (mechanism fenced, prose paste-verified). THE CEREMONY MATCHED TO THE WEIGHT: the micro-cures (one-line honest-docs) ride the polish increment's own steps under the approved spec — no two-lane ceremony per one-line cure; the material cures (the done-page detour, the app.js audit) judged at the synthesis for their own weight. The publish (PyPI) NOT this effort's scope — the outward lane's own convening.\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:41:53Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the three stages [pass -> cures -> close], the gates, the increments, the seven ungated placements — every seat placed, the full-team mandate's proof)\\\", \\\"every choice cites its ruling: the convening ruling (the full-team pass, the ceremony matched to the weight, the bar whole, the publish fenced out) + the review precedent (the full-bench form scaled, not flattened) + the standing laws (the claims lane at every count, R8's file-units, the honest-docs law, the F6 boundary, kensho per cure gate, R4's walks at the user-facing cures)\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:00Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the pass's synthesis landed: togo's gated synthesis over the full bench's findings (the counts census, the state diagnosis, the docstrings' maps, the numbers, the walk's teaching debt, the adversarial pass, the priorities) — the polish set ruled WHOLE: every banked finding confirmed at the tree, every finding beyond the banked set caught and named, each cure's priority ranked, each cure's ceremony matched to its weight (the micro-cures one increment; the material cures their own judgment, named not pinned)\\\", \\\"the claims lane held at every finding (each count re-read at the tree, each stale docstring verified at its changed body, each drift named at its bytes — never copied from the banked records)\\\", \\\"the collaborator rules the pass on the full record — no cure dispatch fires before it is green\\\"]\", \"gate\": \"G-POLISH-PASS\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:09Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the polish state carried whole: every cure confirmed at the tree, the tree honest to its own bytes; the next era named [the outward lane's own convening]; the banked shapes carried)\\\", \\\"the done call at the collaborator's ruling — the route's status set done at the ruling, Q-polish resolved at the record\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:16Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green — the route validated; the pass fires first, its findings assumed by none of this composition\", \"purpose\": \"THE FULL-TEAM PASS (the entire team through the entire project — the review precedent's full-bench form): SEVEN parallel ungated legs, every seat its discipline over the whole tree — tansa's counts census (every told count re-read at its source: src + tests + README + the templates + the docs whole); shindan's state diagnosis (the stale comments, the stated-vs-lived gaps, the trust statements [store_lock's comment post-auth], the surface's condition whole); rikai's docstrings' maps (the honest-docs fold's ground itemized: every docstring vs its changed body); keisan's numbers (the in-source counts computed at the tool vs the lived — every count's trace); MOHO'S SURFACES WALK (the teaching debt lived: the done-page detour, the refusal surfaces' one-step cures, the calculate help's blemishes); hyoka's adversarial pass (the polish candidates attacked: which cures are honest, which hide drift, the app.js audit's behavior question); suisen's priorities (the polish set ranked: the weight-matched ceremony per cure, the free-tier prices); togo's gated synthesis closing G-POLISH-PASS — the polish set ruled whole at the full record\", \"stage\": \"pass\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:24Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-POLISH-PASS is green — the polish set ruled whole, each cure's ceremony matched to its weight; no cure dispatch before the green\", \"purpose\": \"THE CURES (the polish set landed at its weight — the synthesis's ruling the set's law): the micro-cures under the polish increment's own R8 file-units (the approved spec the set's fence — each cure's before/after, the honest-docs law at every line), the material cures per their own judgment (named not pinned: the done-page detour's UX surface, the app.js audit's behavior question); kensho's independent verification at the cure gate(s) — every cure confirmed at the tree; MOHO'S WALK at the user-facing cures (R4 — the detour's cure lived); the bar at every cure: the floor 475 standing, zero findings, zero ignores (any ruling named per-file), the claims lane at every count\", \"stage\": \"cures\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:33Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the cure gates closed green (every cure confirmed at the tree) and the collaborator has called the close\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake, the lessons named), the effort's records (the CONTINUATION entry — the polish state carried whole, the next era named [the outward lane's own convening], the banked shapes carried), the done call at the collaborator's ruling\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:39Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-POLISH-PASS\", \"increment\": \"synthesize/polish-pass\", \"owner\": \"togo\", \"stage\": \"pass\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:46Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"retro\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-synthesis\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-landing\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"done-call\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-27",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-27T00:46:55Z",
+        "op": "add-increment"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-polish",
+      "question": "What is prioritree's polish state — the entire team through the entire project: every stale count cured at its source, every teaching debt paid (the surfaces teaching what they do, in one step), every drift named, every doc true to its changed body, the three efforts' banked polish set landed whole, and every finding beyond the banked set caught by the full-bench pass — the tree honest to its own bytes, publicly right to the last line?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE CONVENING (the collaborator's ruling, 2026-11-27, verbatim: \"a polish pass next. Let's get the entire team to go through the entire project.\"): THE FULL-TEAM PASS — every seat its discipline over the whole tree (the review effort's precedent form, scaled to the polish set's weight — the forms down without flattening): the discover bench censusing and diagnosing (the counts, the state, the mechanisms, the numbers), the adversarial and walk seats passing the surfaces, the recommendation and synthesis seats ruling the polish set's priorities — then the cures landed per R8's file-units, kensho's independent verification, moho's walk at the user-facing cures. THE SCOPE: the banked polish set whole (the done-page detour, the honest-docs fold, the app.js audit, the mcp description, the calculate help's blemishes, the store_lock comment, the template comments) + every finding the pass catches beyond the banked set — the tree the whole ground, no surface exempt. THE BAR: the floor 475 standing at every cure (the no-break proof); zero findings, zero ignores (any ruling named per-file); the honest-docs law (docs true to changed bodies); the claims-lane (every count re-read at the tree); the F6 boundary held (mechanism fenced, prose paste-verified). THE CEREMONY MATCHED TO THE WEIGHT: the micro-cures (one-line honest-docs) ride the polish increment's own steps under the approved spec — no two-lane ceremony per one-line cure; the material cures (the done-page detour, the app.js audit) judged at the synthesis for their own weight. The publish (PyPI) NOT this effort's scope — the outward lane's own convening.",
+          "ruled_at": "2026-11-27",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}
