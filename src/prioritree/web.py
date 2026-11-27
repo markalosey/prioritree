@@ -63,7 +63,7 @@ from typing import Any, Final
 
 import httpx2
 from fastapi import Depends, FastAPI, Request
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -106,6 +106,7 @@ _STATIC_TAIL: Final[str] = "static"
 _BASE_URL: Final[str] = "http://prioritree.internal"
 _OK: Final[int] = 200
 _CREATED: Final[int] = 201
+_FOUND: Final[int] = 302
 _NOT_FOUND: Final[int] = 404
 _METHOD_NOT_ALLOWED: Final[int] = 405
 _CONFLICT: Final[int] = 409
@@ -731,12 +732,19 @@ async def done(request: Request, stem: str) -> Response:
     every pair at quorum k={K} AND corroborated — + the plain-words
     restatement + the tally's link + the deliberate lane's link); a pair
     body (the re-opened edge — the signal is a state read, not a latch) =>
-    redirect to the sitting page; 404 => the unknown-run page; any other
-    non-200 => the fold page at the response's own status.
+    the TRUE 302 + Location to the sitting page (the docstring's own stated
+    intent kept; the page's inbound lanes the plain anchors alone — a plain
+    browser honors it; the fragment tier's HX-Redirect lane untouched);
+    THE CACHE'S LAW: the redirect STATE-DEPENDENT (one URL, two states by
+    the queue) — 302/303 never cached by default, the permanent verbs
+    301/308 BARRED — they would pin the queue's state into the browser's
+    cache; 404 => the unknown-run page; any other non-200 => the fold page
+    at the response's own status.
     Refuses when: never by this hand.
     Re-run: deterministic given the store state.
     Touches: nothing — a query.
-    Provenance: web-brief §4 route 3, the design §7c, G-WEBSPEC-BRIEF.
+    Provenance: web-brief §4 route 3, the design §7c, G-WEBSPEC-BRIEF; the
+    bridge brief §1(a) (the true-302 cure), packet build/bridge.
     """
     nxt = await _service("GET", f"/runs/{stem}/next")
     if nxt.status_code != _OK:
@@ -754,7 +762,7 @@ async def done(request: Request, stem: str) -> Response:
         )
     body = nxt.json()
     if not body.get("done"):
-        return Response(status_code=_OK, headers={"HX-Redirect": f"/runs/{stem}"})
+        return RedirectResponse(f"/runs/{stem}", status_code=_FOUND)
     return templates.TemplateResponse(
         request,
         "done.html",
@@ -1132,7 +1140,11 @@ async def vote(request: Request, stem: str) -> Response:
     the TWO-STEP CHAIN on 200: the vote-ack restates the verdict in
     ITEM-LABEL TERMS (§7a — "you preferred {label_a} (A) over {label_b}
     (B)" / the tie form; acknowledged:true => the idempotent echo in
-    words; the count UNREAD, never rendered) and embeds hx-trigger="load" +
+    words; the count UNREAD, never rendered; the identifying vote's ack
+    carries the re-cast teaching — the epoch minted at this vote, the
+    page's path-bound token stale: to judge the pair again, reload first,
+    the one step refreshing token + pair, never a queue consult) and
+    embeds hx-trigger="load" +
     hx-get to the pair fragment targeting the pair region — the POST's
     response NEVER carries the pair; the load fires the fetch. THE CHAIN
     FORM FIELD (the flow fix's ack-carry), when present, REPLACES the
@@ -1157,10 +1169,12 @@ async def vote(request: Request, stem: str) -> Response:
     Re-run: deterministic given the store state.
     Touches: the run file through the service (the command).
     Provenance: web-brief §4 route 8, the design §7a/§8, the flow-fix folds
-    (the ack-carry — the chain's next link), G-WEBSPEC-BRIEF.
+    (the ack-carry — the chain's next link), G-WEBSPEC-BRIEF; the bridge
+    brief §1(b) (the re-cast copy), packet build/bridge.
     """
     form = await request.form()
     name = _remembered(request)
+    identifying = not name  # the identifying act — the ack's re-cast teaching rides this flag
     if not name:
         name = str(form.get("comparator_id", "")).strip()
         if not name:
@@ -1214,6 +1228,7 @@ async def vote(request: Request, stem: str) -> Response:
             "stem": stem,
             "winner": payload["winner"],
             "acknowledged": bool(outcome.json()["acknowledged"]),
+            "identifying": identifying,
             "label_a": labels.get(payload["pair"][0], payload["pair"][0]),
             "label_b": labels.get(payload["pair"][1], payload["pair"][1]),
             "swap": presentation == PRESENTATION_SWAPPED,

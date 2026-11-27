@@ -230,6 +230,16 @@ select = ["ALL"]
 # rulings, named.
 "tests/test_web_face.py" = ["S603", "S607"]
 
+# RULING (the bridge brief §1(c) + G-BRIDGE condition 1, packets synthesize/bridge ->
+# build/bridge, route prioritree-journey, 2026-11-27): F401 — the conftest's service-first
+# pre-import IS the side-effect import's ruled form (the bound name referenced at the
+# zero-findings form, the finding never firing live): the web<->service import cycle
+# (web.py:74-75 <-> service.py:729) resolved AT COLLECTION — every single-module run
+# green (FR-MEM-0045's cheap shape); the conftest TEACHES, never cures — the cycle
+# stands, the lazy restructure the root cure (earned-later). The ignore IS the ruling,
+# named per this one file — never a global.
+"tests/conftest.py" = ["F401"]
+
 [tool.ruff.format]
 quote-style = "double"
 

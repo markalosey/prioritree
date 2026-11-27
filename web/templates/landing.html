@@ -11,7 +11,7 @@
   <form hx-post="/ui/register" hx-target="#register-result" hx-swap="innerHTML">
     <label>Your name for yourself on this run. <input name="operator_id" required minlength="1"{% if remembered_name %} value="{{ remembered_name }}"{% endif %}></label>
     <label>The question to answer. <input name="question" required minlength="1"></label>
-    <label>How many judgments each pair needs — 1 means just you; 2 or more means you need other judges, and a pair stays open until it has them — and every pair also stays open until one human AND one llm stand behind it (the corroboration floor). <input type="number" name="quorum" value="1" min="1"></label>
+    <label>How many judgments each pair needs — 1 means just you, more means other judges must agree. <input type="number" name="quorum" value="1" min="1"></label>
     <fieldset>
       <legend>The items — an id and a label for each. The first two rows are required; the list is locked once registered.</legend>
       <div class="item-row"><input name="item-id" required minlength="1" placeholder="id"> <input name="item-label" required minlength="1" placeholder="label"></div>

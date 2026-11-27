@@ -310,11 +310,11 @@ def test_done_page_states_coverage(client: TestClient) -> None:
 
 
 def test_done_reopened_redirects(client: TestClient) -> None:
-    """A pair body at the done page redirects back to the sitting (the re-opened edge)."""
+    """A pair body at the done page redirects back to the sitting (the re-opened edge — the true 302, unfollowed)."""
     client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
-    response = client.get(f"/runs/{_RUN_ID}/done")
-    assert response.status_code == 200
-    assert response.headers["hx-redirect"] == f"/runs/{_RUN_ID}"
+    response = client.get(f"/runs/{_RUN_ID}/done", follow_redirects=False)
+    assert response.status_code == 302
+    assert response.headers["location"] == f"/runs/{_RUN_ID}"
 
 
 def test_progress_serves_the_strip(client: TestClient) -> None:
@@ -997,6 +997,19 @@ def test_first_vote_asks_once_then_carried(client: TestClient) -> None:
     fragment = client.get(f"/ui/runs/{_RUN_ID}/pair")
     assert fragment.status_code == 200
     assert 'name="comparator_id"' not in fragment.text  # the ask asked ONCE — the fragment pre-stamped
+
+
+def test_identifying_ack_teaches_the_reload(client: TestClient) -> None:
+    """The identifying vote's ack carries the re-cast teaching — the sessioned ack does not."""
+    identified = _identified(client)
+    assert "To judge this pair again, reload the page first." in identified.text
+    token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    sessioned = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={"item_a": "a", "item_b": "c", "winner": "prefer-b", "csrf_token": token},
+    )
+    assert sessioned.status_code == 200
+    assert "To judge this pair again, reload the page first." not in sessioned.text
 
 
 def test_identified_renders_carry_no_ask_both_lanes(client: TestClient) -> None:
