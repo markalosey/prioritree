@@ -1,6 +1,6 @@
-<!-- pair — the shared pair region: the sitting includes it, the fragment route serves it (web-brief §4 routes 2+7; the design §7a; the voter-session spec §3b); the page's TWO conditional carries: the chain (the ack-carry's remaining list) + the deliberate (the lane's own datum — the done-detour cure) -->
+<!-- pair — the shared pair region: the sitting includes it, the fragment route serves it (web-brief §4 routes 2+7; the journey design 1.1-1.5; the cardspec); the page's conditional carries: the chain (the ack-carry's remaining list) + the deliberate (the lane's own datum — the done-detour cure) + the supersedes (the undo's re-serve — the correction's carry) -->
 <div id="pair-region">
-  <form hx-post="/ui/runs/{{ stem }}/vote" hx-target="#ack-region" hx-swap="innerHTML">
+  <form hx-post="/ui/runs/{{ stem }}/vote" hx-target="#ack-region" hx-swap="innerHTML" hx-sync="this:drop">
     {% if not remembered_name %}
     <label for="comparator-id">Your name for yourself as a judge — it stamps your votes. Asked once; remembered for every judgment from this device.</label>
     <input id="comparator-id" name="comparator_id" required minlength="1">
@@ -11,13 +11,15 @@
     <input type="hidden" name="presentation_order" value="{{ presentation_order }}">
     {% if chain %}<input type="hidden" name="chain" value="{{ chain }}">{% endif %}
     {% if deliberate %}<input type="hidden" name="deliberate" value="{{ deliberate }}">{% endif %}
-    <div class="cards">
-      <sl-card class="pair-card"><sl-badge slot="header">A</sl-badge><span class="card-label">{{ label_a }}</span></sl-card>
-      <sl-card class="pair-card"><sl-badge slot="header">B</sl-badge><span class="card-label">{{ label_b }}</span></sl-card>
-    </div>
-    <div class="verdicts">
-      {% set labels = {"prefer-a": "Prefer A", "prefer-b": "Prefer B", "tie": "Tie"} %}
-      {% for verdict in verdicts %}<button class="verdict" name="winner" value="{{ verdict }}">{{ labels.get(verdict, verdict) }}</button>{% endfor %}
-    </div>
+    {% if supersedes %}<input type="hidden" name="supersedes" value="{{ supersedes }}">{% endif %}
+    <fieldset class="pair-fieldset">
+      <legend>{{ question }}</legend>
+      <div class="cards">
+        {% for verdict in verdicts %}{% if verdict == 'prefer-a' %}<button type="submit" class="cast-card" id="cast-a" name="winner" value="{{ verdict }}"><sl-badge>A</sl-badge> <span class="card-label">{{ label_a }}</span></button>{% elif verdict == 'prefer-b' %}<span class="operator">vs</span><button type="submit" class="cast-card" id="cast-b" name="winner" value="{{ verdict }}"><sl-badge>B</sl-badge> <span class="card-label">{{ label_b }}</span></button>{% endif %}{% endfor %}
+      </div>
+      <div class="verdicts">
+        {% for verdict in verdicts %}{% if verdict != 'prefer-a' and verdict != 'prefer-b' %}<button type="submit" class="verdict" id="cast-{{ verdict }}" name="winner" value="{{ verdict }}">{% if verdict == 'tie' %}Tie — both stand equal{% else %}{{ verdict }}{% endif %}</button>{% endif %}{% endfor %}
+      </div>
+    </fieldset>
   </form>
 </div>

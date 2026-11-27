@@ -7,10 +7,31 @@ label { display: block; margin: 0.5rem 0; }
 input { display: block; width: 100%; box-sizing: border-box; padding: 0.4rem; margin-top: 0.2rem; }
 .item-row input { display: inline-block; width: calc(50% - 0.25rem); }
 .cards { display: flex; gap: var(--pt-gap); margin: var(--pt-gap) 0; }
-.pair-card { flex: 1; }
 .card-label { font-size: 1.1rem; }
 .verdicts { display: flex; gap: var(--pt-gap); flex-wrap: wrap; }
-button.verdict { padding: 0.6rem 1.2rem; }
+button.verdict { padding: 0.6rem 1.2rem; min-height: 24px; }
+/* the card-as-button forms (the cardspec; the journey design 1.1/1.5 — the submit-styled-as-card, the 24px floor, the operator display-only, the focus ring) */
+fieldset.pair-fieldset { border: none; margin: 0; padding: 0; }
+fieldset.pair-fieldset legend { padding: 0; }
+button.cast-card {
+  appearance: none;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  font: inherit;
+  min-height: 4.5rem;
+  padding: var(--pt-gap);
+  text-align: left;
+}
+.operator { align-self: center; color: #666; }
+button.cast-card:focus-visible, button.verdict:focus-visible, button.undo:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 2px; }
 table.ranked { border-collapse: collapse; width: 100%; margin: var(--pt-gap) 0; }
 table.ranked th, table.ranked td { border: 1px solid #ddd; padding: 0.4rem; text-align: left; }
 table.ranked th { background: #f0f0f0; }

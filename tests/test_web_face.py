@@ -259,7 +259,8 @@ def test_sitting_serves_first_pair_server_side(client: TestClient) -> None:
     assert 'id="pair-region"' in response.text
     assert "one" in response.text
     assert "two" in response.text
-    assert 'slot="header">A<' in response.text
+    assert 'id="cast-a"' in response.text
+    assert '<sl-badge>A</sl-badge> <span class="card-label">one</span>' in response.text
     assert 'value="prefer-a"' in response.text
     assert f'hx-post="/ui/runs/{_RUN_ID}/vote"' in response.text
     assert "count" not in response.text
@@ -474,7 +475,7 @@ def test_vote_chain_carry_next_pair(client: TestClient) -> None:
     # The head's judge URL (P02 = (a, c)) — the chain riding the URL, the served bytes autoescaped.
     assert f'href="/runs/{_RUN_ID}/pair?item_a=a&amp;item_b=c&amp;chain=P02,P03"' in first.text
     assert "next-pair" in first.text
-    assert 'hx-get="/ui/runs' not in first.text  # the chain lane never fetches
+    assert 'hx-trigger="load"' not in first.text  # the chain lane never AUTO-fetches — the undo's re-serve legal
     assert f'href="/runs/{_RUN_ID}/pairs"' not in first.text  # the datum read and discarded at the chain lane
     # The second hop at the swapped presentation (a second TestClient IS a second browser — its own empty jar).
     browser_b = TestClient(app)
@@ -498,7 +499,7 @@ def test_vote_chain_carry_next_pair(client: TestClient) -> None:
     assert "You preferred three (A) over one (B)." in second.text
     # The just-voted P02 dropped — the shrunken chain riding the head's URL, the swap knob carried.
     assert f'href="/runs/{_RUN_ID}/pair?item_a=b&amp;item_b=c&amp;swap=true&amp;chain=P03"' in second.text
-    assert 'hx-get="/ui/runs' not in second.text
+    assert 'hx-trigger="load"' not in second.text
 
 
 def test_vote_chain_carry_done_link(client: TestClient) -> None:
@@ -514,7 +515,7 @@ def test_vote_chain_carry_done_link(client: TestClient) -> None:
     assert "You preferred two (A) over three (B)." in response.text
     assert "the list has ended" in response.text  # the list-ended teaching
     assert f'href="/runs/{_RUN_ID}/done"' in response.text
-    assert 'hx-get="/ui/runs' not in response.text  # NO fetch div — the chain lane never fetches
+    assert 'hx-trigger="load"' not in response.text  # NO fetch div — the chain lane never AUTO-fetches
     assert "next-pair" not in response.text  # the rest empty — no head link
     assert f'href="/runs/{_RUN_ID}/pairs"' not in response.text  # the datum discarded
 
@@ -536,7 +537,7 @@ def test_deliberate_vote_stays_put(client: TestClient) -> None:
     assert "Recorded. Judge the next pair from the picker, or close out the sitting at the done page." in response.text
     assert f'href="/runs/{_RUN_ID}/pairs"' in response.text  # BOTH links, their exact forms
     assert f'href="/runs/{_RUN_ID}/done"' in response.text
-    assert 'hx-get="/ui/runs' not in response.text  # NO fetch div — the fragment never called
+    assert 'hx-trigger="load"' not in response.text  # NO fetch div — the deliberate lane never AUTO-fetches
     assert "hx-redirect" not in response.headers  # NO redirect — the ack stays put
     assert "next-pair" not in response.text  # the chain arm not taken (no chain carried)
     assert "the list has ended" not in response.text  # the done_url arm not taken
@@ -550,7 +551,7 @@ def test_deliberate_vote_stays_put(client: TestClient) -> None:
     assert "already recorded with the same answer" in again.text
     assert f'href="/runs/{_RUN_ID}/pairs"' in again.text  # the stay-put form held at the echo
     assert f'href="/runs/{_RUN_ID}/done"' in again.text
-    assert 'hx-get="/ui/runs' not in again.text
+    assert 'hx-trigger="load"' not in again.text
     assert "hx-redirect" not in again.headers
 
 
@@ -574,7 +575,7 @@ def test_deliberate_vote_stays_put_at_the_done_queue(client: TestClient) -> None
     assert "Recorded. Judge the next pair from the picker, or close out the sitting at the done page." in response.text
     assert f'href="/runs/{_RUN_ID}/pairs"' in response.text  # BOTH links at the exhausted queue
     assert f'href="/runs/{_RUN_ID}/done"' in response.text
-    assert 'hx-get="/ui/runs' not in response.text  # the fetch div dead — the fragment never called
+    assert 'hx-trigger="load"' not in response.text  # the fetch div dead — the deliberate lane never AUTO-fetches
     assert "hx-redirect" not in response.headers  # THE BOUNCE DEAD — the POST's own response never redirects
 
 
@@ -922,6 +923,263 @@ def test_deliberate_vote_lands_stamped_and_mapped(client: TestClient) -> None:
     assert tally.json()["coverage"]["pair_class_counts"] == {"a|b": {"human": 1, "llm": 1}}
 
 
+# The card-pair arcs (cardspec §6b — the eight classes' ten: the casting, the
+# operator's render, the tie's control + the two-verdict school, the undo's
+# different-verdict landing + the same-verdict idempotency, the seam's pins,
+# the rides, the sync, the lanes' consistency; the bridge's reload teaching
+# retired with its conditional — its truth, the identifying ack's undo at
+# every arm, pinned at the undo arcs below).
+
+
+def test_card_click_casts_the_clicked_option(client: TestClient) -> None:
+    """The card's click casts the clicked option — the B card's POST lands the B restatement at _FORM_VOTE's shape."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    sitting = client.get(f"/runs/{_RUN_ID}")
+    assert 'id="cast-a"' in sitting.text
+    assert 'id="cast-b"' in sitting.text
+    assert 'type="submit"' in sitting.text  # the type EXPLICIT — the default never leaned on
+    assert 'name="winner" value="prefer-a"' in sitting.text
+    assert 'name="winner" value="prefer-b"' in sitting.text
+    assert '<sl-badge>A</sl-badge> <span class="card-label">one</span>' in sitting.text
+    assert '<sl-badge>B</sl-badge> <span class="card-label">two</span>' in sitting.text
+    assert '<fieldset class="pair-fieldset">' in sitting.text  # the fieldset binding the pair
+    assert "<legend>Which matters more?</legend>" in sitting.text  # the legend binding the question
+    token = _scrape_csrf(sitting.text)
+    clicked = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "winner": "prefer-b", "csrf_token": token},
+    )
+    assert clicked.status_code == 200
+    assert "You preferred two (B) over one (A)." in clicked.text
+
+
+def test_operator_vs_between_the_cards_never_focusable(client: TestClient) -> None:
+    """The operator "vs" rides BETWEEN the cards — a display span, never focusable, never a target."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    served = client.get(f"/runs/{_RUN_ID}").text
+    operator_byte = '<span class="operator">vs</span>'
+    assert operator_byte in served  # the exact byte — no button/input/a/tabindex/hx- inside the span
+    assert served.index('id="cast-a"') < served.index(operator_byte) < served.index('id="cast-b"')
+
+
+def test_tie_control_subordinate_at_the_bar(client: TestClient) -> None:
+    """The tie rides the bar at the DOM's third place, the 24px floor served; its click lands the tie restatement."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    served = client.get(f"/runs/{_RUN_ID}")
+    assert 'id="cast-tie"' in served.text
+    assert 'name="winner" value="tie"' in served.text
+    assert "Tie — both stand equal" in served.text  # the em-dash byte asserted as served
+    assert served.text.index('id="cast-a"') < served.text.index('id="cast-b"') < served.text.index('id="cast-tie"')
+    css = client.get("/static/app.css")
+    assert "min-height: 24px" in css.text  # the 24px floor's byte (WCAG 2.2 SC 2.5.8 AA)
+    token = _scrape_csrf(served.text)
+    tied = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "winner": "tie", "csrf_token": token},
+    )
+    assert tied.status_code == 200
+    assert "Tie: one (A) and two (B) stand equal." in tied.text
+
+
+def test_two_verdict_run_renders_no_subordinate_control() -> None:
+    """A two-verdict render carries both cards and NO subordinate control — the loop, never a hardcoded third."""
+    # The register refuses any declared set beyond the triple (registry.py:259) — the
+    # two-verdict school the template's own render, the env's direct probe.
+    rendered = web.templates.env.get_template("pair.html").render(
+        stem=_RUN_ID,
+        remembered_name="mark",
+        question="Which matters more?",
+        item_a="a",
+        item_b="b",
+        label_a="one",
+        label_b="two",
+        presentation_order="canonical",
+        verdicts=["prefer-a", "prefer-b"],
+        supersedes="",
+        deliberate="",
+        chain="",
+    )
+    assert 'id="cast-a"' in rendered
+    assert 'id="cast-b"' in rendered
+    assert "cast-tie" not in rendered
+    assert "Tie" not in rendered
+
+
+def test_undo_different_verdict_supersedes_both_stand(client: TestClient, tmp_path: Path) -> None:
+    """The different-verdict correction lands a NEW record citing the old, both standing.
+
+    The tally walks the link — the superseded excluded, the correction counted, the
+    cell's weight unchanged; the cross-pair carry refused at the door's same-pair law.
+    """
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}").text)
+    first = client.post(f"/ui/runs/{_RUN_ID}/vote", data={**_FORM_VOTE, "csrf_token": token})
+    assert first.status_code == 200
+    # the ack's undo affordance — the citation as presented, the carry, the copy's both truths.
+    assert f'hx-get="/ui/runs/{_RUN_ID}/pair?item_a=a&amp;item_b=b&amp;supersedes=VOTE-0001"' in first.text
+    assert 'hx-target="#pair-region"' in first.text
+    assert "your correction stands, the first is superseded" in first.text
+    assert "both records stay in the log" in first.text
+    assert "erased" not in first.text  # the word never teaches — the negation never needed
+    # the re-serve — the cited pair + the carry riding the hidden field, the fresh token minted.
+    reserver = client.get(f"/ui/runs/{_RUN_ID}/pair?item_a=a&item_b=b&supersedes=VOTE-0001")
+    assert reserver.status_code == 200
+    assert 'name="supersedes" value="VOTE-0001"' in reserver.text
+    re_token = _scrape_csrf(reserver.text)
+    corrected = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "winner": "prefer-b", "supersedes": "VOTE-0001", "csrf_token": re_token},
+    )
+    assert corrected.status_code == 200
+    assert "You preferred two (B) over one (A)." in corrected.text
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert len(log) == 2
+    assert log[0].vote_id == "VOTE-0001"
+    assert log[0].supersedes is None
+    assert log[1].vote_id == "VOTE-0002"  # a NEW record citing the old — BOTH standing
+    assert log[1].supersedes == "VOTE-0001"  # the link pinned
+    # the tally's weighting walk — the llm corroborating vote, the three-pair universe covered.
+    client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={"pair": ["a", "b"], "winner": "prefer-a", "comparator_id": "y", "comparator_class": "llm"},
+    )
+    for pair in (("a", "c"), ("b", "c")):
+        client.post(f"/runs/{_RUN_ID}/votes", json={"pair": list(pair), "winner": "prefer-a", **_VOTE})
+        client.post(
+            f"/runs/{_RUN_ID}/votes",
+            json={"pair": list(pair), "winner": "prefer-a", **_VOTE, "comparator_class": "llm"},
+        )
+    tally = client.get(f"/runs/{_RUN_ID}/tally")
+    assert tally.status_code == 200
+    # the (a|b) cell — the superseded EXCLUDED, the correction counted, the cell's weight
+    # unchanged; the other cells the coverage's own setup votes.
+    assert tally.json()["coverage"]["pair_class_counts"]["a|b"] == {"human": 1, "llm": 1}
+    # the cross-pair carry — the citation at ANOTHER pair's POST refused at the wire.
+    before = len(Serialize(tmp_path).census(_RUN_ID).vote_log)
+    cross_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair?item_a=a&item_b=c").text)
+    refused = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "item_a": "a", "item_b": "c", "supersedes": "VOTE-0001", "csrf_token": cross_token},
+    )
+    assert refused.status_code == 200
+    assert "a record on pair" in refused.text  # the same-pair law's found bytes
+    assert 'id="pair-region"' not in refused.text  # the pair region untouched
+    assert len(Serialize(tmp_path).census(_RUN_ID).vote_log) == before  # the log unchanged
+
+
+def test_undo_same_verdict_stands_once(client: TestClient, tmp_path: Path) -> None:
+    """The same-verdict correction lands a NEW record at the same weight; the re-send echoes, the log unchanged."""
+    client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}").text)
+    client.post(f"/ui/runs/{_RUN_ID}/vote", data={**_FORM_VOTE, "csrf_token": token})
+    reserver = client.get(f"/ui/runs/{_RUN_ID}/pair?item_a=a&item_b=b&supersedes=VOTE-0001")
+    assert 'name="supersedes" value="VOTE-0001"' in reserver.text
+    re_token = _scrape_csrf(reserver.text)
+    same = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "supersedes": "VOTE-0001", "csrf_token": re_token},
+    )
+    assert same.status_code == 200
+    log = Serialize(tmp_path).census(_RUN_ID).vote_log
+    assert len(log) == 2  # a NEW record — the dedup key carries supersedes, no dedup hit
+    assert [record.winner for record in log] == ["prefer-a", "prefer-a"]
+    assert log[1].supersedes == "VOTE-0001"  # the link pinned
+    client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={"pair": ["a", "b"], "winner": "prefer-a", "comparator_id": "y", "comparator_class": "llm"},
+    )
+    tally = client.get(f"/runs/{_RUN_ID}/tally")
+    assert tally.status_code == 200
+    # the link walked — the verdict stands ONCE at the same weight
+    assert tally.json()["coverage"]["pair_class_counts"] == {"a|b": {"human": 1, "llm": 1}}
+    again_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair?item_a=a&item_b=b").text)
+    again = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "supersedes": "VOTE-0001", "csrf_token": again_token},
+    )
+    assert again.status_code == 200
+    assert "already recorded with the same answer" in again.text  # the LOUD dedup — the echo rendered
+    assert len(Serialize(tmp_path).census(_RUN_ID).vote_log) == 3  # the log UNCHANGED — the dedup landed nothing
+
+
+def test_acknowledged_flag_true_through_the_web_route(client: TestClient, tmp_path: Path) -> None:
+    """The byte-identical re-send through the route echoes — the undo citing the ORIGINAL, the census unchanged."""
+    identified = _identified(client)
+    assert "already recorded with the same answer" not in identified.text  # the fresh cast — no echo
+    assert f'hx-get="/ui/runs/{_RUN_ID}/pair?item_a=a&amp;item_b=b&amp;supersedes=VOTE-0001"' in identified.text
+    again_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    again = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "comparator_id": "mark", "csrf_token": again_token},
+    )
+    assert again.status_code == 200
+    # RUN-0009's live divergence the named residual — never leaned on, never diagnosed here
+    assert "already recorded with the same answer" in again.text  # the flag's truth through the route's read
+    assert f'hx-get="/ui/runs/{_RUN_ID}/pair?item_a=a&amp;item_b=b&amp;supersedes=VOTE-0001"' in again.text
+    assert len(Serialize(tmp_path).census(_RUN_ID).vote_log) == 1  # the write never landed twice
+
+
+def test_ack_region_aria_live_and_ids_stable(client: TestClient) -> None:
+    """The ack region aria-live; the fragment's stable ids + the legend's question — the restoration's key."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    sitting = client.get(f"/runs/{_RUN_ID}")
+    assert '<div id="ack-region" aria-live="polite">' in sitting.text  # the swap's content announced
+    fragment = client.get(f"/ui/runs/{_RUN_ID}/pair")
+    assert 'id="cast-a"' in fragment.text  # the stable ids — htmx's restoration keys on the id
+    assert 'id="cast-b"' in fragment.text
+    assert 'id="cast-tie"' in fragment.text
+    assert "<legend>Which matters more?</legend>" in fragment.text  # the group semantics at the swap
+
+
+def test_form_carries_hx_sync_drop(client: TestClient) -> None:
+    """The served form carries hx-sync="this:drop" — the different-verdict in-flight double-click DROPPED."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    sitting = client.get(f"/runs/{_RUN_ID}")
+    assert 'hx-sync="this:drop"' in sitting.text  # the byte-level pin, the strategy's own bytes
+
+
+def test_deliberate_lane_same_card_and_composes_reclick(client: TestClient) -> None:
+    """The deliberate lane serves the SAME card form; the corrected click's ack STAYS PUT — the lane's law held."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    judge = client.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=b")
+    assert 'id="cast-a"' in judge.text  # the shared include — the consistency by construction
+    assert 'id="cast-b"' in judge.text
+    assert 'id="cast-tie"' in judge.text
+    assert '<span class="operator">vs</span>' in judge.text
+    assert '<fieldset class="pair-fieldset">' in judge.text
+    assert "<legend>Which matters more?</legend>" in judge.text
+    token = _scrape_csrf(judge.text)
+    deliberate = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "deliberate": "true", "csrf_token": token},
+    )
+    assert deliberate.status_code == 200
+    assert (
+        f'hx-get="/ui/runs/{_RUN_ID}/pair?item_a=a&amp;item_b=b&amp;supersedes=VOTE-0001&amp;deliberate=true"'
+        in deliberate.text
+    )  # the undo's URL carrying the lane's own datum
+    reserver = client.get(f"/ui/runs/{_RUN_ID}/pair?item_a=a&item_b=b&supersedes=VOTE-0001&deliberate=true")
+    assert 'name="supersedes" value="VOTE-0001"' in reserver.text
+    assert 'name="deliberate" value="true"' in reserver.text  # the re-serve renders the hidden carry
+    re_token = _scrape_csrf(reserver.text)
+    corrected = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={
+            **_FORM_VOTE,
+            "winner": "prefer-b",
+            "supersedes": "VOTE-0001",
+            "deliberate": "true",
+            "csrf_token": re_token,
+        },
+    )
+    assert corrected.status_code == 200
+    assert "You preferred two (B) over one (A)." in corrected.text
+    assert "Recorded. Judge the next pair from the picker, or close out the sitting at the done page." in corrected.text
+    assert f'href="/runs/{_RUN_ID}/pairs"' in corrected.text  # both links — the lane's law held
+    assert f'href="/runs/{_RUN_ID}/done"' in corrected.text
+    assert 'hx-trigger="load"' not in corrected.text  # the ack STAYING PUT — no auto-fetch at the correction
+
+
 # The voter-session arcs (votersessionspec §4 — the 23; the fold's Ruling 1 T-form env
 # names + Ruling 2's re-derived lapse pins carried, the echo arc's second-token cure
 # landed above). The S101/PLR2004 tests ruling stands; the strength-check arc's
@@ -997,19 +1255,6 @@ def test_first_vote_asks_once_then_carried(client: TestClient) -> None:
     fragment = client.get(f"/ui/runs/{_RUN_ID}/pair")
     assert fragment.status_code == 200
     assert 'name="comparator_id"' not in fragment.text  # the ask asked ONCE — the fragment pre-stamped
-
-
-def test_identifying_ack_teaches_the_reload(client: TestClient) -> None:
-    """The identifying vote's ack carries the re-cast teaching — the sessioned ack does not."""
-    identified = _identified(client)
-    assert "To judge this pair again, reload the page first." in identified.text
-    token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
-    sessioned = client.post(
-        f"/ui/runs/{_RUN_ID}/vote",
-        data={"item_a": "a", "item_b": "c", "winner": "prefer-b", "csrf_token": token},
-    )
-    assert sessioned.status_code == 200
-    assert "To judge this pair again, reload the page first." not in sessioned.text
 
 
 def test_identified_renders_carry_no_ask_both_lanes(client: TestClient) -> None:

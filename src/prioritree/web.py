@@ -1086,35 +1086,62 @@ async def register(request: Request) -> Response:
 
 
 @web_app.get(_PAIR)
-async def pair(request: Request, stem: str, *, swap: bool = False) -> Response:
+async def pair(request: Request, stem: str, item_a: str = "", item_b: str = "", *, swap: bool = False) -> Response:
     """Serve the bare pair as a fragment — or the HX-Redirect on DONE.
 
-    Purpose: consume next (+ the manifest's label map, §7a's label law —
-    /next the route's defining call, the map its label-bearing companion).
-    200 => the bare-pair fragment (cards A/B marked + labeled; the count
-    UNREAD — dropped at the controller); its buttons hx-post the vote as
-    the sitting's pair. DONE => the HX-Redirect RESPONSE HEADER to the done
-    page (core HTMX's navigation verb — no extension, no JS). The swap the
-    query knob: the pair PRESENTED in the swapped order (the order-bias
-    probe's instrument — the served presentation re-sent at the vote). Any
-    non-200 on either call => the refusal fragment at 200 (the fold
+    Purpose: TWO SERVE LANES. THE CITED RE-SERVE (the undo's lane, the
+    cardspec): item_a/item_b both present => the CITED pair rendered per
+    the judge route's citation law (the wire the sole validator: a mangled
+    citation renders honestly, the vote's legality the wire's act) — NO
+    next consult (the pair as cited, whatever the coverage; the
+    no-anchoring law held), the presentation DERIVED from the cited order
+    (the reversed citation the explicit swapped presentation — the
+    fieldless swap never served); the supersedes/deliberate/chain query
+    carries ride the re-served form's hidden fields (the undo's supersede
+    carry + the lane's own datum, read from the request's query — the
+    judge route's chain precedent); the fresh token minted, the question
+    threaded (the legend's context — the fieldset binding the pair's
+    question at EVERY serve). THE /NEXT SERVE (the defining call when no
+    pair cited): consume next (+ the manifest's label map, §7a's label
+    law — the map its label-bearing companion). 200 => the bare-pair
+    fragment (cards A/B marked + labeled; the count UNREAD — dropped at
+    the controller); its buttons hx-post the vote as the sitting's pair.
+    DONE => the HX-Redirect RESPONSE HEADER to the done page (core
+    HTMX's navigation verb — no extension, no JS). The swap the query
+    knob: the pair PRESENTED in the swapped order (the order-bias
+    probe's instrument — the served presentation re-sent at the vote).
+    Any non-200 on either call => the refusal fragment at 200 (the fold
     wording at 500).
     Refuses when: never by this hand.
     Re-run: deterministic given the store state.
     Touches: nothing — a query.
-    Provenance: web-brief §4 route 7, the design §7a/§8, G-WEBSPEC-BRIEF.
+    Provenance: web-brief §4 route 7, the design §7a/§8, G-WEBSPEC-BRIEF;
+    the journey design 1.1/1.4 + the cardspec (the cited re-serve, the
+    question thread, the carries), G-CARDSPEC-BRIEF.
     """
-    nxt = await _service("GET", f"/runs/{stem}/next?swap=true" if swap else f"/runs/{stem}/next")
-    if nxt.status_code != _OK:
-        return _refuse_fragment(request, _fields(nxt.json()), fold=nxt.status_code == _CRASH)
-    body = nxt.json()
-    if body.get("done"):
-        return Response(status_code=_OK, headers={"HX-Redirect": f"/runs/{stem}/done"})
+    supersedes = request.query_params.get("supersedes", "").strip()
+    deliberate = request.query_params.get("deliberate", "").strip()
+    chain = request.query_params.get("chain", "").strip()
+    cited = bool(item_a.strip() and item_b.strip())
+    served: dict[str, Any] = {}  # the /next body's pre-binding — the cited lane never reads it
+    if not cited:
+        nxt = await _service("GET", f"/runs/{stem}/next?swap=true" if swap else f"/runs/{stem}/next")
+        if nxt.status_code != _OK:
+            return _refuse_fragment(request, _fields(nxt.json()), fold=nxt.status_code == _CRASH)
+        served = nxt.json()
+        if served.get("done"):
+            return Response(status_code=_OK, headers={"HX-Redirect": f"/runs/{stem}/done"})
     manifest = await _service("GET", f"/runs/{stem}/manifest")
     if manifest.status_code != _OK:
         return _refuse_fragment(request, _fields(manifest.json()), fold=manifest.status_code == _CRASH)
     manifest_body = manifest.json()
     labels = _labels(manifest_body)
+    if cited:
+        presented_a, presented_b = item_a.strip(), item_b.strip()
+        presentation = PRESENTATION_SWAPPED if presented_a > presented_b else PRESENTATION_CANONICAL
+    else:
+        presented_a, presented_b = str(served["item_a"]), str(served["item_b"])
+        presentation = str(served["presentation_order"])
     return templates.TemplateResponse(
         request,
         "pair.html",
@@ -1122,12 +1149,16 @@ async def pair(request: Request, stem: str, *, swap: bool = False) -> Response:
             "stem": stem,
             "csrf_token": _mint_bound(f"/ui/runs/{stem}/vote", request),
             "remembered_name": _remembered(request),
-            "item_a": str(body["item_a"]),
-            "item_b": str(body["item_b"]),
-            "label_a": labels.get(str(body["item_a"]), str(body["item_a"])),
-            "label_b": labels.get(str(body["item_b"]), str(body["item_b"])),
-            "presentation_order": str(body["presentation_order"]),
+            "question": str(manifest_body["question"]),
+            "item_a": presented_a,
+            "item_b": presented_b,
+            "label_a": labels.get(presented_a, presented_a),
+            "label_b": labels.get(presented_b, presented_b),
+            "presentation_order": presentation,
             "verdicts": list(manifest_body["verdicts"]),
+            "supersedes": supersedes,
+            "deliberate": deliberate,
+            "chain": chain,
         },
     )
 
@@ -1161,6 +1192,19 @@ async def vote(request: Request, stem: str) -> Response:
     nothing computed (the stay-put arm); the template renders the
     confirmation + BOTH LINKS (the picker + the done page, static from
     the stem) — no fetch at the bare lane, the fragment never called.
+    THE SUPERSEDES READ (the undo's wire, the cardspec): the payload
+    gains the field at the optional-text form (absent/empty => None —
+    the wire's own schema, votes.py:578); the corrected click rides the
+    correction's citation (a NEW record citing the old, both standing —
+    R9; the tally's weighting walks the link, the cell's weight
+    unchanged). THE UNDO'S AFFORDANCE AT THE ACK (every arm): the
+    context carries the cast's own vote_id (the original handle at the
+    idempotent arm) + the pair as presented + the lane's carries — the
+    template composes the re-serve's citation (5's fence); the re-serve
+    targets #pair-region at the ack region's persistence (the region
+    the swap's target, never its victim — the affordance survives the
+    fetch, self-healing at the second click; the sub-second race the
+    named residual, no new machinery).
     Any non-200
     on either call => the inline refusal at 200 — THE PAIR REGION UNTOUCHED
     (the same pair retryable: the refusal swaps into the ack region, never
@@ -1170,7 +1214,9 @@ async def vote(request: Request, stem: str) -> Response:
     Touches: the run file through the service (the command).
     Provenance: web-brief §4 route 8, the design §7a/§8, the flow-fix folds
     (the ack-carry — the chain's next link), G-WEBSPEC-BRIEF; the bridge
-    brief §1(b) (the re-cast copy), packet build/bridge.
+    brief §1(b) (the re-cast copy), packet build/bridge; the journey
+    design 1.4 + the cardspec (the supersedes read, the undo's context),
+    G-CARDSPEC-BRIEF.
     """
     form = await request.form()
     name = _remembered(request)
@@ -1188,12 +1234,13 @@ async def vote(request: Request, stem: str) -> Response:
             )
         _remember(request, name)
     presentation = str(form.get("presentation_order", PRESENTATION_CANONICAL))
-    payload = {
+    payload: dict[str, Any] = {
         "pair": [str(form.get("item_a", "")), str(form.get("item_b", ""))],
         "winner": str(form.get("winner", "")),
         "comparator_id": name,
         "comparator_class": str(form.get("comparator_class", "human")),
         "presentation_order": presentation,
+        "supersedes": str(form.get("supersedes", "")).strip() or None,
     }
     outcome = await _service("POST", f"/runs/{stem}/votes", json=payload)
     if outcome.status_code != _OK:
@@ -1228,10 +1275,14 @@ async def vote(request: Request, stem: str) -> Response:
             "stem": stem,
             "winner": payload["winner"],
             "acknowledged": bool(outcome.json()["acknowledged"]),
+            "vote_id": str(outcome.json()["vote_id"]),
             "identifying": identifying,
+            "item_a": payload["pair"][0],
+            "item_b": payload["pair"][1],
             "label_a": labels.get(payload["pair"][0], payload["pair"][0]),
             "label_b": labels.get(payload["pair"][1], payload["pair"][1]),
             "swap": presentation == PRESENTATION_SWAPPED,
+            "chain": chain,
             "next_url": next_url,
             "done_url": done_url,
             "deliberate": deliberate,
