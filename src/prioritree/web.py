@@ -1,14 +1,16 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""web — the web fronts: the child app over the service's wire, the eleven routes.
+"""web — the web fronts: the child app over the service's wire, the twelve routes.
 
 The web unit (web-brief §1.1 + the approved design §8, re-settled per
 Q-ux-surface R9/R10 — the template-source law): the CHILD application
 (FastAPI with the docs routes disabled — the web tier is the human's
 surface, not an API), mounted at the service app's TAIL (service.py's mount
-line, the one touch); the eleven routes (7 pages at honest statuses + 4
-rendering fragments at 200 — the deliberate-pair lane's two pages riding
-amendment 22: the picker + the chosen pair, the existing card and door
-re-used); the in-process service client (httpx2
+line, the one touch); the twelve routes (7 pages at honest statuses + 5
+fragment-lane routes at 200 — register, pair, vote, state_strip,
+unremember, the un-remember lane a POST answering HX-Redirect, never a
+render — the deliberate-pair lane's two pages riding amendment 22: the
+picker + the chosen pair, the existing card and door re-used); the
+in-process service client (httpx2
 .AsyncClient over ASGITransport against the imported service app —
 raise_app_exceptions=False REQUIRED: the service fold sends its envelope
 then always re-raises, and the fold case needs the envelope RETURNED, rikai
@@ -24,7 +26,7 @@ Python (no string constants, no giant concatenations — the superseded
 web_structure.py form out of grammar), ZERO generated artifacts (nothing
 emits, nothing regens, no --check). The web homes resolve IN ORDER
 (install-brief §2/§3): the CWD-relative copy FIRST (the repo-root launch
-discipline, STORE_HOME run_store.py:53 the precedent — the authored files
+discipline, STORE_HOME run_store.py:67 the precedent — the authored files
 win when present), the shipped package's copy the FALLBACK
 (importlib.resources over the wheel's force-include mapping — the
 installed lane renders from the package); the static mount's
@@ -209,6 +211,11 @@ class CsrfRefusedError(Exception):
     clothes never worn); found "absent-or-mismatched" the elision discipline
     (the remote page could not have READ the served form — which leg fired
     teaches nothing).
+    Refuses when: never — the class CARRIES, never gates (the guard raises
+    at the guarded POST; the dedicated handler renders).
+    Re-run: deterministic given the raised refusal's fields (the three
+    carried verbatim, never re-derived).
+    Touches: nothing — typed data alone (the fields the guard minted).
     Provenance: the design's F2, the unit brief §1b/§3c, rikai map 2,
     G-SERVING-TIER-INTEGRATION-BRIEF.
     """
@@ -284,7 +291,7 @@ async def _csrf_guard(request: Request) -> None:
         )
 
 
-# The mounted whole's legal set (web-brief §3e): the nine web routes (the
+# The mounted whole's legal set (web-brief §3e): the web routes (the
 # child's own path constants above) + the six service routes (the frozen
 # wire's literals, cited) — the child's refusal handler teaches the whole
 # face honestly.
@@ -387,8 +394,9 @@ _client = httpx2.AsyncClient(
     headers={AUTH_HEADER_DEFAULT: _web_key} if _web_key else None,
 )
 logging.getLogger("uvicorn.error").info(
-    "web tier key: %s (a six-token grant)",
+    "web tier key: %s (expected: the six-token grant)%s",
     "present" if _web_key else "absent",
+    "" if _web_key else " — wire PRIORITYTREE_WEB_KEY at the next boot",
 )
 
 
@@ -524,7 +532,7 @@ def refuse(request: Request, exc: StarletteHTTPException) -> JSONResponse:
     JSONResponse (the pinned parent-face arcs assert the JSON body):
     expected the method + path as addressed, found the routing violation
     named (404: no route matches the path; 405: the method not allowed at
-    the path), next_action the MOUNTED WHOLE's legal set (the nine web
+    the path), next_action the MOUNTED WHOLE's legal set (the web
     routes + the six service routes, from the module's own union — the
     mounted whole IS the tree's HTTP face). The status rides
     exc.status_code verbatim — machine-dispatchable.
@@ -585,7 +593,14 @@ def fold(request: Request, exc: Exception) -> Response:
 def refuse_csrf(request: Request, exc: CsrfRefusedError) -> Response:
     """Render the CSRF refusal as the refusal fragment at 200 — the drive-by SEEN, never a silent OK.
 
-    Never the fold's clothes.
+    Purpose: the child's DEDICATED handler for the typed CSRF refusal —
+    never the fold's clothes (the crash page's garb never worn): the
+    refusal's three fields rendered as the refusal fragment at 200 (the
+    page context preserved — the refusal is SEEN, never a silent OK).
+    Refuses when: never — the handler renders; the refusal IS the input
+    (exc.expected/found/next_action verbatim, never re-derived).
+    Re-run: deterministic — the same refusal renders the same fragment.
+    Touches: nothing.
 
     Provenance: the unit brief §3c, rikai map 2 (the landing mechanics' seam),
     G-SERVING-TIER-INTEGRATION-BRIEF.
@@ -1065,11 +1080,11 @@ async def pair(request: Request, stem: str, *, swap: bool = False) -> Response:
     200 => the bare-pair fragment (cards A/B marked + labeled; the count
     UNREAD — dropped at the controller); its buttons hx-post the vote as
     the sitting's pair. DONE => the HX-Redirect RESPONSE HEADER to the done
-    swap the query knob: the pair PRESENTED in the swapped order (the
-    order-bias probe's instrument — the served presentation re-sent at the vote).
-    page (core HTMX's navigation verb — no extension, no JS). Any non-200
-    on either call => the refusal fragment at 200 (the fold wording at
-    500).
+    page (core HTMX's navigation verb — no extension, no JS). The swap the
+    query knob: the pair PRESENTED in the swapped order (the order-bias
+    probe's instrument — the served presentation re-sent at the vote). Any
+    non-200 on either call => the refusal fragment at 200 (the fold
+    wording at 500).
     Refuses when: never by this hand.
     Re-run: deterministic given the store state.
     Touches: nothing — a query.

@@ -7,12 +7,16 @@ on {store_home}/.prioritree.lock -- created on demand, NEVER deleted (flock
 binds the inode; a deleted lockfile is a NEW lock -- a second writer locking
 a fresh inode is no lock at all), acquired around each WHOLE store act
 (load->act->save), released before rendering (the service seam's own law,
-service_store.py:59-60). CLOSED because all writers are local, none
-bypasses: the harness-launched session servers, the localhost service, the
-CLI; external agents speak THROUGH the shared HTTP server. Stdlib only
-(the tier fence, service_store.py:19); the lock path derives from the
-INJECTED home, never re-defaulted (the service_store.py:77-80 precedent
--- the hidden-global drift refused).
+service_store.py:72). THE FLOCK'S GUARANTEE, narrowed honestly: it
+serializes every writer THAT COMPOSES THE SEAM -- the harness-launched
+session servers, the localhost service, the CLI, the web child, the mcp
+doors; the LOCAL CLASS'S DIRECT REACH the standing residual (the key
+fences the socket, never the filesystem -- every local process owns
+every surface, the README's honest statement); the armed doors'
+verification a DIFFERENT axis (identity at the wire, never file
+access). Stdlib only (the tier fence, service_store.py:15); the lock
+path derives from the INJECTED home, never re-defaulted (the
+service_store.py:90-91 precedent -- the hidden-global drift refused).
 """
 
 from __future__ import annotations
@@ -43,7 +47,9 @@ class Lock:
     lock, the cure collapsing at the first unlink -- the inode law carried
     here, never violated at exit).
     Refuses when: never -- LOCK_EX blocks until granted (advisory on darwin;
-    closed because every writer is local and none bypasses the seam).
+    the guarantee bounded to the seam's composers: every writer THAT
+    COMPOSES THE SEAM is serialized under it; the local class's direct
+    reach the named residual, never the flock's to fence).
     Re-run: deterministic in effect -- the same home derives the same lock
     path; re-entry serializes (a second holder blocks until the first
     releases).
@@ -60,8 +66,8 @@ class Lock:
 
         Purpose: the lock path DERIVES from the injected home
         ({store_home}/.prioritree.lock) -- store-as-parameter, the
-        STORE_HOME law (run_store.py:48-53); the default never re-derived
-        here (the hidden-global drift refused, the service_store.py:77-80
+        STORE_HOME law (run_store.py:67); the default never re-derived
+        here (the hidden-global drift refused, the service_store.py:90-91
         precedent).
         Refuses when: never -- construction derives and holds.
         Re-run: idempotent -- a fresh Lock over the given home; no

@@ -44,7 +44,7 @@ $ prioritree vote RUN-0001 aloe basil prefer-a mark human
 vote	VOTE-0001	1
 ```
 
-Then serve and vote the remaining pairs the same way; at quorum on every pair the tally emits the ranked whole — the full transcript: [Input/Output Examples](#inputoutput-examples).
+Then serve and vote the remaining pairs the same way; at quorum AND corroboration on every pair the tally emits the ranked whole — the full transcript: [Input/Output Examples](#inputoutput-examples).
 
 ## Architecture
 
@@ -53,12 +53,12 @@ Five tiers, one layered architecture, library-first:
 - **Library — `src/prioritree` — built 2026-11-20.** The pure-logic core at the bottom of the stack: items, the comparison operator, pair scheduling, votes, tally — the tally a pure function of the stored votes. State is file-backed JSONL (no database).
 - **CLI — built 2026-11-21.** Wraps the core: the five-op surface at the command line (register → next → vote → state → tally), the `prioritree` console script.
 - **Service (FastAPI) — live 2026-11-21.** Serves the core over HTTP: six routes (the five ops 1:1 + the manifest query), one process-wide lock seam, every error body the three-part form (expected / found / next-action).
-- **Web — built 2026-11-22.** Fronts the service: `src/prioritree/web.py` (1241 lines, twelve lanes, 17 authored Jinja2 templates + 2 static files) over the in-process seam — the human comparator's vote surface at the browser.
-- **MCP — live 2026-11-22.** The agent-callable tier: `src/prioritree/mcp_server.py` (681 lines, the five OunceMCP tools — `runs.register`, `runs.next`, `votes.cast`, `votes.census`, `runs.tally`; the `store_lock.py` flock seam), two run forms.
+- **Web — built 2026-11-22.** Fronts the service: `src/prioritree/web.py` (1256 lines, twelve lanes, 17 authored Jinja2 templates + 2 static files) over the in-process seam — the human comparator's vote surface at the browser.
+- **MCP — live 2026-11-22.** The agent-callable tier: `src/prioritree/mcp_server.py` (685 lines, the five OunceMCP tools — `runs.register`, `runs.next`, `votes.cast`, `votes.census`, `runs.tally`; the `store_lock.py` flock seam), two run forms.
 
 The auth doors live inside the service/web/mcp surfaces — not a sixth tier (see [Auth](#auth)).
 
-Runtime dependencies: seven — `fastapi`, `httpx2`, `itsdangerous`, `jinja2`, `ouncemcp`, `python-multipart`, `uvicorn[standard]` (`pyproject.toml`). The quality floor: 475 tests green, pyright clean, ruff clean.
+Runtime dependencies: seven — `fastapi`, `httpx2`, `itsdangerous`, `jinja2`, `ouncemcp`, `python-multipart`, `uvicorn[standard]` (`pyproject.toml`). The quality floor: 476 tests green, pyright clean, ruff clean.
 
 ## Usage
 
@@ -92,7 +92,7 @@ Six routes over HTTP:
 | route | op | scope |
 |---|---|---|
 | `POST /runs` | register (201) | `register` |
-| `GET /runs/{run_id}/next` | serve the next under-quorum pair | `next` |
+| `GET /runs/{run_id}/next` | serve the next open pair (under-quorum or uncorroborated) | `next` |
 | `POST /runs/{run_id}/votes` | cast one judgment | `cast` |
 | `GET /runs/{run_id}/state` | the census | `state` |
 | `GET /runs/{run_id}/tally` | the ranked whole | `tally` |
@@ -134,15 +134,15 @@ digest	{the live mint's 64-hex sha256 — the only form at rest}
 mode	0600
 ```
 
-The store lands at `.prioritree/keys.jsonl`, CWD-relative — run the mint from the repo root, or pass `--home` matching the marker's absolute path (see [Discipline](#discipline)). The marker's three states (key_store.py:596-600), pasted from a live boot:
+The store lands at `.prioritree/keys.jsonl`, CWD-relative — run the mint from the repo root, or pass `--home` matching the marker's absolute path (see [Discipline](#discipline)). The marker's three states (key_store.py:601-605), pasted from a live boot:
 
 - armed + minted: `auth: on | keys: {home} | count: {N}`
-- armed + no store: `auth: on (failopen -- no key store) | keys: {home} | next-action: prioritree key mint` — the LOAD fails open (the boot survives), the DOORS fail closed (every request 401s until a mint lands)
+- armed + no store: `auth: on (load fail-open; doors fail-closed) | keys: {home} | next-action: prioritree key mint` — the LOAD fails open (the boot survives), the DOORS fail closed (every request 401s until a mint lands)
 - the degrade: `auth: off (operator's explicit degrade) | keys: {home} | count: {N}` — the stamps fall back to the body's self-claims; the degrade is never a lockout
 
-A typo'd AUTH refuses loudly at boot — expected `AUTH one of on|off (or unset)`, found the value verbatim, next-action the fix-and-reboot; the boot dies honestly (key_store.py:554-578).
+A typo'd AUTH refuses loudly at boot — expected `AUTH one of on|off (or unset)`, found the value verbatim, next-action the fix-and-reboot; the boot dies honestly (key_store.py:557-581).
 
-The carry, three lanes: the service wire reads the `X-Api-Key` header (key_verify.py:32); the browser rides the env — `PRIORITYTREE_WEB_KEY` at the NEXT boot, then `make restart` (the mint alone cures nothing at the browser: the 401's next_action names the mint, never the wiring; the boot log's `web tier key: present|absent (a six-token grant)` line is the wiring's evidence, web.py:389-392); the mcp `--serve` door reads the bearer — `Authorization: Bearer {key}`; the X-Api-Key header never rides at that door (mcp_auth.py:37-39).
+The carry, three lanes: the service wire reads the `X-Api-Key` header (key_verify.py:32); the browser rides the env — `PRIORITYTREE_WEB_KEY` at the NEXT boot, then `make restart` (the mint alone cures nothing at the browser: the 401's next_action names the mint, never the wiring; the boot log's `web tier key: present|absent (expected: the six-token grant)` line is the wiring's evidence — the absent arm names the wiring at the next boot, web.py:396-400); the mcp `--serve` door reads the bearer — `Authorization: Bearer {key}`; the X-Api-Key header never rides at that door (mcp_auth.py:37-39).
 
 The audience pair {service, mcp} (key_store.py:53): one key form, two doors, one store — a key is dead at its non-audience, indistinguishably from unknown (the wrong-audience 401 is the SAME form; the identity oracle never fed). The mint validates scopes and audience separately, never the combination.
 
@@ -169,18 +169,18 @@ Wrong scope — the 403's (the re-mint taught):
 
 The llm comparator rides the SAME ceremony — `prioritree key mint claude --class llm --scopes next,cast,manifest --audience service` — and the door stamps the key's class over any body's claim (an llm key over a body claiming human stamps llm; the corroboration floor needs exactly this). The grant map is data, default-deny (policy.py:41-47): the mints' `--scopes` arguments above ARE the map's rows; a scope absent from the mint is a door that 403s.
 
-The corroboration floor, told up front (policy.py:69-89 — the standing policy every run declares by being a prioritree run; tally.py:534-548 — the gate): every pair needs >=1 human AND >=1 llm vote at the tally. Where it bites: the tally gate. Which voices count: the key's class. Where the second class rides: the operator's llm-class key at the service/MCP tier (the browser has no llm lane).
+The corroboration floor, told up front (policy.py:69-89 — the standing policy every run declares by being a prioritree run; tally.py:512-546 — the gate): every pair needs >=1 human AND >=1 llm vote at the tally. Where it bites: the tally gate. Which voices count: the key's class. Where the second class rides: the operator's llm-class key at the service/MCP tier (the browser has no llm lane).
 
-The browser's chain: `open http://127.0.0.1:8000/` — key-free by design (the tier key invisible by construction); the CSRF met as the two taught cures (`expected: the form's csrf_token field (minted into the served page) | found: absent-or-mismatched | next_action: reload the page and re-send — the re-render mints a fresh token` — the live-session copy, web.py:277; the lapsed identification teaches `your identification lapsed — reload, the page re-asks your name`, web.py:279); the 401/403 lanes render the service's own three fields at the honest statuses, under the headings "The service asked for a key" / "The key lacks this act's scope" — never the crash page's clothes. Each browser is its own voter at the web tier: the same browser's re-send ACKs (the dedup), two browsers land two ids (two records — the duplication visible, the depth inflation named honestly); the other voices ride their own keys at the service/MCP tier.
+The browser's chain: `open http://127.0.0.1:8000/` — key-free by design (the tier key invisible by construction); the CSRF met as the two taught cures (`expected: the form's csrf_token field (minted into the served page) | found: absent-or-mismatched | next_action: reload the page and re-send — the re-render mints a fresh token` — the live-session copy, web.py:284; the lapsed identification teaches `your identification lapsed — reload, the page re-asks your name`, web.py:286); the 401/403 lanes render the service's own three fields at the honest statuses, under the headings "The service asked for a key" / "The key lacks this act's scope" — never the crash page's clothes. Each browser is its own voter at the web tier: the same browser's re-send ACKs (the dedup), two browsers land two ids (two records — the duplication visible, the depth inflation named honestly); the other voices ride their own keys at the service/MCP tier.
 
 The agent's chain: `uv run python -m prioritree.mcp_server --serve` + `Authorization: Bearer {key}`. The five-tool reach per the key's scopes (mcp_auth.py:86-94): `runs.register`→register, `runs.next`→next, `votes.cast`→cast, `votes.census`→state, `runs.tally`→tally — manifest has NO mcp tool (the service tier's sixth route alone; a manifest-only mcp key opens nothing). The wrong-token 401's body is the substrate's own canned OAuth text — "clear authentication tokens in your MCP client and reconnect. Your client should automatically re-register and obtain new tokens" — the reconnect mints nothing; the mint is the only acquisition. A tool absent from your list refuses as absent; check your key's scopes, not the server. Over stdio the spawn IS the credential — all five tools ungated, the stamps the body's self-claims (the local trust; `--serve` and the service wire are the verified forms).
 
 The knobs, at their ?= forms (the configurability law — every name a knob from birth):
 
 - `AUTH ?= on` (Makefile:7) — on|off|unset→on; a typo refuses loudly at boot
-- `PRIORITYTREE_WEB_KEY ?=` (Makefile:8) — the browser lane's wiring, read once at boot (web.py:382); the boot log line `web tier key: present|absent (a six-token grant)`
+- `PRIORITYTREE_WEB_KEY ?=` (Makefile:8) — the browser lane's wiring, read once at boot (web.py:389); the boot log line `web tier key: present|absent (expected: the six-token grant)` — the absent arm names the wiring at the next boot
 - `PRIORITYTREE_KEYS_HOME` (key_store.py:45-48) — the store's home, resolved absolute at both doors; an empty override falls back to the default
-- `PRIORITYTREE_WEB_CSRF_SECRET` / `PRIORITYTREE_WEB_REMEMBER_SECRET` (web.py:124-125) — unset means a boot-minted 256-bit secret; a restart invalidates outstanding tokens and sessions (the reload and the re-ask the cures); one secret each across workers; an under-floor env secret refuses at import in the three-part form
+- `PRIORITYTREE_WEB_CSRF_SECRET` / `PRIORITYTREE_WEB_REMEMBER_SECRET` (web.py:126-127) — unset means a boot-minted 256-bit secret; a restart invalidates outstanding tokens and sessions (the reload and the re-ask the cures); one secret each across workers; an under-floor env secret refuses at import in the three-part form
 - the header `X-Api-Key` at the service door (key_verify.py:32); the bearer grammar at the mcp door (mcp_auth.py:37-39); `--host`/`--port` at `--serve`
 
 ### Remains trust
@@ -193,7 +193,7 @@ The knobs, at their ?= forms (the configurability law — every name a knob from
 - The local process's reach: the key fences the socket, not the filesystem — every local process owns every surface.
 - The offline JSONL edit: the checks live at the wire; the seam lives on disk.
 - The issuance's honesty: the operator mints honestly — the operational trust itself.
-- The browser's remembered id: narrowed, never erased — the session's self-claim carried across the tier key's door from the web lane alone (service.py:581-582), persistent never verified; the class still the key's, stamped over any body's claim.
+- The browser's remembered id: narrowed, never erased — the session's self-claim carried across the tier key's door from the web lane alone (service.py:586-587), persistent never verified; the class still the key's, stamped over any body's claim.
 - The stdio self-claims: stdio is the local user's trust; `--serve` and the service wire are the verified forms.
 - The hide's teaching loss: the unauthorized agent cannot tell broken-server from unauthorized-self.
 - The quantities: the policy grants verbs, never quantities — owned by the tally-policy lane, never silent.
@@ -212,7 +212,7 @@ The browser remembers the judge — `Your name is asked once — the site rememb
 
 Each browser is its own voter. A fresh browser asks again — the expiry taught in the human's words, `your identification lapsed — reload the page, it re-asks your name`, never the schema's. Two browsers land two voters, the ids distinct at the record, the duplication visible never hidden; two humans on one browser merge into one voter. The tally counts votes, never minds. The register's operator field arrives pre-filled from the remembered name — a visible editable value; the claim always rides the body. The shareable URL stays shareable: anonymous reads unchanged, each judge identifies once at their own browser.
 
-Two roles, named honestly. WHO — the name is yours: a self-claim, persistent, never verified (no account, no secret; k fabrications are still k identifications). WHAT CLASS — the key's verified stamp, never the browser's to claim at any door: the session is the humans' lane, the llm votes ride unchanged at the stdio/tools tier on the mcp audience's keys. The id-binding is narrowed, never erased — the remembered self-claim crosses the verified door from the web lane alone (service.py:581-582), persistent never verified; the record says what it knows and what it merely carries.
+Two roles, named honestly. WHO — the name is yours: a self-claim, persistent, never verified (no account, no secret; k fabrications are still k identifications). WHAT CLASS — the key's verified stamp, never the browser's to claim at any door: the session is the humans' lane, the llm votes ride unchanged at the stdio/tools tier on the mcp audience's keys. The id-binding is narrowed, never erased — the remembered self-claim crosses the verified door from the web lane alone (service.py:586-587), persistent never verified; the record says what it knows and what it merely carries.
 
 > **THE SESSION CURES THE UX COST, NEVER THE IDENTITY FABRICATION**
 >
@@ -220,11 +220,11 @@ Two roles, named honestly. WHO — the name is yours: a self-claim, persistent, 
 
 The statement's whole, compact: the record's identity is a browser's self-claim, persistent and pinned, never verified; the corroboration story's strength lives at the class axis (the key's verified stamp), never at the id axis (the self-claim). The browser binding — each browser its own voter: multi-browser-per-human splits one human into k voters, multi-human-per-browser merges many into one. The readable payload — the name's bytes client-side in the cookie, tamper-cured, readable by the holder. The verdict at this bind: UX-first, security-second — the loopback keeps the remote classes dead and the local class already owns the machine; the session's security value prices in at the LAN rebind era. The auth precedent's parallel: the auth cures the wire — the session cures the ceremony; the identity's honesty remains the human's own.
 
-The correction verbs, one affordance (`not you? change your name or un-remember this device`, sitting.html:10). Change — the re-identification rotates the CSRF epoch; the old tabs' tokens die, the reload the cure (`reload the page and re-send — the re-render mints a fresh token`). Un-remember — the engine's deletion cookie (`remember=null; expires=Thu, 01 Jan 1970`, no max-age, web.py:1217-1241): it clears this browser's cookie, never a server kill — a stolen cookie elsewhere rides to the max-age or the secret's rotation.
+The correction verbs, one affordance (`not you? change your name or un-remember this device`, sitting.html:10). Change — the re-identification rotates the CSRF epoch; the old tabs' tokens die, the reload the cure (`reload the page and re-send — the re-render mints a fresh token`). Un-remember — the engine's deletion cookie (`remember=null; expires=Thu, 01 Jan 1970`, no max-age, web.py:1232-1256): it clears this browser's cookie, never a server kill — a stolen cookie elsewhere rides to the max-age or the secret's rotation.
 
 The knobs, at their env forms (the configurability law — every knob from birth):
 
-- `PRIORITYTREE_WEB_REMEMBER_SECRET` / `PRIORITYTREE_WEB_CSRF_SECRET` (web.py:124-125) — unset means a boot-minted 256-bit secret; a restart invalidates outstanding sessions and tokens (the re-ask and the reload the cures); an under-floor env secret refuses at import in the three-part form — a weak secret weakens every artifact it signs.
+- `PRIORITYTREE_WEB_REMEMBER_SECRET` / `PRIORITYTREE_WEB_CSRF_SECRET` (web.py:126-127) — unset means a boot-minted 256-bit secret; a restart invalidates outstanding sessions and tokens (the re-ask and the reload the cures); an under-floor env secret refuses at import in the three-part form — a weak secret weakens every artifact it signs.
 - The 14-day `max_age` — the 780-s card covered 1550×; the price a 14-day stolen-cookie window. `SameSite=lax` — the shareable URL's top-level entry preserved; `HttpOnly` hardcoded at the engine, never a knob.
 
 The era order, told compact: this session was born mid-probe — the order-bias probe's completion card met the per-operation identification and was abandoned at the first sitting (0 of 78; the datum deferred at 241 of 312); the collaborator's governance overrule convened the full-team cycle (research → evaluation → recommendation → the design), the session landed at the floor 475 — and the datum was served: RUN-0008 completed at 319 votes, the null standing at its realized bound |θ−0.5| ≲ ±0.192, never "no bias". The records resolve to the two stores: the datum at `.plans/ideation/2026-11-24-order-bias-probe/` (reports/measure/probe.md; reports/close/records.md), this effort's whole at `.plans/ideation/2026-11-26-prioritree-multi-user/`.
@@ -319,7 +319,7 @@ $ open http://127.0.0.1:8000/
 
 ## Status
 
-Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools); the auth landed 2026-11-24 (the key store, the grant map, the six doors, the mcp bearer door, the corroboration floor — [Auth](#auth)); the order-bias question measured 2026-11-26 (the presented order's bias over the tree's own stamped votes: the flips real — 26 of 155 classifiable cells flipped on the swap; the direction's asymmetry unestablished at the realized m — THE NULL AT ITS BOUND |θ−0.5| ≲ ±0.192, never "no bias"; the record at `.plans/ideation/2026-11-24-order-bias-probe/`); the voter session landed 2026-11-26 (identify once per browser — each browser its own voter, the class still the key's; born mid-probe at the measured refusal, RUN-0008's datum served at 319 — [Multi-user](#multi-user)). CI is live (2026-11-23): the CI workflow (.github/workflows/ci.yml) runs the quality floor — ruff, pytest, pyright — at every push to main and weekly, and CodeQL scans under the tree's own config (.github/codeql/codeql-config.yml); the loop's lands ride direct pushes to main and the workflow runs green at each push — the PR form has no grammar here; the git hook stays the local backstop. The quality floor: 475 tests green, pyright clean, ruff clean.
+Born 2026-11-19 (the setup). The core library built 2026-11-20; the CLI built 2026-11-21; the claim measured 2026-11-21 (pairs + tally beats absolute sizing at equal budget — 51 of 54 in-band cells); the service live 2026-11-21; the web app built 2026-11-22; the MCP tier live 2026-11-22 (the five OunceMCP tools); the auth landed 2026-11-24 (the key store, the grant map, the six doors, the mcp bearer door, the corroboration floor — [Auth](#auth)); the order-bias question measured 2026-11-26 (the presented order's bias over the tree's own stamped votes: the flips real — 26 of 155 classifiable cells flipped on the swap; the direction's asymmetry unestablished at the realized m — THE NULL AT ITS BOUND |θ−0.5| ≲ ±0.192, never "no bias"; the record at `.plans/ideation/2026-11-24-order-bias-probe/`); the voter session landed 2026-11-26 (identify once per browser — each browser its own voter, the class still the key's; born mid-probe at the measured refusal, RUN-0008's datum served at 319 — [Multi-user](#multi-user)). CI is live (2026-11-23): the CI workflow (.github/workflows/ci.yml) runs the quality floor — ruff, pytest, pyright — at every push to main and weekly, and CodeQL scans under the tree's own config (.github/codeql/codeql-config.yml); the loop's lands ride direct pushes to main and the workflow runs green at each push — the PR form has no grammar here; the git hook stays the local backstop. The quality floor: 476 tests green, pyright clean, ruff clean.
 
 ## License
 

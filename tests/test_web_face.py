@@ -15,7 +15,9 @@ auth-on arcs overwrite the state per test (the seam's own law).
 The arcs: the page arcs (landing, sitting, done, progress, result
 200/409/404 — the sitting's corroboration-aware arcs beside them: the
 uncorroborated pair still SERVED, the done page rendered for the plain
-browser, the deliberate lane's picker + chosen pair, either presentation);
+browser, the deliberate lane's picker + chosen pair, either presentation;
+the resume stems carrying `required` — the empty click teaches, never a
+dead button);
 the fragment arcs (register 201/422/bad-quorum, the two-step
 chain, the idempotent echo, the HX-Redirect, the 422 pair-untouched, the
 state strip, the fold fragment); the CSRF arcs (the token minted in the
@@ -202,6 +204,16 @@ def test_landing_serves(client: TestClient) -> None:
     assert "judge the items two at a time" in response.text
     assert 'data-pt-path="/runs/{stem}"' in response.text
     assert 'data-pt-path="/runs/{stem}/result"' in response.text
+
+
+def test_resume_stems_carry_required(client: TestClient) -> None:
+    """The three rendered resume stems carry `required` — the empty click teaches, never a dead button."""
+    landing = client.get("/")
+    unknown = client.get("/runs/RUN-9999")
+    assert landing.status_code == 200
+    assert unknown.status_code == 404
+    assert landing.text.count('<input name="stem" required placeholder="RUN-0001">') == 2
+    assert '<input name="stem" required placeholder="RUN-0001">' in unknown.text
 
 
 def test_static_pair_serves(client: TestClient) -> None:

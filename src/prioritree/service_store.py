@@ -17,8 +17,11 @@ public surface only (register/load, the verbs delegated; the privates never touc
 load never exposed (each verb loads INSIDE the lock — per-request composition, the
 dedup index fresh by construction). The door's values returned verbatim; the door's and
 store's refusals ride through BY TYPE, never wrapped. The multi-process widening held
-by the flock outermost: every standing writer local, none bypassing the seam (the
-single-worker banking superseded). Five-field docstrings on every public symbol;
+by the flock outermost: every writer THAT COMPOSES THE SEAM serialized under it (the
+single-worker banking superseded); the local class's direct reach the standing
+residual (the flock fences the seam's composers, never the filesystem); the armed
+doors' verification a DIFFERENT axis (identity at the wire, never file access).
+Five-field docstrings on every public symbol;
 stdlib only (threading; the flock seam store_lock, itself stdlib-only).
 """
 
@@ -59,9 +62,12 @@ class Serialize:
     or any core module); load never exposed — each verb loads inside the lock. The GIL
     never load-bearing: the lock serializes acts, the GIL bytecodes — the contract rests
     on the lock alone. The multi-process widening held by the flock outermost (every
-    standing writer local, none bypassing the seam).
+    writer THAT COMPOSES THE SEAM serialized under it; the local class's
+    direct reach the standing residual, never the flock's to fence; the
+    armed doors' verification a different axis -- identity at the wire,
+    never file access).
     Refuses when: never its own refusal — the door's refusals (VotesRefusedError,
-    TallyRefusedError, ExhaustedQueue) and the store's own (StoreRefusedError) ride
+    TallyRefusedError, SupersedeRefusedError, ExhaustedQueue) and the store's own (StoreRefusedError) ride
     through verbatim BY TYPE, never wrapped, never conflated (the face unit maps them
     to the statuses; this seam never holds the lock across rendering).
     Re-run: deterministic given the store state — the lock never changes values, only
@@ -126,9 +132,10 @@ class Serialize:
             return Persist.register(self._store_home, items, operator, quorum).run_id
 
     def serve(self, run_id: str, seed: int | None = None) -> tuple[str, str, int]:
-        """Serve the next under-quorum pair under the file lock outermost — the load and the read in one acquire.
+        """Serve the next open pair under the file lock outermost — the load and the read in one acquire.
 
-        Purpose: serialize the serve act — load the run file INSIDE the lock (the fresh
+        Purpose: serialize the serve act — the next OPEN pair (under-quorum or
+        uncorroborated): load the run file INSIDE the lock (the fresh
         door rebuilt from the file; load never exposed), delegate to the door's
         next_pair, return the door's triple VERBATIM. The read locks too: a serve
         concurrent with a cast would catch the mid-append tail and fire the crash-tail
@@ -167,7 +174,7 @@ class Serialize:
         precedent re-cited; the presentation_order the order-bias probe's instrument,
         additive).
         Refuses when: never its own refusal — the store's own (StoreRefusedError) and
-        the door's (VotesRefusedError) ride through verbatim BY TYPE, never wrapped.
+        the door's (VotesRefusedError, SupersedeRefusedError) ride through verbatim BY TYPE, never wrapped.
         Re-run: deterministic given the store state — the lock never changes values,
         only interleavings (a byte-identical re-send is the door's loud ack; the count
         unchanged, never double-counted).

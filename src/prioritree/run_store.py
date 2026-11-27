@@ -438,7 +438,7 @@ def _validate_vote_line(
 ) -> tuple[str, tuple[str, str], str, str, str, str | None, str | None, str]:
     """Validate one vote line against the manifest's ground, refusing the corrupt.
 
-    Purpose: the pre-pass's per-line core — extract the nine grammar fields
+    Purpose: the pre-pass's per-line core — extract the ten grammar fields
     (the seven cast fields + the two stamps carried as data + the
     presentation_order token — the absent field the honest canonical
     default), then the six
@@ -899,7 +899,7 @@ class Persist:
         return vote_id, record, count, acknowledged
 
     def serve(self, seed: int | None = None) -> tuple[str, str, int]:
-        """Serve the next under-quorum pair.
+        """Serve the next open pair (under-quorum or uncorroborated).
 
         Purpose: delegate to the door's next_pair verbatim — the same store
         state yields the same pair; after a crash the file is the truth and

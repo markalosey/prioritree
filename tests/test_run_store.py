@@ -1,5 +1,10 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""The run-store unit's edge tests — the six named edges (run-store-brief §5)."""
+"""The run-store unit's edge tests — the ten named edges (run-store-brief §5).
+
+The six grown by the probe era's four: the swapped presentation's round
+trip, the legacy lines' clean canonical default, the swapped line without
+the field refused, the presentation field's contradictions refused.
+"""
 
 from __future__ import annotations
 

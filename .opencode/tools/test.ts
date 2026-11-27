@@ -19,7 +19,7 @@ function formatOutput(result: {
 }
 
 export default tool({
-  description: "Test execution — run all tests or a single test file via Docker",
+  description: "Test execution — run all tests or a single test file via pytest on the host (the tree's test_runner engine)",
   args: {
     operation: tool.schema
       .enum(["all","one"])
@@ -41,7 +41,7 @@ export default tool({
         return formatOutput(await runArgv(["uv", "run", "python", ".opencode/scripts/test_runner.py", ...eargs], { cwd: context.directory }))
       }
       case "help": {
-        return "test — Test execution — run all tests or a single test file via Docker\n\nOperations:\n  all  [make test]\n    Run all tests via pytest inside Docker\n    example: operation=\"all\"\n  one  [make test-one-docker]\n    Run single test file with verbose output inside Docker\n      - test_path [required]: Test path (e.g., tests/unit/test_foo.py)\n    example: operation=\"one\", test_path=\"<value>\"\n\nTo list every make target, use the `help` tool or run `make help`."
+        return "test — Test execution — run all tests or a single test file via pytest on the host (the tree's test_runner engine)\n\nOperations:\n  all  [uv run python .opencode/scripts/test_runner.py all]\n    Run all tests via pytest on the host\n    example: operation=\"all\"\n  one  [uv run python .opencode/scripts/test_runner.py one <test_path>]\n    Run single test file via pytest on the host\n      - test_path [required]: Test path (e.g., tests/unit/test_foo.py)\n    example: operation=\"one\", test_path=\"<value>\""
       }
     }
     return `Unknown operation: ${args.operation}`

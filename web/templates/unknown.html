@@ -6,7 +6,7 @@
   <p>No run answers this address — the wire's own report:</p>
   <p class="wire-found">{{ fields.found }}</p>
   <form method="get" action="/" data-pt-path="/runs/{stem}">
-    <label>Have a run id? Resume its sitting. <input name="stem" placeholder="RUN-0001"></label>
+    <label>Have a run id? Resume its sitting. <input name="stem" required placeholder="RUN-0001"></label>
     <button type="submit">Resume the sitting</button>
   </form>
   <p class="quiet">The run id looks like RUN-0001 — it was shown when the run was registered.</p>

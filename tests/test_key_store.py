@@ -239,14 +239,14 @@ def test_mid_flight_chmod_refused_at_reload(tmp_path: Path) -> None:
 
 
 def test_boot_marker_renders_three_states(tmp_path: Path) -> None:
-    """The marker's three states: on+present, on+absent (failopen), off (the degrade)."""
+    """The marker's three states: on+present, on+absent (load fail-open, doors fail-closed), off (the degrade)."""
     home = tmp_path / "keys.jsonl"
     _write_keys_file(home, [_well_formed()])
     absolute = home.absolute()
     assert render_boot_marker(absolute, "on", 1) == f"auth: on | keys: {absolute} | count: 1"
     absent_home = tmp_path / "absent.jsonl"
     assert render_boot_marker(absent_home, "on", 0) == (
-        f"auth: on (failopen -- no key store) | keys: {absent_home} | next-action: prioritree key mint"
+        f"auth: on (load fail-open; doors fail-closed) | keys: {absent_home} | next-action: prioritree key mint"
     )
     assert render_boot_marker(absolute, "off", 0) == (
         f"auth: off (operator's explicit degrade) | keys: {absolute} | count: 0"

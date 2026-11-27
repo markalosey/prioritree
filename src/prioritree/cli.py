@@ -11,7 +11,10 @@ frozen door cited). The I/O contract (Q-cli-io): argv in, stdout out, exit
 0/1/2 — 0 success AND DONE (ExhaustedQueue caught BY TYPE, its full three-field
 message on stdout), 1 the refusal lineage (the four typed refusals, str(e)
 verbatim on stderr), 2 the argv+unexpected channel (argparse's SystemExit
-propagates untouched; the traceback rides verbatim). The tier fence held by
+propagates untouched; the traceback rides verbatim). The door's FIFTH typed
+refusal — SupersedeRefusedError, the supersedes author mismatch — rides this
+tier's exit-2 unexpected lane (the service maps it 403, the mcp door
+PermissionDenied; the channel named honestly, never hidden). The tier fence held by
 construction: value-type imports only — Persist, StoreRefusedError, STORE_HOME,
 OperatorDeclaration, the three refusals, ExhaustedQueue, KEYS_HOME, KeyStore,
 KeyStoreRefusedError — no Registry()/Session() at this tier, no door
@@ -142,9 +145,10 @@ def _build_parser() -> argparse.ArgumentParser:
     AFTER-subcommand placement: argparse hands off at the subcommand token, a
     global-before flag dies after it — the footgun named, the alternative
     priced); register: items nargs="+" + --operator-id/--question required +
-    --quorum type=int default 1; next: run_id + --seed type=int default None;
-    vote: run_id, item_a, item_b, winner, comparator_id, comparator_class
-    positionals + --notes/--supersedes default None; state and tally: run_id.
+    --quorum type=int default 1; next: run_id + --seed type=int default None +
+    --swap; vote: run_id, item_a, item_b, winner, comparator_id, comparator_class
+    positionals + --notes/--supersedes default None + --presentation-order
+    (default canonical); state and tally: run_id.
     key: the key tools group — its OWN nested add_subparsers(dest="action",
     required=True) carrying mint: comparator_id positional + --class (dest
     comparator_class, default human) + --scopes (required, a comma list the
@@ -180,8 +184,15 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     register_parser.add_argument(FLAG_OPERATOR_ID, required=True, help="the operator's id")
     register_parser.add_argument(FLAG_QUESTION, required=True, help="the comparison question")
-    register_parser.add_argument(FLAG_QUORUM, type=int, default=1, help="votes per pair before coverage (default: 1)")
-    next_parser = subparsers.add_parser(NEXT, parents=[parent], help="serve the next under-quorum pair")
+    register_parser.add_argument(
+        FLAG_QUORUM,
+        type=int,
+        default=1,
+        help="votes per pair; coverage = quorum AND corroboration (>=1 human AND >=1 llm per pair) (default: 1)",
+    )
+    next_parser = subparsers.add_parser(
+        NEXT, parents=[parent], help="serve the next open pair (under-quorum or uncorroborated)",
+    )
     next_parser.add_argument("run_id", help="the run's RUN-{####} file stem")
     next_parser.add_argument(FLAG_SEED, type=int, default=None, help="the schedule seed (default: the door derives)")
     next_parser.add_argument(FLAG_SWAP, action="store_true", help="present the pair in the swapped order")
@@ -191,7 +202,7 @@ def _build_parser() -> argparse.ArgumentParser:
     vote_parser.add_argument("item_b", help="the served pair's second id, in the served order (canonical or swapped)")
     vote_parser.add_argument("winner", help="the verdict, from the run's declared set")
     vote_parser.add_argument("comparator_id", help="who compared")
-    vote_parser.add_argument("comparator_class", help="the comparator's class")
+    vote_parser.add_argument("comparator_class", help="the comparator's class (human or llm)")
     vote_parser.add_argument(FLAG_NOTES, default=None, help="free-text notes (default: none)")
     vote_parser.add_argument(FLAG_SUPERSEDES, default=None, help="the vote id this cast corrects (default: none)")
     vote_parser.add_argument(
@@ -213,15 +224,21 @@ def _build_parser() -> argparse.ArgumentParser:
         help="the keys home (default: .prioritree/keys.jsonl, CWD-relative)",
     )
     mint_parser = key_sub.add_parser(MINT, parents=[keys_parent], help="mint one api key; print the plaintext ONCE")
-    mint_parser.add_argument("comparator_id", help="the operator id the key names")
+    mint_parser.add_argument("comparator_id", help="the comparator id the key stamps at the door")
     mint_parser.add_argument(
         FLAG_CLASS,
         dest="comparator_class",
         default="human",
-        help="the comparator's class (default: human)",
+        help="the comparator's class (human or llm; default: human)",
     )
-    mint_parser.add_argument(FLAG_SCOPES, required=True, help="the granted scopes, a comma list the store validates")
-    mint_parser.add_argument(FLAG_AUDIENCE, default="service", help="the key's audience tier (default: service)")
+    mint_parser.add_argument(
+        FLAG_SCOPES,
+        required=True,
+        help="the granted scopes (register, next, cast, state, tally, manifest), a comma list the store validates",
+    )
+    mint_parser.add_argument(
+        FLAG_AUDIENCE, default="service", help="the key's audience tier (service or mcp; default: service)",
+    )
     return parser
 
 
@@ -267,14 +284,17 @@ def _command_register(args: argparse.Namespace, parser: argparse.ArgumentParser)
 
 
 def _command_next(args: argparse.Namespace) -> int:
-    r"""Next the under-quorum pair at the store; print the serve triple.
+    r"""Next the open pair at the store; print the serve triple.
 
-    Purpose: load the run and serve its next under-quorum pair —
-    Persist.load(home, run_id) then .serve(seed) with the --seed value passed
-    verbatim (None included — the door derives when None, no re-derivation);
-    print pair\t{item_a}\t{item_b}\t{count} — the serve triple whole. The load+serve
-    window rides under one machine-wide file lock (store_lock.Lock, the flock
-    seam), released before the pair line renders.
+    Purpose: load the run and serve its next open pair (under-quorum or
+    uncorroborated) — Persist.load(home, run_id) then .serve(seed) with the
+    --seed value passed verbatim (None included — the door derives when None,
+    no re-derivation); print pair\t{item_a}\t{item_b}\t{count} — the serve
+    triple whole. The swap the presentation knob: --swap presents the pair in
+    the SWAPPED order (the line's two ids swapped at the print — the
+    order-bias probe's instrument; the vote's --presentation-order names the
+    form). The load+serve window rides under one machine-wide file lock
+    (store_lock.Lock, the flock seam), released before the pair line renders.
     Refuses when: never here — ExhaustedQueue rides through BY TYPE (the
     DONE signal, caught by the caller) and the refusals ride through (the
     caller's tuple clause).
@@ -298,9 +318,12 @@ def _command_vote(args: argparse.Namespace) -> int:
     r"""Vote the judgment at the store; print the cast or the ack.
 
     Purpose: load the run and cast the judgment — Persist.load then .cast with
-    the pair's two positionals in the served canonical order and the
-    winner/comparator values passed through UNVALIDATED (the door's exit-1
-    refusals — no re-derivation); the acknowledged flag picks the marker:
+    the pair's two positionals in the served order (canonical or swapped) and
+    the winner/comparator values passed through UNVALIDATED (the door's exit-1
+    refusals — no re-derivation); the --presentation-order value passed
+    verbatim (canonical the default; swapped at a --swap-served pair — the
+    door maps the swapped citation onto the canonical pair, the record's
+    citable datum); the acknowledged flag picks the marker:
     ack\t{vote_id}\t{count} (the loud dedup ack) or vote\t{vote_id}\t{count}
     (a new cast). The load+cast window rides under one machine-wide file lock
     (store_lock.Lock, the flock seam), released before the vote/ack line renders.

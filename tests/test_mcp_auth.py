@@ -279,7 +279,11 @@ def test_harness_spawn_bare_no_auth_env_source_scan() -> None:
     ("mode", "state", "expected"),
     [
         ("on", "present", "auth: on | keys: {home} | count: 1"),
-        ("on", "absent", "auth: on (failopen -- no key store) | keys: {home} | next-action: prioritree key mint"),
+        (
+            "on",
+            "absent",
+            "auth: on (load fail-open; doors fail-closed) | keys: {home} | next-action: prioritree key mint",
+        ),
         ("off", "present", "auth: off (operator's explicit degrade) | keys: {home} | count: 1"),
     ],
 )

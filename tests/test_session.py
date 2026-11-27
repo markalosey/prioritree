@@ -1,5 +1,10 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""The session unit's edge tests — the nine named edges (session-brief §5)."""
+"""The session unit's edge tests — the twelve named edges (session-brief §5).
+
+The nine grown: the corroboration era's two — the uncorroborated pair
+served at raw quorum, the corroboration read off the counted set — and
+the probe era's swapped-cast delegation.
+"""
 
 import contextlib
 

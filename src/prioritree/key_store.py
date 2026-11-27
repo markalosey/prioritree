@@ -14,8 +14,8 @@ WHOLE (the pre-pass validates every line before the first use); the
 absent store NEVER a refusal (the failopen's data shape: the empty
 state, made loud by the boot marker at the service, not here). The home
 resolved-and-rendered once at boot (F10 folded into F1) -- the resolved
-ABSOLUTE path, the cwd-split boot killed. Stdlib only (json, hashlib,
-os, pathlib, secrets, time). Five-field docstrings on every public
+ABSOLUTE path, the cwd-split boot killed. Stdlib only (hashlib, json,
+os, re, secrets, dataclasses, datetime, pathlib, typing). Five-field docstrings on every public
 symbol; every vocabulary a named constant (content-in-configuration).
 """
 
@@ -73,7 +73,7 @@ class KeyStoreRefusedError(Exception):
     fields so an uncaught traceback still names the legal form.
     Re-run: deterministic -- the same violation raises the same three fields.
     Touches: nothing -- a plain Exception subclass (zero runtime deps).
-    Provenance: the StoreRefusedError precedent (run_store.py:62-93, the
+    Provenance: the StoreRefusedError precedent (run_store.py:77, the
     Error-suffix family form, N818); the exact-task spec
     synthesize/keyinfrastructurespec §1 (KeyStoreRefusedError).
     """
@@ -134,7 +134,7 @@ def _repair_path(keys_home: Path) -> str:
     Refuses when: never.
     Re-run: deterministic.
     Touches: nothing.
-    Provenance: the run_store._repair_path precedent (run_store.py:96-109);
+    Provenance: the run_store._repair_path precedent (run_store.py:111);
     the exact-task spec synthesize/keyinfrastructurespec §1 (_repair_path).
     """
     _head = "repair the key store -- the load refuses the corrupt file whole, never a silent"
@@ -170,7 +170,7 @@ def _require_str_field(line: Mapping[str, object], field: str, position: int, ke
     the line number + the raw value).
     Re-run: deterministic.
     Touches: nothing -- a read of the bytes already in hand.
-    Provenance: the _require_str_field precedent (run_store.py:146-171);
+    Provenance: the _require_str_field precedent (run_store.py:161);
     the exact-task spec synthesize/keyinfrastructurespec §1 (_parse_line's
     field-helper school).
     """
@@ -202,7 +202,7 @@ def _require_scopes_field(line: Mapping[str, object], position: int, keys_home: 
     Re-run: deterministic.
     Touches: nothing -- a pure validation over its arguments.
     Provenance: the _require_verdicts_field precedent
-    (run_store.py:322-351); the exact-task spec
+    (run_store.py:372); the exact-task spec
     synthesize/keyinfrastructurespec §1 (_parse_line's scopes check).
     """
     if "scopes" not in line:
@@ -238,7 +238,7 @@ def _parse_line(line: Mapping[str, object], position: int, keys_home: Path) -> K
     line number + the raw value verbatim).
     Re-run: deterministic -- the same line raises the same refusal.
     Touches: nothing -- a pure validation over its arguments.
-    Provenance: the run_store field helpers (run_store.py:146-171); the
+    Provenance: the run_store field helpers (run_store.py:161); the
     exact-task spec synthesize/keyinfrastructurespec §1 (_parse_line).
     """
     digest = _require_str_field(line, "digest", position, keys_home)
@@ -321,7 +321,7 @@ class KeyStore:
     Touches: only its own key file (a read at the load; append + chmod
     at the mint) and the parent directory's creation at the mint --
     nothing of the core's.
-    Provenance: the Persist precedent (run_store.py:470-504); the
+    Provenance: the Persist precedent (run_store.py:523); the
     exact-task spec synthesize/keyinfrastructurespec §1 (KeyStore,
     load_keys, mint, mtime -- the container's surfaces).
     """
@@ -340,7 +340,7 @@ class KeyStore:
         Touches: only its own attributes and a read of the key file.
         Provenance: the exact-task spec synthesize/keyinfrastructurespec
         §1 (the load-at-boot container); the Persist.__init__ precedent
-        (run_store.py:506-525).
+        (run_store.py:559).
         """
         self.home = home
         self.records: dict[str, KeyRecord] = {}
@@ -364,7 +364,7 @@ class KeyStore:
         Re-run: deterministic given the file's bytes.
         Touches: only the key file (a read) and the container's own
         state (records, home, the mtime stamp).
-        Provenance: the Persist.load precedent (run_store.py:580-714); the
+        Provenance: the Persist.load precedent (run_store.py:634); the
         exact-task spec synthesize/keyinfrastructurespec §1 (load_keys).
         """
         target = self.home if home is None else home
@@ -451,7 +451,7 @@ class KeyStore:
         file (append + chmod) -- nothing else.
         Provenance: the exact-task spec synthesize/keyinfrastructurespec
         §1 (mint, the ceremony's seven steps); the Persist._append_line
-        precedent (run_store.py:716-744).
+        precedent (run_store.py:776).
         """
         if not comparator_id:
             raise KeyStoreRefusedError(
@@ -585,8 +585,10 @@ def render_boot_marker(home: Path, mode: str, count: int) -> str:
     """Render the boot marker's exact bytes (the boot form, the log channel).
 
     Purpose: the marker at each state -- off: the operator's explicit
-    degrade named; on + absent store: the absence LOUD (the failopen
-    named, the next-action cited -- never silent, F1); on + present:
+    degrade named; on + absent store: the absence LOUD (BOTH truths
+    named -- the load FAIL-OPEN, the boot surviving; the doors
+    FAIL-CLOSED, every request 401ing until a mint lands; the
+    next-action cited -- never silent, F1); on + present:
     the home + the mode + the count. The home arrives already resolved
     (the caller's Path.absolute() render -- the cwd-split boot killed).
     Refuses when: never -- a pure render over its arguments.
@@ -599,5 +601,5 @@ def render_boot_marker(home: Path, mode: str, count: int) -> str:
     if mode == _AUTH_MODE_OFF:
         return f"auth: {mode} (operator's explicit degrade) | keys: {home} | count: {count}"
     if not home.is_file():
-        return f"auth: {mode} (failopen -- no key store) | keys: {home} | next-action: prioritree key mint"
+        return f"auth: {mode} (load fail-open; doors fail-closed) | keys: {home} | next-action: prioritree key mint"
     return f"auth: {mode} | keys: {home} | count: {count}"

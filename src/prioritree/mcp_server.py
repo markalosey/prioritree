@@ -12,7 +12,7 @@ Lock around a seam call: a second open file description on the same lockfile
 would block forever, flock binding the open description; the module's _lock
 guards the halt shaper's fresh read window alone). The refusals as VALUES:
 the three fields read as DATA at ONE render point (the service's
-render_refusal precedent, service.py:168-183 -- never str(e) reparsed) and
+render_refusal precedent, service.py:291 -- never str(e) reparsed) and
 raised as the OunceMCP error VALUE carrying the structured ThreePart; DONE a
 VALUE never an error (done=true a RESULT, the CLI's exit-0 precedent); the
 SAFE HALT rendered with the K=10 cap at this tier alone (F8: legs 1-2 whole,
@@ -127,7 +127,7 @@ TEXT_PRESENTATION: Final[str] = (
     "field naming the presentation (the door maps presented-to-canonical)."
 )
 
-# The module-level objects (the spec Section 2(c); the service.py:158-165
+# The module-level objects (the spec Section 2(c); the service.py:217-218
 # precedent): the seam injected at construction over the CLI's own store home,
 # the server composed over the door's kwargs (OunceServer(name=...,
 # **compose_door_kwargs()) -- the auth adapter + the tool-scope policy at
@@ -166,7 +166,7 @@ class RegisterInput(BaseModel):
 
 
 class NextInput(BaseModel):
-    """NextInput -- the next tool's body: the run id and the optional seed."""
+    """NextInput -- the next tool's body: the run id, the optional seed, and the optional swap."""
 
     run_id: str = Field(min_length=1)
     seed: int | None = None
@@ -174,7 +174,7 @@ class NextInput(BaseModel):
 
 
 class CastInput(BaseModel):
-    """CastInput -- the cast tool's body: the pair, the verdict, the stamps, the correction."""
+    """CastInput -- the cast tool's body: the pair, the verdict, the stamps, the correction, the presentation."""
 
     run_id: str = Field(min_length=1)
     pair: list[str] = Field(description=TEXT_PAIR, min_length=2, max_length=2)
@@ -264,7 +264,7 @@ def _render_refusal(
     Purpose: ONE render point for every typed refusal -- the three fields read
     as DATA (expected/found/next_action as attributes, never str(e) reparsed)
     returned as the three-key body the error value carries; a second rendering
-    would fork the grammar (the service.py:168-183 precedent re-carried).
+    would fork the grammar (the service.py:291 precedent re-carried).
     Refuses when: never -- a pure rendering over the refusal's own fields.
     Re-run: deterministic -- the same refusal renders the same body.
     Touches: nothing -- a read of the injected refusal.
@@ -330,7 +330,7 @@ def _shown(entries: Sequence[str]) -> str:
 
 
 def _components(ids: Sequence[str], counted_pairs: Sequence[Pair]) -> tuple[tuple[str, ...], ...]:
-    """Partition the comparison graph -- the union-find mirror of tally.py:226-259.
+    """Partition the comparison graph -- the union-find mirror of tally.py:243.
 
     Purpose: the same partition the core's private _components computes --
     union-find over the counted pairs, ids-sorted within each component,
@@ -341,7 +341,7 @@ def _components(ids: Sequence[str], counted_pairs: Sequence[Pair]) -> tuple[tupl
     Refuses when: never -- a pure traversal, deterministic and near-linear.
     Re-run: deterministic -- the same (ids, edges) partition the same.
     Touches: nothing -- pure over its arguments.
-    Provenance: tally.py:226-259 (the mirrored algorithm), the spec
+    Provenance: tally.py:243 (the mirrored algorithm), the spec
     Section 2(f) (the shaper's re-derivation), G-MCPSERVERSPEC-BRIEF.
     """
     parent: dict[str, str] = {item_id: item_id for item_id in ids}
@@ -375,14 +375,14 @@ def _found_sections(
     """Render the halt's found -- the core's section grammar mirrored, leg 3 at the cap.
 
     Purpose: the core's _found_sections grammar re-carried at this tier
-    (tally.py:331-360) -- leg 1's zero-coverage ids, leg 2's components,
+    (tally.py:344) -- leg 1's zero-coverage ids, leg 2's components,
     leg 3's under-quorum pairs each with its weighted count, '; '-joined;
     leg 3's enumeration capped at ten (F8); each section present only when
     its leg fails; the em-dash rendered "--" per the ASCII law.
     Refuses when: never -- a pure rendering over the re-derived data.
     Re-run: deterministic -- the same data renders the same text.
     Touches: nothing.
-    Provenance: tally.py:331-360 (the mirrored grammar), F8, the spec
+    Provenance: tally.py:344 (the mirrored grammar), F8, the spec
     Section 2(f), G-MCPSERVERSPEC-BRIEF.
     """
     sections: list[str] = []
@@ -411,7 +411,7 @@ def _next_action_sections(
     """Render the halt's next_action -- the core's cure grammar mirrored, the shortfall list capped.
 
     Purpose: the core's _next_action_sections grammar re-carried at this
-    tier (tally.py:363-395) -- the spanning-tree bridges when the graph is
+    tier (tally.py:381) -- the spanning-tree bridges when the graph is
     disconnected ("connectivity needs NEW comparisons"), each shortfall's
     missing count ("quorum needs MORE VOTES on existing pairs"), never
     conflated; the shortfall enumeration capped at ten (F8); the em-dash
@@ -419,7 +419,7 @@ def _next_action_sections(
     Refuses when: never -- a pure rendering over the re-derived data.
     Re-run: deterministic -- the same data renders the same text.
     Touches: nothing.
-    Provenance: tally.py:363-395 (the mirrored grammar), F8, the spec
+    Provenance: tally.py:381 (the mirrored grammar), F8, the spec
     Section 2(f), G-MCPSERVERSPEC-BRIEF.
     """
     sections: list[str] = []
@@ -506,9 +506,11 @@ def _capped_halt(refusal: TallyRefusedError, run_id: str) -> InvalidInput:
 def register(body: RegisterInput) -> RegisterAck:
     """Register items for a pairwise-comparison sitting: pairs are judged one
     against another, the votes tallied into a ranked whole. The sequence:
-    runs.next serves each under-quorum pair, votes.cast records the judgment,
+    runs.next serves each open pair, votes.cast records the judgment,
     runs.tally emits the rank, votes.census audits. quorum is the judgments
-    each pair needs before the tally. operator_id is the operator's own
+    each pair needs before the tally -- and the corroboration floor rides
+    beside it: every pair also needs >=1 human AND >=1 llm behind it before
+    the tally. operator_id is the operator's own
     identity (the sitting's owner); question is the comparison question
     the voters answer on each pair. The ack's run_id is the sitting's
     handle -- carry it to every later call; re-registering the same items
@@ -533,8 +535,9 @@ def register(body: RegisterInput) -> RegisterAck:
 
 @server.tool(name="runs.next", effect=Effect.READ)
 def serve(body: NextInput) -> NextOutcome:
-    """Serve the sitting's next under-quorum pair -- the loop's read: call
-    until done:true (every pair at quorum), then runs.tally. Returns the pair
+    """Serve the sitting's next open pair (under-quorum or
+    uncorroborated) -- the loop's read: call until done:true (every pair
+    at quorum AND corroborated), then runs.tally. Returns the pair
     as [item_a, item_b] (the verdicts are positional over this order) and its
     current count. swap optional: true presents the pair in the SWAPPED order
     -- the both-orders experiment's second presentation, the verdicts still
@@ -578,7 +581,7 @@ def cast(body: CastInput, ctx: ToolContext) -> CastAck:
     # The verified stamps (the brief §1f): the token's claims over the body's
     # self-claims when the caller is authenticated (F8's law tier-agnostic --
     # the id-binding and the class-binding firing at this door exactly as at
-    # the service door, service.py:527-528's school); the degrade's fallback
+    # the service door, service.py:586-588's school); the degrade's fallback
     # the body's claims (the anonymous identity -- auth off without a token,
     # the trust's stdio ride; the floor's input unverified again, the price
     # named at the boot marker). The claims read DIRECT -- the adapter always
@@ -631,7 +634,8 @@ def tally(body: TallyInput) -> TallyView:
     best-first, equal scores grouped), per-item wins/losses/ties, coverage
     -- components: the comparison graph's disconnected islands; cycle: a
     structural loop in the compared pairs, dissolved into win fractions,
-    never a data-quality error. Under quorum the tally SAFE-HALTs: the
+    never a data-quality error. Under quorum OR uncorroborated the tally
+    SAFE-HALTs (either coverage leg's failure fires it): the
     refusal names the failing legs and the closing pairs -- cast them via
     votes.cast (a legal pair needs no serve); pairs beyond your one voice
     mean the sitting needs more voters (resume the sitting). Re-tally

@@ -25,7 +25,7 @@ packages = ["src/prioritree"]
 # module's namespace-portion is never shadowed). The clone is untouched (the
 # mapping is build-time only, zero moves on disk); web.py's loader seam
 # resolves the CWD's copy first, this shipped copy the fallback. The MCP rides
-# by construction (mcp_server.py among the fifteen modules packages carries).
+# by construction (mcp_server.py among the nineteen modules packages carries).
 [tool.hatch.build.targets.wheel.force-include]
 "web/templates" = "prioritree/templates"
 "web/static" = "prioritree/static"
@@ -54,16 +54,17 @@ select = ["ALL"]
 # never rework"). ARG001 fires on exactly that ruled surface; the ignore IS the ruling,
 # named. It retires when U5's next_pair consumes the seed.
 "src/prioritree/scheduler.py" = ["ARG001"]
-# RULING (votes-brief §3, G-VOTES-BRIEF approved 2026-11-20): cast_vote's seven arguments ARE
-# op 3's ruled signature — scope-synthesis PART 3 §3.2's verbatim spec (run_id, pair, winner,
-# comparator_id, comparator_class, notes?, supersedes? — the five-op interface's own letter,
-# approved at the gate). PLR0913/PLR0917 fire on exactly that ruled surface; the ignore IS the
-# ruling, named. It retires only if the interface itself is re-ruled.
+# RULING (votes-brief §3, G-VOTES-BRIEF approved 2026-11-20): cast_vote's eight arguments ARE
+# op 3's ruled signature (the presentation_order the probe's instrument, additive) —
+# scope-synthesis PART 3 §3.2's verbatim spec (run_id, pair, winner,
+# comparator_id, comparator_class, notes?, supersedes?, presentation_order? — the five-op
+# interface's own letter, approved at the gate). PLR0913/PLR0917 fire on exactly that ruled
+# surface; the ignore IS the ruling, named. It retires only if the interface itself is re-ruled.
 "src/prioritree/votes.py" = ["PLR0913", "PLR0917"]
 # RULING (session-brief §2/§5, G-SESSION-BRIEF approved 2026-11-20): ExhaustedQueue is the DONE
 # signal — a TERMINAL STATE, not an error (the suffix-free name follows StopIteration's grammar;
 # the Error suffix marks the refusal lineage, blurring the type distinction the class carries).
-# cast_vote's seven arguments ARE op 3's ruled signature (the votes.py ruling re-cited).
+# cast_vote's eight arguments ARE op 3's ruled signature (the probe's instrument additive; the votes.py ruling re-cited).
 "src/prioritree/session.py" = ["N818", "PLR0913", "PLR0917"]
 # RULING (acceptance-brief §2 + §6, G-ACCEPTANCE-BRIEF approved 2026-11-20): S311 — the
 # harness's ONE random.Random(seed) instance is the ruled reproducibility seam — a SEEDED
@@ -76,8 +77,8 @@ select = ["ALL"]
 "src/prioritree/acceptance.py" = ["S311", "ARG001"]
 
 # RULING (run-store-brief §1 + Q-cli-shape, G-RUN-STORE-BRIEF approved 2026-11-20): cast's
-# signature IS the door's ruled cast_vote signature mapped 1:1 (op 3's ruled seven arguments
-# — the frozen wrapper contract; the votes.py/session.py PLR0913/PLR0917 rulings re-cited at
+# signature IS the door's ruled cast_vote signature mapped 1:1 (op 3's ruled eight arguments
+# — the probe's instrument additive, the frozen wrapper contract; the votes.py/session.py PLR0913/PLR0917 rulings re-cited at
 # the wrapper tier, Q-cli-shape's own 1:1 mapping). PLR0913/PLR0917 fire on exactly that
 # ruled surface; the ignore IS the ruling, named.
 "src/prioritree/run_store.py" = ["PLR0913", "PLR0917"]
@@ -110,8 +111,8 @@ select = ["ALL"]
 "src/prioritree/budget_curve.py" = ["S311", "ARG001"]
 
 # RULING (service-store-brief §5, G-SERVICE-STORE-BRIEF approved 2026-11-21): the seam's
-# cast signature IS the door's ruled cast_vote signature mapped 1:1 (the seven-argument
-# form mirroring Persist.cast — the run_store.py precedent re-cited at the request tier:
+# cast signature IS the door's ruled cast_vote signature mapped 1:1 (the eight-argument
+# form mirroring Persist.cast — the probe's instrument additive, the run_store.py precedent re-cited at the request tier:
 # Q-service-concurrency's per-request composition preserves the frozen wrapper contract).
 # PLR0913/PLR0917 fire on exactly that ruled surface; the ignore IS the ruling, named.
 "src/prioritree/service_store.py" = ["PLR0913", "PLR0917"]

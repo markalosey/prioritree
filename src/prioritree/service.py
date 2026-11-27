@@ -513,7 +513,7 @@ def serve(
     *,
     swap: bool = False,
 ) -> JSONResponse:
-    """Serve the next under-quorum pair over the seam — 200 the triple, DONE a state.
+    """Serve the next open pair (under-quorum or uncorroborated) over the seam — 200 the triple, DONE a state.
 
     Purpose: the serve route 1:1 — the seed the optional query param (serve's own
     knob mirrored; GET carries no body), the swap the optional presentation
@@ -566,7 +566,12 @@ def cast_vote(request: Request, run_id: str, body: CastVoteRequest, record: _Cas
     self-claim dies at the cast door; under the degrade the body's claim stands —
     the boot marker names it), return 200 with the ack object {"vote_id",
     "count", "acknowledged"} — the VoteRecord elided (durable in the run file; the
-    wire carries the ack).
+    wire carries the ack). THE WEB LANE'S ID AXIS ALONE (the voter-session
+    spec §2g, the _WEB_LANE_DIGEST marker above): the web lane's callers —
+    the digest match at the marker — alone ride the body's comparator_id (the
+    sessioned name the web tier composed); every OTHER keyed caller's
+    record id stands (F8 whole for them); the class ALWAYS the record's —
+    the id axis alone crosses, never the class.
     Refuses when: never by this hand — the seam's refusals ride through BY TYPE:
     StoreRefusedError => 404, VotesRefusedError => 422, SupersedeRefusedError =>
     403 (the supersedes author mismatch — found elides the author).

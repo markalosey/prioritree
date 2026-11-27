@@ -1,5 +1,5 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""The command-face unit's tests — the eight arcs (command-face-brief §5).
+"""The command-face unit's tests — the ten arcs (command-face-brief §5).
 
 The UNIT form: command(argv_list) called IN-PROCESS, --home tmp_path homes
 ONLY (the default STORE_HOME never touched), NO subprocess (the e2e fixed-argv
@@ -10,7 +10,9 @@ pointer present; (3) the three refusals at 1 — str(e) on stderr, asserted by
 prefix + distinctive field; (4) the unexpected at 2 — the traceback verbatim;
 (5) argparse's channel — SystemExit 2 + usage bytes; (6) --home — the
 AFTER-subcommand placement; (7) --seed — the pass-through's byte-identical
-pair lines; (8) the ack — the loud dedup at 0.
+pair lines; (8) the ack — the loud dedup at 0; (9) --swap — next presents
+the pair in the swapped order; (10) --presentation-order — the vote's
+swapped presentation mapped onto the canonical pair.
 
 Provenance: command-face-brief §5, packet synthesize/command-face, route
 prioritree-cli, 2026-11-21 session. The S101/PLR2004 tests ruling stands.

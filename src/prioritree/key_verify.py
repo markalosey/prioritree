@@ -51,7 +51,7 @@ class KeyVerifyError(Exception):
     fields so an uncaught traceback still names the legal form.
     Re-run: deterministic -- the same refusal carries the same three fields.
     Touches: nothing -- a plain Exception subclass (zero runtime deps).
-    Provenance: the StoreRefusedError grammar (run_store.py:62-93, the
+    Provenance: the StoreRefusedError grammar (run_store.py:77, the
     three-field school, the N818 Error-suffix family); the exact-task spec
     §2 (the 401 data: .expected/.found/.next_action); F5 (the wrong audience
     the SAME 401).
@@ -66,7 +66,7 @@ class KeyVerifyError(Exception):
         Refuses when: never.
         Re-run: idempotent.
         Touches: nothing.
-        Provenance: the StoreRefusedError __init__ school (run_store.py:79-93).
+        Provenance: the StoreRefusedError __init__ school (run_store.py:77).
         """
         self.expected = expected
         self.found = found
@@ -88,7 +88,7 @@ class KeyScopeError(Exception):
     fields so an uncaught traceback still names the legal form.
     Re-run: deterministic -- the same refusal carries the same three fields.
     Touches: nothing -- a plain Exception subclass (zero runtime deps).
-    Provenance: the StoreRefusedError grammar (run_store.py:62-93, the
+    Provenance: the StoreRefusedError grammar (run_store.py:77, the
     three-field school, the N818 Error-suffix family); the exact-task spec
     §2 step (6) (the 403: the route's required scope vs the key's scopes);
     Q-auth-design's scope ruling (authentication AND authorization -- the
@@ -104,7 +104,7 @@ class KeyScopeError(Exception):
         Refuses when: never.
         Re-run: idempotent.
         Touches: nothing.
-        Provenance: the StoreRefusedError __init__ school (run_store.py:79-93).
+        Provenance: the StoreRefusedError __init__ school (run_store.py:77).
         """
         self.expected = expected
         self.found = found

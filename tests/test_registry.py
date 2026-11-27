@@ -1,5 +1,10 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""The registry unit's example tests — the eleven named edges (registry-brief §4)."""
+"""The registry unit's example tests — the twelve named tests (registry-brief §4).
+
+The eleven edges with the eleventh edge's pair counted whole: two
+registries minting independently + the opacity of stored content —
+the twelfth test named.
+"""
 
 from typing import cast
 

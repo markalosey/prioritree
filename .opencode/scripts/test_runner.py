@@ -38,7 +38,7 @@ def main(argv: list[str] | None = None) -> int:
         cmd = ["uv", "run", "pytest", args[1], "-q"]
     else:
         cmd = ["uv", "run", "pytest", "tests", "-q"]
-    proc = subprocess.run(cmd)  # noqa: S603,S607 — fixed argv, no shell; pytest inherits stdio verbatim
+    proc = subprocess.run(cmd)  # fixed argv, no shell; pytest inherits stdio verbatim
     return proc.returncode
 
 

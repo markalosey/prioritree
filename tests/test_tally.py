@@ -1,5 +1,8 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""The tally unit's edge tests — the twelve named edges (tally-brief §5).
+"""The tally unit's edge tests — the twenty-five named edges (tally-brief §5).
+
+The twelve grown by the corroboration floor's nine, the halt render's
+three, the presentation_order-unread pin.
 
 The fixtures-alone bar (edge 10, the suite-wide discipline): every fixture is a
 frozen RunManifest plus a tuple of frozen VoteRecords built directly — ZERO

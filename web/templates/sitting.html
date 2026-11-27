@@ -12,7 +12,7 @@
   {% else %}
   <p class="quiet">Your name is asked once — the site remembers your entry for every judgment you cast from this device.</p>
   {% endif %}
-  {% if quorum > 1 %}<p class="quiet">Each pair needs {{ quorum }} judgments — you may see pairs you already judged until every pair has {{ quorum }} judgments.</p>{% endif %}
+  {% if quorum > 1 %}<p class="quiet">Each pair needs {{ quorum }} judgments AND corroboration — one human AND one llm behind it; you may see pairs you already judged until every pair has both.</p>{% endif %}
   {% include "pair.html" %}
   <div id="ack-region"></div>
 </section>

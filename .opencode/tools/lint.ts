@@ -19,7 +19,7 @@ function formatOutput(result: {
 }
 
 export default tool({
-  description: "Code quality — linting and type checking at Prioritree, whole-tree via the host Makefile: check (make lint — ruff over src/ and tests/) and typecheck (make typecheck — pyright over the tree's [tool.pyright] include set). Host-only (no Docker, no worktrees); the explicit-argv runArgv channel, no shell.",
+  description: "Code quality — linting and type checking at Prioritree, whole-tree via the host Makefile: check (make lint — ruff over the tree at its Makefile's lint target) and typecheck (make typecheck — pyright over the tree's [tool.pyright] include set). Host-only (no Docker, no worktrees); the explicit-argv runArgv channel, no shell.",
   args: {
     operation: tool.schema
       .enum(["check", "typecheck"])
@@ -35,7 +35,7 @@ export default tool({
         return formatOutput(await runArgv(["make", "typecheck"], { cwd: context.directory }))
       }
       case "help": {
-        return "lint — Code quality — whole-tree via the host Makefile.\n\nOperations:\n  check  [make lint]\n    Run ruff over src/ and tests/\n  typecheck  [make typecheck]\n    Run pyright over the tree's [tool.pyright] include set"
+        return "lint — Code quality — whole-tree via the host Makefile.\n\nOperations:\n  check  [make lint]\n    Run ruff at the tree's Makefile lint target\n  typecheck  [make typecheck]\n    Run pyright over the tree's [tool.pyright] include set"
       }
     }
     return `Unknown operation: ${args.operation}`

@@ -1,5 +1,10 @@
 # Copyright (C) 2026 Mark Losey. All rights reserved.
-"""The votes unit's edge tests — the twelve named edges (votes-brief §5)."""
+"""The votes unit's edge tests — the fifteen named edges (votes-brief §5).
+
+The twelve grown by the probe era's three: presentation_order recorded at
+every cast, the swapped citation composed with the field, the two orders'
+two distinct judgments.
+"""
 
 import dataclasses
 from typing import cast
