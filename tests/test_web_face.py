@@ -19,8 +19,9 @@ browser, the deliberate lane's picker + chosen pair, either presentation;
 the resume stems carrying `required` — the empty click teaches, never a
 dead button);
 the fragment arcs (register 201/422/bad-quorum, the two-step
-chain, the idempotent echo, the HX-Redirect, the 422 pair-untouched, the
-state strip, the fold fragment); the CSRF arcs (the token minted in the
+chain, the chain-carry links, the deliberate stay-put at both queues,
+the idempotent echo, the HX-Redirect, the 422 pair-untouched, the state
+strip, the fold fragment); the CSRF arcs (the token minted in the
 three render contexts; the valid token's register + vote; the drive-by
 refused — the write never lands; the mismatched token; the stale secret's
 re-render cure); the auth-lane arcs (the 401 page — the service's mint
@@ -448,6 +449,133 @@ def test_vote_then_pair_chain(client: TestClient) -> None:
     served = client.get(f"/ui/runs/{_RUN_ID}/pair")
     assert served.status_code == 200
     assert 'id="pair-region"' in served.text
+
+
+# The lane-separation set (donedetourspec §4 — the done-detour's four arcs: the
+# chain lane's carry links + the deliberate lane's stay-put at both queues, the
+# sitting lane's fetch proof byte-standing above; the fragment route never
+# called at the deliberate lane — the done bounce dead).
+
+
+def test_vote_chain_carry_next_pair(client: TestClient) -> None:
+    """The chain vote's ack links the head's judge URL — the P-token dropped, the swap knob carried, no fetch div."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    # The card's first pair — the chain form carries BOTH conditional fields (the chain first, the datum second).
+    card = client.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=b&chain=P02,P03")
+    assert 'name="chain" value="P02,P03"' in card.text
+    assert 'name="deliberate" value="true"' in card.text
+    token = _scrape_csrf(card.text)
+    first = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "chain": "P02,P03", "deliberate": "true", "csrf_token": token},
+    )
+    assert first.status_code == 200
+    assert "You preferred one (A) over two (B)." in first.text
+    # The head's judge URL (P02 = (a, c)) — the chain riding the URL, the served bytes autoescaped.
+    assert f'href="/runs/{_RUN_ID}/pair?item_a=a&amp;item_b=c&amp;chain=P02,P03"' in first.text
+    assert "next-pair" in first.text
+    assert 'hx-get="/ui/runs' not in first.text  # the chain lane never fetches
+    assert f'href="/runs/{_RUN_ID}/pairs"' not in first.text  # the datum read and discarded at the chain lane
+    # The second hop at the swapped presentation (a second TestClient IS a second browser — its own empty jar).
+    browser_b = TestClient(app)
+    swapped = browser_b.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=c&swap=true&chain=P02,P03")
+    assert 'name="item_a" value="c"' in swapped.text  # the presented pair swapped at the head's page
+    hop_token = _scrape_csrf(swapped.text)
+    second = browser_b.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={
+            **_FORM_VOTE,
+            "item_a": "c",
+            "item_b": "a",
+            "presentation_order": "swapped",
+            "comparator_id": "y",
+            "chain": "P02,P03",
+            "deliberate": "true",
+            "csrf_token": hop_token,
+        },
+    )
+    assert second.status_code == 200
+    assert "You preferred three (A) over one (B)." in second.text
+    # The just-voted P02 dropped — the shrunken chain riding the head's URL, the swap knob carried.
+    assert f'href="/runs/{_RUN_ID}/pair?item_a=b&amp;item_b=c&amp;swap=true&amp;chain=P03"' in second.text
+    assert 'hx-get="/ui/runs' not in second.text
+
+
+def test_vote_chain_carry_done_link(client: TestClient) -> None:
+    """The chain's empty rest renders the done link + the list-ended teaching — no fetch div at the chain lane."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    # The card's last hop — the chain carrying the just-voted token alone (P03 = (b, c)).
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}/pair?item_a=b&item_b=c&chain=P03").text)
+    response = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "item_a": "b", "item_b": "c", "chain": "P03", "deliberate": "true", "csrf_token": token},
+    )
+    assert response.status_code == 200
+    assert "You preferred two (A) over three (B)." in response.text
+    assert "the list has ended" in response.text  # the list-ended teaching
+    assert f'href="/runs/{_RUN_ID}/done"' in response.text
+    assert 'hx-get="/ui/runs' not in response.text  # NO fetch div — the chain lane never fetches
+    assert "next-pair" not in response.text  # the rest empty — no head link
+    assert f'href="/runs/{_RUN_ID}/pairs"' not in response.text  # the datum discarded
+
+
+def test_deliberate_vote_stays_put(client: TestClient) -> None:
+    """The bare deliberate vote stays put — the confirmation + both links; the re-cast echoes at the same form."""
+    client.post(_RUNS, json={"items": _ITEMS, **_OPERATOR})
+    # The picker-sourced judge page — the datum carried by the hidden field, the chain absent.
+    judge = client.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=b")
+    assert 'name="deliberate" value="true"' in judge.text
+    assert 'name="chain"' not in judge.text
+    token = _scrape_csrf(judge.text)
+    response = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "deliberate": "true", "csrf_token": token},
+    )
+    assert response.status_code == 200
+    assert "You preferred one (A) over two (B)." in response.text  # the confirmation standing
+    assert "Recorded. Judge the next pair from the picker, or close out the sitting at the done page." in response.text
+    assert f'href="/runs/{_RUN_ID}/pairs"' in response.text  # BOTH links, their exact forms
+    assert f'href="/runs/{_RUN_ID}/done"' in response.text
+    assert 'hx-get="/ui/runs' not in response.text  # NO fetch div — the fragment never called
+    assert "hx-redirect" not in response.headers  # NO redirect — the ack stays put
+    assert "next-pair" not in response.text  # the chain arm not taken (no chain carried)
+    assert "the list has ended" not in response.text  # the done_url arm not taken
+    # The idempotent re-cast — the acknowledged echo at the SAME stay-put form (the identified state's token law).
+    again_token = _scrape_csrf(client.get(f"/ui/runs/{_RUN_ID}/pair").text)
+    again = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "deliberate": "true", "csrf_token": again_token},
+    )
+    assert again.status_code == 200
+    assert "already recorded with the same answer" in again.text
+    assert f'href="/runs/{_RUN_ID}/pairs"' in again.text  # the stay-put form held at the echo
+    assert f'href="/runs/{_RUN_ID}/done"' in again.text
+    assert 'hx-get="/ui/runs' not in again.text
+    assert "hx-redirect" not in again.headers
+
+
+def test_deliberate_vote_stays_put_at_the_done_queue(client: TestClient) -> None:
+    """The deliberate vote at the fully-corroborated run stays put — the bounce dead, no HX-Redirect on the POST."""
+    client.post(_RUNS, json={"items": _TWO_ITEMS, **_OPERATOR})
+    # The exhausted queue composed exactly as the HX-Redirect arc sets its state — the human + the llm votes.
+    client.post(f"/runs/{_RUN_ID}/votes", json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE})
+    client.post(
+        f"/runs/{_RUN_ID}/votes",
+        json={"pair": ["a", "b"], "winner": "prefer-a", **_VOTE, "comparator_class": "llm"},
+    )
+    token = _scrape_csrf(client.get(f"/runs/{_RUN_ID}/pair?item_a=a&item_b=b").text)
+    response = client.post(
+        f"/ui/runs/{_RUN_ID}/vote",
+        data={**_FORM_VOTE, "deliberate": "true", "csrf_token": token},
+    )
+    assert response.status_code == 200
+    assert "You preferred alpha (A) over bravo (B)." in response.text  # the confirmation standing
+    assert "already recorded with the same answer" in response.text  # the pre-seeded judge's re-send
+    assert "Recorded. Judge the next pair from the picker, or close out the sitting at the done page." in response.text
+    assert f'href="/runs/{_RUN_ID}/pairs"' in response.text  # BOTH links at the exhausted queue
+    assert f'href="/runs/{_RUN_ID}/done"' in response.text
+    assert 'hx-get="/ui/runs' not in response.text  # the fetch div dead — the fragment never called
+    assert "hx-redirect" not in response.headers  # THE BOUNCE DEAD — the POST's own response never redirects
 
 
 def test_vote_echo_already_recorded(client: TestClient) -> None:

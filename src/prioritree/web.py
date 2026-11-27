@@ -833,6 +833,11 @@ async def judge(
     list (the flow fix: the count's P-tokens comma-joined; non-empty rides
     pair.html's hidden carry page to page, absent/empty renders no field —
     the sitting lane byte-untouched).
+    The deliberate datum (the done-detour cure — the ROUTE's own
+    knowledge, never a query param): the constant "true" rides the
+    sitting context at EVERY judge-page render (the bare form + the
+    chain form alike) — pair.html's conditional carry holds the
+    field page to page.
     Refuses when: never by this hand — the page renders the pair AS CITED
     (the wire the sole validator: a mangled citation renders honestly, the
     vote's legality the door's own act).
@@ -880,6 +885,7 @@ async def judge(
             "labels": labels,
             "pairs": _scheduled_pairs(manifest_body),
             "chain": chain,
+            "deliberate": "true",
         },
     )
 
@@ -1136,7 +1142,14 @@ async def vote(request: Request, stem: str) -> Response:
     page's mode is swapped — the chain rides the page's presentation; the
     shrunken chain riding the URL); empty rest => the done-page LINK + the
     list-has-ended teaching — the ack STAYS (no fetch embedded: the /done
-    bounce never fires at the deliberate lane). Any non-200
+    bounce never fires at the deliberate lane). THE DELIBERATE FORM
+    FIELD (the done-detour cure — the judge page's own datum, read AFTER
+    the chain so a chain form carrying both fields takes the chain arms,
+    the datum discarded): the bare lane HOLDS THE ACK — queue-blind,
+    nothing computed (the stay-put arm); the template renders the
+    confirmation + BOTH LINKS (the picker + the done page, static from
+    the stem) — no fetch at the bare lane, the fragment never called.
+    Any non-200
     on either call => the inline refusal at 200 — THE PAIR REGION UNTOUCHED
     (the same pair retryable: the refusal swaps into the ack region, never
     the pair region).
@@ -1176,6 +1189,7 @@ async def vote(request: Request, stem: str) -> Response:
         return _refuse_fragment(request, _fields(manifest.json()), fold=manifest.status_code == _CRASH)
     labels = _labels(manifest.json())
     chain = str(form.get("chain", "")).strip()
+    deliberate = str(form.get("deliberate", "")).strip()
     next_url = ""
     done_url = ""
     if chain:
@@ -1189,6 +1203,10 @@ async def vote(request: Request, stem: str) -> Response:
             next_url = f"/runs/{stem}/pair?item_a={head[0]}&item_b={head[1]}{swap_form}&chain={','.join(rest)}"
         else:
             done_url = f"/runs/{stem}/done"
+    elif deliberate:
+        # the stay-put arm: the bare deliberate lane — the ack template renders the
+        # confirmation + both links (queue-blind, static from the stem); no fetch, no redirect
+        pass
     return templates.TemplateResponse(
         request,
         "vote-ack.html",
@@ -1201,6 +1219,7 @@ async def vote(request: Request, stem: str) -> Response:
             "swap": presentation == PRESENTATION_SWAPPED,
             "next_url": next_url,
             "done_url": done_url,
+            "deliberate": deliberate,
         },
     )
 
