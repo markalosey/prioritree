@@ -1,0 +1,287 @@
+{
+  "junro": {
+    "schema_version": "0.2",
+    "id": "prioritree-publish",
+    "title": "Prioritree Publish — the outward lane: the package published to PyPI, the publish the ruled act never a silent adoption — the CI effort's named remainder closed whole (the artifacts, the metadata, the tagged release, the published page, the README's install story true at the index), the free-tier law held (the publish's own costs priced at zero), designed through the full-team cycle, built to be publicly right; the full junro, all seats participating",
+    "type": "build_route",
+    "methodology": "MPIR",
+    "instance": 1,
+    "status": "composed",
+    "worktree": "prioritree",
+    "inputs": [
+      "THE COLLABORATOR'S CONVENING (2026-11-28, 'proceed' at the journey close's WHERE tail naming the outward lane): the publish effort convenes at the inward lane's completion — R3's direction standing (outward after inward), the CI effort's remainder the ruled act",
+      "THE CI EFFORT'S NAMED REMAINDER (the ci store's close, 2026-11-24): the publish itself the outward lane's ruled act, never a silent adoption; the preconditions the CI effort already closed: the LICENSE cured (MIT), the packaging cured (web + MCP in the wheel), CI live (the floor in GitHub Actions at $0); the R1 FREE-TIER LAW standing verbatim: \"CI effort can convene now but only for things that are free on GitHub. We don't want to pay for anything on that platform.\" — the publish's own costs priced at the same bar",
+      "THE STANDING TREE (the inward era's gifts, all landed): the product whole (the library, the CLI, the service, the web, the MCP — the one-click card, the session, the auth, the corroboration floor); the floor 490 standing (the suite green, ruff zero, pyright 0/0); the README's public story whole (the Auth, Multi-user, Journey sections — the install story's claims to verify against the published index); the instruments (the 30 calculate ops, the axis query — the publish's arithmetic ground)",
+      "THE OPEN QUESTIONS THE PUBLISH MUST RULE: the artifact set (the sdist + the wheel — what ships; the web's static assets + the MCP's server in the wheel per the CI effort's packaging cure), the metadata whole (the pyproject's packaging fields: the name, the version, the description, the urls, the classifiers, the readme), the version's law (the first release's number; the version's source of truth), the tagged release (the git tag's form; the GitHub release), the publish's channel (PyPI itself — the account, the token, the trusted publishing form; the free-tier bar: the publish's $0), the install story (the README's claims true at the index: pip install prioritree), the verification (the published artifact installed from the index, the CLI green at the installed form)",
+      "the standing laws carried: the seat-authored report (R6/R11), the per-step dispatch (R8, the file-unit — the transport law), the TwoPart/ThreePart, the claims lane (inward too — the premise law: the design rules on the bytes), the implementation-walk law (R4 — the published surface walked cold from the index), the honest-docs law, the commit discipline (the natural unit), the five standing laws + the premise law born at the journey"
+    ],
+    "composition_factors": {
+      "complexity": "full"
+    },
+    "members": {
+      "route_author": "keikaku",
+      "build": "jikko",
+      "verify": "kensho",
+      "assess": "hyoka",
+      "dispatch": "shinko"
+    },
+    "structure": [
+      {
+        "id": "research",
+        "purpose": "THE RESEARCH STAGE (the publish's ground, the full-team mandate realized): FIVE parallel ungated legs, every discover seat its own discipline — tansa's packaging census (the premise law at the bytes: the pyproject's actual packaging fields, the wheel's actual contents [the build config's reality, the web's statics + the MCP's server carried or not], the CI workflow's actual publish-readiness); rikai's PyPI landscape (the channel's forms at the sources, the claims lane at every source: the artifact forms [sdist + wheel], the metadata fields [name/version/description/urls/classifiers/readme], the trusted publishing form vs the API token, the free tier's truth — PyPI's own docs the sources); shindan's risk diagnosis (the token's custody class, the supply-chain surface, the typosquatting question, the immutable version's law [a published version never republishable — the first release's number priced]); keisan's publish arithmetic (the $0 ledger at the free-tier bar extended, the version's numbers, the bench-time pricing); MOHO'S COLD INSTALL WALK (the README's install story lived as a stranger: pip install prioritree at a fresh venv — the told form vs the index's absent form, the gap named at the human's hands); togo's gated synthesis closing G-PUBLISH-RESEARCH — the claims' verdicts + the publish map, every seat's input visible",
+        "entry_condition": "G-COMPOSITION is green — the route validated; the research fires first, its findings assumed by none of this composition",
+        "increments": [
+          {
+            "id": "synthesize/publish-research",
+            "owner": "togo",
+            "gate": "G-PUBLISH-RESEARCH",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "evaluation",
+        "purpose": "THE EVALUATION STAGE (the full bench over the publish candidates): FOUR parallel ungated packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (the channel forms attacked: the token's custody class vs the trusted publisher's configuration; the artifact set's holes; the metadata's lies class; the supply-chain surface; the typosquatting window [the name's squat risk]); moho's blind walks (the candidate publish forms walked as the stranger: the index page read cold, the install at the fresh venv, the CLI at the installed form — the candidates' lived differences); keisan's pricing (every candidate against the free-tier law: the $0 bar, the bench time, the human hands' cost); shindan's residual diagnosis (every candidate's residual: what remains unpublishable, what the index page won't tell, the install story's gaps) — the divergences reconciled at togo's design synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate",
+        "entry_condition": "G-PUBLISH-RESEARCH is green — the publish's ground researched whole, the channel's forms mapped",
+        "increments": []
+      },
+      {
+        "id": "recommendation",
+        "purpose": "THE RECOMMENDATION STAGE (the reasoning whole): suisen's full-depth recommendation (the publish's design whole: the artifact set, the metadata whole, the version's law, the channel's form, the release's form, the install story — the human hands named at their acts; the alternatives named with their prices) + togo's gated synthesis integrating the whole bench's findings — the divergences reconciled never averaged away — closing G-PUBLISH-DESIGN at the collaborator's ruling on the full record: the publish's design judged publicly right, the build set earned by the cycle's outcome (the metadata, the artifact, the channel, the release, the verification — named not pinned)",
+        "entry_condition": "the evaluation's packets landed whole — every candidate attacked, walked, priced, diagnosed; the divergences carried whole",
+        "increments": [
+          {
+            "id": "synthesize/publish-design",
+            "owner": "togo",
+            "gate": "G-PUBLISH-DESIGN",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "synthesize",
+                "member": "togo",
+                "verification": "gate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "build",
+        "purpose": "THE PUBLISH BUILD — the units the cycle's outcome earns (named not pinned: the metadata unit [the pyproject's packaging fields, the version's source of truth], the artifact unit [the build config: the wheel's contents verified against the packaging cure], the channel unit [the publish's channel: the trusted publishing form via the CI at $0 OR the manual publish — the design's ruling; THE COLLABORATOR'S HANDS at the account, the configuration, the trigger], the release unit [the git tag, the GitHub release], the verification unit [the index install walked cold: pip install from PyPI at a fresh venv, the CLI green at the installed form — MOHO'S WALK the verification's own act]), the two-lane brief -> spec -> build per unit where the weight demands, one file per dispatch (R8's file-unit law — the transport law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, the floor standing at every step, the free-tier bar at every cost, the immutable version's law honored (the first publish the only publish of its number)",
+        "entry_condition": "G-PUBLISH-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch; the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law); the human hands named at their units (the collaborator's acts fired at their moments, never assumed by the seats)",
+        "increments": []
+      },
+      {
+        "id": "close",
+        "purpose": "THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake, the lessons named), the effort's records (the CONTINUATION entry — the publish's state carried whole [the published page, the install story true at the index, the outward lane's act closed], the next era named at the collaborator's call, the banked shapes carried), the done call at the collaborator's ruling",
+        "entry_condition": "the route's build gates closed green (the package published, the install story verified at the index) and the collaborator has called the close",
+        "increments": [
+          {
+            "id": "close/retro",
+            "owner": "shinko",
+            "gate": "G-CLOSE",
+            "revert": "one-increment",
+            "steps": [
+              {
+                "executor": "semantic",
+                "id": "retro",
+                "member": "hansei",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-synthesis",
+                "member": "togo",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "records-landing",
+                "member": "jikko",
+                "verification": "assessment"
+              },
+              {
+                "executor": "semantic",
+                "id": "done-call",
+                "member": "shinko",
+                "verification": "assessment"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gates": {
+      "G-COMPOSITION": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [research -> evaluation -> recommendation -> build -> close — the stages ARE the cycle], the gates, the increments, the ten ungated placements — all thirteen seats placed, the full-team mandate's proof; the human hands named at their units [the PyPI account, the trusted publisher's configuration or the token's mint, the publish trigger — the collaborator's acts, never assumed by the seats])",
+          "every choice cites its ruling: the convening ruling (the inward completion; the ruled act never silent; the free-tier law extended; the full-team cycle; the premise law on the packaging; the verification from the index) + the CI effort's named remainder + the standing laws (the claims lane at every source, R4's walks at the published surface, R8's file-unit as the transport law, the five standing laws + the premise law)",
+          "the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green"
+        ]
+      },
+      "G-PUBLISH-RESEARCH": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the publish's ground researched whole: the packaging census (the pyproject's actual fields, the wheel's actual contents, the CI workflow's publish-readiness — the premise law at the bytes); the PyPI landscape at the sources (the claims lane: the artifact forms, the metadata fields, the trusted publishing form vs the token, the free tier's truth); the risk diagnosis (the token's custody, the supply-chain class, the typosquatting question, the immutable version's law); the arithmetic (the $0 ledger, the version's numbers); MOHO'S COLD INSTALL WALK (the README's install story lived as a stranger: pip install at a fresh venv — the gap between the told and the index's absence)",
+          "every seat's input visible (tansa's census, rikai's landscape, shindan's risk, keisan's arithmetic, moho's walk — the full-team record; a divergence that survives reconciliation blocks the gate, never rides silently)",
+          "the collaborator rules the research whole — no evaluation packet fires before it is green"
+        ]
+      },
+      "G-PUBLISH-DESIGN": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "the publish's design ruled on the full record: suisen's full-depth whole + togo's synthesis integrating the bench's findings — the artifact set (the sdist + the wheel, the web's statics + the MCP's server carried per the packaging cure), the metadata whole (the name, the version, the description, the urls, the classifiers, the readme), the version's law (the first release's number, the source of truth), the channel's form (the trusted publishing via the repository's CI at $0 OR the manual publish — the design rules, the free-tier bar held), the release's form (the tag, the GitHub release), the install story (the README's claims true at the index); the divergences resolved never averaged away",
+          "the constraints held: the free-tier law ($0 throughout — any cost priced and refused); the human hands named at their units (the collaborator's acts, never assumed); the premise law (the design on the bytes); the immutable version's law priced honestly",
+          "no publish dispatch fires before it is green — the build set earned by the cycle's outcome (named not pinned: the metadata, the artifact, the channel, the release, the verification), the collaborator's ruling the gate's own act"
+        ]
+      },
+      "G-CLOSE": {
+        "type": "collaborator-ruling",
+        "conditions": [
+          "hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the publish's state carried whole [the published page's truth, the install story verified at the index], the next era named at the collaborator's call, the banked shapes carried)",
+          "the done call at the collaborator's ruling — the route's status set done at the ruling, Q-publish resolved at the record (the package published, the install story true, the outward lane's act closed)"
+        ]
+      }
+    },
+    "checkpoints": [],
+    "protocol": "v2.1",
+    "amendments": [
+      {
+        "what": "add-question {\"question\": \"Q-publish\", \"text\": \"What is prioritree's published form — the package on PyPI: the artifact set (the sdist + the wheel, the web's static assets and the MCP's server carried per the packaging cure), the metadata whole (the name, the version, the description, the urls, the classifiers, the readme), the version's law (the first release's number, the source of truth), the tagged release (the git tag, the GitHub release), the publish's channel at the free-tier bar (the account, the trusted publishing form, the $0), the install story true at the index (pip install prioritree — the README's claims verified against the published page), the published artifact verified (installed from the index, the CLI green at the installed form) — the outward lane's ruled act, designed through the full-team cycle, built to be publicly right?\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:51:45Z",
+        "op": "add-question"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-publish\", \"ruling\": \"THE CONVENING (the collaborator's ruling, 2026-11-28: \\\"proceed\\\" at the journey close's WHERE tail — the outward lane named next, the collaborator's call made): THE PUBLISH CONVENES AT THE INWARD LANE'S COMPLETION — R3's direction standing whole (auth built, the probe measured, multi-user landed, polish whole, the journey simplified; outward after inward — the condition met). THE PUBLISH IS THE RULED ACT, NEVER A SILENT ADOPTION (the CI effort's close, its own words): the remainder the CI effort named — the publish itself — closed at this effort, the preconditions already earned (the LICENSE MIT, the packaging web+MCP in the wheel, the CI live at $0). THE FREE-TIER LAW CARRIES (R1 verbatim, extended to the new platform): the publish's own costs priced at zero — PyPI's free tier, the trusted publishing form where the repository's own CI can publish at $0, no paid tier anywhere in the channel; any cost found is priced and refused at the same bar the CI effort held. THE FULL-TEAM CYCLE FIRST (the standing governance form): the research over the publish's ground (the artifacts, the metadata, the channel's forms, the version's law, the install story), the evaluation over the candidates, the design at the gate — the publish's act only after. THE PREMISE LAW APPLIES (the journey's gift, turned on the publish itself): the tree's real packaging verified at the bytes before any form is designed — the pyproject's actual fields, the wheel's actual contents, the CI's actual workflow — never the remembered shape. THE VERIFICATION'S LAW: the published artifact verified FROM THE INDEX (installed cold, the CLI green at the installed form) — the publish proven at the surface it claims, never assumed from the build.\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:51:58Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the composition lands at the store's reports home (reports/compose/route.md — keikaku's own report, the composition whole: the five stages [research -> evaluation -> recommendation -> build -> close — the stages ARE the cycle], the gates, the increments, the ten ungated placements — all thirteen seats placed, the full-team mandate's proof; the human hands named at their units [the PyPI account, the trusted publisher's configuration or the token's mint, the publish trigger — the collaborator's acts, never assumed by the seats])\\\", \\\"every choice cites its ruling: the convening ruling (the inward completion; the ruled act never silent; the free-tier law extended; the full-team cycle; the premise law on the packaging; the verification from the index) + the CI effort's named remainder + the standing laws (the claims lane at every source, R4's walks at the published surface, R8's file-unit as the transport law, the five standing laws + the premise law)\\\", \\\"the collaborator validates the composition — the gate is the validation; the outcome records against compose/route; no route dispatch fires before it is green\\\"]\", \"gate\": \"G-COMPOSITION\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:55:50Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the publish's ground researched whole: the packaging census (the pyproject's actual fields, the wheel's actual contents, the CI workflow's publish-readiness — the premise law at the bytes); the PyPI landscape at the sources (the claims lane: the artifact forms, the metadata fields, the trusted publishing form vs the token, the free tier's truth); the risk diagnosis (the token's custody, the supply-chain class, the typosquatting question, the immutable version's law); the arithmetic (the $0 ledger, the version's numbers); MOHO'S COLD INSTALL WALK (the README's install story lived as a stranger: pip install at a fresh venv — the gap between the told and the index's absence)\\\", \\\"every seat's input visible (tansa's census, rikai's landscape, shindan's risk, keisan's arithmetic, moho's walk — the full-team record; a divergence that survives reconciliation blocks the gate, never rides silently)\\\", \\\"the collaborator rules the research whole — no evaluation packet fires before it is green\\\"]\", \"gate\": \"G-PUBLISH-RESEARCH\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:56:07Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"the publish's design ruled on the full record: suisen's full-depth whole + togo's synthesis integrating the bench's findings — the artifact set (the sdist + the wheel, the web's statics + the MCP's server carried per the packaging cure), the metadata whole (the name, the version, the description, the urls, the classifiers, the readme), the version's law (the first release's number, the source of truth), the channel's form (the trusted publishing via the repository's CI at $0 OR the manual publish — the design rules, the free-tier bar held), the release's form (the tag, the GitHub release), the install story (the README's claims true at the index); the divergences resolved never averaged away\\\", \\\"the constraints held: the free-tier law ($0 throughout — any cost priced and refused); the human hands named at their units (the collaborator's acts, never assumed); the premise law (the design on the bytes); the immutable version's law priced honestly\\\", \\\"no publish dispatch fires before it is green — the build set earned by the cycle's outcome (named not pinned: the metadata, the artifact, the channel, the release, the verification), the collaborator's ruling the gate's own act\\\"]\", \"gate\": \"G-PUBLISH-DESIGN\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:56:17Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "add-gate {\"conditions\": \"[\\\"hansei's retro landed (the friction ledger the intake, the lessons named); the effort's records landed (the CONTINUATION entry — the publish's state carried whole [the published page's truth, the install story verified at the index], the next era named at the collaborator's call, the banked shapes carried)\\\", \\\"the done call at the collaborator's ruling — the route's status set done at the ruling, Q-publish resolved at the record (the package published, the install story true, the outward lane's act closed)\\\"]\", \"gate\": \"G-CLOSE\", \"type\": \"collaborator-ruling\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:56:28Z",
+        "op": "add-gate"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-COMPOSITION is green — the route validated; the research fires first, its findings assumed by none of this composition\", \"purpose\": \"THE RESEARCH STAGE (the publish's ground, the full-team mandate realized): FIVE parallel ungated legs, every discover seat its own discipline — tansa's packaging census (the premise law at the bytes: the pyproject's actual packaging fields, the wheel's actual contents [the build config's reality, the web's statics + the MCP's server carried or not], the CI workflow's actual publish-readiness); rikai's PyPI landscape (the channel's forms at the sources, the claims lane at every source: the artifact forms [sdist + wheel], the metadata fields [name/version/description/urls/classifiers/readme], the trusted publishing form vs the API token, the free tier's truth — PyPI's own docs the sources); shindan's risk diagnosis (the token's custody class, the supply-chain surface, the typosquatting question, the immutable version's law [a published version never republishable — the first release's number priced]); keisan's publish arithmetic (the $0 ledger at the free-tier bar extended, the version's numbers, the bench-time pricing); MOHO'S COLD INSTALL WALK (the README's install story lived as a stranger: pip install prioritree at a fresh venv — the told form vs the index's absent form, the gap named at the human's hands); togo's gated synthesis closing G-PUBLISH-RESEARCH — the claims' verdicts + the publish map, every seat's input visible\", \"stage\": \"research\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:56:41Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-PUBLISH-RESEARCH is green — the publish's ground researched whole, the channel's forms mapped\", \"purpose\": \"THE EVALUATION STAGE (the full bench over the publish candidates): FOUR parallel ungated packets, every seat pricing the candidates against its own discipline — hyoka's adversarial attack (the channel forms attacked: the token's custody class vs the trusted publisher's configuration; the artifact set's holes; the metadata's lies class; the supply-chain surface; the typosquatting window [the name's squat risk]); moho's blind walks (the candidate publish forms walked as the stranger: the index page read cold, the install at the fresh venv, the CLI at the installed form — the candidates' lived differences); keisan's pricing (every candidate against the free-tier law: the $0 bar, the bench time, the human hands' cost); shindan's residual diagnosis (every candidate's residual: what remains unpublishable, what the index page won't tell, the install story's gaps) — the divergences reconciled at togo's design synthesis, never averaged away; the stage carries no gate of its own — its weight rides the design gate\", \"stage\": \"evaluation\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:56:57Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the evaluation's packets landed whole — every candidate attacked, walked, priced, diagnosed; the divergences carried whole\", \"purpose\": \"THE RECOMMENDATION STAGE (the reasoning whole): suisen's full-depth recommendation (the publish's design whole: the artifact set, the metadata whole, the version's law, the channel's form, the release's form, the install story — the human hands named at their acts; the alternatives named with their prices) + togo's gated synthesis integrating the whole bench's findings — the divergences reconciled never averaged away — closing G-PUBLISH-DESIGN at the collaborator's ruling on the full record: the publish's design judged publicly right, the build set earned by the cycle's outcome (the metadata, the artifact, the channel, the release, the verification — named not pinned)\", \"stage\": \"recommendation\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:57:07Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"G-PUBLISH-DESIGN is green — the cycle's outcome rules the unit set; each unit's own brief gate green before its dispatch; the build-add auto-stamp the pair's sole creator (FR-MEM-0034's law); the human hands named at their units (the collaborator's acts fired at their moments, never assumed by the seats)\", \"purpose\": \"THE PUBLISH BUILD — the units the cycle's outcome earns (named not pinned: the metadata unit [the pyproject's packaging fields, the version's source of truth], the artifact unit [the build config: the wheel's contents verified against the packaging cure], the channel unit [the publish's channel: the trusted publishing form via the CI at $0 OR the manual publish — the design's ruling; THE COLLABORATOR'S HANDS at the account, the configuration, the trigger], the release unit [the git tag, the GitHub release], the verification unit [the index install walked cold: pip install from PyPI at a fresh venv, the CLI green at the installed form — MOHO'S WALK the verification's own act]), the two-lane brief -> spec -> build per unit where the weight demands, one file per dispatch (R8's file-unit law — the transport law), each landing per its approved spec (the exact-task law), kensho's independent verification per build gate, the floor standing at every step, the free-tier bar at every cost, the immutable version's law honored (the first publish the only publish of its number)\", \"stage\": \"build\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:57:18Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "compose-stage {\"entry_condition\": \"the route's build gates closed green (the package published, the install story verified at the index) and the collaborator has called the close\", \"purpose\": \"THE EFFORT'S BOOKEND (the standing form): hansei's retro (the friction ledger the intake, the lessons named), the effort's records (the CONTINUATION entry — the publish's state carried whole [the published page, the install story true at the index, the outward lane's act closed], the next era named at the collaborator's call, the banked shapes carried), the done call at the collaborator's ruling\", \"stage\": \"close\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:57:28Z",
+        "op": "compose-stage"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-PUBLISH-RESEARCH\", \"increment\": \"synthesize/publish-research\", \"owner\": \"togo\", \"stage\": \"research\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:57:40Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-PUBLISH-DESIGN\", \"increment\": \"synthesize/publish-design\", \"owner\": \"togo\", \"stage\": \"recommendation\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"synthesize\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"gate\\\"}]\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:57:51Z",
+        "op": "add-increment"
+      },
+      {
+        "what": "add-increment {\"gate\": \"G-CLOSE\", \"increment\": \"close/retro\", \"owner\": \"shinko\", \"stage\": \"close\", \"steps\": \"[{\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"retro\\\", \\\"member\\\": \\\"hansei\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-synthesis\\\", \\\"member\\\": \\\"togo\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"records-landing\\\", \\\"member\\\": \\\"jikko\\\", \\\"verification\\\": \\\"assessment\\\"}, {\\\"executor\\\": \\\"semantic\\\", \\\"id\\\": \\\"done-call\\\", \\\"member\\\": \\\"shinko\\\", \\\"verification\\\": \\\"assessment\\\"}]\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:58:04Z",
+        "op": "add-increment"
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q-publish",
+      "question": "What is prioritree's published form — the package on PyPI: the artifact set (the sdist + the wheel, the web's static assets and the MCP's server carried per the packaging cure), the metadata whole (the name, the version, the description, the urls, the classifiers, the readme), the version's law (the first release's number, the source of truth), the tagged release (the git tag, the GitHub release), the publish's channel at the free-tier bar (the account, the trusted publishing form, the $0), the install story true at the index (pip install prioritree — the README's claims verified against the published page), the published artifact verified (installed from the index, the CLI green at the installed form) — the outward lane's ruled act, designed through the full-team cycle, built to be publicly right?",
+      "status": "open",
+      "rulings": [
+        {
+          "text": "THE CONVENING (the collaborator's ruling, 2026-11-28: \"proceed\" at the journey close's WHERE tail — the outward lane named next, the collaborator's call made): THE PUBLISH CONVENES AT THE INWARD LANE'S COMPLETION — R3's direction standing whole (auth built, the probe measured, multi-user landed, polish whole, the journey simplified; outward after inward — the condition met). THE PUBLISH IS THE RULED ACT, NEVER A SILENT ADOPTION (the CI effort's close, its own words): the remainder the CI effort named — the publish itself — closed at this effort, the preconditions already earned (the LICENSE MIT, the packaging web+MCP in the wheel, the CI live at $0). THE FREE-TIER LAW CARRIES (R1 verbatim, extended to the new platform): the publish's own costs priced at zero — PyPI's free tier, the trusted publishing form where the repository's own CI can publish at $0, no paid tier anywhere in the channel; any cost found is priced and refused at the same bar the CI effort held. THE FULL-TEAM CYCLE FIRST (the standing governance form): the research over the publish's ground (the artifacts, the metadata, the channel's forms, the version's law, the install story), the evaluation over the candidates, the design at the gate — the publish's act only after. THE PREMISE LAW APPLIES (the journey's gift, turned on the publish itself): the tree's real packaging verified at the bytes before any form is designed — the pyproject's actual fields, the wheel's actual contents, the CI's actual workflow — never the remembered shape. THE VERIFICATION'S LAW: the published artifact verified FROM THE INDEX (installed cold, the CLI green at the installed form) — the publish proven at the surface it claims, never assumed from the build.",
+          "ruled_at": "2026-11-28",
+          "actor": "shinko"
+        }
+      ]
+    }
+  ]
+}
