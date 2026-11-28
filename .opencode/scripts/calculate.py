@@ -78,6 +78,7 @@ import re
 import statistics
 import sys
 from collections.abc import Callable
+from typing import cast
 
 _INT_RE = re.compile(r"[+-]?\d+")
 _FLOAT_RE = re.compile(r"[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?")
@@ -241,7 +242,7 @@ def _require_array(raw: str) -> list[object] | None:
             next_action="pass a JSON array — a single value is not the array",
         )
         return None
-    return parsed
+    return cast(list[object], parsed)
 
 
 def _cmd_sum(args: argparse.Namespace) -> int:

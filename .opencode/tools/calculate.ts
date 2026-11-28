@@ -32,9 +32,9 @@ export default tool({
     values: tool.schema.string().optional()
       .describe("a JSON array of numbers to total (sum); a JSON array whose elements to count (count); the list (a non-empty JSON array of numbers) (mean, variance, stddev, max, min, median, quantile); the list (a non-empty JSON array) (shuffle)"),
     n: tool.schema.string().optional()
-      .describe("the count (a non-negative integer, as a string) (factorial); the population count (a non-negative integer, as a string) (combination, log-combination); the trial count (an integer >= 1, as a string) (wilson); the trial count (an integer >= 0, as a string) (binom-test); the count (a non-negative integer, as a string) (log-factorial)"),
+      .describe("the count (an integer, as a string) (factorial); the population count (an integer, as a string) (combination, log-combination); the trial count (an integer >= 1, as a string) (wilson); the trial count (an integer >= 0, as a string) (binom-test); the count (a non-negative integer, as a string) (log-factorial)"),
     k: tool.schema.string().optional()
-      .describe("the selection count (an integer <= n, as a string) (combination, log-combination); the success count (an integer, as a string) (wilson, binom-test)"),
+      .describe("the selection count (an integer, as a string) (combination, log-combination); the success count (an integer, as a string) (wilson, binom-test)"),
     part: tool.schema.string().optional()
       .describe("the part (a number, as a string)"),
     whole: tool.schema.string().optional()
