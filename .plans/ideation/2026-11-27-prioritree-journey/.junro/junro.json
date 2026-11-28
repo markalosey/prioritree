@@ -6,7 +6,7 @@
     "type": "build_route",
     "methodology": "MPIR",
     "instance": 1,
-    "status": "executing",
+    "status": "done",
     "worktree": "prioritree",
     "inputs": [
       "THE COLLABORATOR'S CONVENING (2026-11-27, two messages verbatim): \"The primary purpose of the system is simplifying the ordering of a list. A part of the simplification is the experience of the pairwise comparison and selection. Currently we show two choices, click a button to choose, click a submit button to send the decision. This could all be simplified to Show two options, click on one of the options. Comparison operation shown in between the two options. This is an example of user experience focus and simplification. We need to evaluate the entire system in this context...but yeah. Implement this after we have team input on the best way to do it.\" + \"it's a simplification of the journey.\"",
@@ -562,6 +562,22 @@
         "actor": "shinko",
         "timestamp": "2026-11-27T23:40:18Z",
         "op": "add-increment"
+      },
+      {
+        "what": "add-ruling {\"question\": \"Q-journey\", \"resolution\": \"RESOLVED — the journey simplified: the card the choice (the two option cards as submit buttons inside the standing form — the option itself clicked, the marker-named verdict row retired whole, the translation dead), the operator the word \\\"vs\\\" between (display-only, never focusable), the tie subordinate (the declared set's loop member, its word carried at the 24px bar), the correction live at the ack (the re-serve riding supersedes — RUN-0010's closed loop walked live: 7 records, 6 counted, the honest count; both records in the log, never \\\"erased\\\"; the same-sitting bound named), the rides binding (the aria-live, the stable ids surviving both swaps, the focus restoration, hx-sync closing the race), every surface told (the honest statement public at the README: \\\"the journey simplification cures the choice's semantics; the asks, the lanes, and the correction's window keep their own weight\\\"); the premise amended at the bytes (the remembered two-step refuted, the design ruled on the bytes never the memory), designed through the full-team cycle (the bench's two amendments each making the design better — the form-wrapped card, the ack-riding undo), built whole (481 / 490 / 490 standing, eleven gates green, kensho's independent verify at every unit, moho's walks at three fresh runs), the residuals named never silent (the acknowledged divergence thrice-observed — the outward lane's diagnosis).\", \"ruling\": \"THE DONE CALL (the collaborator's ruling at the close, 2026-11-28, on the full record): the prioritree-journey effort is DONE — the question answered by the journey simplified. The record the ruling rides: eleven gates green (G-COMPOSITION through G-JOURNEY-STORY, G-CLOSE the bookend at this ruling); the premise amendment the effort's own load-bearing act (the claims lane turned inward — the design rules on the bytes, never the memory: the law now proven at the effort's own birth); the full-team cycle held to the letter (the convening's clause 3 — the recommendations adopted then amended twice by the bench, each amendment making the design better: the cycle's worth proven in the amendments' quality); the three builds whole (the bridge 481 — FR-MEM-0045's teaching debt paid; the card 490 — the transport law's second proof at six clean dispatches; the journey story 490 standing — the honest statement public, the cold read's drift class cured same-turn); the close's artifacts landed (hansei's four lessons — the premise law, the bench's proof, the carry lesson, the transport law; zero new friction minted, the earned forms held as prevention; togo's records; the CONTINUATION entry at the store's close/ home and the tree's root — THE OUTWARD LANE [PyPI] the named next, the collaborator's call the ruler). The collaborator rules the effort done at this record.\", \"status\": \"ruled\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:45:57Z",
+        "op": "add-ruling"
+      },
+      {
+        "what": "set-route-status {\"from\": \"executing\", \"status\": \"done\"}",
+        "ruled_at": "2026-11-28",
+        "why": "junro route-op provenance stamp (design-spec §6: every route op stamps actor, timestamp, and arguments into the route's amendments)",
+        "actor": "shinko",
+        "timestamp": "2026-11-28T16:46:09Z",
+        "op": "set-route-status"
       }
     ]
   },
@@ -569,14 +585,20 @@
     {
       "id": "Q-journey",
       "question": "What is prioritree's simplified journey — the pairwise comparison's one-click form (two options shown, the comparison operator between them, one click on an option casting the vote — the two-step radio-plus-submit form retired), the entire system evaluated in the simplification context (every surface of the human's path measured against the primary purpose: simplifying the ordering of a list), the journey-class findings cured (the done-page white screen, the re-cast debt, the teaching debts), the one-click form composed with the landed surfaces (the session's identify-once, the CSRF, the chain/deliberate lanes) — designed through the full-team cycle, built to be publicly right?",
-      "status": "open",
+      "status": "ruled",
       "rulings": [
         {
           "text": "THE CONVENING (the collaborator's ruling, 2026-11-27, both messages verbatim): (1) THE PRIMARY PURPOSE RESTATED AS THE MEASURE — \"The primary purpose of the system is simplifying the ordering of a list. A part of the simplification is the experience of the pairwise comparison and selection.\" — every surface of the human's journey measured against it; (2) THE ONE-CLICK TARGET — \"Currently we show two choices, click a button to choose, click a submit button to send the decision. This could all be simplified to Show two options, click on one of the options. Comparison operation shown in between the two options.\" — the two-step form retired, the option itself the choice, the operator between them; (3) THE GOVERNANCE FORM — \"We need to evaluate the entire system in this context...but yeah. Implement this after we have team input on the best way to do it.\" — THE FULL-TEAM CYCLE FIRST (the multi-user precedent's own law: the research/evaluation/recommendation arc, every seat at every stage, the divergences reconciled at the synthesis, never a straight build), then the build; (4) THE FRAMING — \"it's a simplification of the journey\": the simplification named at the journey's scale (the whole path: the register, the sitting, the deliberate lane, the ack, the done page, the result — the entire system in the context), never the button's scale alone. THE STANDING CONSTRAINTS: the free-tier spirit (the journey prices its own surfaces); the llm-class constraint (the one-click form serves both classes — the tools' lanes at their own UX weight, never forced to the browser's form); the corroboration floor's stamps unchanged (the click casts the same vote); the landed surfaces composed with (the session, the CSRF, the lanes — ridden, never rewritten); the five standing laws (honest-cure, verification, transport, stamp, regen) + the standing forms (R8's file-unit as the transport law too, R4's walks at the design AND build gates — this effort the UX's own ground, the walks the ruling's own evidence).",
           "ruled_at": "2026-11-27",
           "actor": "shinko"
+        },
+        {
+          "text": "THE DONE CALL (the collaborator's ruling at the close, 2026-11-28, on the full record): the prioritree-journey effort is DONE — the question answered by the journey simplified. The record the ruling rides: eleven gates green (G-COMPOSITION through G-JOURNEY-STORY, G-CLOSE the bookend at this ruling); the premise amendment the effort's own load-bearing act (the claims lane turned inward — the design rules on the bytes, never the memory: the law now proven at the effort's own birth); the full-team cycle held to the letter (the convening's clause 3 — the recommendations adopted then amended twice by the bench, each amendment making the design better: the cycle's worth proven in the amendments' quality); the three builds whole (the bridge 481 — FR-MEM-0045's teaching debt paid; the card 490 — the transport law's second proof at six clean dispatches; the journey story 490 standing — the honest statement public, the cold read's drift class cured same-turn); the close's artifacts landed (hansei's four lessons — the premise law, the bench's proof, the carry lesson, the transport law; zero new friction minted, the earned forms held as prevention; togo's records; the CONTINUATION entry at the store's close/ home and the tree's root — THE OUTWARD LANE [PyPI] the named next, the collaborator's call the ruler). The collaborator rules the effort done at this record.",
+          "ruled_at": "2026-11-28",
+          "actor": "shinko"
         }
-      ]
+      ],
+      "resolution": "RESOLVED — the journey simplified: the card the choice (the two option cards as submit buttons inside the standing form — the option itself clicked, the marker-named verdict row retired whole, the translation dead), the operator the word \"vs\" between (display-only, never focusable), the tie subordinate (the declared set's loop member, its word carried at the 24px bar), the correction live at the ack (the re-serve riding supersedes — RUN-0010's closed loop walked live: 7 records, 6 counted, the honest count; both records in the log, never \"erased\"; the same-sitting bound named), the rides binding (the aria-live, the stable ids surviving both swaps, the focus restoration, hx-sync closing the race), every surface told (the honest statement public at the README: \"the journey simplification cures the choice's semantics; the asks, the lanes, and the correction's window keep their own weight\"); the premise amended at the bytes (the remembered two-step refuted, the design ruled on the bytes never the memory), designed through the full-team cycle (the bench's two amendments each making the design better — the form-wrapped card, the ack-riding undo), built whole (481 / 490 / 490 standing, eleven gates green, kensho's independent verify at every unit, moho's walks at three fresh runs), the residuals named never silent (the acknowledged divergence thrice-observed — the outward lane's diagnosis)."
     }
   ]
 }
