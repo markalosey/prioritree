@@ -1,0 +1,70 @@
+<!-- regen: uv run python scripts/generation/kumi_views.py -->
+# Packet Report — research/risk-diagnosis
+
+**Route:** prioritree-publish (executing) | **Events:** 2 | **Reports:** 1
+
+## The packet's chain (ledger order)
+
+| # | Op | Actor | Timestamp |
+|---|---|---|---|
+| 1 | dispatch | shinko | 2026-11-28T17:10:34Z |
+| 2 | report | shindan | 2026-11-28T17:14:44Z |
+## Reported by shindan — 2026-11-28T17:14:44Z
+
+# THE PUBLISH'S RISK DIAGNOSIS — research/risk-diagnosis (shindan, 2026-11-28)
+
+The seat's question answered: what state is the publish's risk surface in. READ-ONLY held; every claim cited at its bytes; two legs UNVERIFIABLE at this seat, named at §5, never guessed. The diagnosis names and prices; it prescribes nothing — the design gate rules the channel, the metadata, the version.
+
+## 0. THE GROUND (read whole)
+
+The store's heart, both rulings: THE CONVENING (the free-tier law — the publish's costs priced at zero; the premise law — the design on the bytes; the verification from the index) + THE ACCOUNT + PROVENANCE RULING ("I have a pypi account. I would want published under my account. Not just published. … It matters that it's coming from us." — the account the collaborator's own; the name IS the identity). The tree's bytes: pyproject.toml whole (name "prioritree" :2; version "0.1.0" STATIC :3; description :4; readme = "README.md" :5; requires-python ">=3.13" :6; license "MIT" :7; authors [{ name = "Mark Losey" }] :8 — no email; SEVEN runtime deps :9, ALL unbounded; hatchling :11-13; the console script :16; the wheel's packages + force-include :18-31 — the web statics + the MCP riding per the packaging cure; NO [project.urls], NO classifiers, NO keywords anywhere in the file); .github/workflows/ci.yml whole (push on main + weekly cron :3-7; permissions: contents: read :13-14; the floor job :17-29; the codeql job :31-43 — NO publish job, NO publish action, NO secret, NO OIDC configuration anywhere); uv.lock (85 [[package]] blocks — the closure incl. dev; ouncemcp 1.0.0rc3 :968-981 — a PRE-RELEASE resolved at runtime; httpx2 2.16.2 :651-665; the prioritree project block :1019-1049 — the seven requires-dist, unbounded); dist/ (the built artifacts PRESENT: prioritree-0.1.0-py3-none-any.whl + prioritree-0.1.0.tar.gz — gitignored by dist/.gitignore's "*", never committed, the build's local evidence); Makefile whole (dev/test/lint/typecheck + the start/mcp service family — NO build target, NO publish target: the publish's operational surface at the tree absent); web/static (app.css + app.js — two text statics, no binaries); README.md:315-338 (the install story: the clone lane + `uv tool install .` + :338 THE "NOT ON PYPI" LINE — "**Not on PyPI.** `uv tool install prioritree` and `pip install prioritree` do not resolve" — the byte the publish must flip).
+
+## 1. THE CREDENTIAL'S CUSTODY — the channel forms priced against this publish
+
+| The form | The mint | The storage | The rotation | The leak's blast radius | The custody price |
+|---|---|---|---|---|---|
+| Account-wide API token | The PyPI account-level token page | A long-lived string wherever placed (the GitHub secret / the local env / the CI's variable store) | Manual re-mint + re-store at every surface | EVERY project on the collaborator's account — the identity's own keys (the provenance ruling makes this the maximum damage case) | WORST: one string owns the account's whole publish lane |
+| Project-scoped API token | The project's own token page (PyPI's own documented recommendation) | The same stored-string class | Manual, per-project | prioritree alone | The lesser-worst: still a stored long-lived secret, stealable wherever it lives |
+| Trusted publishing (OIDC) | NO mint — the configuration binds owner/repo/workflow-name (+ the GitHub environment pin) | NO stored credential: the workflow's GitHub-issued OIDC JWT exchanged for a seconds-lived PyPI token at publish time | Nothing to rotate — the configuration IS the credential | The WORKFLOW's integrity becomes the surface (a hostile change at the pinned workflow path could fire a publish; the environment pin — e.g. restricted to the protected branch — narrows it) | BEST custody: no string to steal, the token dead in seconds; the trust moved to the repo's own configuration |
+| The manual local publish (any token, the local env) | Any token form | The local shell profile or the tree-adjacent .env (the tree carries .env + .envrc at its root; the hygiene sweep confirmed zero secrets 2026-11-22, the constraint carries forward) | The human's own habit — the worst rotation | The LAPTOP's blast radius: device compromise = account publish compromise | The likeliest leak home: one echo from a committed secret |
+
+The free-tier bar: ALL forms $0 (PyPI's token and trusted-publishing lanes free; GitHub Actions public-repo free). One standing fact the channel unit must know: the workflow's permissions today are contents: read only (ci.yml:13-14) — the OIDC lane requires the deliberate id-token: write grant, an addition never a default. THE HONEST STATE: the CI carries NO publish job today — the channel unit is unbuilt; the design gate rules the form among these prices.
+
+## 2. THE SUPPLY-CHAIN SURFACE — what the consumer trusts, what defends it
+
+- THE ARTIFACT SET: the wheel is py3-none-any — PURE PYTHON, no compiled extensions (the execution surface: the modules under src/prioritree + the templates + the two text statics; no binary audit owed at OUR artifact tier). The sdist carries the setup-time execution class (the build-backdoor class): building it runs the BUILD BACKEND — hatchling plus pyproject's declarative config; the tree's build config carries NO custom hooks (the force-include :29-31 is data, never code) — the sdist's build-time execution surface is hatchling's own code, not ours. The honest limit named: hatchling executes wherever the sdist is built — the standard class of backend trust.
+- THE DEPENDENCY CHAIN: SEVEN direct requires, ALL unbounded (pyproject:9) — the consumer's resolution FLOATS to whatever the index serves at THEIR install time (the tree's uv.lock never travels with the wheel); the tree's tested closure: 85 packages (uv.lock's [[package]] count, dev included). The chain's tiers: fastapi → starlette/pydantic; ouncemcp → fastmcp/jsonschema/pydantic/tiktoken; httpx2 → httpcore2/truststore/anyio/idna; uvicorn[standard] → httptools/uvloop/websockets. THE BINARY TIER: tiktoken + httptools/uvloop ship COMPILED platform wheels — the consumer's transitive trust includes binaries this tree neither builds nor audits. THE RC FINDING: ouncemcp rides 1.0.0rc3 (uv.lock:970) — a PRE-RELEASE in the tested form; the consumer's unpinned "ouncemcp" takes the index's latest (stable or rc) at their resolution — the tested version may not be the shipped one. (ouncemcp's stable-vs-rc availability at the index today: UNVERIFIED THIS SEAT — no web tool in the granted set; named at §5, never guessed.)
+- THE PROVENANCE'S OWN DEFENSE: the README the index serves is the tree's public story (readme :5) — its current :338 says "Not on PyPI", the flip owed at the publish's landing (an honest-docs residual, never deferred past the publish). THE URLS GAP: NO [project.urls] in pyproject — the published page's sidebar would carry NO repository link; the consumer's identity-verification path from the index page to the repository does not exist today (the account+provenance ruling DEMANDS the URLs carry the repository; the absence is the gap the metadata unit must close — priced here: the identity claim rests on the author name alone until the field lands). NO classifiers, NO keywords — the discoverability and identity fields absent at the same unit's surface.
+- THE ATTESTATIONS: PyPI's form — PEP 740 provenance attestations minted in the publish action itself, consumer-verifiable — FREE, and AVAILABLE ONLY IN THE TRUSTED-PUBLISHING CHANNEL (the manual/token lane does not mint attestations). The asymmetry named: the OIDC lane both eliminates the stored credential AND mints the provenance proof; the token lane does neither. The state: no attestations configured anywhere (no publish job exists) — absent, free, channel-dependent.
+- THE CODE-AUDIT TIER: CodeQL RUNS at the CI (ci.yml:31-43, python, build-mode none, the config at ./.github/codeql/codeql-config.yml) — the tree's own static security analysis at $0, a supply-chain defense present today.
+
+## 3. THE TYPOSQUATTING WINDOW — the name's risk, priced
+
+- THE SQUAT CHECK: the near-forms named — priortree (the letter-drop), priori-tree (the hyphen), prioritytree (the insertion), prioritre (the tail-drop), prior-tree. THE LIVE INDEX CHECK UNVERIFIED THIS SEAT: the granted tools carry no web search (the claims lane held — the check owed to a web-carrying leg or the collaborator's own browser at the registration act; NEVER guessed). What the tree's own records state: README:338 (verified 2026-11-22 at the review effort) — "pip install prioritree" does not resolve — the name unregistered BY US at that date; the other-hand registration state: unknown, named.
+- THE FIRST-MOVER TRUTH: a PyPI name claims at FIRST UPLOAD — no pre-registration hold exists; the window between now and the first publish is the name's squat window.
+- THE NAME'S OWN WEIGHT: the provenance ruling — "it matters that it's coming from us" — the name IS the identity; a squatted prioritree would wear OUR identity inverted (a hostile registration is the provenance claim stolen, not a namespace inconvenience). The risk class: identity, high severity, likelihood low but RISING — the publish itself is what makes the name worth taking; the window opens as the publish approaches.
+- THE MITIGATION: (a) the registration's TIMING — the first upload closes the window; the shorter the gap between the design's green and the upload, the smaller the exposure; (b) the trusted publisher's IDENTITY PIN — the OIDC configuration binds owner/repo/workflow: a squatter can never publish THROUGH our config (the project-scoped token is the weaker pin, still project-bound).
+
+## 4. THE IMMUTABLE VERSION'S LAW — the first release's number
+
+- THE PERMANENCE: a published name+version is NEVER republishable (PyPI's own law). THE YANK: the partial form — a yanked release disappears from normal resolution but the FILE REMAINS SERVED on direct request (a yank is a hiding, never a deletion). THE DELETION: the account-level cost — file deletion requires PyPI admin intervention (reserved for malware/legal); a bad publish is NEVER cured by deletion. THE PRACTICAL LAW: a bad 0.1.0 is cured only by 0.1.1+ — the number burned, forever.
+- THE VERSION'S CHOICE PRICED: 0.1.0 — the standing static field (pyproject:3), carried by uv.lock (:1021) AND the built dist/ artifacts' filenames AND every record since birth (CONTINUATION: the foundations' "prioritree 0.1.0"); the first number's meaning (0 = not yet promised, no API-stability claim) IS the tree's own maturity's honest answer (a nine-day-old tree, the first release). 1.0.0 — claims a stability commitment the tree has never ruled; dishonest at this publish. The calendar form (2026.11.28) — a foreign convention breaking every standing record; refused by the tree's own weight. THE HONEST ANSWER: 0.1.0 is not the lazy form — it is the maturity-true form.
+- THE VERSION'S SOURCE OF TRUTH: the pyproject's STATIC field (the current form — ONE home; the drift class: the git tag at the release unit must MATCH the field — the tag/field mismatch the classic burn, cured by the tag-derived-from-field discipline at the release unit). The dynamic declaration (the module's __version__): TWO homes — the field and the module can disagree; the drift class worse. The tag-derived form (hatch-vcs/setuptools-scm): the version minted from the tag at build time — no artifact drift possible, but the publish then REQUIRES the tag before the build and the already-built dist/ artifacts lose their authority; heavier than a one-maintainer tree needs. THE STATE: the static field + the tag minted to match = the lightest drift surface; the release unit's discipline is the whole cure.
+
+## 5. THE RESIDUALS — the publish's honest statement, drafted (the auth precedent's form)
+
+THE PUBLISH CURES:
+- the install story true — README:338's "does not resolve" flips: `pip install prioritree` resolving at the index, the README's PyPI lane landing as told;
+- the record public — the account+provenance ruling's act made verifiable: the author (Mark Losey) read at the index, the page's identity whole — "it matters that it's coming from us" becomes a checkable claim.
+
+THE PUBLISH CARRIES (standing residuals, never cured by the publish itself):
+- the index's own trust model — the transport hash-verified, the PROJECTS' trust transitive: the consumer's dependency chain floats (7 unbounded requires; the tree's tested closure 85; the consumer's different at their time; ouncemcp's rc/stable resolution at the index's own state);
+- the account's 2FA mandate — PyPI requires 2FA; the account's enforcement state lives at the collaborator's hands (unverifiable from the tree — named, the human hands' own act);
+- the maintenance obligation — the reserved name wants its next release (0.1.0 published means the NEXT public bug wants 0.1.1).
+
+THE PUBLISH OPENS (the new exposures the act itself creates):
+- the public surface's visibility — the package discoverable by every search, the repository URL (once the urls land) linked at the index, the download counts public, the account's project list public;
+- the name's squat window PRE-registration — the window stands open until the first upload; the mitigation is the timing itself (§3);
+- the release cadence's opening — the public form's every future fix is now a public act.
+
+THE DIAGNOSIS'S OWN TWO UNVERIFIED LEGS, NAMED (the claims lane held): (1) the live index squat check — the seat's granted tools carry no web search; (2) ouncemcp's stable-vs-rc availability at the index today. Both owed to the synthesis leg as named gaps — never guessed. The diagnosis ends here; the design gate rules.
